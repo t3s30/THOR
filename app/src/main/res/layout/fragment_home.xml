@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.home.HomeFragment">
+
+
+    <TextView
+        android:id="@+id/tvApp"
+        android:layout_width="192dp"
+        android:layout_height="26dp"
+        android:text="THOR"
+        android:textAlignment="center"
+        android:textColor="#FAF8F8"
+        app:layout_constraintBottom_toTopOf="@+id/tvUsuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tvUsuario"
+        android:layout_width="191dp"
+        android:layout_height="26dp"
+        android:text="Abdiel Carrasco"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/tvMunicipio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tvMunicipio"
+        android:layout_width="190dp"
+        android:layout_height="32dp"
+        android:text="Tijuana(insMT)"
+        android:textAlignment="center"
+        android:textColor="#A5F604"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.158" />
+
+    <TextView
+        android:id="@+id/text_home"
+        android:layout_width="171dp"
+        android:layout_height="2dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.068" />
+
+    <EditText
+        android:id="@+id/edtLicencia"
+        android:layout_width="219dp"
+        android:layout_height="47dp"
+        android:backgroundTint="#FBFAFA"
+        android:ems="10"
+        android:hint="NUMERO DE LICENCIA"
+        android:inputType="textCapCharacters"
+        android:textAlignment="center"
+        android:textColor="#FAF7F7"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintStart_toEndOf="@+id/cBoxLicencia"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.258" />
+
+    <EditText
+        android:id="@+id/edtPlaca"
+        android:layout_width="220dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="#FBFAFA"
+        android:ems="10"
+        android:hint="NUMERO DE PLACA"
+        android:inputType="textCapCharacters"
+        android:textAlignment="center"
+        android:textColor="#FBF8F8"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.116"
+        app:layout_constraintStart_toEndOf="@+id/cBoxPlaca"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.346" />
+
+    <CheckBox
+        android:id="@+id/cBoxLicencia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Con Licencia"
+        android:textColor="#8BC34A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.273" />
+
+    <CheckBox
+        android:id="@+id/cBoxPlaca"
+        android:layout_width="112dp"
+        android:layout_height="48dp"
+        android:text="Con Placa"
+        android:textColor="#8BC34A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.361" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="117dp"
+        android:layout_height="41dp"
+        android:text="ZONA-SECTOR"
+        android:textAlignment="center"
+        android:textColor="#8BC34A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.485" />
+
+    <Spinner
+        android:id="@+id/spZona"
+        android:layout_width="205dp"
+        android:layout_height="53dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="#8BC34A"
+        android:dropDownSelector="@color/purple_500"
+        android:entries="@array/zonas_arrays"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.306"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.476" />
+
+    <Spinner
+        android:id="@+id/spInfraccion"
+        android:layout_width="344dp"
+        android:layout_height="61dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="#8BC34A"
+        android:entries="@array/infracciones_arrays"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.402"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spZona"
+        app:layout_constraintVertical_bias="0.442" />
+
+    <Button
+        android:id="@+id/btnConsulta"
+        android:layout_width="146dp"
+        android:layout_height="68dp"
+        android:background="#FFFFFF"
+        android:text="CONSULTA"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.886"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spInfraccion"
+        app:layout_constraintVertical_bias="0.281" />
+
+    <Button
+        android:id="@+id/btnInfraccion"
+        android:layout_width="176dp"
+        android:layout_height="68dp"
+        android:background="#FFFFFF"
+        android:text="INFRACCIONAR"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnConsulta"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spInfraccion"
+        app:layout_constraintVertical_bias="0.281" />
+
+    <Spinner
+        android:id="@+id/spModalidad"
+        android:layout_width="344dp"
+        android:layout_height="61dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="#8BC34A"
+        android:entries="@array/modalidad_arrays"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.373"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spZona"
+        app:layout_constraintVertical_bias="0.057" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
