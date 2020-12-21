@@ -52,19 +52,21 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class Infracciones extends AppCompatActivity{
 
-    /*String placa;
+    String placa;
     String estatus;
     String propietario;
     String vigencia;
@@ -93,39 +95,16 @@ public class Infracciones extends AppCompatActivity{
     String   sector;
     TextView tvModalidadInfraccion;
     TextView tvSectorInfraccion;
-    Button btnFoto;
-    ImageView imgFoto;
-    String path;
+
     EditText edtComentarios;
-    //private int PICK_IMAGE_REQUEST = 1;
 
 
-    Button btnBuscar, btnSubir;
-    ImageView iv;
-    EditText et;
-
-    Bitmap bitmap;
-    int PICK_IMAGE_REQUEST = 1;
     String UPLOAD_URL = "https://simov.app/servicios/insertaInfraccion.php ";
+    String URLICENCIA = "https://simov.app/servicios/consultaLicencia.php";
+    String URLVEHICULAR = "https://simov.app/servicios/controlVehicular.php";
+    String URLINFRACCION = "https://simov.app/servicios/consultaInfraccion.php";
 
-    String KEY_IMAGE = "foto";
-    String KEY_NOMBRE = "nombre";
-
-
-    //Camara
-    private static final String CARPETA_PRINCIPAL = "misImagenesApp/";
-    private static final String CARPETA_IMAGEN = "imagenes";
-    private static final String DIRECTORIO_IMAGEN = CARPETA_PRINCIPAL+CARPETA_IMAGEN;
-    //    File fileImagen;
-//    Bitmap bitmap;
-    private static final int COD_SELECCIONA = 10;
-    private static final int COD_FOTO = 20;
-
-
-    private ImageView mPhotoImageView;
-
-    public static final int REQUEST_CODE_TAKE_PHOTO = 1;
-    private String mCurrentPhotoPath;
+/*
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,12 +112,7 @@ public class Infracciones extends AppCompatActivity{
         setContentView(R.layout.activity_infracciones);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        String URLICENCIA = "https://simov.app/servicios/consultaLicencia.php";
-        String URLVEHICULAR = "https://simov.app/servicios/controlVehicular.php";
-        String URLINFRACCION = "https://simov.app/servicios/consultaInfraccion.php";
-        enviarWSConsultaLicencia(URLICENCIA);
-        enviarWSControlVehichular(URLVEHICULAR);
-        // enviarWSConsultaInfraccion(URLINFRACCION);
+
 
 
 //Prueba 2 de imagen
@@ -777,6 +751,7 @@ public class Infracciones extends AppCompatActivity{
     final int COD_FOTO=20;
 
     Button botonCargar;
+    Button botonCargar2;
     ImageView imagen;
     //Image2
     ImageView imagen2;
@@ -787,16 +762,91 @@ public class Infracciones extends AppCompatActivity{
     String path3;
     int count = 0;
 
+    //Imagenes
+    Bitmap bitmap;
+    Bitmap bitmap2;
+    Bitmap bitmap3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infracciones);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //Layouts de las imagenes
         imagen= (ImageView) findViewById(R.id.imagemId);
         imagen2= (ImageView) findViewById(R.id.imagemId2);
         imagen3= (ImageView) findViewById(R.id.imagemId3);
+        //Boton que lanza el AlertDialog.
         botonCargar= (Button) findViewById(R.id.btnCargarImg);
+        botonCargar2= (Button) findViewById(R.id.btnCargarImg2);
+
+        //Metodos de Ws.
+         enviarWSConsultaLicencia(URLICENCIA);
+         enviarWSControlVehichular(URLVEHICULAR);
+        // enviarWSConsultaInfraccion(URLINFRACCION);
+
+        //Seteamos los valores de los Textviews.
+        textViewLicencia = findViewById(R.id.tvLicenciaInfraccion);
+        textViewFechaVencimiento = findViewById(R.id.tvFechaVencimientoInfraccion);
+        placaInfracciones = findViewById(R.id.tvPlacaInfraccion);
+        estatusPlacaInfracciones = findViewById(R.id.tvEstatusInfracciones);
+        tvVigenciaTcInfraccion = findViewById(R.id.tvVigenciaTcInfraccion);
+        tvVimInfraccion = findViewById(R.id.tvVimInfraccion);
+        //tvInfraInfraccion = findViewById(R.id.tvInfraInfraccion);
+        tvModalidadInfraccion = findViewById(R.id.tvModalidadInfraccion);
+        tvSectorInfraccion = findViewById(R.id.tvSector);
+        tvInfraInfraccion = findViewById(R.id.tvInfra);
+        edtComentarios = findViewById(R.id.edtComentarios);
+
+        //Bundle de actividad anterior
+        Bundle bundle  = getIntent().getExtras();
+        Log.d("BUNDLE","VALOR DEL BUNDLE ##############"+bundle.toString());
+        //Validamos que no venga vacio
+        if (bundle != null){
+
+            //Recojemos parametros.
+            placa = bundle.getString("placa");
+            Log.d("###PLACASSS","#######"+placa);
+            placaInfracciones.setText(placa);
+            estatus = bundle.getString("estatus");
+            propietario = bundle.getString("propietario");
+            vigencia = bundle.getString("vigencia");
+            vim = bundle.getString("vim");
+            marca = bundle.getString("marca");
+            infracciones = bundle.getString("infracciones");
+            licencia = bundle.getString("licencia");
+            modalidad = bundle.getString("modalidad");
+            sector = bundle.getString("sector");
+            infra = bundle.getString("infra");
+            Log.d("LICENCIA-VERGAS1","$$$$$$$$$$$$$$$"+licencia);
+            nombre = bundle.getString("nnombre");
+            fechaVecimiento = bundle.getString("fechaVencimiento");
+
+            tvModalidadInfraccion.setText(modalidad);
+            tvSectorInfraccion.setText(sector);
+            tvInfraInfraccion.setText(infra);
+
+            Log.d("MODALIDAD","&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+modalidad);
+
+
+
+
+
+        }
+
+        //ENVIAR INFO
+
+        botonCargar2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                uploadImage();
+            }
+
+
+        });
+
 
         if(validaPermisos()){
             botonCargar.setEnabled(true);
@@ -1063,9 +1113,26 @@ public class Infracciones extends AppCompatActivity{
                                 }
                             });
 
-                    Bitmap bitmap= BitmapFactory.decodeFile(path);
-                    Bitmap bitmap2= BitmapFactory.decodeFile(path2);
-                    Bitmap bitmap3= BitmapFactory.decodeFile(path3);
+                    MediaScannerConnection.scanFile(this, new String[]{path2}, null,
+                            new MediaScannerConnection.OnScanCompletedListener() {
+                                @Override
+                                public void onScanCompleted(String path, Uri uri) {
+                                    Log.i("Ruta de almacenamiento","Path: "+path);
+                                }
+                            });
+
+                    MediaScannerConnection.scanFile(this, new String[]{path3}, null,
+                            new MediaScannerConnection.OnScanCompletedListener() {
+                                @Override
+                                public void onScanCompleted(String path, Uri uri) {
+                                    Log.i("Ruta de almacenamiento","Path: "+path);
+                                }
+                            });
+
+
+                    bitmap = BitmapFactory.decodeFile(path);
+                    bitmap2= BitmapFactory.decodeFile(path2);
+                    bitmap3= BitmapFactory.decodeFile(path3);
                     imagen.setImageBitmap(bitmap);
                     imagen2.setImageBitmap(bitmap2);
                     imagen3.setImageBitmap(bitmap3);
@@ -1076,4 +1143,291 @@ public class Infracciones extends AppCompatActivity{
 
         }
     }
+
+
+    //Consulta Licencia.
+    private void enviarWSConsultaLicencia(String URLICENCIA) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLICENCIA, new Response.Listener<String>() {
+            @Override
+            //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
+            public void onResponse(String response) {
+                //Validamos que el response no este vacio
+                if (!response.isEmpty()) {
+                    //Esto contiene toda la cadena de respuesta del Ws.
+                    Toast.makeText(Infracciones.this, "SE MANDO PETICION CORRECTA A WS LICENCIA" + response, Toast.LENGTH_LONG).show();
+
+                    try {
+                        //Convertimos el String en JsonObject
+                        JSONObject obj = new JSONObject(response);
+                        Log.d("objLicencia", "###Respuesta WS licencia" + obj.toString());
+                        //Accedemos al valor del Objeto deseado completo.tos
+
+
+                        if (obj.has("data")){
+                            JSONArray jsonarray = obj.getJSONArray("data");
+                            //Obtenemos el total de elementos del objeto
+                            for (int i = 0; i < jsonarray.length(); i++) {
+                                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                //Accedemos a los elementos por medio de getString.
+                                LICENCIA = jsonobject.getString("licencia");
+                                String VENCIMIENTO = jsonobject.getString("fechaVenc");
+                                String paterno = jsonobject.getString("paterno");
+                                String materno = jsonobject.getString("materno");
+                                String nombre  = jsonobject.getString("nombre");
+
+                                String nombreCompleto = nombre+" "+paterno+" "+materno;
+
+                                //textViewNombre.setText(nombreCompleto);
+                                textViewLicencia.setText(LICENCIA);
+                                textViewFechaVencimiento.setText(VENCIMIENTO);
+
+
+                            }
+                        }else{
+                            //textViewNombre.setText(nombreCompleto);
+                            textViewLicencia.setText("NO-LICENCIA");
+                            textViewFechaVencimiento.setText("NO-LICENCIA");
+                        }
+
+
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        //Seteamos valor cuando no se ingrese licencia
+                       //* textViewNombre.setText("NO-LICENCIA");
+                        textViewLicencia.setText("NO-LICENCIA");
+                        textViewFechaVencimiento.setText("NO-LICENCIA");
+
+                    }
+
+                } else {
+
+                    Toast.makeText(Infracciones.this, "No se encontraron parametros en la consulta de licencia", Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Seteamos valor cuando sobre pasa el tiempo de esepera
+                //*textViewNombre.setText("LIMITE DE ESPERA");
+                textViewLicencia.setText("LIMITE DE ESPERA");
+                textViewFechaVencimiento.setText("LIMITE DE ESPERA");
+                Toast.makeText(Infracciones.this, error.toString(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<String, String>();
+                Log.d("LICENCIA-VERGAS2","$$$$$$$$$$$$$$$$"+licencia);
+
+                parametros.put("licencia", licencia);
+
+                return parametros;
+            }
+        };
+        RequestQueue requesrQueue = Volley.newRequestQueue(Infracciones.this);
+        requesrQueue.add(stringRequest);
+    }
+
+    //Consulta de placas.
+
+    private void enviarWSControlVehichular(String URLVEHICULAR) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLVEHICULAR, new Response.Listener<String>() {
+            @Override
+            //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
+            public void onResponse(String response) {
+                //Validamos que el response no este vacio
+                if (!response.isEmpty()) {
+                    //Esto contiene toda la cadena de respuesta del Ws.
+                    Toast.makeText(Infracciones.this, "CONSULTA" + response, Toast.LENGTH_LONG).show();
+
+                    try {
+                        //Convertimos el String en JsonObject
+                        JSONObject obj = new JSONObject(response);
+                        Log.d("objVehicular", "###Respuesta WS padron vehicular" + obj.toString());
+                        //Accedemos al valor del Objeto deseado completo.
+                        JSONArray jsonarray = obj.getJSONArray("data");
+
+                        Log.w("jARRAYWSINFRACCIONES","#####$$$$$$$ QUE TIENE EL ARRAY?"+jsonarray.toString());
+
+
+
+                        Log.d("SERVICIOWs","$$$$$$$$$$$$$$$$$$$$$$ Estamos entrando al ELSE de WS ..");
+                        //Obtenemos el total de elementos del objeto.
+                        for (int i = 0; i < jsonarray.length(); i++) {
+                            JSONObject jsonobject = jsonarray.getJSONObject(i);
+                            //Accedemos a los elementos por medio de getString.
+
+
+                            String PLACA = jsonobject.getString("placa");
+                            placaInfracciones.setText(PLACA);
+                            Log.d("###Placas-----", "Esto es lo que llega de plcas de ws infracciones" + PLACA);
+
+                            Boolean validaEstatus = jsonobject.has("estatus");
+                            Log.d("BOOLEAN####","ESTATUS VALIDAD ESTATUS"+validaEstatus);
+                            Boolean validaFechaVencimiento = jsonobject.has("fechaVencimiento");
+                            Log.d("BOOLEAN####","FechaVencimiento valida$$$$$$$$$$$$$$$$$$$$$$$$$"+validaFechaVencimiento);
+                            String SERIE = jsonobject.getString("serie");
+                            tvVimInfraccion.setText(SERIE);
+
+                            if (validaEstatus== false) {
+                                Log.d("FALSE","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+                                //Valida si viene de transporte por la etiqueta estatusActuak
+                                String ESTATUS = jsonobject.getString("estatusActual");
+                                Log.d("VALIDASTATUS","%%%%%%%%%% LO QUE HAY DE ESTATUS TRANSPORTE PUBLICO "+ESTATUS);
+
+                                estatusPlacaInfracciones.setText(ESTATUS);
+                                String VIGENCIA = jsonobject.getString("fechaVigencia");
+                                tvVigenciaTcInfraccion.setText(VIGENCIA);
+                                Log.d("VIGECNCIA33","Esto es lo que trae la vigencia de transporte publico "+VIGENCIA);
+
+
+                            } if(validaEstatus == true){
+                                //Valida si viene de transporte particular.
+                                String ESTATUS = jsonobject.getString("estatus");
+                                estatusPlacaInfracciones.setText(ESTATUS);
+                                Log.d("VALIDASTATUS","%%%%%%%%%% LO QUE HAY DE ESTATUS TRANSPORTE PRIVADO "+ESTATUS);
+                                String VIGENCIA = jsonobject.getString("fechaVencimiento");
+                                tvVigenciaTcInfraccion.setText(VIGENCIA);
+                                Log.d("VIGENCIA33","Esto es lo que trae la vigencia de transporte privado "+VIGENCIA);
+
+                            }
+
+                            if (validaFechaVencimiento == false) {
+                                //Valida si vine de transporte por la etiqueta fechaVigencia
+                                String VIGENCIA = jsonobject.getString("fechaVigencia");
+
+
+                                Log.d("ESATUS", "### VALOR ESTATUS" + VIGENCIA);
+                            } else {
+                                //Validad si viene de transporte particular por la etiqueta fechaVecimineto
+
+                            }
+
+
+                        }
+                        //}
+
+                    } catch (JSONException e) {
+
+                    }
+
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "No se encontraron parametros en la consulta", Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<String, String>();
+                Log.d("PLACA33-1","Esto es lo que imprime antes de enviar el post"+placa);
+                //Log.d("PLACA33-2","Esto es lo que imprime antes de enviar el post pero del Textview"+);
+                parametros.put("placa",placa);
+
+
+
+                return parametros;
+            }
+        };
+        RequestQueue requesrQueue = Volley.newRequestQueue(getApplicationContext());
+        requesrQueue.add(stringRequest);
+    }
+
+    //Subir imagen
+
+    public void uploadImage() {
+        final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        loading.dismiss();
+                        Toast.makeText(Infracciones.this, response, Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(Infracciones.this, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Bitmap imagen = get(bitmap);
+
+                /*
+                *  ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                     bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+                    return stream.toByteArray();
+    }
+                * */
+
+//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                bitmap.compress(Bitmap.CompressFormat.JPEG, 100 , baos);
+//                byte[] blob = baos.toByteArray();
+//
+//                ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
+//                bitmap2.compress(Bitmap.CompressFormat.JPEG, 100 , baos2);
+//                byte[] blob2 = baos2.toByteArray();
+//
+//                ByteArrayOutputStream baos3 = new ByteArrayOutputStream();
+//                bitmap3.compress(Bitmap.CompressFormat.JPEG, 100 , baos3);
+//                byte[] blob3 = baos3.toByteArray();
+
+                String imagen = convertirImgString(bitmap);
+                String imagen2 = convertirImgString2(bitmap2);
+                String imagen3 = convertirImgString3(bitmap3);
+
+
+
+                String nombre = edtComentarios.getText().toString().trim();
+                // Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
+                Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
+                Map<String, String> params = new Hashtable<String, String>();
+                params.put("foto", imagen);
+                params.put("foto2", imagen2);
+                params.put("foto3", imagen3);
+                params.put("nombre", "sames");
+
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private String convertirImgString(Bitmap bitmap) {
+        ByteArrayOutputStream array = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,70,array);
+        byte[] imagenByte=array.toByteArray();
+        String imagenString = Base64.encodeToString(imagenByte,Base64.DEFAULT);
+        return imagenString;
+    }
+
+    private String convertirImgString2(Bitmap bitmap2) {
+        ByteArrayOutputStream array = new ByteArrayOutputStream();
+        bitmap2.compress(Bitmap.CompressFormat.JPEG,70,array);
+        byte[] imagenByte=array.toByteArray();
+        String imagenString = Base64.encodeToString(imagenByte,Base64.DEFAULT);
+        return imagenString;
+    }
+    private String convertirImgString3(Bitmap bitmap3) {
+        ByteArrayOutputStream array = new ByteArrayOutputStream();
+        bitmap3.compress(Bitmap.CompressFormat.JPEG,70,array);
+        byte[] imagenByte=array.toByteArray();
+        String imagenString = Base64.encodeToString(imagenByte,Base64.DEFAULT);
+        return imagenString;
+    }
+
+
 }

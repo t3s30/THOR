@@ -138,7 +138,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-               /* //Inicializamos el progress BAR
+                //Inicializamos el progress BAR
                 progressDialog = new ProgressDialog(getContext());
                 //Mostramos el progressBAR
                 progressDialog.show();
@@ -173,9 +173,8 @@ public class HomeFragment extends Fragment {
                     progressDialog.hide();
                     Toast.makeText(getContext(), "Tienes que seleccionar PLACA o LICENCIA", Toast.LENGTH_LONG).show();
                 }
-*/
-                Intent intent = new Intent(getActivity(), Infracciones.class);
-                startActivity(intent);
+
+
 
             }
         });

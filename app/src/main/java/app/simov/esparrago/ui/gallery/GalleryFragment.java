@@ -16,6 +16,7 @@ import app.simov.esparrago.R;
 
 public class GalleryFragment extends Fragment {
 
+    TextView qrResult;
     private GalleryViewModel galleryViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
