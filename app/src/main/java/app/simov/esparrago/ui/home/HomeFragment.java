@@ -2,7 +2,6 @@ package app.simov.esparrago.ui.home;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Camera;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,7 +26,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -37,16 +34,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-import app.simov.esparrago.Drawer;
 import app.simov.esparrago.Infracciones;
-import app.simov.esparrago.MainActivity;
 import app.simov.esparrago.R;
-import app.simov.esparrago.Wsgob;
 import app.simov.esparrago.WsgobConsulta;
-import app.simov.esparrago.ui.gallery.GalleryFragment;
 
 public class HomeFragment extends Fragment {
     CheckBox checkBoxLicencia;
@@ -60,11 +52,20 @@ public class HomeFragment extends Fragment {
     ProgressDialog progressDialog;
     Spinner spinnerModalidad;
     Spinner spinerSector;
-    Spinner spinnerInfra;
+    Spinner spinnerInfra1;
+    Spinner spinnerInfra2;
+    Spinner spinnerInfra3;
+    Spinner spinnerInfra4;
+    Spinner spinnerInfra5;
     String modalidad;
     String sector;
-    String infraccion;
+    String infraccion1;
+    String infraccion2;
+    String infraccion3;
+    String infraccion4;
+    String infraccion5;
 
+    int cuenta ;
     String usersId;
     String username;
     String profile;
@@ -90,14 +91,83 @@ public class HomeFragment extends Fragment {
         editTextPlaca = root.findViewById(R.id.edtPlaca);
         editTextLicencia = root.findViewById(R.id.edtLicencia);
         final Spinner spinnerZona = root.findViewById(R.id.spZona);
-        final Spinner spinnerInfraccion = root.findViewById(R.id.spInfraccion);
+        final Spinner spinnerInfraccion = root.findViewById(R.id.spInfraccion3);
         final Button buttonInfraccion = root.findViewById(R.id.btnInfraccion);
         final Button buttonConsulta = root.findViewById(R.id.btnConsulta);
+        final Button bntCuenta = root.findViewById(R.id.btnCuenta);
+        final Button bntQuitar = root.findViewById(R.id.btnQuitar);
+
 
         spinnerModalidad = root.findViewById(R.id.spModalidad);
         spinerSector = root.findViewById(R.id.spZona);
-        spinnerInfra = root.findViewById(R.id.spInfraccion);
-        spinnerInfra.setVisibility(View.GONE);
+        spinnerInfra1 = root.findViewById(R.id.spInfraccion1);
+        spinnerInfra2 = root.findViewById(R.id.spInfraccion2);
+        spinnerInfra3 = root.findViewById(R.id.spInfraccion3);
+        spinnerInfra4 = root.findViewById(R.id.spInfraccion4);
+        spinnerInfra5 = root.findViewById(R.id.spInfraccion5);
+
+        spinnerInfra1.setVisibility(View.GONE);
+        spinnerInfra2.setVisibility(View.GONE);
+        spinnerInfra3.setVisibility(View.GONE);
+        spinnerInfra4.setVisibility(View.GONE);
+        spinnerInfra5.setVisibility(View.GONE);
+
+        bntCuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cuenta++;
+
+                Log.d("CUENTS+++","CONTADOR"+cuenta);
+                if (cuenta == 1){
+                    spinnerInfra1.setVisibility(View.VISIBLE);
+                    bntQuitar.setVisibility(View.VISIBLE);
+                }
+                if (cuenta == 2){
+                    spinnerInfra2.setVisibility(View.VISIBLE);
+
+                }
+                if(cuenta == 3){
+                    spinnerInfra3.setVisibility(View.VISIBLE);
+                }
+                if(cuenta == 4){
+                    spinnerInfra4.setVisibility(View.VISIBLE);
+                }
+                if(cuenta == 5){
+                    spinnerInfra5.setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
+
+
+        bntQuitar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cuenta--;
+                Log.d("CUENTS---","CONTADOR"+cuenta);
+                if (cuenta == 4){
+                    spinnerInfra5.setVisibility(View.GONE);
+                }
+                if (cuenta == 3){
+                    spinnerInfra4.setVisibility(View.GONE);
+                }
+                if(cuenta == 2){
+                    spinnerInfra3.setVisibility(View.GONE);
+                }
+                if(cuenta == 1){
+                    spinnerInfra2.setVisibility(View.GONE);
+                }
+                if(cuenta == 0){
+                    spinnerInfra1.setVisibility(View.GONE);
+                    bntQuitar.setVisibility(View.GONE);
+
+
+                }
+            }
+        });
+
+
 
         editTextLicencia.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         editTextPlaca.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
@@ -575,7 +645,11 @@ public class HomeFragment extends Fragment {
                             licencia = editTextLicencia.getText().toString();
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             sector = spinerSector.getSelectedItem().toString();
-                            infraccion = spinnerInfra.getSelectedItem().toString();
+                            infraccion1 = spinnerInfra1.getSelectedItem().toString();
+                            infraccion2 = spinnerInfra2.getSelectedItem().toString();
+                            infraccion3 = spinnerInfra3.getSelectedItem().toString();
+                            infraccion4 = spinnerInfra4.getSelectedItem().toString();
+                            infraccion5 = spinnerInfra5.getSelectedItem().toString();
 
                             //############################
 
@@ -589,10 +663,17 @@ public class HomeFragment extends Fragment {
 
                             //############################
 
+                            String cuentaString = Integer.toString(cuenta);
 
                             intentWs.putExtra("sector",sector);
                             intentWs.putExtra("modalidad",modalidad);
-                            intentWs.putExtra("infra",infraccion);
+                            intentWs.putExtra("infra1",infraccion1);
+                            intentWs.putExtra("infra2",infraccion2);
+                            intentWs.putExtra("infra3",infraccion3);
+                            intentWs.putExtra("infra4",infraccion4);
+                            intentWs.putExtra("infra5",infraccion5);
+                            intentWs.putExtra("cuenta",cuentaString);
+
                             intentWs.putExtra("licencia", licencia);
                             placa = editTextPlaca.getText().toString();
                             intentWs.putExtra("placa", placa);
@@ -660,10 +741,21 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("placa", PLACA);
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             sector = spinerSector.getSelectedItem().toString();
-                            infraccion = spinnerInfra.getSelectedItem().toString();
+                            infraccion1 = spinnerInfra1.getSelectedItem().toString();
+                            infraccion2 = spinnerInfra2.getSelectedItem().toString();
+                            infraccion3 = spinnerInfra3.getSelectedItem().toString();
+                            infraccion4 = spinnerInfra4.getSelectedItem().toString();
+                            infraccion5 = spinnerInfra5.getSelectedItem().toString();
+                            String cuentaString = Integer.toString(cuenta);
+
                             intentWs.putExtra("sector",sector);
                             intentWs.putExtra("modalidad",modalidad);
-                            intentWs.putExtra("infra",infraccion);
+                            intentWs.putExtra("infra1",infraccion1);
+                            intentWs.putExtra("infra2",infraccion2);
+                            intentWs.putExtra("infra3",infraccion3);
+                            intentWs.putExtra("infra4",infraccion4);
+                            intentWs.putExtra("infra5",infraccion5);
+                            intentWs.putExtra("cuenta",cuentaString);
                             intentWs.putExtra("propietario", PROPIETARIO);
 
                             intentWs.putExtra("vim", VIM);

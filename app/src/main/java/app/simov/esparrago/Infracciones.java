@@ -91,7 +91,13 @@ public class Infracciones extends AppCompatActivity{
     TextView tvVimInfraccion;
     TextView tvInfraInfraccion;
     String   modalidad;
-    String   infra;
+    String   infra1;
+    String   infra2;
+    String   infra3;
+    String   infra4;
+    String   infra5;
+    String   infraConcat;
+    String   cuenta;
     String   sector;
     TextView tvModalidadInfraccion;
     TextView tvSectorInfraccion;
@@ -838,14 +844,22 @@ public class Infracciones extends AppCompatActivity{
             licencia = bundle.getString("licencia");
             modalidad = bundle.getString("modalidad");
             sector = bundle.getString("sector");
-            infra = bundle.getString("infra");
+            infra1 = bundle.getString("infra1");
+            infra2 = bundle.getString("infra2");
+            infra3 = bundle.getString("infra3");
+            infra4 = bundle.getString("infra4");
+            infra5 = bundle.getString("infra5");
+            cuenta = bundle.getString("cuenta");
+
+            infraConcat = infra1+" | "+infra2+" | "+infra3+" | "+infra4+" | "+infra5;
+
             Log.d("LICENCIA-VERGAS1","$$$$$$$$$$$$$$$"+licencia);
             nombre = bundle.getString("nnombre");
             fechaVecimiento = bundle.getString("fechaVencimiento");
 
             tvModalidadInfraccion.setText(modalidad);
             tvSectorInfraccion.setText(sector);
-            tvInfraInfraccion.setText(infra);
+            tvInfraInfraccion.setText(infra1);
 
             Log.d("MODALIDAD","&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+modalidad);
 
@@ -1440,7 +1454,11 @@ public class Infracciones extends AppCompatActivity{
                 params.put("nombreLicencia",NOMBRECOMPLETO);
                 params.put("fVigenciaLicencia",VENCIMIENTO);
 
-
+                //Infra
+                params.put("infra",infraConcat);
+                Log.d("INFRA","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$=======>"+infraConcat);
+                params.put("cuenta",cuenta);
+                Log.d("CUENTA","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
                 return params;
             }
         };
