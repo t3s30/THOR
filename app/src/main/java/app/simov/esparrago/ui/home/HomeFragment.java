@@ -65,6 +65,13 @@ public class HomeFragment extends Fragment {
     String sector;
     String infraccion;
 
+    String usersId;
+    String username;
+    String profile;
+    String nombre;
+    String delegacionId;
+    String activo;
+
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -100,6 +107,26 @@ public class HomeFragment extends Fragment {
         nombreApp.setText("THOR-PEDO");
         tvUsuario.setText("Abdiel Carrasco");
         tvMunicipio.setText("Tijuana(USR213)");
+
+        //Datos de Bundle de inicio de session.
+        Bundle args = getActivity().getIntent().getExtras();
+
+        if (args != null) {
+            //Recojemos parametros.
+            usersId  = args.getString("usersId");
+            username  = args.getString("username");
+            profile  = args.getString("profile");
+            nombre  = args.getString("nombre");
+            delegacionId  = args.getString("delegacionId");
+            activo  = args.getString("activo");
+
+          Log.d("USERSID","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID"+usersId);
+        }
+
+
+        //#####################################################
+
+
 
 //Validacion de Checkbox
         checkBoxLicencia.setOnClickListener(new View.OnClickListener() {
@@ -549,6 +576,20 @@ public class HomeFragment extends Fragment {
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             sector = spinerSector.getSelectedItem().toString();
                             infraccion = spinnerInfra.getSelectedItem().toString();
+
+                            //############################
+
+                            intentWs.putExtra("usersId",usersId);
+                            Log.d("HomeFragment","USERSID########################--->"+usersId);
+                            intentWs.putExtra("username",username);
+                            intentWs.putExtra("profile",profile);
+                            intentWs.putExtra("nombre",nombre);
+                            intentWs.putExtra("delegacionId",delegacionId);
+                            intentWs.putExtra("activo",activo);
+
+                            //############################
+
+
                             intentWs.putExtra("sector",sector);
                             intentWs.putExtra("modalidad",modalidad);
                             intentWs.putExtra("infra",infraccion);
@@ -587,10 +628,12 @@ public class HomeFragment extends Fragment {
                             }
 
                             if (validaFechaVencimiento==false){
+                                //Publico
                                 String VIGENCIA = jsonobject.getString("fechaVigencia");
                                 intentWs.putExtra("vigencia", VIGENCIA);
                                 Log.d("ESATUS","### VALOR ESTATUS"+VIGENCIA);
                             }else {
+                                //Particular
                                 String VIGENCIA = jsonobject.getString("fechaVencimiento");
                                 intentWs.putExtra("vigencia", VIGENCIA);
                             }
@@ -598,6 +641,17 @@ public class HomeFragment extends Fragment {
 
 
 
+                            //############################
+
+                            intentWs.putExtra("usersId",usersId);
+                            Log.d("HomeFragment","USERSID########################--->"+usersId);
+                            intentWs.putExtra("username",username);
+                            intentWs.putExtra("profile",profile);
+                            intentWs.putExtra("nombre",nombre);
+                            intentWs.putExtra("delegacionId",delegacionId);
+                            intentWs.putExtra("activo",activo);
+
+                            //############################
 
                             licencia = editTextLicencia.getText().toString();
                             intentWs.putExtra("licencia", licencia);

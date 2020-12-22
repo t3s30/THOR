@@ -767,6 +767,18 @@ public class Infracciones extends AppCompatActivity{
     Bitmap bitmap2;
     Bitmap bitmap3;
 
+    //Variables de session.
+    String usersId;
+    String username;
+    String profile;
+    String nombreLogin;
+    String delegacionId;
+    String activo;
+
+    String VENCIMIENTO;
+    String NOMBRECOMPLETO;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -804,6 +816,13 @@ public class Infracciones extends AppCompatActivity{
         Log.d("BUNDLE","VALOR DEL BUNDLE ##############"+bundle.toString());
         //Validamos que no venga vacio
         if (bundle != null){
+            //Recojemos parametros que vienen desde el LOGIN.
+            usersId  = bundle.getString("usersId");
+            username  = bundle.getString("username");
+            profile  = bundle.getString("profile");
+            nombreLogin  = bundle.getString("nombre");
+            delegacionId  = bundle.getString("delegacionId");
+            activo  = bundle.getString("activo");
 
             //Recojemos parametros.
             placa = bundle.getString("placa");
@@ -811,6 +830,7 @@ public class Infracciones extends AppCompatActivity{
             placaInfracciones.setText(placa);
             estatus = bundle.getString("estatus");
             propietario = bundle.getString("propietario");
+            Log.d("PROPIETARIO","#####################&%&%&%&%&%&%&%&%&PROPIETARIO"+propietario);
             vigencia = bundle.getString("vigencia");
             vim = bundle.getString("vim");
             marca = bundle.getString("marca");
@@ -1170,12 +1190,12 @@ public class Infracciones extends AppCompatActivity{
                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                                 //Accedemos a los elementos por medio de getString.
                                 LICENCIA = jsonobject.getString("licencia");
-                                String VENCIMIENTO = jsonobject.getString("fechaVenc");
+                                VENCIMIENTO = jsonobject.getString("fechaVenc");
                                 String paterno = jsonobject.getString("paterno");
                                 String materno = jsonobject.getString("materno");
                                 String nombre  = jsonobject.getString("nombre");
 
-                                String nombreCompleto = nombre+" "+paterno+" "+materno;
+                                NOMBRECOMPLETO = nombre+" "+paterno+" "+materno;
 
                                 //textViewNombre.setText(nombreCompleto);
                                 textViewLicencia.setText(LICENCIA);
@@ -1387,6 +1407,8 @@ public class Infracciones extends AppCompatActivity{
                 String imagen3 = convertirImgString3(bitmap3);
 
 
+                //###########################
+
 
                 String nombre = edtComentarios.getText().toString().trim();
                 // Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
@@ -1395,7 +1417,22 @@ public class Infracciones extends AppCompatActivity{
                 params.put("foto", imagen);
                 params.put("foto2", imagen2);
                 params.put("foto3", imagen3);
-                params.put("nombre", "sames");
+
+                params.put("usersId", usersId);
+                Log.d("USERSIDINFRA","###############%%%%%%%%%%"+usersId);
+                params.put("username", username);
+                params.put("profile", profile);
+                params.put("nombreLogin", nombreLogin);
+                params.put("delegacionId", delegacionId);
+                params.put("activo", activo);
+                params.put("placa",placa);
+                params.put("propietario",propietario);
+                params.put("vigencia",vigencia);
+
+                //LICENCIA
+                params.put("noLicencia",LICENCIA);
+                params.put("nombreLicencia",NOMBRECOMPLETO);
+                params.put("fVigenciaLicencia",VENCIMIENTO);
 
 
                 return params;

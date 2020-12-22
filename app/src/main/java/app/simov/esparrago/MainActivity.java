@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,9 +61,33 @@ public class MainActivity extends AppCompatActivity {
                 //Validamos que el response no este vacio
                 if(!response.isEmpty()){
                     Toast.makeText(MainActivity.this,"ENTRASTE AL LOGIN"+response,Toast.LENGTH_LONG).show();
+                    try {
+                        JSONObject obj = new JSONObject(response);
+                        String usersId = obj.getString("UsersID");
+                        Log.d("USERSID","!!!!!"+usersId);
+                        String username = obj.getString("username");
+                        String profile = obj.getString("profile");
+                        String nombre = obj.getString("comment");
+                        String delegacionId = obj.getString("delegacionID");
+                        String activo = obj.getString("Activo");
+                        Intent intent = new Intent(getApplicationContext(),Drawer.class);
+
+                        intent.putExtra("usersId",usersId);
+                        Log.d("USERSID-MAIN","Esta la info que viene del MAIN"+usersId);
+                        intent.putExtra("username",username);
+                        intent.putExtra("profile",profile);
+                        intent.putExtra("nombre",nombre);
+                        intent.putExtra("delegacionId",delegacionId);
+                        intent.putExtra("activo",activo);
+
+                        startActivity(intent);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
                     //Lanzamos Intent Navigation Drawer.
-                Intent intent = new Intent(getApplicationContext(),Drawer.class);
-                startActivity(intent);
+
                 }else{
                     Toast.makeText(MainActivity.this,"CONTRASEÑA INCORRECTA",Toast.LENGTH_LONG).show();
                 }
