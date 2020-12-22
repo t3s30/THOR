@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment {
         spinnerModalidad = root.findViewById(R.id.spModalidad);
         spinerSector = root.findViewById(R.id.spZona);
         spinnerInfra = root.findViewById(R.id.spInfraccion);
-
+        spinnerInfra.setVisibility(View.GONE);
 
         editTextLicencia.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         editTextPlaca.setFilters(new InputFilter[]{new InputFilter.AllCaps()});

@@ -166,24 +166,10 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.402"
+        app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spZona"
-        app:layout_constraintVertical_bias="0.442" />
-
-    <Button
-        android:id="@+id/btnConsulta"
-        android:layout_width="146dp"
-        android:layout_height="68dp"
-        android:background="#FFFFFF"
-        android:text="CONSULTA"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spInfraccion"
-        app:layout_constraintVertical_bias="0.281" />
+        app:layout_constraintVertical_bias="0.741" />
 
     <Button
         android:id="@+id/btnInfraccion"
@@ -194,10 +180,24 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnConsulta"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="0.604"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spInfraccion"
-        app:layout_constraintVertical_bias="0.281" />
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btnConsulta"
+        android:layout_width="146dp"
+        android:layout_height="68dp"
+        android:background="#FFFFFF"
+        android:text="CONSULTA"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spInfraccion"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Spinner
         android:id="@+id/spModalidad"

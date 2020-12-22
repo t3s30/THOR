@@ -794,7 +794,7 @@ public class Infracciones extends AppCompatActivity{
         botonCargar2= (Button) findViewById(R.id.btnCargarImg2);
 
         //Metodos de Ws.
-         enviarWSConsultaLicencia(URLICENCIA);
+        enviarWSConsultaLicencia(URLICENCIA);
          enviarWSControlVehichular(URLVEHICULAR);
         // enviarWSConsultaInfraccion(URLINFRACCION);
 
@@ -848,7 +848,6 @@ public class Infracciones extends AppCompatActivity{
             tvInfraInfraccion.setText(infra);
 
             Log.d("MODALIDAD","&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+modalidad);
-
 
 
 
@@ -1207,6 +1206,9 @@ public class Infracciones extends AppCompatActivity{
                             //textViewNombre.setText(nombreCompleto);
                             textViewLicencia.setText("NO-LICENCIA");
                             textViewFechaVencimiento.setText("NO-LICENCIA");
+                            LICENCIA = "NO-LICENCIA";
+                            VENCIMIENTO = "NO-LICENCIA";
+                            NOMBRECOMPLETO = "NO-LICENCIA";
                         }
 
 
@@ -1219,6 +1221,9 @@ public class Infracciones extends AppCompatActivity{
                        //* textViewNombre.setText("NO-LICENCIA");
                         textViewLicencia.setText("NO-LICENCIA");
                         textViewFechaVencimiento.setText("NO-LICENCIA");
+                        LICENCIA = "NO-LICENCIA";
+                        VENCIMIENTO = "NO-LICENCIA";
+                        NOMBRECOMPLETO = "NO-LICENCIA";
 
                     }
 
@@ -1431,6 +1436,7 @@ public class Infracciones extends AppCompatActivity{
 
                 //LICENCIA
                 params.put("noLicencia",LICENCIA);
+                Log.d("LICENCIA","###############%%%%%%%%%%========================>"+LICENCIA);
                 params.put("nombreLicencia",NOMBRECOMPLETO);
                 params.put("fVigenciaLicencia",VENCIMIENTO);
 
