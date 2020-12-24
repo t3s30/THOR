@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -11,23 +12,35 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="app.simov.esparrago.Infracciones">
 
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:text="INFRACCIÓN-THOR"
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.001" />
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_width="342dp"
+        android:layout_height="152dp"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="#FFFFFF">
+        android:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/edtComentarios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.705">
 
         <TableRow
             android:layout_width="match_parent"
@@ -265,8 +278,8 @@
 
             <TextView
                 android:id="@+id/textView21"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="115dp"
+                android:layout_height="match_parent"
                 android:text="Infraccion"
                 android:textColor="#8BC34A"
                 android:textStyle="bold" />
@@ -286,37 +299,6 @@
         </TableRow>
     </TableLayout>
 
-
-    <Button
-        android:id="@+id/btnCargarImg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="72dp"
-        android:background="@color/black"
-        android:onClick="onclick"
-        android:text="Selecciona Imagen"
-        android:textColor="#ffff" />
-
-    <Button
-        android:id="@+id/btnCargarImg2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="26dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginBottom="4dp"
-        android:background="@color/black"
-        android:onClick="onclick"
-        android:text="ENVIAR"
-        android:textColor="#ffff" />
-
     <ImageView
         android:id="@+id/imagemId"
         android:layout_width="328dp"
@@ -324,10 +306,13 @@
         android:layout_below="@+id/textView"
         android:layout_alignEnd="@+id/textView"
         android:layout_alignRight="@+id/textView"
-        android:layout_marginTop="294dp"
-        android:layout_marginEnd="-37dp"
-        android:layout_marginRight="-37dp"
-        android:src="@drawable/img_base" />
+        android:src="@drawable/img_base"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.672" />
 
     <ImageView
         android:id="@+id/imagemId3"
@@ -336,10 +321,12 @@
         android:layout_below="@+id/textView"
         android:layout_alignEnd="@+id/textView"
         android:layout_alignRight="@+id/textView"
-        android:layout_marginTop="534dp"
-        android:layout_marginEnd="-58dp"
-        android:layout_marginRight="-58dp"
-        android:src="@drawable/img_base" />
+        android:src="@drawable/img_base"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagemId"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.671" />
 
     <ImageView
         android:id="@+id/imagemId2"
@@ -348,33 +335,78 @@
         android:layout_below="@+id/textView"
         android:layout_alignEnd="@+id/textView"
         android:layout_alignRight="@+id/textView"
-        android:layout_marginTop="529dp"
-        android:layout_marginEnd="130dp"
-        android:layout_marginRight="130dp"
-        android:src="@drawable/img_base" />
+        android:src="@drawable/img_base"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imagemId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.664" />
 
     <EditText
         android:id="@+id/edtComentarios"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="270dp"
         android:backgroundTint="#8BC34A"
         android:ems="10"
         android:foregroundTint="#8BC34A"
         android:hint="Comentarios"
         android:inputType="textPersonName"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.441" />
 
     <TextView
         android:id="@+id/comenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="290dp"
         android:text="Comentarios"
         android:textColor="#FFFFFF"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/edtComentarios"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <Button
+        android:id="@+id/btnCargarImg"
+        android:layout_width="379dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black"
+        android:onClick="onclick"
+        android:text="Selecciona Imagen"
+        android:textColor="#ffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <Button
+        android:id="@+id/btnCargarImg2"
+        android:layout_width="379dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black"
+        android:onClick="onclick"
+        android:text="ENVIAR"
+        android:textColor="#ffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

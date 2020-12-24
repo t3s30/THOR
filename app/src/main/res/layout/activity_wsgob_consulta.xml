@@ -204,16 +204,16 @@
 
         <TextView
             android:id="@+id/tvNombre"
-            android:layout_width="226dp"
-            android:layout_height="30dp"
+            android:layout_width="234dp"
+            android:layout_height="48dp"
             android:textAlignment="viewStart"
             android:textColor="#8BC34A"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.608"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView16"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.841"
+            app:layout_constraintVertical_bias="0.853"
             tools:text="SIN LICENCIA" />
 
         <TextView

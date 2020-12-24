@@ -24,14 +24,28 @@
 
     <TextView
         android:id="@+id/tvUsuario"
-        android:layout_width="191dp"
-        android:layout_height="26dp"
+        android:layout_width="120dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="180dp"
         android:text="Abdiel Carrasco"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/tvMunicipio"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tvUsuario2"
+        android:layout_width="154dp"
+        android:layout_height="36dp"
+        android:text="Abdiel Carrasco"
+        android:textAlignment="viewStart"
+        android:textColor="#F44336"
+        app:layout_constraintBottom_toTopOf="@+id/tvMunicipio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintStart_toEndOf="@+id/tvUsuario"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -47,7 +61,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.158" />
+        app:layout_constraintVertical_bias="0.175" />
 
     <TextView
         android:id="@+id/text_home"
@@ -250,6 +264,7 @@
         android:id="@+id/btnCuenta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/cardview_dark_background"
         android:text="#INFRACIONES"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -262,6 +277,7 @@
         android:id="@+id/btnQuitar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/cardview_dark_background"
         android:text="ELIMINAR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -274,6 +290,7 @@
         android:id="@+id/btnInfraccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/cardview_dark_background"
         android:text="INFRACCION"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -286,6 +303,7 @@
         android:id="@+id/btnConsulta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/cardview_dark_background"
         android:text="CONSULTA"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

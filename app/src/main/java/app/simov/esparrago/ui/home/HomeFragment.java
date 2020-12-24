@@ -84,6 +84,7 @@ public class HomeFragment extends Fragment {
         //Parametros XML
         final TextView nombreApp = root.findViewById(R.id.tvApp);
         final TextView tvUsuario = root.findViewById(R.id.tvUsuario);
+        final TextView tvUsuario2 = root.findViewById(R.id.tvUsuario2);
         final TextView tvMunicipio = root.findViewById(R.id.tvMunicipio);
         checkBoxLicencia = root.findViewById(R.id.cBoxLicencia);
         final CheckBox checkBoxPlaca = root.findViewById(R.id.cBoxPlaca);
@@ -174,9 +175,9 @@ public class HomeFragment extends Fragment {
 
 
         //Seteamos Valores.
-        nombreApp.setText("THOR-PEDO");
+        nombreApp.setText("THOR");
         tvUsuario.setText("Abdiel Carrasco");
-        tvMunicipio.setText("Tijuana(USR213)");
+       // tvMunicipio.setText("Tijuana(USR213)");
 
         //Datos de Bundle de inicio de session.
         Bundle args = getActivity().getIntent().getExtras();
@@ -189,7 +190,9 @@ public class HomeFragment extends Fragment {
             nombre  = args.getString("nombre");
             delegacionId  = args.getString("delegacionId");
             activo  = args.getString("activo");
-
+            tvUsuario.setText(nombre);
+            tvUsuario2.setText(username);
+            tvMunicipio.setText("Tijuana");
           Log.d("USERSID","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID"+usersId);
         }
 

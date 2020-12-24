@@ -851,7 +851,14 @@ public class Infracciones extends AppCompatActivity{
             infra5 = bundle.getString("infra5");
             cuenta = bundle.getString("cuenta");
 
-            infraConcat = infra1+" | "+infra2+" | "+infra3+" | "+infra4+" | "+infra5;
+            Log.d("INFRA1","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra1);
+            Log.d("INFRA2","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra2);
+            Log.d("INFRA3","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra3);
+            Log.d("INFRA4","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra4);
+            Log.d("INFRA5","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra5);
+
+
+
 
             Log.d("LICENCIA-VERGAS1","$$$$$$$$$$$$$$$"+licencia);
             nombre = bundle.getString("nnombre");
@@ -1429,7 +1436,7 @@ public class Infracciones extends AppCompatActivity{
                 //###########################
 
 
-                String nombre = edtComentarios.getText().toString().trim();
+                String comentarios = edtComentarios.getText().toString().trim();
                 // Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
                 Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
                 Map<String, String> params = new Hashtable<String, String>();
@@ -1455,10 +1462,35 @@ public class Infracciones extends AppCompatActivity{
                 params.put("fVigenciaLicencia",VENCIMIENTO);
 
                 //Infra
+                if (cuenta.equals("1")){
+                    infra2 = "-";
+                    infra3 = "-";
+                    infra4 = "-";
+                    infra5 = "-";
+                }
+                if (cuenta.equals("2")){
+                    infra3 = "-";
+                    infra4 = "-";
+                    infra5 = "-";
+                }
+                if (cuenta.equals("3")){
+                    infra4 = "-";
+                    infra5 = "-";
+                }
+                if (cuenta.equals("4")){
+                    infra5 = "-";
+                }
+                if (cuenta.equals("5")){
+
+                }
+                infraConcat = infra1+" | "+infra2+" | "+infra3+" | "+infra4+" | "+infra5;
                 params.put("infra",infraConcat);
                 Log.d("INFRA","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$=======>"+infraConcat);
                 params.put("cuenta",cuenta);
                 Log.d("CUENTA","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
+
+                params.put("comentarios",comentarios);
+
                 return params;
             }
         };
