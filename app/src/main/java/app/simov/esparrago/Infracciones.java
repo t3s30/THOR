@@ -883,4 +883,20 @@ public class Infracciones extends AppCompatActivity{
     }
 
 
+    //Elimnar contenido cuando se regrese a la pantalla anterior.
+    @Override
+    public void onBackPressed()
+    {
+        //Para llamarse asi mismo y ejecutarse
+        super.onBackPressed();
+        //Terminando la actividad en curso
+        this.finish();
+        //Regresando a la actividad principal
+        Log.d("Back1","Entre en el BACKPRESSED");
+        Intent gotoBack = new Intent(Infracciones.this, Drawer.class);
+        //gotoBack.putExtra(USER_GLOBAL_SENDER, username_global); <-- Use this if you want to carry some data to the other activity.
+        startActivity(gotoBack);
+    }
+
+
 }

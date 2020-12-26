@@ -740,16 +740,20 @@ public void escanear(){
                 boolean isFound = datosLicencia.get(4).contains("BC"); // true
 
                 int sizeDatosLicencia = datosLicencia.size();
+                    try {
+                        if (isFound == true) {
+                            editTextLicencia.setText(datosLicencia.get(4).trim());
+                            Log.d("QRSTRING", "ESTE ES EL VALOR DEL QR STRING" + result.getContents().toString());
+                        }
 
-
-                    if (isFound == true) {
-                        editTextLicencia.setText(datosLicencia.get(4).trim());
-                        Log.d("QRSTRING", "ESTE ES EL VALOR DEL QR STRING" + result.getContents().toString());
+                        if (sizeDatosLicencia >= 11) {
+                            editTextPlaca.setText(datosLicencia.get(8).trim());
+                        }
+                    }catch (Exception e){
+                        Toast.makeText(getContext(),"Hubo un error en QR",Toast.LENGTH_LONG);
                     }
 
-                if (sizeDatosLicencia >= 11) {
-                    editTextPlaca.setText(datosLicencia.get(8).trim());
-                }
+
             }
         }else {
             super.onActivityResult(requestCode,resultCode,data);
