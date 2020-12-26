@@ -7,6 +7,17 @@
     android:background="@color/black"
     tools:context=".ui.home.HomeFragment">
 
+    <ImageView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:alpha=".20"
+        app:srcCompat="@drawable/imos"/>
+
 <!--Titulos y cabeceraz-->
     <TextView
         android:id="@+id/tvApp"
@@ -46,6 +57,22 @@
         android:text="Tijuana"
         android:textColor="@color/titulosVerdes"/>
 <!--Terminar Titlos y Cabeceras-->
+
+<!--Botón QR-->
+    <Button
+        android:id="@+id/btnQr"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cBoxLicencia"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="130dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/botonLogin"
+        android:textColor="@color/white"
+        android:text="@string/QR" />
+
+<!--Fin Botón QR-->
 
 <!--Empiezan Inputs y checkes-->
     <CheckBox

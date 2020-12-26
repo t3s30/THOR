@@ -152,5 +152,6 @@
     <string name="INFRACCIONES">INFRACCIONES</string>
     <string name="INFRACCION">SELECCIONE - INFRACCIÓN</string>
     <string name="ELIMINAR">ELIMINAR</string>
+    <string name="QR">QR</string>
 
 </resources>

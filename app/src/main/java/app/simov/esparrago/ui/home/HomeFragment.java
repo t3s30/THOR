@@ -36,14 +36,26 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import app.simov.esparrago.Drawer;
 import app.simov.esparrago.Infracciones;
 import app.simov.esparrago.R;
 import app.simov.esparrago.WsgobConsulta;
 
-public class HomeFragment extends Fragment {
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
+public class HomeFragment extends Fragment  {
+
+    public HomeFragment(){
+
+    }
+
     CheckBox checkBoxLicencia;
     boolean banderaLicencia = false;
     boolean banderaPlaca = false;
@@ -86,7 +98,7 @@ public class HomeFragment extends Fragment {
     AutoCompleteTextView edtInfraccion5;
 
     private HomeViewModel homeViewModel;
-
+    private static final String EXTRA_CODE = "app.simov.esparrago";
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -112,6 +124,8 @@ public class HomeFragment extends Fragment {
         final Button bntCuenta = root.findViewById(R.id.btnCuenta);
 
         final Button bntQuitar = root.findViewById(R.id.btnQuitar);
+
+        final Button bntQr = root.findViewById(R.id.btnQr);
 
         String[] InfracionesList = getResources().getStringArray(R.array.infracciones_arrays);
 
@@ -161,6 +175,18 @@ public class HomeFragment extends Fragment {
         edtInfraccion5.setVisibility(View.GONE);
         bntQuitar.setVisibility(View.GONE);
 
+
+
+ //Boton Iniciar QR
+ bntQr.setOnClickListener(new View.OnClickListener() {
+     @Override
+     public void onClick(View v) {
+        escanear();
+     }
+ });
+
+
+ //Boton agregar Infracciones
  bntCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,7 +214,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
+//Boton Quitar Infracciones
          bntQuitar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -379,6 +405,8 @@ public class HomeFragment extends Fragment {
             }
         });
         return root;
+
+
     }
 
 
@@ -698,7 +726,49 @@ public class HomeFragment extends Fragment {
         RequestQueue requesrQueue = Volley.newRequestQueue(getContext());
         requesrQueue.add(stringRequest);
     }
+//Clase para scanear el codigo QR
+public void escanear(){
 
+            IntentIntegrator intent = IntentIntegrator.forSupportFragment(HomeFragment.this);
+            intent.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+            intent.setPrompt("ESCANEAR QR - IMOS -");
+            intent.setCameraId(0);
+            intent.setBarcodeImageEnabled(false);
+            intent.initiateScan();
+
+}
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if (result != null){
+            if (result.getContents() == null){
+                Toast.makeText(getContext(),"CANCELASTE EL ESCANEO", Toast.LENGTH_LONG);
+            }else {
+                //Aqui Agregamos las validaciones para los diferentes Formatos de QR´S
+                String infoQr = result.getContents();
+                List<String> datosLicencia = Arrays.asList(infoQr.split(","));
+                boolean isFound = datosLicencia.get(4).contains("BC"); // true
+
+                int sizeDatosLicencia = datosLicencia.size();
+
+
+                    if (isFound == true) {
+                        editTextLicencia.setText(datosLicencia.get(4).trim());
+                        Log.d("QRSTRING", "ESTE ES EL VALOR DEL QR STRING" + result.getContents().toString());
+                    }
+
+                if (sizeDatosLicencia >= 8) {
+                    editTextPlaca.setText(datosLicencia.get(8).trim());
+                }
+            }
+        }else {
+            super.onActivityResult(requestCode,resultCode,data);
+        }
+    }
+
+
+// else continue with any other code you need in the method
 
     /*private static final String[] InfracionesList = new String[]{
             "FALTA DE PLACAS","CIRCULA SIN PLACAS","FALTA DE TARJETA CIRCULACION","TARJETA CIRCULACION VENCIDA","TRANSITAR EN EL CARRIL NO CORRESPONDIENTE","SUBIR BAJAR PASAJE LUGAR INDEBIDO",
