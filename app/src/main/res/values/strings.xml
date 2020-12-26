@@ -142,7 +142,7 @@
     <string name="title_activity_infracciones">Infracciones</string>
     <string name="title_activity_camera">Camera</string>
 
-    <!--Strings Infracciones-->
+    <!--Strings Home Fragment-->
     <string name="ZONA">ZONA-SECTOR</string>
     <string name="MODALIDAD">MODALIDAD</string>
     <string name="PLACA">NUMERO DE PLACA</string>
@@ -153,5 +153,11 @@
     <string name="INFRACCION">SELECCIONE - INFRACCIÓN</string>
     <string name="ELIMINAR">ELIMINAR</string>
     <string name="QR">QR</string>
+
+    <!--Strings Infracciones-->
+    <string name="INFRACIONES_THOR">INFRACIONES-THOR</string>
+    <string name="COMENTARIOS">COMENTARIOS</string>
+    <string name="TOMAR_FOTO">TOMAR FOTO</string>
+    <string name="ENVIA_INFRACCION">ENVIAR INFRACCIÓN</string>
 
 </resources>

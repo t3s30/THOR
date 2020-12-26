@@ -241,17 +241,10 @@ public class HomeFragment extends Fragment  {
                 }
             }
         });
+        //Mayusculas a LICENCIA Y PLACA.
+         editTextLicencia.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+         editTextPlaca.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
 
-
-
-        editTextLicencia.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
-        editTextPlaca.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
-
-
-        //Seteamos Valores.
-        nombreApp.setText("THOR");
-        tvUsuario.setText("Abdiel Carrasco");
-       // tvMunicipio.setText("Tijuana(USR213)");
 
         //Datos de Bundle de inicio de session.
         Bundle args = getActivity().getIntent().getExtras();
@@ -271,11 +264,7 @@ public class HomeFragment extends Fragment  {
         }
 
 
-        //#####################################################
-
-
-
-//Validacion de Checkbox
+      //Validacion de Checkbox
         checkBoxLicencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -758,7 +747,7 @@ public void escanear(){
                         Log.d("QRSTRING", "ESTE ES EL VALOR DEL QR STRING" + result.getContents().toString());
                     }
 
-                if (sizeDatosLicencia >= 8) {
+                if (sizeDatosLicencia >= 11) {
                     editTextPlaca.setText(datosLicencia.get(8).trim());
                 }
             }
