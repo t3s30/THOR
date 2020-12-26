@@ -40,7 +40,7 @@
 
     </string-array>
 
-    <string-array name="infracciones_arrays">
+        <string-array name="infracciones_arrays">
         <item>SELECCIONE-INFRACCION</item>
         <item>FALTA DE PLACAS</item>
         <item>CIRCULA SIN PLACAS</item>
@@ -141,5 +141,16 @@
     <string name="title_activity_wsgob_consulta">Consulta Placa</string>
     <string name="title_activity_infracciones">Infracciones</string>
     <string name="title_activity_camera">Camera</string>
+
+    <!--Strings Infracciones-->
+    <string name="ZONA">ZONA-SECTOR</string>
+    <string name="MODALIDAD">MODALIDAD</string>
+    <string name="PLACA">NUMERO DE PLACA</string>
+    <string name="CON_LICENCIA">CON LICENCIA</string>
+    <string name="CON_PLACA">CON PLACA</string>
+    <string name="NUMERO_LICENCIA">NÚMERO DE LICENCIA</string>
+    <string name="INFRACCIONES">INFRACCIONES</string>
+    <string name="INFRACCION">SELECCIONE - INFRACCIÓN</string>
+    <string name="ELIMINAR">ELIMINAR</string>
 
 </resources>

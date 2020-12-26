@@ -1,71 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/btnLinear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/fondoEsparrago"
+    android:background="@color/black"
+    android:orientation="vertical"
     tools:context=".MainActivity">
-
-    <EditText
-        android:id="@+id/edtUser"
-        android:layout_width="291dp"
-        android:layout_height="60dp"
-        android:backgroundTint="#FAF6F6"
-        android:drawableLeft="@drawable/ic_persona"
-        android:ems="10"
-        android:hint="@string/app_usuario"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#F6F6F6"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.575" />
-
-    <EditText
-        android:id="@+id/edtPassword"
-        android:layout_width="283dp"
-        android:layout_height="58dp"
-        android:backgroundTint="#F8F5F5"
-        android:drawableLeft="@drawable/ic_candado"
-        android:ems="10"
-        android:hint="@string/app_pass"
-        android:inputType="textPassword"
-        android:textAlignment="center"
-        android:textColor="#FAF8F8"
-        android:textColorHint="#F6F6F6"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.685" />
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="307dp"
-        android:layout_height="58dp"
-        android:backgroundTint="@android:color/black"
-        android:text="INICIAR"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.472"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.839" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="263dp"
         android:layout_height="319dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.072"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
         app:srcCompat="@drawable/imos" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/edtUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:drawablePadding="12dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#F8F5F5"
+        android:drawableLeft="@drawable/ic_persona"
+        android:hint="@string/app_usuario"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textColor="#FAF8F8"
+        android:textColorHint="#F6F6F6" />
+
+    <EditText
+        android:id="@+id/edtPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:drawablePadding="12dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#F8F5F5"
+        android:drawableLeft="@drawable/ic_candado"
+        android:hint="@string/app_pass"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textColor="#FAF8F8"
+        android:textColorHint="#F6F6F6"
+        />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="@color/botonLogin"
+        android:text="INICIAR"
+        android:textColor="@color/white" />
+
+
+</LinearLayout>

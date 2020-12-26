@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -33,6 +35,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,11 +55,11 @@ public class HomeFragment extends Fragment {
     ProgressDialog progressDialog;
     Spinner spinnerModalidad;
     Spinner spinerSector;
-    Spinner spinnerInfra1;
+   /* Spinner spinnerInfra1;
     Spinner spinnerInfra2;
     Spinner spinnerInfra3;
     Spinner spinnerInfra4;
-    Spinner spinnerInfra5;
+    Spinner spinnerInfra5;*/
     String modalidad;
     String sector;
     String infraccion1;
@@ -73,6 +76,15 @@ public class HomeFragment extends Fragment {
     String delegacionId;
     String activo;
 
+
+    //EDTS INFRACCIÓN
+
+    AutoCompleteTextView edtInfraccion1;
+    AutoCompleteTextView edtInfraccion2;
+    AutoCompleteTextView edtInfraccion3;
+    AutoCompleteTextView edtInfraccion4;
+    AutoCompleteTextView edtInfraccion5;
+
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -80,11 +92,11 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
+       // final TextView textView = root.findViewById(R.id.text_home);
         //Parametros XML
         final TextView nombreApp = root.findViewById(R.id.tvApp);
         final TextView tvUsuario = root.findViewById(R.id.tvUsuario);
-        final TextView tvUsuario2 = root.findViewById(R.id.tvUsuario2);
+       // final TextView tvUsuario2 = root.findViewById(R.id.tvUsuario2);
         final TextView tvMunicipio = root.findViewById(R.id.tvMunicipio);
         checkBoxLicencia = root.findViewById(R.id.cBoxLicencia);
         final CheckBox checkBoxPlaca = root.findViewById(R.id.cBoxPlaca);
@@ -92,75 +104,111 @@ public class HomeFragment extends Fragment {
         editTextPlaca = root.findViewById(R.id.edtPlaca);
         editTextLicencia = root.findViewById(R.id.edtLicencia);
         final Spinner spinnerZona = root.findViewById(R.id.spZona);
-        final Spinner spinnerInfraccion = root.findViewById(R.id.spInfraccion3);
+
+        //final Spinner spinnerInfraccion = root.findViewById(R.id.spInfraccion3);
+
         final Button buttonInfraccion = root.findViewById(R.id.btnInfraccion);
         final Button buttonConsulta = root.findViewById(R.id.btnConsulta);
         final Button bntCuenta = root.findViewById(R.id.btnCuenta);
+
         final Button bntQuitar = root.findViewById(R.id.btnQuitar);
 
+        String[] InfracionesList = getResources().getStringArray(R.array.infracciones_arrays);
 
+        edtInfraccion1 = root.findViewById(R.id.edtInfraccion1);
+        ArrayAdapter<String> adapterInfracciones = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,InfracionesList);
+        edtInfraccion1.setAdapter(adapterInfracciones);
+
+        edtInfraccion2 = root.findViewById(R.id.edtInfraccion2);
+        ArrayAdapter<String> adapterInfracciones2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,InfracionesList);
+        edtInfraccion2.setAdapter(adapterInfracciones2);
+
+        edtInfraccion3 = root.findViewById(R.id.edtInfraccion3);
+        ArrayAdapter<String> adapterInfracciones3 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,InfracionesList);
+        edtInfraccion3.setAdapter(adapterInfracciones3);
+
+        edtInfraccion4 = root.findViewById(R.id.edtInfraccion4);
+        ArrayAdapter<String> adapterInfraccione4 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,InfracionesList);
+        edtInfraccion4.setAdapter(adapterInfraccione4);
+
+        edtInfraccion5 = root.findViewById(R.id.edtInfraccion5);
+        ArrayAdapter<String> adapterInfraccione5 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,InfracionesList);
+        edtInfraccion5.setAdapter(adapterInfraccione5);
+
+
+        //Defenimos vista del spinner "CAJA"
         spinnerModalidad = root.findViewById(R.id.spModalidad);
+        //Lista principal despliega primero
+        ArrayAdapter adapterModalidad = ArrayAdapter.createFromResource(getActivity(),R.array.modalidad_arrays,R.layout.spinner_item);
+        //Mostramos el contenido del source en un dropDown y lo seteamos.
+        adapterModalidad.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+        spinnerModalidad.setAdapter(adapterModalidad);
+
+
         spinerSector = root.findViewById(R.id.spZona);
-        spinnerInfra1 = root.findViewById(R.id.spInfraccion1);
-        spinnerInfra2 = root.findViewById(R.id.spInfraccion2);
-        spinnerInfra3 = root.findViewById(R.id.spInfraccion3);
-        spinnerInfra4 = root.findViewById(R.id.spInfraccion4);
-        spinnerInfra5 = root.findViewById(R.id.spInfraccion5);
+        //Lista principal despliega primero
+        ArrayAdapter adapterZona = ArrayAdapter.createFromResource(getActivity(),R.array.zonas_arrays,R.layout.spinner_item);
+        //Mostramos el contenido del source en un dropDown y lo seteamos.
+        adapterZona.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+        spinerSector.setAdapter(adapterZona);
 
-        spinnerInfra1.setVisibility(View.GONE);
-        spinnerInfra2.setVisibility(View.GONE);
-        spinnerInfra3.setVisibility(View.GONE);
-        spinnerInfra4.setVisibility(View.GONE);
-        spinnerInfra5.setVisibility(View.GONE);
 
-        bntCuenta.setOnClickListener(new View.OnClickListener() {
+
+        edtInfraccion1.setVisibility(View.GONE);
+        edtInfraccion2.setVisibility(View.GONE);
+        edtInfraccion3.setVisibility(View.GONE);
+        edtInfraccion4.setVisibility(View.GONE);
+        edtInfraccion5.setVisibility(View.GONE);
+        bntQuitar.setVisibility(View.GONE);
+
+ bntCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cuenta++;
 
                 Log.d("CUENTS+++","CONTADOR"+cuenta);
                 if (cuenta == 1){
-                    spinnerInfra1.setVisibility(View.VISIBLE);
+                    edtInfraccion1.setVisibility(View.VISIBLE);
                     bntQuitar.setVisibility(View.VISIBLE);
                 }
                 if (cuenta == 2){
-                    spinnerInfra2.setVisibility(View.VISIBLE);
+                    edtInfraccion2.setVisibility(View.VISIBLE);
 
                 }
                 if(cuenta == 3){
-                    spinnerInfra3.setVisibility(View.VISIBLE);
+                    edtInfraccion3.setVisibility(View.VISIBLE);
                 }
                 if(cuenta == 4){
-                    spinnerInfra4.setVisibility(View.VISIBLE);
+                    edtInfraccion4.setVisibility(View.VISIBLE);
                 }
                 if(cuenta == 5){
-                    spinnerInfra5.setVisibility(View.VISIBLE);
+                    edtInfraccion5.setVisibility(View.VISIBLE);
 
                 }
             }
         });
 
 
-        bntQuitar.setOnClickListener(new View.OnClickListener() {
+         bntQuitar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 cuenta--;
                 Log.d("CUENTS---","CONTADOR"+cuenta);
                 if (cuenta == 4){
-                    spinnerInfra5.setVisibility(View.GONE);
+                    edtInfraccion5.setVisibility(View.GONE);
                 }
                 if (cuenta == 3){
-                    spinnerInfra4.setVisibility(View.GONE);
+                    edtInfraccion4.setVisibility(View.GONE);
                 }
                 if(cuenta == 2){
-                    spinnerInfra3.setVisibility(View.GONE);
+                    edtInfraccion3.setVisibility(View.GONE);
                 }
                 if(cuenta == 1){
-                    spinnerInfra2.setVisibility(View.GONE);
+                    edtInfraccion2.setVisibility(View.GONE);
                 }
                 if(cuenta == 0){
-                    spinnerInfra1.setVisibility(View.GONE);
+                    edtInfraccion1.setVisibility(View.GONE);
                     bntQuitar.setVisibility(View.GONE);
 
 
@@ -190,8 +238,8 @@ public class HomeFragment extends Fragment {
             nombre  = args.getString("nombre");
             delegacionId  = args.getString("delegacionId");
             activo  = args.getString("activo");
-            tvUsuario.setText(nombre);
-            tvUsuario2.setText(username);
+            tvUsuario.setText(nombre+" "+username);
+
             tvMunicipio.setText("Tijuana");
           Log.d("USERSID","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID"+usersId);
         }
@@ -327,171 +375,12 @@ public class HomeFragment extends Fragment {
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                //textView.setText(s);
             }
         });
         return root;
     }
 
-/*
-    private void enviarWSInfraccion() {
-
-
-        //StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://simov.app/servicios/controlVehicular.php", new Response.Listener<JSONObject>() {
-        String url = "https://simov.app/servicios/controlVehicular.php";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray jsonArray = response.getJSONArray("data");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject wsGob = jsonArray.getJSONObject(i);
-
-                        //Obteniendo datos del WS de gobbierno
-
-                        String placa = wsGob.getString("placa");
-                        Log.d("PLACAWS", "placa que vienedel WSGOB" + placa.toString());
-
-                        String estatus = wsGob.getString("estatus");
-                        String propietario = wsGob.getString("propietario");
-                        Log.d("NOMBREWS", "placa que vienedel WSGOB" + propietario.toString());
-                        String vigencia = wsGob.getString("fechaVencimiento");
-                        String vim = wsGob.getString("serie");
-                        String marca = wsGob.getString("marca");
-
-                        Log.d("WS", "ESTAS EN WS " + marca);
-
-                        //Obtenemos el valor del edit de la licencia.
-                        licencia = editTextLicencia.getText().toString();
-
-                        Intent intentWs = new Intent(getActivity(), Wsgob.class);
-                        intentWs.putExtra("licencia", licencia);
-                        intentWs.putExtra("bandera", enviaBanderaLic);
-                        intentWs.putExtra("placa", placa);
-                        intentWs.putExtra("estatus", estatus);
-                        intentWs.putExtra("propietario", propietario);
-                        intentWs.putExtra("vigencia", vigencia);
-                        intentWs.putExtra("vim", vim);
-                        intentWs.putExtra("marca", marca);
-
-                        startActivity(intentWs);
-                        //int age = employee.getInt("age");
-                        //String mail = employee.getString("mail");
-                        //textView.append(firstName + ", " + String.valueOf(age) + ", " + mail +"\n\n");
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        RequestQueue requesrQueue = Volley.newRequestQueue(getContext());
-        requesrQueue.add(request);
-
-    }
-*/
-
-    /*
-    *  private void validarUsuario(String URL){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                //Validamos que el response no este vacio
-                if(!response.isEmpty()){
-                    Toast.makeText(MainActivity.this,"ENTRASTE AL LOGIN"+response,Toast.LENGTH_LONG).show();
-                    //Lanzamos Intent Navigation Drawer.
-                Intent intent = new Intent(getApplicationContext(),Drawer.class);
-                startActivity(intent);
-                }else{
-                    Toast.makeText(MainActivity.this,"CONTRASEÑA INCORRECTA",Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> parametros = new HashMap<String,String>();
-                parametros.put("usuario",edtUser.getText().toString());
-                parametros.put("password",edtPassword.getText().toString());
-                return parametros;
-            }
-        };
-        RequestQueue requesrQueue   = Volley.newRequestQueue(this);
-        requesrQueue.add(stringRequest);
-    }
-    *
-    * */
-
-   /* private void enviarWSConsulta() {
-        String url = "https://simov.app/servicios/controlVehicular.php";
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
-
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray jsonArray = response.getJSONArray("data");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject wsGob = jsonArray.getJSONObject(i);
-                        //Obteniendo datos del WS de gobbierno
-
-                        placa = wsGob.getString("placa");
-                        Log.d("PLACAWS","placa que vienedel WSGOB"+placa.toString());
-
-                        String estatus = wsGob.getString("estatus");
-                        String propietario = wsGob.getString("propietario");
-                        Log.d("NOMBREWS","placa que vienedel WSGOB"+propietario.toString());
-                        String vigencia = wsGob.getString("fechaVencimiento");
-                        String vim  = wsGob.getString("serie");
-                        String marca = wsGob.getString("marca");
-
-                        Log.d("WS", "ESTAS EN WS "+ marca);
-
-                        Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
-                        intentWs.putExtra("param",licencia);
-                        intentWs.putExtra("bandera",enviaBanderaLic);
-                        intentWs.putExtra("placa",placa);
-                        intentWs.putExtra("estatus",estatus);
-                        intentWs.putExtra("propietario",propietario);
-                        intentWs.putExtra("vigencia",vigencia);
-                        intentWs.putExtra("vim",vim);
-                        intentWs.putExtra("marca",marca);
-
-                        startActivity(intentWs);
-                        //int age = employee.getInt("age");
-                        //String mail = employee.getString("mail");
-                        //textView.append(firstName + ", " + String.valueOf(age) + ", " + mail +"\n\n");
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> parametros = new HashMap<String,String>();
-                parametros.put("placa",editTextLicencia.getText().toString());
-                Log.d("parametro","Valor parametro edt placa"+parametros.toString());
-                return parametros;
-            }
-        };
-        RequestQueue requesrQueue   = Volley.newRequestQueue(getContext());
-        requesrQueue.add(request);
-
-    }
-*/
 
 
     private void enviarWSConsulta(String URL) {
@@ -648,11 +537,11 @@ public class HomeFragment extends Fragment {
                             licencia = editTextLicencia.getText().toString();
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             sector = spinerSector.getSelectedItem().toString();
-                            infraccion1 = spinnerInfra1.getSelectedItem().toString();
-                            infraccion2 = spinnerInfra2.getSelectedItem().toString();
-                            infraccion3 = spinnerInfra3.getSelectedItem().toString();
-                            infraccion4 = spinnerInfra4.getSelectedItem().toString();
-                            infraccion5 = spinnerInfra5.getSelectedItem().toString();
+                            infraccion1 = edtInfraccion1.getAdapter().toString();
+                            infraccion1 = edtInfraccion2.getAdapter().toString();
+                            infraccion1 = edtInfraccion3.getAdapter().toString();
+                            infraccion1 = edtInfraccion4.getAdapter().toString();
+                            infraccion1 = edtInfraccion5.getAdapter().toString();
 
                             //############################
 
@@ -744,11 +633,11 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("placa", PLACA);
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             sector = spinerSector.getSelectedItem().toString();
-                            infraccion1 = spinnerInfra1.getSelectedItem().toString();
-                            infraccion2 = spinnerInfra2.getSelectedItem().toString();
-                            infraccion3 = spinnerInfra3.getSelectedItem().toString();
-                            infraccion4 = spinnerInfra4.getSelectedItem().toString();
-                            infraccion5 = spinnerInfra5.getSelectedItem().toString();
+                            infraccion1 = edtInfraccion1.getAdapter().toString();
+                            infraccion1 = edtInfraccion2.getAdapter().toString();
+                            infraccion1 = edtInfraccion3.getAdapter().toString();
+                            infraccion1 = edtInfraccion4.getAdapter().toString();
+                            infraccion1 = edtInfraccion5.getAdapter().toString();
                             String cuentaString = Integer.toString(cuenta);
 
                             intentWs.putExtra("sector",sector);
@@ -809,6 +698,20 @@ public class HomeFragment extends Fragment {
         RequestQueue requesrQueue = Volley.newRequestQueue(getContext());
         requesrQueue.add(stringRequest);
     }
+
+
+    /*private static final String[] InfracionesList = new String[]{
+            "FALTA DE PLACAS","CIRCULA SIN PLACAS","FALTA DE TARJETA CIRCULACION","TARJETA CIRCULACION VENCIDA","TRANSITAR EN EL CARRIL NO CORRESPONDIENTE","SUBIR BAJAR PASAJE LUGAR INDEBIDO",
+            "ESTACIONARSE EN LUGAR PROHIBIDO","FALTA DE ESPEJO(S) RETROVISOR","FALTA DE LUCES DELANTERAS","FATLA DE LUCES TRASERAS-FRENO","FALTA DE LUCES","EXCESO DE PASAJE","EXCESO DE CARGA",
+            "TRASLADO DE MERCANCIA VIA PUBLICA","IMPIDEN VISIBILIDAD AL CONDUCTOR","MODIFICACION CARROCERIA","FALTA DE ASEO AL OPERADOR","MODIFICAR ASIENTOS PARA ACEPTAR MAS PASAJEROS",
+            "SERVICIO DE PASAJEROS EN VEHICULO PARTICULAR","NO CONTAR CON EL TIPO DE LICENCIA CORRESPONDIENTE","NO REUNIR CONDICIONES DE IMAGEN Y COMODIDAD","NO CONTAR CON REVISION MECANICA",
+            "REVISION DE DOCUMENTOS","PRESTAR SERVICIO INTERMUNICIPAL SIN PERMISO","CONTAMINAR CON HUMO","LLANTAS LISAS","ROTULACION INAPROPIADA","EXTINGUIDOR,BOTIQUIN","VENTANAS ROTAS O SIN ELLA",
+            "LIMPIA PARABRISAS","TRABAJAR FUERA DE HORARIO DE 4 A 22HRS","TRAER PUERTAS CERRADAS MIENTRAS LA UNIDA SE MUEVE","OBSTRUCCION DE VISIBILIDAD DEL CONDUCTOR","TENER VIGENTE POLIZA DAÑOS A TERCEROS",
+            "UNIFORME OBLIGATORIO PARA PRESTAR EL SERVICIO","POR CIRCULAR CON CAJUELA ABIERTA","POR CIRCULAR CON MATERIAL FLAMABLE","SIN NUMERO ECONOMICO","POR CIRCULAR SIN NOMBRE DE LA RUTA A LOS COSTADOS",
+            "CIRCULAR SIN LA LEYENDA DE TAXI A LOS COSTADOS","FUMAR O TOMAR BEBIDAS ALCOHOLICAS EN LA UNIDAD","ARROJAR BASURA U OBJETOS EN LA VIA PUBLICA","OBSTRUIR CARRIL DE CIRCULACION",
+            "REALIZAR TODO TIPO DE REPARACIONES MECANICAS","HACER USO DE PARKIN AUN PAGANDO TARIFA","VIDRIOS POLARIZADOS","REALIZAR COBROS ADICIONALES","POR NO CONTAR CON PERMISO EN SITIO O LANZADERAS",
+            "ALTERAR MODIFICAR SISTEMA DE SONIDO NO ORIGINAL","NO CONTAR CON EXAMEN TOXICOLOGICO","NO TRAER LICENCIA","POR ABASTASER COMBUSTIBLE CON PASAJE ABORDO","POR UTILIZAR CELULAR O RADIO MIENTRAS CODUCE",
+            "POR MODIFICAR ESCAPE O SILENCIADOR","POR NO RESPETAR EL REGLAMENTO DE TRANSITO","POR CIRCULAR EN RUTA DIFERENTE A LA REGISTRADA"};*/
 
 
 }
