@@ -17,7 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:layout_marginBottom="40dp"
         android:alpha=".20"
         app:srcCompat="@drawable/imos"/>

@@ -48,14 +48,15 @@ public class WsgobConsulta extends AppCompatActivity {
     TextView textViewFechaVencimiento;
     TextView textViewInfracciones;
     TextView textViewFechaInfracciones;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wsgob_consulta);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        String URLICENCIA = "https://simov.app/servicios/consultaLicencia.php";
-        String URLINFRACCION = "https://simov.app/servicios/consultaInfraccion.php";
+        String URLICENCIA = getResources().getString(R.string.URL_LICENCIA);;
+        String URLINFRACCION = getResources().getString(R.string.URL_INFRACCION);
         enviarWSConsultaLicencia(URLICENCIA);
         enviarWSConsultaInfraccion(URLINFRACCION);
 
@@ -71,14 +72,14 @@ public class WsgobConsulta extends AppCompatActivity {
         textViewFechaVencimiento = (TextView)findViewById(R.id.tvFechaVencimiento);
         textViewFechaInfracciones = (TextView)findViewById(R.id.tvFechaInfraccion);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+       /* FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         Bundle bundle  = getIntent().getExtras();
         //Validamos que no venga vacio
@@ -126,57 +127,6 @@ public class WsgobConsulta extends AppCompatActivity {
     }
 
 
-   /* private void enviarWSConsultaLicencia() {
-
-
-        //StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://simov.app/servicios/controlVehicular.php", new Response.Listener<JSONObject>() {
-        String url = "https://simov.app/servicios/consultaLicencia.php";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray jsonArray = response.getJSONArray("data");
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject wsGob = jsonArray.getJSONObject(i);
-                        //Obteniendo datos del WS de gobbierno
-                        String licencia = wsGob.getString("licencia");
-                        String paterno = wsGob.getString("paterno");
-                        String materno = wsGob.getString("materno");
-                        String nombre  = wsGob.getString("nombre");
-                        String vencimiento = wsGob.getString("fechaVenc");
-
-                        //Log.d("PLACAWS","placa que vienedel WSGOB"+placa.toString());
-
-                        String nombreCompleto = nombre+" "+paterno+" "+materno;
-                        textViewLicencia.setText(licencia);
-                        textViewNombre.setText(nombreCompleto);
-                        textViewFechaVencimiento.setText(vencimiento);
-
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> parametros = new HashMap<String,String>();
-                parametros.put("placa",placa);
-
-                return parametros;
-            }
-        };
-        RequestQueue requesrQueue   = Volley.newRequestQueue(WsgobConsulta.this);
-        requesrQueue.add(request);
-
-    }
-*/
 
     private void enviarWSConsultaLicencia(String URLICENCIA) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLICENCIA, new Response.Listener<String>() {
