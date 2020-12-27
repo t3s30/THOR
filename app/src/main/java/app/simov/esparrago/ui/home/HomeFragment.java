@@ -509,6 +509,15 @@ public class HomeFragment extends Fragment  {
 
                     } catch (JSONException e) {
                         Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
+
+                        intentWs.putExtra("usersId",usersId);
+                        Log.d("HomeFragment","USERSID########################--->"+usersId);
+                        intentWs.putExtra("username",username);
+                        intentWs.putExtra("profile",profile);
+                        intentWs.putExtra("nombre",nombre);
+                        intentWs.putExtra("delegacionId",delegacionId);
+                        intentWs.putExtra("activo",activo);
+
                         licencia = editTextLicencia.getText().toString();
                         intentWs.putExtra("licencia", licencia);
                         intentWs.putExtra("placa", "NO-PLACA");
@@ -700,6 +709,14 @@ public class HomeFragment extends Fragment  {
                     } catch (JSONException e) {
                         Intent intentWs = new Intent(getActivity(), Infracciones.class);
                         licencia = editTextLicencia.getText().toString();
+                        intentWs.putExtra("usersId",usersId);
+                        Log.d("HomeFragment","USERSID########################--->"+usersId);
+                        intentWs.putExtra("username",username);
+                        intentWs.putExtra("profile",profile);
+                        intentWs.putExtra("nombre",nombre);
+                        intentWs.putExtra("delegacionId",delegacionId);
+                        intentWs.putExtra("activo",activo);
+
                         intentWs.putExtra("licencia", licencia);
                         intentWs.putExtra("placa", "NO-PLACA");
                         Log.d("licencia2", "###Valor de la licencia" + licencia);
