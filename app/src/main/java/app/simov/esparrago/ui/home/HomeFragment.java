@@ -554,11 +554,12 @@ public class HomeFragment extends Fragment  {
                             licencia = editTextLicencia.getText().toString();
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             sector = spinerSector.getSelectedItem().toString();
-                            infraccion1 = edtInfraccion1.getAdapter().toString();
-                            infraccion1 = edtInfraccion2.getAdapter().toString();
-                            infraccion1 = edtInfraccion3.getAdapter().toString();
-                            infraccion1 = edtInfraccion4.getAdapter().toString();
-                            infraccion1 = edtInfraccion5.getAdapter().toString();
+                            infraccion1 = edtInfraccion1.getText().toString();
+                            Log.d("INFRACCION1-1","################========>>>>>"+infraccion1);
+                            infraccion2 = edtInfraccion2.getText().toString();
+                            infraccion3 = edtInfraccion3.getText().toString();
+                            infraccion4 = edtInfraccion4.getText().toString();
+                            infraccion5 = edtInfraccion5.getText().toString();
 
                             //############################
 
@@ -650,11 +651,12 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("placa", PLACA);
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             sector = spinerSector.getSelectedItem().toString();
-                            infraccion1 = edtInfraccion1.getAdapter().toString();
-                            infraccion1 = edtInfraccion2.getAdapter().toString();
-                            infraccion1 = edtInfraccion3.getAdapter().toString();
-                            infraccion1 = edtInfraccion4.getAdapter().toString();
-                            infraccion1 = edtInfraccion5.getAdapter().toString();
+                            infraccion1 = edtInfraccion1.getText().toString();
+                            Log.d("INFRACCION1-2","################========>>>>>"+infraccion1);
+                            infraccion2 = edtInfraccion2.getText().toString();
+                            infraccion3 = edtInfraccion3.getText().toString();
+                            infraccion4 = edtInfraccion4.getText().toString();
+                            infraccion5 = edtInfraccion5.getText().toString();
                             String cuentaString = Integer.toString(cuenta);
 
                             intentWs.putExtra("sector",sector);

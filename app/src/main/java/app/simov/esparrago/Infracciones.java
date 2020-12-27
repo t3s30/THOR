@@ -105,7 +105,7 @@ public class Infracciones extends AppCompatActivity{
     EditText edtComentarios;
 
 
-    String UPLOAD_URL = "https://simov.app/servicios/insertaInfraccion.php ";
+    String UPLOAD_URL = "https://simov.app/servicios/insertaInfraccion.php";
     String URLICENCIA = "https://simov.app/servicios/consultaLicencia.php";
     String URLVEHICULAR = "https://simov.app/servicios/controlVehicular.php";
     String URLINFRACCION = "https://simov.app/servicios/consultaInfraccion.php";
@@ -184,6 +184,7 @@ public class Infracciones extends AppCompatActivity{
         if (bundle != null){
             //Recojemos parametros que vienen desde el LOGIN.
             usersId  = bundle.getString("usersId");
+            Log.d("USERSSSSSSSS","#####################&%&%&%&%&%&%&%&%&USERSSSSSSSS"+usersId);
             username  = bundle.getString("username");
             profile  = bundle.getString("profile");
             nombreLogin  = bundle.getString("nombre");
@@ -205,6 +206,7 @@ public class Infracciones extends AppCompatActivity{
             modalidad = bundle.getString("modalidad");
             sector = bundle.getString("sector");
             infra1 = bundle.getString("infra1");
+            Log.d("INFRACCION1-2-3","#######################========>>>>>"+infra1);
             infra2 = bundle.getString("infra2");
             infra3 = bundle.getString("infra3");
             infra4 = bundle.getString("infra4");
@@ -216,6 +218,8 @@ public class Infracciones extends AppCompatActivity{
             Log.d("INFRA3","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra3);
             Log.d("INFRA4","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra4);
             Log.d("INFRA5","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra5);
+
+            Log.d("CUENTA$$$","$$$$$$$$$$$$$$$$$%$%#######################"+cuenta);
 
 
 
@@ -756,13 +760,22 @@ public class Infracciones extends AppCompatActivity{
                     @Override
                     public void onResponse(String response) {
                         loading.dismiss();
-                        Toast.makeText(Infracciones.this, response, Toast.LENGTH_LONG).show();
+                        Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(),Drawer.class);
+                        intent.putExtra("usersId",usersId);
+                        intent.putExtra("username",username);
+                        intent.putExtra("profile",profile);
+                        intent.putExtra("nombre",nombreLogin);
+                        intent.putExtra("delegacionId",delegacionId);
+                        intent.putExtra("activo",activo);
+
+                        startActivity(intent);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
-                Toast.makeText(Infracciones.this, error.getMessage().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Infracciones.this, "##2"+error.getMessage(), Toast.LENGTH_LONG).show();
             }
         }){
             @Override
@@ -805,6 +818,7 @@ public class Infracciones extends AppCompatActivity{
                 params.put("foto3", imagen3);
 
                 params.put("usersId", usersId);
+                //Aqui hay un Null pointer Exeption.
                 Log.d("USERSIDINFRA","###############%%%%%%%%%%"+usersId);
                 params.put("username", username);
                 params.put("profile", profile);
@@ -861,7 +875,7 @@ public class Infracciones extends AppCompatActivity{
 
     private String convertirImgString(Bitmap bitmap) {
         ByteArrayOutputStream array = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,70,array);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,50,array);
         byte[] imagenByte=array.toByteArray();
         String imagenString = Base64.encodeToString(imagenByte,Base64.DEFAULT);
         return imagenString;
@@ -869,14 +883,14 @@ public class Infracciones extends AppCompatActivity{
 
     private String convertirImgString2(Bitmap bitmap2) {
         ByteArrayOutputStream array = new ByteArrayOutputStream();
-        bitmap2.compress(Bitmap.CompressFormat.JPEG,70,array);
+        bitmap2.compress(Bitmap.CompressFormat.JPEG,50,array);
         byte[] imagenByte=array.toByteArray();
         String imagenString = Base64.encodeToString(imagenByte,Base64.DEFAULT);
         return imagenString;
     }
     private String convertirImgString3(Bitmap bitmap3) {
         ByteArrayOutputStream array = new ByteArrayOutputStream();
-        bitmap3.compress(Bitmap.CompressFormat.JPEG,70,array);
+        bitmap3.compress(Bitmap.CompressFormat.JPEG,50,array);
         byte[] imagenByte=array.toByteArray();
         String imagenString = Base64.encodeToString(imagenByte,Base64.DEFAULT);
         return imagenString;
@@ -894,6 +908,13 @@ public class Infracciones extends AppCompatActivity{
         //Regresando a la actividad principal
         Log.d("Back1","Entre en el BACKPRESSED");
         Intent gotoBack = new Intent(Infracciones.this, Drawer.class);
+
+        gotoBack.putExtra("usersId",usersId);
+        gotoBack.putExtra("username",username);
+        gotoBack.putExtra("profile",profile);
+        gotoBack.putExtra("nombre",nombreLogin);
+        gotoBack.putExtra("delegacionId",delegacionId);
+        gotoBack.putExtra("activo",activo);
         //gotoBack.putExtra(USER_GLOBAL_SENDER, username_global); <-- Use this if you want to carry some data to the other activity.
         startActivity(gotoBack);
     }
