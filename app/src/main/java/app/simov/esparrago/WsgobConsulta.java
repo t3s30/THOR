@@ -49,6 +49,14 @@ public class WsgobConsulta extends AppCompatActivity {
     TextView textViewInfracciones;
     TextView textViewFechaInfracciones;
 
+
+    String usersId;
+    String username;
+    String profile;
+    String nombreLogin;
+    String delegacionId;
+    String activo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,14 +80,6 @@ public class WsgobConsulta extends AppCompatActivity {
         textViewFechaVencimiento = (TextView)findViewById(R.id.tvFechaVencimiento);
         textViewFechaInfracciones = (TextView)findViewById(R.id.tvFechaInfraccion);
 
-       /* FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         Bundle bundle  = getIntent().getExtras();
         //Validamos que no venga vacio
@@ -100,6 +100,15 @@ public class WsgobConsulta extends AppCompatActivity {
             nombre = bundle.getString("nnombre");
             fechaVecimiento = bundle.getString("fechaVencimiento");
             textViewPlaca.setText(placa);
+
+
+            usersId  = bundle.getString("usersId");
+            Log.d("USERSSSSSSSS","#####################&%&%&%&%&%&%&%&%&USERSSSSSSSS"+usersId);
+            username  = bundle.getString("username");
+            profile  = bundle.getString("profile");
+            nombreLogin  = bundle.getString("nombre");
+            delegacionId  = bundle.getString("delegacionId");
+            activo  = bundle.getString("activo");
 
 
 
@@ -342,7 +351,14 @@ public class WsgobConsulta extends AppCompatActivity {
         //Regresando a la actividad principal
         Log.d("Back1","Entre en el BACKPRESSED");
         Intent gotoBack = new Intent(WsgobConsulta.this, Drawer.class);
+        gotoBack.putExtra("usersId",usersId);
+        gotoBack.putExtra("username",username);
+        gotoBack.putExtra("profile",profile);
+        gotoBack.putExtra("nombre",nombreLogin);
+        gotoBack.putExtra("delegacionId",delegacionId);
+        gotoBack.putExtra("activo",activo);
         //gotoBack.putExtra(USER_GLOBAL_SENDER, username_global); <-- Use this if you want to carry some data to the other activity.
+        finish();
         startActivity(gotoBack);
     }
 

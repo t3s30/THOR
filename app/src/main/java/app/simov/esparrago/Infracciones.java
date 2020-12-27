@@ -768,8 +768,9 @@ public class Infracciones extends AppCompatActivity{
                         intent.putExtra("nombre",nombreLogin);
                         intent.putExtra("delegacionId",delegacionId);
                         intent.putExtra("activo",activo);
-
+                        finish();
                         startActivity(intent);
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -916,7 +917,9 @@ public class Infracciones extends AppCompatActivity{
         gotoBack.putExtra("delegacionId",delegacionId);
         gotoBack.putExtra("activo",activo);
         //gotoBack.putExtra(USER_GLOBAL_SENDER, username_global); <-- Use this if you want to carry some data to the other activity.
+        finish();
         startActivity(gotoBack);
+
     }
 
 

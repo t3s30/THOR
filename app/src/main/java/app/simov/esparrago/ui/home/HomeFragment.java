@@ -430,6 +430,17 @@ public class HomeFragment extends Fragment  {
                            modalidad =spinnerModalidad.getSelectedItem().toString();
                            intentWs.putExtra("modalidad",modalidad);
                            intentWs.putExtra("placa", placa);
+
+
+                           intentWs.putExtra("usersId",usersId);
+                           Log.d("HomeFragment","USERSID########################--->"+usersId);
+                           intentWs.putExtra("username",username);
+                           intentWs.putExtra("profile",profile);
+                           intentWs.putExtra("nombre",nombre);
+                           intentWs.putExtra("delegacionId",delegacionId);
+                           intentWs.putExtra("activo",activo);
+
+
                            startActivity(intentWs);
                        }
 
@@ -470,6 +481,13 @@ public class HomeFragment extends Fragment  {
                                 intentWs.putExtra("vigencia", VIGENCIA);
                             }
 
+                            intentWs.putExtra("usersId",usersId);
+                            Log.d("HomeFragment","USERSID########################--->"+usersId);
+                            intentWs.putExtra("username",username);
+                            intentWs.putExtra("profile",profile);
+                            intentWs.putExtra("nombre",nombre);
+                            intentWs.putExtra("delegacionId",delegacionId);
+                            intentWs.putExtra("activo",activo);
 
                                 licencia = editTextLicencia.getText().toString();
                                 intentWs.putExtra("licencia", licencia);
