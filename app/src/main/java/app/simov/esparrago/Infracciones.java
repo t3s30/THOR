@@ -144,6 +144,7 @@ public class Infracciones extends AppCompatActivity{
     String VENCIMIENTO;
     String NOMBRECOMPLETO;
 
+    String ECONOMICO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -693,6 +694,7 @@ public class Infracciones extends AppCompatActivity{
                                 tvVigenciaTcInfraccion.setText(VIGENCIA);
                                 Log.d("VIGECNCIA33","Esto es lo que trae la vigencia de transporte publico "+VIGENCIA);
 
+                                ECONOMICO = jsonobject.getString("economico");
 
                             } if(validaEstatus == true){
                                 //Valida si viene de transporte particular.
@@ -865,6 +867,7 @@ public class Infracciones extends AppCompatActivity{
                 Log.d("CUENTA","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
 
                 params.put("comentarios",comentarios);
+                params.put("numeroEconomico",ECONOMICO);
 
                 return params;
             }

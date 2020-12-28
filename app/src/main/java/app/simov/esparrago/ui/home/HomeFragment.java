@@ -47,6 +47,7 @@ import app.simov.esparrago.Infracciones;
 import app.simov.esparrago.R;
 import app.simov.esparrago.WsgobConsulta;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -175,6 +176,9 @@ public class HomeFragment extends Fragment  {
         edtInfraccion5.setVisibility(View.GONE);
         bntQuitar.setVisibility(View.GONE);
 
+        NavigationView navigationView = (NavigationView) root.findViewById(R.id.nav_view);
+
+
 
 
  //Boton Iniciar QR
@@ -258,6 +262,9 @@ public class HomeFragment extends Fragment  {
             delegacionId  = args.getString("delegacionId");
             activo  = args.getString("activo");
             tvUsuario.setText(nombre+" "+username);
+
+
+
 
             tvMunicipio.setText("Tijuana");
           Log.d("USERSID","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID"+usersId);

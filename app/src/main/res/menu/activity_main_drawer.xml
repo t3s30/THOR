@@ -20,5 +20,7 @@
             android:id="@+id/nav_radar"
             android:icon="@drawable/ic_radar"
             android:title="@string/menu_radar" />
+
     </group>
+
 </menu>
