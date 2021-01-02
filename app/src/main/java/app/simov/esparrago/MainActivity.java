@@ -4,6 +4,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         //Ocultanos e action bar
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
+
+        //Orientacion de pantalla.
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //Llamamos a los objetos que estan en la vista XML por su ID
         edtUser = findViewById(R.id.edtUser);

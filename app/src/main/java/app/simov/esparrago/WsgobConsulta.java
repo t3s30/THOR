@@ -1,6 +1,7 @@
 package app.simov.esparrago;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import com.android.volley.AuthFailureError;
@@ -62,6 +63,9 @@ public class WsgobConsulta extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wsgob_consulta);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        //Orientacion de pantalla.
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         setSupportActionBar(toolbar);
         String URLICENCIA = getResources().getString(R.string.URL_LICENCIA);;
         String URLINFRACCION = getResources().getString(R.string.URL_INFRACCION);

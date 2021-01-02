@@ -867,7 +867,7 @@ public class Infracciones extends AppCompatActivity{
                 Log.d("CUENTA","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
 
                 params.put("comentarios",comentarios);
-                params.put("numeroEconomico",ECONOMICO);
+                //params.put("numeroEconomico",ECONOMICO);
 
                 return params;
             }

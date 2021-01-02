@@ -1,7 +1,9 @@
 package app.simov.esparrago.ui.home;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
@@ -105,6 +107,12 @@ public class HomeFragment extends Fragment  {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+
+        //Orientacion de pantalla en fragment
+        Activity a = getActivity();
+        if(a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
        // final TextView textView = root.findViewById(R.id.text_home);
         //Parametros XML
         final TextView nombreApp = root.findViewById(R.id.tvApp);
