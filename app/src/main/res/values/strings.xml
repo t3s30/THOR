@@ -189,6 +189,7 @@
 
     <!--Strings QR Licencia-->
     <string name="QR_licencia">ESCANEA LICENCIA</string>
+    <string name="dato_lic">DATOS LICENCIA</string>
 
 
     <!--Urls WS-->
