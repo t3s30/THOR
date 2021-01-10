@@ -13,7 +13,7 @@
 
     <string name="menu_home">THOR-PRINCIPAL</string>
     <string name="menu_gallery">QR</string>
-    <string name="menu_slideshow">CONSULTA</string>
+    <string name="menu_slideshow">CONSULTA - POLIZA</string>
     <string name="menu_radar">V-RADAR</string>
     <string name="titulo_principal">ESPARRAGO PRINCIPAL</string>
 
@@ -171,7 +171,7 @@
     <string name="VIGENCIA_TC">VIGENCIA TC :</string>
     <string name="VIM"> VIM/SERIE :</string>
     <string name="MARCA"> MARCA :</string>
-    <string name="DATOS_PLACA"> DATOS PLACA :</string>
+    <string name="DATOS_PLACA"> DATOS :</string>
     <string name="DATOS_INFRACCION"> DATOS INFRACCIÓN :</string>
     <string name="NUMERO_INFRACCIONES"> INFRACCIONES :</string>
     <string name="SIN_INFRACCION"> SIN-INFRACCIONES </string>
@@ -183,8 +183,16 @@
     <string name="VENCE_LICENCIA">FECHA VENCIMIENTO :</string>
 
 
+    <!--Strings consulta POLIZA-->
+    <string name="titulo_poliza">THOR - POLIZA</string>
+    <string name="sin_poliza">SIN POLIZA</string>
+
+
+
+
     <!--Urls WS-->
     <string name="URL_LICENCIA">https://simov.app/servicios/consultaLicencia.php</string>
     <string name="URL_INFRACCION">https://simov.app/servicios/consultaInfraccion.php</string>
+    <string name="URL_POLIZA">https://simov.app/servicios/consultaPoliza.php</string>
 
 </resources>

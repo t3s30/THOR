@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:background="@color/black"
+    android:layout_height="match_parent">
+
+    <ImageView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:alpha=".20"
+        app:srcCompat="@drawable/imos"/>
+
+
+    <TextView
+        android:id="@+id/tvTituloPoliza"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:text="@string/titulo_poliza"
+        android:textAlignment="center"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <!--Empieza tabla de datos PLACAS-->
+
+    <TextView
+        android:id="@+id/tvSubPoliza"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloPoliza"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tblPlacas"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:textSize="19dp"
+        android:textColor="@color/botonLogin"
+        android:textStyle="bold"
+        android:text="@string/DATOS_PLACA"/>
+
+    <TableLayout
+        android:id="@+id/tblPlacas"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubPoliza"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tvLabelEmpresa"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="0dp"
+                android:text="EMPRESA"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvEmpresa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textColor="@color/titulosVerdes"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvLabelModalidad"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:text="@string/MODALIDAD"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvModalidad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textColor="@color/titulosVerdes"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tVLabelQR"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:text="QR"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvQR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textColor="@color/titulosVerdes"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvLabelNumeroEconomico"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:text="NUMERO ECONOMICO"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvNumeroEconomico"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="@string/sin_poliza"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/titulosVerdes"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableRow>
+
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tvLabelPlaca"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:text="@string/PLACA"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tvVim"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLabelVigerciaTc" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvPlaca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textColor="@color/titulosVerdes"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/tvPlaca"
+                    app:layout_constraintStart_toStartOf="@+id/tvPlaca"
+                    app:layout_constraintTop_toTopOf="@+id/tvLabelVim" />
+            </TableRow>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvLabeltIPO"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="TIPO"
+                android:textColor="@color/white"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvTipo"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textStyle="bold"
+                    android:textColor="@color/titulosVerdes" />
+
+            </TableRow>
+
+
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvLabelSerie"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="SERIE"
+                android:textColor="@color/white"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvSerie"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textStyle="bold"
+                    android:textColor="@color/titulosVerdes" />
+
+            </TableRow>
+
+
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvLabelMarcaV"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="MARCA"
+                android:textColor="@color/white"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvMarcaV"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textStyle="bold"
+                    android:textColor="@color/titulosVerdes" />
+
+            </TableRow>
+
+
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvLabelModelo"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="MODELO"
+                android:textColor="@color/white"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvModelo"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textStyle="bold"
+                    android:textColor="@color/titulosVerdes" />
+
+            </TableRow>
+
+
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvLabelLinea"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="LINEA"
+                android:textColor="@color/white"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvLinea"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textStyle="bold"
+                    android:textColor="@color/titulosVerdes" />
+
+            </TableRow>
+
+
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvLabelColor"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="COLOR"
+                android:textColor="@color/white"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvColor"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textStyle="bold"
+                    android:textColor="@color/titulosVerdes" />
+
+            </TableRow>
+
+
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvLabelTarjetaCirculacion"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="TARJETA CIRCULACION"
+                android:textColor="@color/white"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvTarjetaCirculacion"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textStyle="bold"
+                    android:textColor="@color/titulosVerdes" />
+
+            </TableRow>
+
+
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvLabelCobertura"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="COBERTURA"
+                android:textColor="@color/white"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvCobertura"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textStyle="bold"
+                    android:textColor="@color/titulosVerdes" />
+
+            </TableRow>
+
+
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tvLabelVigenciaSegura"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="VIGENCIA"
+                android:textColor="@color/white"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/tvVigenciaSeguro"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/sin_poliza"
+                    android:textStyle="bold"
+                    android:textColor="@color/titulosVerdes" />
+
+            </TableRow>
+
+
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvLabelObservaciones"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="0dp"
+                android:text="OBSERVACIONES"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="145dp">
+
+
+                <TextView
+                    android:id="@+id/tvObservaciones"
+                    android:layout_width="198dp"
+                    android:layout_height="138dp"
+                    android:layout_marginStart="10dp"
+                    android:inputType="textMultiLine"
+                    android:text="@string/sin_poliza"
+                    android:textColor="@color/titulosVerdes"
+                    android:textStyle="bold" />
+
+            </TableRow>
+
+
+        </TableRow>
+
+
+    </TableLayout>
+
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -111,7 +111,7 @@ public class HomeFragment extends Fragment  {
 
         //Orientacion de pantalla en fragment
         Activity a = getActivity();
-        if(a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        if(a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
        // final TextView textView = root.findViewById(R.id.text_home);
         //Parametros XML
