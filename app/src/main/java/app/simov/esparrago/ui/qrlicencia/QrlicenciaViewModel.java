@@ -1,14 +1,14 @@
-package app.simov.esparrago.ui.gallery;
+package app.simov.esparrago.ui.qrlicencia;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class QrlicenciaViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public QrlicenciaViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is gallery fragment");
     }

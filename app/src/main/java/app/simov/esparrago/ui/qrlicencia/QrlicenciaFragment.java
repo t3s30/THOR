@@ -1,4 +1,4 @@
-package app.simov.esparrago.ui.gallery;
+package app.simov.esparrago.ui.qrlicencia;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,23 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import app.simov.esparrago.R;
 
-public class GalleryFragment extends Fragment {
+public class QrlicenciaFragment extends Fragment {
 
     TextView qrResult;
-    private GalleryViewModel galleryViewModel;
+    private QrlicenciaViewModel galleryViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel =
-                new ViewModelProvider(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
-        final TextView textView = root.findViewById(R.id.text_gallery);
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+                new ViewModelProvider(this).get(QrlicenciaViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_qrlicencia, container, false);
+
         return root;
     }
 }
