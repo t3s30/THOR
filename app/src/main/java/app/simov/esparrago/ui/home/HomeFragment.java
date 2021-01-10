@@ -70,11 +70,6 @@ public class HomeFragment extends Fragment  {
     ProgressDialog progressDialog;
     Spinner spinnerModalidad;
     Spinner spinerSector;
-   /* Spinner spinnerInfra1;
-    Spinner spinnerInfra2;
-    Spinner spinnerInfra3;
-    Spinner spinnerInfra4;
-    Spinner spinnerInfra5;*/
     String modalidad;
     String sector;
     String infraccion1;
