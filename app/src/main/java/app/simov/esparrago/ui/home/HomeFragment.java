@@ -831,35 +831,52 @@ public void escanear(){
         Bundle bundle = data.getExtras();
         //from bundle, extract the image
         Bitmap bitmap = (Bitmap) bundle.get("data");
-        //set image in imageview
-        imageViewP.setImageBitmap(bitmap);
-        //process the image
-        //1. create a FirebaseVisionImage object from a Bitmap object
-        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(bitmap);
-        //2. Get an instance of FirebaseVision
-        FirebaseApp.initializeApp(getActivity());
 
-        FirebaseVision firebaseVision = FirebaseVision.getInstance();
-        //3. Create an instance of FirebaseVisionTextRecognizer
-        FirebaseVisionTextRecognizer firebaseVisionTextRecognizer = firebaseVision.getOnDeviceTextRecognizer();
-        //4. Create a task to process the image
-        Task<FirebaseVisionText> task = firebaseVisionTextRecognizer.processImage(firebaseVisionImage);
-        //5. if task is success
-        task.addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-            @Override
-            public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                String s = firebaseVisionText.getText();
-                Log.d("IMAGENPLACA","ALV ESTA ES TU PLACA"+s);
-                textViewP.setText(s);
-            }
-        });
+        if (bitmap!=null){
+            //set image in imageview
+            imageViewP.setImageBitmap(bitmap);
+            //process the image
+            //1. create a FirebaseVisionImage object from a Bitmap object
+            FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(bitmap);
+            //2. Get an instance of FirebaseVision
+            FirebaseApp.initializeApp(getActivity());
 
-        task.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+            FirebaseVision firebaseVision = FirebaseVision.getInstance();
+            //3. Create an instance of FirebaseVisionTextRecognizer
+            FirebaseVisionTextRecognizer firebaseVisionTextRecognizer = firebaseVision.getOnDeviceTextRecognizer();
+            //4. Create a task to process the image
+            Task<FirebaseVisionText> task = firebaseVisionTextRecognizer.processImage(firebaseVisionImage);
+            //5. if task is success
+            task.addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+                @Override
+                public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                    String s = firebaseVisionText.getText();
+                    Log.d("IMAGENPLACA","ALV ESTA ES TU PLACA "+s);
+                   // String infoQr = result.getContents();
+                    List<String> datosLicencia = Arrays.asList(s.split("-"));
+                    String placaDato1 = datosLicencia.get(0);
+                    String placaDato2 = datosLicencia.get(1);
+                    String placaDato3 = datosLicencia.get(2);
+
+                    //int numeroCplaca = placaDato1.length();
+                   // Log.d("PLACACONCAT","caracteres "+numeroCplaca);
+                    //char last = placaDato1.charAt(placaDato1.length() -3);
+                    Log.d("PLACACONCAT","ERES LA VRGA"+placaDato1+placaDato2+placaDato3);
+                    String placaFoto = s;
+                    editTextPlaca.setText(placaFoto);
+                    // textViewP.setText(s);
+
+                }
+            });
+
+            task.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
 
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if (result != null){
