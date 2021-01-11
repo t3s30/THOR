@@ -153,6 +153,7 @@
     <string name="INFRACCION">SELECCIONE - INFRACCIÓN</string>
     <string name="ELIMINAR">ELIMINAR</string>
     <string name="QR">QR</string>
+    <string name="foto_placa">FOTO PLACA</string>
     <string name="version">Gerencia de sistemas | IMOS | Version-1.1.1 ▲</string>
 
     <!--Strings Infracciones-->

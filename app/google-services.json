@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "905845096715",
+    "project_id": "placa-25e2e",
+    "storage_bucket": "placa-25e2e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905845096715:android:a4be139505e4f0ee0d620e",
+        "android_client_info": {
+          "package_name": "app.simov.esparrago"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905845096715-hg3s6o6m820gdtl7os2cb1pb3j73r9jr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYVK9XdW-9oYCa6xhm6W5blehtUqyyCp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905845096715-hg3s6o6m820gdtl7os2cb1pb3j73r9jr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

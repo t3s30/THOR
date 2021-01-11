@@ -1,10 +1,14 @@
 package app.simov.esparrago.ui.home;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,9 +54,19 @@ import app.simov.esparrago.Infracciones;
 import app.simov.esparrago.R;
 import app.simov.esparrago.WsgobConsulta;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.ml.vision.FirebaseVision;
+import com.google.firebase.ml.vision.common.FirebaseVisionImage;
+import com.google.firebase.ml.vision.text.FirebaseVisionText;
+import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import static androidx.core.content.ContextCompat.checkSelfPermission;
 
 public class HomeFragment extends Fragment  {
 
@@ -95,13 +110,29 @@ public class HomeFragment extends Fragment  {
     AutoCompleteTextView edtInfraccion4;
     AutoCompleteTextView edtInfraccion5;
 
+    ImageView imageViewP;
+    TextView textViewP;
     private HomeViewModel homeViewModel;
     private static final String EXTRA_CODE = "app.simov.esparrago";
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+      //  FirebaseApp.initializeApp(getActivity());
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        //camara placa
+        //find imageview
+        imageViewP = root.findViewById(R.id.imageId);
+        //find textview
+        textViewP = root.findViewById(R.id.textId);
+        textViewP.setVisibility(View.GONE);
+        //check app level permission is granted for Camera
+
+        requestPermissions(new String[]{Manifest.permission.CAMERA}, 101);
+
+
+        //camara placa
 
 
         //Orientacion de pantalla en fragment
@@ -130,6 +161,8 @@ public class HomeFragment extends Fragment  {
         final Button bntQuitar = root.findViewById(R.id.btnQuitar);
 
         final Button bntQr = root.findViewById(R.id.btnQr);
+
+        final Button bntFoto = root.findViewById(R.id.btnFotoPlaca);
 
         String[] InfracionesList = getResources().getStringArray(R.array.infracciones_arrays);
 
@@ -192,8 +225,17 @@ public class HomeFragment extends Fragment  {
      }
  });
 
+        //Boton Iniciar QR
+        bntFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doProcess();
+            }
+        });
 
- //Boton agregar Infracciones
+
+
+        //Boton agregar Infracciones
  bntCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -407,6 +449,13 @@ public class HomeFragment extends Fragment  {
 
 
     }
+
+    public void doProcess() {
+        //open the camera => create an Intent object
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, 101);
+    }
+
 
 
 
@@ -777,6 +826,41 @@ public void escanear(){
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Bundle bundle = data.getExtras();
+        //from bundle, extract the image
+        Bitmap bitmap = (Bitmap) bundle.get("data");
+        //set image in imageview
+        imageViewP.setImageBitmap(bitmap);
+        //process the image
+        //1. create a FirebaseVisionImage object from a Bitmap object
+        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(bitmap);
+        //2. Get an instance of FirebaseVision
+        FirebaseApp.initializeApp(getActivity());
+
+        FirebaseVision firebaseVision = FirebaseVision.getInstance();
+        //3. Create an instance of FirebaseVisionTextRecognizer
+        FirebaseVisionTextRecognizer firebaseVisionTextRecognizer = firebaseVision.getOnDeviceTextRecognizer();
+        //4. Create a task to process the image
+        Task<FirebaseVisionText> task = firebaseVisionTextRecognizer.processImage(firebaseVisionImage);
+        //5. if task is success
+        task.addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+            @Override
+            public void onSuccess(FirebaseVisionText firebaseVisionText) {
+                String s = firebaseVisionText.getText();
+                Log.d("IMAGENPLACA","ALV ESTA ES TU PLACA"+s);
+                textViewP.setText(s);
+            }
+        });
+
+        task.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if (result != null){
             if (result.getContents() == null){

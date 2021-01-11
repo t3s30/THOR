@@ -74,6 +74,34 @@
 
 <!--Fin Botón QR-->
 
+    <ImageView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvUsuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageId"/>
+    <Button
+        android:id="@+id/btnFotoPlaca"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cBoxLicencia"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="130dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/botonLogin"
+        android:textColor="@color/white"
+        android:text="@string/foto_placa" />
+    <TextView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textId"/>
+
+
 <!--Empiezan Inputs y checkes-->
     <CheckBox
         android:id="@+id/cBoxLicencia"
