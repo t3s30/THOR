@@ -357,7 +357,7 @@ public class HomeFragment extends Fragment  {
 
             @Override
             public void onClick(View v) {
-                //Inicializamos el progress BAR
+                /*//Inicializamos el progress BAR
                 progressDialog = new ProgressDialog(getContext());
                 //Mostramos el progressBAR
                 progressDialog.show();
@@ -365,7 +365,7 @@ public class HomeFragment extends Fragment  {
                 //Fondo transparente
                 progressDialog.getWindow().setBackgroundDrawableResource(
                         android.R.color.transparent
-                );
+                );*/
 
 
                 if (banderaPlaca == true) {
@@ -389,7 +389,7 @@ public class HomeFragment extends Fragment  {
 
                 }
                 else {
-                    progressDialog.hide();
+                   /* progressDialog.hide();*/
                     Toast.makeText(getContext(), "Tienes que seleccionar PLACA o LICENCIA", Toast.LENGTH_LONG).show();
                 }
 
@@ -452,6 +452,7 @@ public class HomeFragment extends Fragment  {
 
 
                            startActivity(intentWs);
+                           getActivity().finish();
                        }
 
                         //Obtenemos el total de elementos del objeto.
@@ -511,8 +512,7 @@ public class HomeFragment extends Fragment  {
                                 intentWs.putExtra("marca", MARCA);
 
                                 startActivity(intentWs);
-
-
+                                getActivity().finish();
 
                         }
 
@@ -535,6 +535,7 @@ public class HomeFragment extends Fragment  {
                         intentWs.putExtra("bandera", enviaBanderaLic);
                         startActivity(intentWs);
                         e.printStackTrace();
+                        getActivity().finish();
 
                     }
 
