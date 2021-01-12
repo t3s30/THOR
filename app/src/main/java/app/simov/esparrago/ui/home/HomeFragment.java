@@ -112,6 +112,8 @@ public class HomeFragment extends Fragment  {
 
     ImageView imageViewP;
     TextView textViewP;
+
+    String miPlacosa;
     private HomeViewModel homeViewModel;
     private static final String EXTRA_CODE = "app.simov.esparrago";
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -850,21 +852,64 @@ public void escanear(){
             task.addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
                 @Override
                 public void onSuccess(FirebaseVisionText firebaseVisionText) {
-                    String s = firebaseVisionText.getText();
-                    Log.d("IMAGENPLACA","ALV ESTA ES TU PLACA "+s);
-                   // String infoQr = result.getContents();
-                    List<String> datosLicencia = Arrays.asList(s.split("-"));
-                    String placaDato1 = datosLicencia.get(0);
-                    String placaDato2 = datosLicencia.get(1);
-                    String placaDato3 = datosLicencia.get(2);
 
-                    //int numeroCplaca = placaDato1.length();
-                   // Log.d("PLACACONCAT","caracteres "+numeroCplaca);
-                    //char last = placaDato1.charAt(placaDato1.length() -3);
-                    Log.d("PLACACONCAT","ERES LA VRGA"+placaDato1+placaDato2+placaDato3);
-                    String placaFoto = s;
-                    editTextPlaca.setText(placaFoto);
-                    // textViewP.setText(s);
+                    try {
+                        String s = firebaseVisionText.getText();
+
+                        boolean linea = s.contains("\n");
+                        String[] lines = s.split("\n");
+
+                        for (int i = 0; i < lines.length; ++i) {
+                            if (lines[i].contains("-")){
+                                miPlacosa = lines[i];
+                            }
+                        }
+
+
+
+                        Log.d("CONTIENE","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+miPlacosa);
+
+                        Log.d("IMAGENPLACA","ALV ESTA ES TU PLACA "+s);
+                       /* // String infoQr = result.getContents();
+                        List<String> datosLicencia = Arrays.asList(s.split("-"));
+                        String placaDato1 = datosLicencia.get(0);
+                        Log.d("PLACACONCAT1","ERES LA VRGA"+placaDato1);
+                        String placaDato2 = datosLicencia.get(1);
+                        Log.d("PLACACONCAT2","ERES LA VRGA"+placaDato2);
+                        String placaDato3 = datosLicencia.get(2);
+                        Log.d("PLACACONCAT3","ERES LA VRGA"+placaDato3);
+
+                        //int numeroCplaca = placaDato1.length();
+                        // Log.d("PLACACONCAT","caracteres "+numeroCplaca);
+                        char last1 = placaDato1.charAt(placaDato1.length() -1);
+
+                        char last2 = placaDato1.charAt(placaDato1.length() -2);
+                        char last3 = placaDato1.charAt(placaDato1.length() -3);
+
+                        char last4 = placaDato1.charAt(0);
+                        char last5 = placaDato1.charAt(1);
+
+
+                        String last11=String.valueOf(last1);
+                        String last22=String.valueOf(last2);
+                        String last33=String.valueOf(last3);
+
+                        String last44=String.valueOf(last4);
+                        String last55=String.valueOf(last5);
+
+                        Log.d("PLACACONCAT","ERES LA VRGA"+placaDato2);
+                        String placaFoto =s;
+                        int tam = placaFoto.length();
+                        Log.d("PLACAT","########################"+last33+last22+last11+placaDato2+last44+last55);
+                        String placaFinal = last33+last22+last11+placaDato2+last44+last55;*/
+                        editTextPlaca.setText(miPlacosa);
+                        // textViewP.setText(s);
+
+                    }catch (Exception error){
+                        Toast.makeText(getActivity(),"Tomar foto de nuevo", Toast.LENGTH_LONG).show();
+                    }
+
+
 
                 }
             });
