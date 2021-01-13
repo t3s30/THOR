@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -51,6 +52,7 @@ import java.util.Objects;
 
 import app.simov.esparrago.Drawer;
 import app.simov.esparrago.Infracciones;
+import app.simov.esparrago.MainActivity;
 import app.simov.esparrago.R;
 import app.simov.esparrago.WsgobConsulta;
 
@@ -297,6 +299,9 @@ public class HomeFragment extends Fragment  {
          editTextPlaca.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
 
 
+
+
+
         //Datos de Bundle de inicio de session.
         Bundle args = getActivity().getIntent().getExtras();
 
@@ -309,6 +314,7 @@ public class HomeFragment extends Fragment  {
             delegacionId  = args.getString("delegacionId");
             activo  = args.getString("activo");
             tvUsuario.setText(nombre+" "+username);
+
 
 
 
@@ -869,6 +875,14 @@ public void escanear(){
 
                         Log.d("CONTIENE","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+miPlacosa);
 
+                        String[] splitPlaca = miPlacosa.split("-");
+
+                        String dato1 = splitPlaca[0];
+                        String dato2 = splitPlaca[1];
+                        String dato3 = splitPlaca[2];
+
+                        String nuevaPlaca = dato1+dato2+dato3;
+
                         Log.d("IMAGENPLACA","ALV ESTA ES TU PLACA "+s);
                        /* // String infoQr = result.getContents();
                         List<String> datosLicencia = Arrays.asList(s.split("-"));
@@ -902,7 +916,7 @@ public void escanear(){
                         int tam = placaFoto.length();
                         Log.d("PLACAT","########################"+last33+last22+last11+placaDato2+last44+last55);
                         String placaFinal = last33+last22+last11+placaDato2+last44+last55;*/
-                        editTextPlaca.setText(miPlacosa);
+                        editTextPlaca.setText(nuevaPlaca);
                         // textViewP.setText(s);
 
                     }catch (Exception error){
@@ -969,6 +983,7 @@ public void escanear(){
             "REALIZAR TODO TIPO DE REPARACIONES MECANICAS","HACER USO DE PARKIN AUN PAGANDO TARIFA","VIDRIOS POLARIZADOS","REALIZAR COBROS ADICIONALES","POR NO CONTAR CON PERMISO EN SITIO O LANZADERAS",
             "ALTERAR MODIFICAR SISTEMA DE SONIDO NO ORIGINAL","NO CONTAR CON EXAMEN TOXICOLOGICO","NO TRAER LICENCIA","POR ABASTASER COMBUSTIBLE CON PASAJE ABORDO","POR UTILIZAR CELULAR O RADIO MIENTRAS CODUCE",
             "POR MODIFICAR ESCAPE O SILENCIADOR","POR NO RESPETAR EL REGLAMENTO DE TRANSITO","POR CIRCULAR EN RUTA DIFERENTE A LA REGISTRADA"};*/
+
 
 
 }

@@ -1,6 +1,8 @@
 package app.simov.esparrago;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
@@ -42,6 +44,14 @@ public class Drawer extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        String username;
+        String password;;
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Drawer.this);
+
+        prefs.getString("username", "");
+        prefs.getString("password", "");
     }
 
     @Override
