@@ -282,7 +282,7 @@ public class SlideshowFragment extends Fragment {
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
                     //Esto contiene toda la cadena de respuesta del Ws.
-                    Toast.makeText(getContext(), "CONSULTA" + response, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), "CONSULTA" + response, Toast.LENGTH_LONG).show();
 
                     try {
                         //Convertimos el String en JsonObject

@@ -149,7 +149,7 @@ public class WsgobConsulta extends AppCompatActivity {
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
                     //Esto contiene toda la cadena de respuesta del Ws.
-                    Toast.makeText(WsgobConsulta.this, "SE MANDO PETICION CORRECTA A WS LICENCIA" + response, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(WsgobConsulta.this, "SE MANDO PETICION CORRECTA A WS LICENCIA" + response, Toast.LENGTH_LONG).show();
 
                     try {
                         //Convertimos el String en JsonObject
@@ -276,7 +276,7 @@ public class WsgobConsulta extends AppCompatActivity {
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
                     //Esto contiene toda la cadena de respuesta del Ws.
-                    Toast.makeText(WsgobConsulta.this, "SE MANDO PETICION CORRECTA A WS INFRACCIONES" + response, Toast.LENGTH_LONG).show();
+                   // Toast.makeText(WsgobConsulta.this, "SE MANDO PETICION CORRECTA A WS INFRACCIONES" + response, Toast.LENGTH_LONG).show();
 
                     try {
                         //Convertimos el String en JsonObject
@@ -361,6 +361,7 @@ public class WsgobConsulta extends AppCompatActivity {
         gotoBack.putExtra("nombre",nombreLogin);
         gotoBack.putExtra("delegacionId",delegacionId);
         gotoBack.putExtra("activo",activo);
+        gotoBack.putExtra("placa",placa);
         //gotoBack.putExtra(USER_GLOBAL_SENDER, username_global); <-- Use this if you want to carry some data to the other activity.
         finish();
         startActivity(gotoBack);

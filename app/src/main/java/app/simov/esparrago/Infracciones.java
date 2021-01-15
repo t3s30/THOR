@@ -657,7 +657,7 @@ public class Infracciones extends AppCompatActivity{
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
                     //Esto contiene toda la cadena de respuesta del Ws.
-                    Toast.makeText(Infracciones.this, "SE MANDO PETICION CORRECTA A WS LICENCIA" + response, Toast.LENGTH_LONG).show();
+                   // Toast.makeText(Infracciones.this, "SE MANDO PETICION CORRECTA A WS LICENCIA" + response, Toast.LENGTH_LONG).show();
 
                     try {
                         //Convertimos el String en JsonObject
@@ -750,7 +750,7 @@ public class Infracciones extends AppCompatActivity{
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
                     //Esto contiene toda la cadena de respuesta del Ws.
-                    Toast.makeText(Infracciones.this, "CONSULTA" + response, Toast.LENGTH_LONG).show();
+                   // Toast.makeText(Infracciones.this, "CONSULTA" + response, Toast.LENGTH_LONG).show();
 
                     try {
                         //Convertimos el String en JsonObject
@@ -860,7 +860,7 @@ public class Infracciones extends AppCompatActivity{
                     @Override
                     public void onResponse(String response) {
                         loading.dismiss();
-                        Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
+                       // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(),Drawer.class);
                         intent.putExtra("usersId",usersId);
                         intent.putExtra("username",username);
@@ -1052,6 +1052,7 @@ public class Infracciones extends AppCompatActivity{
         gotoBack.putExtra("nombre",nombreLogin);
         gotoBack.putExtra("delegacionId",delegacionId);
         gotoBack.putExtra("activo",activo);
+        gotoBack.putExtra("placa",placa);
         //gotoBack.putExtra(USER_GLOBAL_SENDER, username_global); <-- Use this if you want to carry some data to the other activity.
         finish();
         startActivity(gotoBack);

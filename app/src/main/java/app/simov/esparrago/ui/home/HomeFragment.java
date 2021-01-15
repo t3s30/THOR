@@ -245,7 +245,7 @@ public class HomeFragment extends Fragment  {
         bntFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cargarImagen();
+                doProcess();
             }
         });
 
@@ -325,7 +325,10 @@ public class HomeFragment extends Fragment  {
             nombre  = args.getString("nombre");
             delegacionId  = args.getString("delegacionId");
             activo  = args.getString("activo");
+            placa  = args.getString("placa");
+            Log.d("MIPLACA","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID"+placa);
             tvUsuario.setText(nombre+" "+username);
+            editTextPlaca.setText(placa);
 
 
 
@@ -487,7 +490,7 @@ public class HomeFragment extends Fragment  {
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
                     //Esto contiene toda la cadena de respuesta del Ws.
-                    Toast.makeText(getContext(), "CONSULTA" + response, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), "CONSULTA" + response, Toast.LENGTH_LONG).show();
 
                     try {
                         //Convertimos el String en JsonObject
@@ -643,7 +646,7 @@ public class HomeFragment extends Fragment  {
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
                     //Esto contiene toda la cadena de respuesta del Ws.
-                    Toast.makeText(getContext(), "CONSULTA" + response, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), "CONSULTA" + response, Toast.LENGTH_LONG).show();
 
                     try {
                         //Convertimos el String en JsonObject
