@@ -54,6 +54,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Blob;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -90,7 +91,8 @@ public class Infracciones extends AppCompatActivity{
     TextView tvVigenciaTcInfraccion;
     TextView tvVimInfraccion;
     TextView tvInfraInfraccion;
-    String   modalidad;
+    String   modalidadH;
+    String modalidad;
     String   infra1;
     String   infra2;
     String   infra3;
@@ -154,6 +156,9 @@ public class Infracciones extends AppCompatActivity{
     Uri miPath;
     Uri miPath1;
     Uri miPath2;
+
+    String modi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,7 +217,7 @@ public class Infracciones extends AppCompatActivity{
             marca = bundle.getString("marca");
             infracciones = bundle.getString("infracciones");
             licencia = bundle.getString("licencia");
-            modalidad = bundle.getString("modalidad");
+            modalidadH = bundle.getString("modalidad");
             sector = bundle.getString("sector");
 
 
@@ -224,39 +229,37 @@ public class Infracciones extends AppCompatActivity{
                     sector == "FORANEO/VALLE GPE"
 *
 *
-*
-*<item>PONIENTE-TURISTICO</item>
-        <item>PONIENTE-CENTRO</item>
-        <item>PONIENTE-SALIDA TIJUANA</item>
-        <item>ORIENTE/PRESA</item>
-        <item>ORIENTE/LIBRAMIENTO</item>
-        <item>ORIENTE/CORTEZ</item>
-        <item>ORIENTE/ESMERALDA</item>
-        <item>SUR/PLAYAS HERMOSA</item>
-        <item>SUR/GOBIERNO</item>
-        <item>SUR/CHAPULTEPEC</item>
-        <item>SUR/VILLAS</item>
-        <item>FORANEO/MANEADERO BAJA</item>
-        <item>FORANEO/MANEADERO ALTA</item>
-        <item>FORANEO/BUFADORA</item>
-        <item>FORANEO/VALLE GPE</item>
-*
-* * */
-            Log.d("SECOTR","$$%$%$%$%$%$%$"+sector);
+*  */
+            modalidad = modalidadH.trim();
 
-            if(sector.equals("NORTE-CENTRO") || sector.equals("NORTE-OTAy") || sector.equals("NORTE-AGUA-CALIENTE") || sector.equals(">NORTE-5 Y 10") || sector.equals("SUR-NATURA") || sector.equals("SUR-BLV-BENITEZ") ||
-                    sector.equals("SUR-DIAZ-ORDAZ") || sector.equals("ESTE-CARR-TECATE") || sector.equals("ESTE-LA-PRESA") || sector.equals("ESTE-INSURGENTES") || sector.equals("ESTE-FLORIDO") || sector.equals("OESTE-PACIFICO") ||
+            Log.d("SECOTR","$$%$%$%$%$%$%$"+sector);
+            Log.d("MODALIDAD3","============================="+modalidad);
+
+            if(modalidad.equals("PERMISO-TAXI-RUTA") || modalidad.equals("PERMISO-TAXI-SITIO") || modalidad.equals("PERMISO-TAXI-LIBRE") || modalidad.equals("PERMISO-CARGA") || modalidad.equals("PERMISO-ESCOLAR") ||
+                    modalidad.equals("PERMISO-GRUA-ARRASTRE-ALMACENAMIENTO-Y-DEPOSITO")){
+                modi = "PERMISO";
+            }
+            if(modalidad.equals("MASIVO-UNTIMA") || modalidad.equals("MASIVO-CALAFIA") || modalidad.equals("MASIVO-CORREDOR-2000") || modalidad.equals("MASIVO-ALTISA") || modalidad.equals("MASIVO-AZUL-Y-BLANCO") ||
+                    modalidad.equals("MASIVO-VERDE-Y-CREMA") || modalidad.equals("MASIVO-AMARILLO-Y-PERLA") || modalidad.equals("MASIVO-TIJUANENSES") ||
+                    modalidad.equals("MASIVO-24-DE-FEBRERO") || modalidad.equals("MASIVO-SIN-REGISTRO")){
+                modi= "MASIVO";
+            }
+            if (modalidad.equals("ERT-UBER") || modalidad.equals("ERT-DIDI") || modalidad.equals("ERT-DIDI-FOOD") || modalidad.equals("ERT-SIN-REGISTRO") ){
+                modi= "ERT";
+            }
+
+            if(sector.equals("NORTE-CENTRO") || sector.equals("NORTE-OTAY") || sector.equals("NORTE-AGUA-CALIENTE") || sector.equals("NORTE-5Y10") || sector.equals("SUR-NATURA") || sector.equals("SUR-BLV-BENITEZ") ||
+                    sector.equals("SUR-DIAZ-ORDAZ") || sector.equals("ESTE-CARR-TECATE") || sector.equals("ESTE-LA-PRESA") || sector.equals("ESTE-LA-PRESA-NORTE") || sector.equals("ESTE-INSURGENTES") || sector.equals("ESTE-FLORIDO") || sector.equals("OESTE-PACIFICO") ||
                     sector.equals("OESTE-SANTE-FE") || sector.equals("PERIFERIA-PLAYAS") || sector.equals("PERIFERIA-SOLER") || sector.equals("PERIFERIA-ROSARITO") || sector.equals("PERIFERIA-TECATE")){
 
                     sectorId = "2";
 
-            }if(sector.equals("PONIENTE-TURISTICO") || sector.equals("PONIENTE-CENTRO") || sector.equals("PONIENTE-SALIDA-TIJUANA") || sector.equals("ORIENTE/LIBRAMIENTO") || sector.equals("ORIENTE/CORTEZ") ||
+            }
+            if(sector.equals("PONIENTE-TURISTICO") || sector.equals("PONIENTE-CENTRO") || sector.equals("PONIENTE-SALIDA-TIJUANA") || sector.equals("ORIENTE/LIBRAMIENTO") || sector.equals("ORIENTE/CORTEZ") ||
                     sector.equals("ORIENTE/ESMERALDA") || sector.equals("SUR/PLAYAS/HERMOSA") || sector.equals("SUR/GOBIERNO") || sector.equals("SUR/CHAPULTEPEC") || sector.equals("SUR/VILLAS") ||
                     sector.equals("FORANEO/MANEADERO/BAJA") || sector.equals("FORANEO/MANEADERO/ALTA") || sector.equals("FORANEO/BUFADORA") || sector.equals("FORANEO/VALLE/GPE")){
 
                      sectorId = "3";
-        } else{
-                sectorId = "0";
             }
 
 
@@ -976,11 +979,25 @@ public class Infracciones extends AppCompatActivity{
                 params.put("comentarios",comentarios);
 
                 params.put("sectorId",sectorId);
+                Log.d("SECTORRR","ZONASECTOR%%%%%%%%%%%%%%%%%%%%"+sectorId);
+
+
                 if (ECONOMICO!=null){
                     params.put("numeroEconomico",ECONOMICO);
                 }else{
                     params.put("numeroEconomico","SIN/NUMERO");
                 }
+                Calendar calendar = Calendar.getInstance();
+                int numberWeekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+                int year = Calendar.getInstance().get(Calendar.YEAR);
+
+                String semana=String.valueOf(numberWeekOfYear);
+                String anio=String.valueOf(year);
+
+                params.put("semana",semana);
+                params.put("anio",anio);
+                params.put("modalidad",modalidad);
+                params.put("modi",modi);
 
 
                 return params;

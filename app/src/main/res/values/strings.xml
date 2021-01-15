@@ -23,13 +23,13 @@
         <item>NORTE-CENTRO</item>
         <item>NORTE-OTAY</item>
         <item>NORTE-AGUA-CALIENTE</item>
-        <item>NORTE-5 Y 10</item>
+        <item>NORTE-5Y10</item>
         <item>SUR-NATURA</item>
         <item>SUR-BLV-BENITEZ</item>
         <item>SUR-DIAZ-ORDAZ</item>
         <item>ESTE-CARR-TECATE</item>
         <item>ESTE-LA-PRESA</item>
-        <item>ESTE-LA PRESA NORTE</item>
+        <item>ESTE-LA-PRESA-NORTE</item>
         <item>ESTE-INSURGENTES</item>
         <item>ESTE-FLORIDO</item>
         <item>OESTE-PACIFICO</item>
@@ -119,28 +119,28 @@
     </string-array>
     <string-array name="modalidad_arrays">
         <item>SELECCIONE-MODALIDAD</item>
-        <item>PERMISO-TAXI RUTA</item>
-        <item>PERMISO-TAXI SITIO</item>
-        <item>PERMISO-TAXI LIBRE</item>
+        <item>PERMISO-TAXI-RUTA</item>
+        <item>PERMISO-TAXI-SITIO</item>
+        <item>PERMISO-TAXI-LIBRE</item>
         <item>PERMISO-CARGA</item>
         <item>PERMISO-ESCOLAR</item>
-        <item>PERMISO-GRUA,ARRASTRE,ALMACENAMIENTO Y DEPOSITO</item>
+        <item>PERMISO-GRUA-ARRASTRE-ALMACENAMIENTO-Y-DEPOSITO</item>
         <item>MASIVO-UNTIMA</item>
         <item>MASIVO-CALAFIA</item>
-        <item>MASIVO-CORREDOR 2000</item>
+        <item>MASIVO-CORREDOR-2000</item>
         <item>MASIVO-ALTISA</item>
-        <item>MASIVO-AZUL Y BLANCO</item>
-        <item>MASIVO-VERDE Y CREMA</item>
-        <item>MASIVO-AMARILLO Y PERLA</item>
+        <item>MASIVO-AZUL-Y-BLANCO</item>
+        <item>MASIVO-VERDE-Y-CREMA</item>
+        <item>MASIVO-AMARILLO-Y-PERLA</item>
         <item>MASIVO-TIJUANENSES</item>
-        <item>MASIVO-24 DE FEBRERO</item>
-        <item>MASIVO-SIN_REGISTRO</item>
+        <item>MASIVO-24-DE-FEBRERO</item>
+        <item>MASIVO-SIN-REGISTRO</item>
         <item>ERT-UBER</item>
         <item>ERT-DIDI</item>
-        <item>ERT-DIDI FOOD</item>
-        <item>ERT-SIN_REGISTRO</item>
-        <item>TURISTICO-SIN_REGISTRO</item>
-        <item>OTRO-SIN_REGISTRO</item>
+        <item>ERT-DIDI-FOOD</item>
+        <item>ERT-SIN-REGISTRO</item>
+        <item>TURISTICO-SIN-REGISTRO</item>
+        <item>OTRO-SIN-REGISTRO</item>
 
 
     </string-array>

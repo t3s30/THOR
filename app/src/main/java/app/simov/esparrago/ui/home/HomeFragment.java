@@ -758,6 +758,7 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("bandera", enviaBanderaLic);
                             intentWs.putExtra("placa", PLACA);
                             modalidad = spinnerModalidad.getSelectedItem().toString();
+                            Log.d("MODALIDAD1","#################"+modalidad);
                             sector = spinerSector.getSelectedItem().toString();
                             infraccion1 = edtInfraccion1.getText().toString();
                             Log.d("INFRACCION1-2","################========>>>>>"+infraccion1);
@@ -769,6 +770,7 @@ public class HomeFragment extends Fragment  {
 
                             intentWs.putExtra("sector",sector);
                             intentWs.putExtra("modalidad",modalidad);
+                            Log.d("MODALIDAD2","#################"+modalidad);
                             intentWs.putExtra("infra1",infraccion1);
                             intentWs.putExtra("infra2",infraccion2);
                             intentWs.putExtra("infra3",infraccion3);
