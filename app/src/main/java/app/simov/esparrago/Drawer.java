@@ -38,20 +38,13 @@ public class Drawer extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_qr_licencia, R.id.nav_consulta_poliza, R.id.nav_radar)
+                R.id.nav_home, R.id.nav_qr_licencia, R.id.nav_consulta_poliza, R.id.nav_radar,R.id.nav_salir)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        String username;
-        String password;;
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Drawer.this);
-
-        prefs.getString("username", "");
-        prefs.getString("password", "");
     }
 
     @Override
@@ -67,4 +60,7 @@ public class Drawer extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
+
 }

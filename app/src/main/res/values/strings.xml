@@ -15,6 +15,7 @@
     <string name="menu_qr_licencia">QR-LICENCIA</string>
     <string name="menu_consulta_poliza">CONSULTA-POLIZA</string>
     <string name="menu_radar">V-RADAR</string>
+    <string name="menu_salir">SALIR</string>
     <string name="titulo_principal">ESPARRAGO PRINCIPAL</string>
 
     <string-array name="zonas_arrays">
@@ -38,9 +39,25 @@
         <item>PERIFERIA-ROSARITO</item>
         <item>PERIFERIA-TECATE</item>
 
+        <item>PONIENTE-TURISTICO</item>
+        <item>PONIENTE-CENTRO</item>
+        <item>PONIENTE-SALIDA TIJUANA</item>
+        <item>ORIENTE/PRESA</item>
+        <item>ORIENTE/LIBRAMIENTO</item>
+        <item>ORIENTE/CORTEZ</item>
+        <item>ORIENTE/ESMERALDA</item>
+        <item>SUR/PLAYAS HERMOSA</item>
+        <item>SUR/GOBIERNO</item>
+        <item>SUR/CHAPULTEPEC</item>
+        <item>SUR/VILLAS</item>
+        <item>FORANEO/MANEADERO BAJA</item>
+        <item>FORANEO/MANEADERO ALTA</item>
+        <item>FORANEO/BUFADORA</item>
+        <item>FORANEO/VALLE GPE</item>
+
     </string-array>
 
-        <string-array name="infracciones_arrays">
+    <string-array name="infracciones_arrays">
         <item>SELECCIONE-INFRACCION</item>
         <item>FALTA DE PLACAS</item>
         <item>CIRCULA SIN PLACAS</item>
@@ -154,7 +171,7 @@
     <string name="ELIMINAR">ELIMINAR</string>
     <string name="QR">QR</string>
     <string name="foto_placa">FOTO PLACA</string>
-    <string name="version">Gerencia de sistemas | IMOS | Version-1.1.1 ▲</string>
+    <string name="version">Gerencia de sistemas | IMOS | Version-3.0.0 ▲</string>
 
     <!--Strings Infracciones-->
     <string name="INFRACIONES_THOR">INFRACIONES-THOR</string>
@@ -197,5 +214,7 @@
     <string name="URL_LICENCIA">https://simov.app/servicios/consultaLicencia.php</string>
     <string name="URL_INFRACCION">https://simov.app/servicios/consultaInfraccion.php</string>
     <string name="URL_POLIZA">https://simov.app/servicios/consultaPoliza.php</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

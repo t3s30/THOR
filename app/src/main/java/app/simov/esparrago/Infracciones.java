@@ -145,7 +145,15 @@ public class Infracciones extends AppCompatActivity{
     String NOMBRECOMPLETO;
 
     String ECONOMICO;
+    String sectorId;
 
+    String imagenB;
+    String imagenB2;
+    String imagenB3;
+
+    Uri miPath;
+    Uri miPath1;
+    Uri miPath2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,6 +214,35 @@ public class Infracciones extends AppCompatActivity{
             licencia = bundle.getString("licencia");
             modalidad = bundle.getString("modalidad");
             sector = bundle.getString("sector");
+
+
+
+/*
+* || sector == "PONIENTE-TURISTICO" ||
+                    sector == "PONIENTE-CENTRO" || sector == "PONIENTE-SALIDA TIJUANA" || sector == "ORIENTE/LIBRAMIENTO" || sector == "ORIENTE/CORTEZ" || sector == "ORIENTE/ESMERALDA" || sector == "SUR/PLAYAS HERMOSA" ||
+                    sector == "SUR/GOBIERNO" || sector == "SUR/CHAPULTEPEC" || sector == "SUR/VILLAS" || sector == "FORANEO/MANEADERO BAJA" || sector == "FORANEO/MANEADERO ALTA" || sector == "FORANEO/BUFADORA" ||
+                    sector == "FORANEO/VALLE GPE"
+*
+*
+* */
+            Log.d("SECOTR","$$%$%$%$%$%$%$"+sector);
+
+            if(sector.equals("NORTE-CENTRO") || sector.equals("NORTE-OTA") || sector.equals("NORTE-AGUA CALIENTE") || sector.equals(">NORTE-5 Y 10") || sector.equals("SUR-NATURA") || sector.equals("SUR-BLV BENITEZ") ||
+                    sector.equals("SUR-DIAZ ORDAZ") || sector.equals("ESTE-CARR. TECATE") || sector.equals("ESTE-LA PRESA") || sector.equals("ESTE-INSURGENTGES") || sector.equals("ESTE-FLORIDO") || sector.equals("OESTE-PACIFICO") ||
+                    sector.equals("OESTE-SANTE FE") || sector.equals("PERIFERIA-PLAYAS") || sector.equals("PERIFERIA-SOLER") || sector.equals("PERIFERIA-ROSARITO") || sector.equals("PERIFERIA-TECATE")){
+
+                    sectorId = "2";
+
+            }if(sector.equals("PONIENTE-TURISTICO") || sector.equals("PONIENTE-CENTRO") || sector.equals("PONIENTE-SALIDA TIJUANA") || sector.equals("ORIENTE/LIBRAMIENTO") || sector.equals("ORIENTE/CORTEZ") ||
+                    sector.equals("ORIENTE/ESMERALDA") || sector.equals("SUR/PLAYAS HERMOSA") || sector.equals("SUR/GOBIERNO") || sector.equals("SUR/CHAPULTEPEC") || sector.equals("SUR/VILLAS") ||
+                    sector.equals("FORANEO/MANEADERO BAJA") || sector.equals("FORANEO/MANEADERO ALTA") || sector.equals("FORANEO/BUFADORA") || sector.equals("FORANEO/VALLE GPE")){
+
+                     sectorId = "3";
+        } else{
+                sectorId = "0";
+            }
+
+
             infra1 = bundle.getString("infra1");
             Log.d("INFRACCION1-2-3","#######################========>>>>>"+infra1);
             infra2 = bundle.getString("infra2");
@@ -369,11 +406,32 @@ public class Infracciones extends AppCompatActivity{
                 }else{
                     if (opciones[i].equals("Cargar Imagen")){
 
-                        Intent intent = new Intent();
-                        intent.setType("image/*");
-                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                        intent.setAction(Intent.ACTION_GET_CONTENT);
-                        startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), COD_SELECCIONA);
+                        if (count == 1){
+                            Intent intent = new Intent();
+                            intent.setType("image/*");
+                            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), COD_SELECCIONA);
+
+                        }
+                        if (count == 2){
+                            Intent intent = new Intent();
+                            intent.setType("image/*");
+                            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), COD_SELECCIONA);
+
+                        }
+                        if (count == 3){
+                            Intent intent = new Intent();
+                            intent.setType("image/*");
+                            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), COD_SELECCIONA);
+
+                        }
+
+
 
 
                        /* Intent intent=new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -501,46 +559,72 @@ public class Infracciones extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode==RESULT_OK){
 
             switch (requestCode){
                 case COD_SELECCIONA:
-                    Uri miPath=data.getData();
-                    imagen.setImageURI(miPath);
+
+                    if (count == 1){
+                        miPath=data.getData();
+                        imagen.setImageURI(miPath);
+
+                    }
+                    if (count == 2){
+                        miPath1=data.getData();
+                        imagen2.setImageURI(miPath1);
+
+                    }
+                    if (count == 3){
+                        miPath2=data.getData();
+                        imagen3.setImageURI(miPath2);
+                    }
+
                     break;
 
                 case COD_FOTO:
-                    MediaScannerConnection.scanFile(this, new String[]{path}, null,
-                            new MediaScannerConnection.OnScanCompletedListener() {
-                                @Override
-                                public void onScanCompleted(String path, Uri uri) {
-                                    Log.i("Ruta de almacenamiento","Path: "+path);
-                                }
-                            });
+                    if (count == 1){
 
-                    MediaScannerConnection.scanFile(this, new String[]{path2}, null,
-                            new MediaScannerConnection.OnScanCompletedListener() {
-                                @Override
-                                public void onScanCompleted(String path, Uri uri) {
-                                    Log.i("Ruta de almacenamiento","Path: "+path);
-                                }
-                            });
-
-                    MediaScannerConnection.scanFile(this, new String[]{path3}, null,
-                            new MediaScannerConnection.OnScanCompletedListener() {
-                                @Override
-                                public void onScanCompleted(String path, Uri uri) {
-                                    Log.i("Ruta de almacenamiento","Path: "+path);
-                                }
-                            });
+                        MediaScannerConnection.scanFile(this, new String[]{path}, null,
+                                new MediaScannerConnection.OnScanCompletedListener() {
+                                    @Override
+                                    public void onScanCompleted(String path, Uri uri) {
+                                        Log.i("Ruta de almacenamiento","Path: "+path);
+                                    }
+                                });
 
 
-                    bitmap = BitmapFactory.decodeFile(path);
-                    bitmap2= BitmapFactory.decodeFile(path2);
-                    bitmap3= BitmapFactory.decodeFile(path3);
-                    imagen.setImageBitmap(bitmap);
-                    imagen2.setImageBitmap(bitmap2);
-                    imagen3.setImageBitmap(bitmap3);
+                        bitmap = BitmapFactory.decodeFile(path);
+                        imagen.setImageBitmap(bitmap);
+
+                    }
+                    if (count == 2){
+
+
+                        MediaScannerConnection.scanFile(this, new String[]{path2}, null,
+                                new MediaScannerConnection.OnScanCompletedListener() {
+                                    @Override
+                                    public void onScanCompleted(String path, Uri uri) {
+                                        Log.i("Ruta de almacenamiento","Path: "+path);
+                                    }
+                                });
+                        bitmap2= BitmapFactory.decodeFile(path2);
+                        imagen2.setImageBitmap(bitmap2);
+                    }
+                    if (count == 3){
+
+
+                        MediaScannerConnection.scanFile(this, new String[]{path3}, null,
+                                new MediaScannerConnection.OnScanCompletedListener() {
+                                    @Override
+                                    public void onScanCompleted(String path, Uri uri) {
+                                        Log.i("Ruta de almacenamiento","Path: "+path);
+                                    }
+                                });
+                        bitmap3= BitmapFactory.decodeFile(path3);
+                        imagen3.setImageBitmap(bitmap3);
+
+                    }
 
                     break;
             }
@@ -783,42 +867,51 @@ public class Infracciones extends AppCompatActivity{
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                //Bitmap imagen = get(bitmap);
 
-                /*
-                *  ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                     bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-                    return stream.toByteArray();
-    }
-                * */
-
-//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                bitmap.compress(Bitmap.CompressFormat.JPEG, 100 , baos);
-//                byte[] blob = baos.toByteArray();
-//
-//                ByteArrayOutputStream baos2 = new ByteArrayOutputStream();
-//                bitmap2.compress(Bitmap.CompressFormat.JPEG, 100 , baos2);
-//                byte[] blob2 = baos2.toByteArray();
-//
-//                ByteArrayOutputStream baos3 = new ByteArrayOutputStream();
-//                bitmap3.compress(Bitmap.CompressFormat.JPEG, 100 , baos3);
-//                byte[] blob3 = baos3.toByteArray();
-
-                String imagen = convertirImgString(bitmap);
-                String imagen2 = convertirImgString2(bitmap2);
-                String imagen3 = convertirImgString3(bitmap3);
-
-
-                //###########################
 
 
                 String comentarios = edtComentarios.getText().toString().trim();
                 // Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
                 Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
                 Map<String, String> params = new Hashtable<String, String>();
-                params.put("foto", imagen);
-                params.put("foto2", imagen2);
-                params.put("foto3", imagen3);
+
+                if (bitmap!=null){
+                    imagenB = convertirImgString(bitmap);
+                    params.put("foto", imagenB);
+                }else{
+
+                    imagen.buildDrawingCache();
+                    Bitmap bitmap = imagen.getDrawingCache();
+                    ByteArrayOutputStream stream=new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    byte[] image=stream.toByteArray();
+                    String img_str = Base64.encodeToString(image, 0);
+                    params.put("foto", img_str);
+                }
+
+                if (bitmap2!=null){
+                    imagenB2 = convertirImgString2(bitmap2);
+                    params.put("foto2", imagenB2);
+
+                }else{
+                    String stringUri2 = miPath1.toString();
+                    params.put("foto2", stringUri2);
+                }
+                if (bitmap3!=null){
+                    imagenB3 = convertirImgString3(bitmap3);
+                    params.put("foto3", imagenB3);
+
+                }else{
+                    String stringUri3 = miPath2.toString();
+                    params.put("foto3", stringUri3);
+                }
+
+
+
+
+
+
+
 
                 params.put("usersId", usersId);
                 //Aqui hay un Null pointer Exeption.
@@ -867,7 +960,14 @@ public class Infracciones extends AppCompatActivity{
                 Log.d("CUENTA","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
 
                 params.put("comentarios",comentarios);
-                //params.put("numeroEconomico",ECONOMICO);
+
+                params.put("sectorId",sectorId);
+                if (ECONOMICO!=null){
+                    params.put("numeroEconomico",ECONOMICO);
+                }else{
+                    params.put("numeroEconomico","SIN/NUMERO");
+                }
+
 
                 return params;
             }
@@ -876,6 +976,8 @@ public class Infracciones extends AppCompatActivity{
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
+
 
     private String convertirImgString(Bitmap bitmap) {
         ByteArrayOutputStream array = new ByteArrayOutputStream();

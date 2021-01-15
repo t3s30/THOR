@@ -58,11 +58,26 @@ public class MainActivity<restoredText> extends AppCompatActivity {
         edtUser = findViewById(R.id.edtUser);
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        sp = getSharedPreferences("login",MODE_PRIVATE);
+        sp = getSharedPreferences("credenciales",Context.MODE_PRIVATE);
+        Log.d("tag","$$$$$$$$$$$$$$$$$$$$$"+sp.toString());
 
-        if(sp.getBoolean("logged",false)){
+        //Del Logout
+        Bundle bundle  = getIntent().getExtras();
+
+        //Validamos que no venga vacio
+        if (bundle != null) {
+
+           String userOut  = bundle.getString("userOut");
+           String passOut  = bundle.getString("passOut");
+
+
+            edtUser.setText(userOut);
+            edtPassword.setText(passOut);
+        }else{
             sp.edit().putBoolean("logged",true).apply();
             SharedPreferences preferences = getSharedPreferences("credenciales",Context.MODE_PRIVATE);
+
+
 
             String estUsuario = preferences.getString("miUsuario","");
             String estPass = preferences.getString("miPassword","");
@@ -70,7 +85,11 @@ public class MainActivity<restoredText> extends AppCompatActivity {
             edtUser.setText(estUsuario);
             edtPassword.setText(estPass);
             validarUsuario(URL);
+
         }
+
+
+
 
         //Metodo para disparar la validacion de usuario.
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +108,7 @@ public class MainActivity<restoredText> extends AppCompatActivity {
             public void onResponse(String response) {
                 //Validamos que el response no este vacio
                 if(!response.isEmpty()){
-                    Toast.makeText(MainActivity.this,"ENTRASTE AL LOGIN"+response,Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"BIENVENIDO A THOR",Toast.LENGTH_LONG).show();
                     try {
                         JSONObject obj = new JSONObject(response);
                         String usersId = obj.getString("UsersID");
@@ -129,7 +148,6 @@ public class MainActivity<restoredText> extends AppCompatActivity {
 
                        /* if (usersId.equals(null)){
                             Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
-
                             startActivity(intent2);
                         }else{
                             sp.edit().putBoolean("logged",true).apply();
@@ -146,7 +164,7 @@ public class MainActivity<restoredText> extends AppCompatActivity {
 
                 }else{
 
-                    Toast.makeText(MainActivity.this,"CONTRASEÑA INCORRECTA",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"INGRESA DATOS",Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -166,93 +184,6 @@ public class MainActivity<restoredText> extends AppCompatActivity {
         };
         RequestQueue requesrQueue   = Volley.newRequestQueue(this);
         requesrQueue.add(stringRequest);
-    }
-
-    /*  public void goToMainActivity(String URL){
-
-        *//*intent.putExtra("usersId",usersId);
-        Log.d("USERSID-MAIN","Esta la info que viene del MAIN"+usersId);
-        intent.putExtra("username",username);
-        intent.putExtra("password",password);
-        intent.putExtra("profile",profile);
-        intent.putExtra("nombre",nombre);
-        intent.putExtra("delegacionId",delegacionId);
-        intent.putExtra("activo",activo);*//*
-
-       *//* if (usersId.equals(null)){
-
-
-        }else{
-            startActivity(intent);
-        }
-*//*
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                //Validamos que el response no este vacio
-                if(!response.isEmpty()){
-                    Toast.makeText(MainActivity.this,"ENTRASTE AL LOGIN"+response,Toast.LENGTH_LONG).show();
-                    try {
-                        JSONObject obj = new JSONObject(response);
-                        String usersId = obj.getString("UsersID");
-                        Log.d("USERSID","!!!!!"+usersId);
-                        username = obj.getString("username");
-                        password = obj.getString("password");
-                        profile = obj.getString("profile");
-                        nombre = obj.getString("comment");
-                        delegacionId = obj.getString("delegacionID");
-                        activo = obj.getString("Activo");
-                        Intent intent = new Intent(getApplicationContext(),Drawer.class);
-
-                        intent.putExtra("usersId",usersId);
-                        Log.d("USERSID-MAIN","Esta la info que viene del MAIN"+usersId);
-                        intent.putExtra("username",username);
-                        intent.putExtra("password",password);
-                        intent.putExtra("profile",profile);
-                        intent.putExtra("nombre",nombre);
-                        intent.putExtra("delegacionId",delegacionId);
-                        intent.putExtra("activo",activo);
-
-                        startActivity(intent);
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    //Lanzamos Intent Navigation Drawer.
-
-                }else{
-
-                    Toast.makeText(MainActivity.this,"CONTRASEÑA INCORRECTA",Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> parametros = new HashMap<String,String>();
-                parametros.put("usuario",edtUser.getText().toString());
-                parametros.put("password",edtPassword.getText().toString());
-
-
-
-                return parametros;
-            }
-        };
-        RequestQueue requesrQueue   = Volley.newRequestQueue(this);
-        requesrQueue.add(stringRequest);
-    }
-}*/
-
-    public void goToMainActivity(){
-
-
     }
 
 

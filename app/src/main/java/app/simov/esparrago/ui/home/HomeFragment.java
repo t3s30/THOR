@@ -3,12 +3,16 @@ package app.simov.esparrago.ui.home;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.util.Log;
@@ -27,6 +31,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -43,6 +49,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -115,6 +122,11 @@ public class HomeFragment extends Fragment  {
     ImageView imageViewP;
     TextView textViewP;
 
+    final int COD_SELECCIONA=10;
+    final int COD_FOTO=20;
+    private final String CARPETA_RAIZ="misImagenesPrueba/";
+    private final String RUTA_IMAGEN=CARPETA_RAIZ+"misFotos";
+    String path;
     String miPlacosa;
     private HomeViewModel homeViewModel;
     private static final String EXTRA_CODE = "app.simov.esparrago";
@@ -145,7 +157,7 @@ public class HomeFragment extends Fragment  {
 
        // final TextView textView = root.findViewById(R.id.text_home);
         //Parametros XML
-        final TextView nombreApp = root.findViewById(R.id.tvApp);
+       // final TextView nombreApp = root.findViewById(R.id.tvApp);
         final TextView tvUsuario = root.findViewById(R.id.tvUsuario);
        // final TextView tvUsuario2 = root.findViewById(R.id.tvUsuario2);
         final TextView tvMunicipio = root.findViewById(R.id.tvMunicipio);
@@ -154,7 +166,7 @@ public class HomeFragment extends Fragment  {
 
         editTextPlaca = root.findViewById(R.id.edtPlaca);
         editTextLicencia = root.findViewById(R.id.edtLicencia);
-        final Spinner spinnerZona = root.findViewById(R.id.spZona);
+        //final Spinner spinnerZona = root.findViewById(R.id.spZona);
 
         //final Spinner spinnerInfraccion = root.findViewById(R.id.spInfraccion3);
 
@@ -229,11 +241,11 @@ public class HomeFragment extends Fragment  {
      }
  });
 
-        //Boton Iniciar QR
+        //Boton Foto placa
         bntFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doProcess();
+                cargarImagen();
             }
         });
 
@@ -698,6 +710,7 @@ public class HomeFragment extends Fragment  {
 
 
                             String PROPIETARIO = jsonobject.getString("propietario");
+                            Log.d("PROPIETARIO","#$##%#$%#$%#$%#$%#$%#$%#$%#$"+PROPIETARIO);
 
                             String VIM = jsonobject.getString("serie");
                             String MARCA = jsonobject.getString("marca");
@@ -832,13 +845,19 @@ public void escanear(){
 
 }
 
+
+
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         Bundle bundle = data.getExtras();
         //from bundle, extract the image
+        if(bundle!=null){
         Bitmap bitmap = (Bitmap) bundle.get("data");
+
 
         if (bitmap!=null){
             //set image in imageview
@@ -866,14 +885,13 @@ public void escanear(){
                         String[] lines = s.split("\n");
 
                         for (int i = 0; i < lines.length; ++i) {
-                            if (lines[i].contains("-")){
+                            if (lines[i].contains("-")) {
                                 miPlacosa = lines[i];
                             }
                         }
 
 
-
-                        Log.d("CONTIENE","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+miPlacosa);
+                        Log.d("CONTIENE", "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + miPlacosa);
 
                         String[] splitPlaca = miPlacosa.split("-");
 
@@ -881,51 +899,20 @@ public void escanear(){
                         String dato2 = splitPlaca[1];
                         String dato3 = splitPlaca[2];
 
-                        String nuevaPlaca = dato1+dato2+dato3;
+                        String nuevaPlaca = dato1 + dato2 + dato3;
 
-                        Log.d("IMAGENPLACA","ALV ESTA ES TU PLACA "+s);
-                       /* // String infoQr = result.getContents();
-                        List<String> datosLicencia = Arrays.asList(s.split("-"));
-                        String placaDato1 = datosLicencia.get(0);
-                        Log.d("PLACACONCAT1","ERES LA VRGA"+placaDato1);
-                        String placaDato2 = datosLicencia.get(1);
-                        Log.d("PLACACONCAT2","ERES LA VRGA"+placaDato2);
-                        String placaDato3 = datosLicencia.get(2);
-                        Log.d("PLACACONCAT3","ERES LA VRGA"+placaDato3);
+                        Log.d("IMAGENPLACA", "ALV ESTA ES TU PLACA " + s);
 
-                        //int numeroCplaca = placaDato1.length();
-                        // Log.d("PLACACONCAT","caracteres "+numeroCplaca);
-                        char last1 = placaDato1.charAt(placaDato1.length() -1);
-
-                        char last2 = placaDato1.charAt(placaDato1.length() -2);
-                        char last3 = placaDato1.charAt(placaDato1.length() -3);
-
-                        char last4 = placaDato1.charAt(0);
-                        char last5 = placaDato1.charAt(1);
-
-
-                        String last11=String.valueOf(last1);
-                        String last22=String.valueOf(last2);
-                        String last33=String.valueOf(last3);
-
-                        String last44=String.valueOf(last4);
-                        String last55=String.valueOf(last5);
-
-                        Log.d("PLACACONCAT","ERES LA VRGA"+placaDato2);
-                        String placaFoto =s;
-                        int tam = placaFoto.length();
-                        Log.d("PLACAT","########################"+last33+last22+last11+placaDato2+last44+last55);
-                        String placaFinal = last33+last22+last11+placaDato2+last44+last55;*/
                         editTextPlaca.setText(nuevaPlaca);
                         // textViewP.setText(s);
 
-                    }catch (Exception error){
-                        Toast.makeText(getActivity(),"Tomar foto de nuevo", Toast.LENGTH_LONG).show();
+                    } catch (Exception error) {
+                        Toast.makeText(getActivity(), "Tomar foto de nuevo", Toast.LENGTH_LONG).show();
                     }
 
-
-
                 }
+
+
             });
 
             task.addOnFailureListener(new OnFailureListener() {
@@ -934,8 +921,8 @@ public void escanear(){
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
-        }
-
+        }}
+//###############################################################################################
 
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
         if (result != null){
@@ -984,7 +971,75 @@ public void escanear(){
             "ALTERAR MODIFICAR SISTEMA DE SONIDO NO ORIGINAL","NO CONTAR CON EXAMEN TOXICOLOGICO","NO TRAER LICENCIA","POR ABASTASER COMBUSTIBLE CON PASAJE ABORDO","POR UTILIZAR CELULAR O RADIO MIENTRAS CODUCE",
             "POR MODIFICAR ESCAPE O SILENCIADOR","POR NO RESPETAR EL REGLAMENTO DE TRANSITO","POR CIRCULAR EN RUTA DIFERENTE A LA REGISTRADA"};*/
 
+    private void cargarImagen() {
 
+        final CharSequence[] opciones={"Tomar Foto","Cargar Imagen","Cancelar"};
+        final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(getActivity());
+        alertOpciones.setTitle("Seleccione una Opción");
+        alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (opciones[i].equals("Tomar Foto")){
+                    doProcess();
+                }else{
+                    if (opciones[i].equals("Cargar Imagen")){
+                        Intent intent = new Intent();
+                        intent.setType("image/*");
+                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                        intent.setAction(Intent.ACTION_GET_CONTENT);
+                        startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), COD_SELECCIONA);
+
+
+
+
+                       /* Intent intent=new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                        intent.setType("image/");
+                        startActivityForResult(intent.createChooser(intent,"Seleccione la Aplicación"),COD_SELECCIONA);*/
+                    }else{
+                        dialogInterface.dismiss();
+                    }
+                }
+            }
+        });
+        alertOpciones.show();
+
+    }
+
+    private void tomarFotografia() {
+        File fileImagen=new File(Environment.getExternalStorageDirectory(),RUTA_IMAGEN);
+        boolean isCreada=fileImagen.exists();
+        String nombreImagen="";
+        if(isCreada==false){
+            isCreada=fileImagen.mkdirs();
+        }
+
+        if(isCreada==true){
+            nombreImagen=(System.currentTimeMillis()/1000)+".jpg";
+        }
+
+        path=Environment.getExternalStorageDirectory()+
+                File.separator+RUTA_IMAGEN+File.separator+nombreImagen;
+
+        File imagen=new File(path);
+
+
+        Intent intent=null;
+        intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        ////
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
+        {
+            String authorities=getActivity().getPackageName()+".provider";
+            Uri imageUri= FileProvider.getUriForFile(getActivity(),authorities,imagen);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        }else
+        {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
+        }
+        startActivityForResult(intent,COD_FOTO);
+
+        ////
+    }
 
 }
 
