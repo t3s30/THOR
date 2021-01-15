@@ -22,18 +22,18 @@
         <item>SELECCIONA-ZONA-SECTOR</item>
         <item>NORTE-CENTRO</item>
         <item>NORTE-OTAY</item>
-        <item>NORTE-AGUA CALIENTE</item>
+        <item>NORTE-AGUA-CALIENTE</item>
         <item>NORTE-5 Y 10</item>
         <item>SUR-NATURA</item>
-        <item>SUR-BLV BENITEZ</item>
-        <item>SUR-DIAZ ORDAZ</item>
-        <item>ESTE-CARR. TECATE</item>
-        <item>ESTE-LA PRESA</item>
+        <item>SUR-BLV-BENITEZ</item>
+        <item>SUR-DIAZ-ORDAZ</item>
+        <item>ESTE-CARR-TECATE</item>
+        <item>ESTE-LA-PRESA</item>
         <item>ESTE-LA PRESA NORTE</item>
-        <item>ESTE-INSURGENTGES</item>
+        <item>ESTE-INSURGENTES</item>
         <item>ESTE-FLORIDO</item>
         <item>OESTE-PACIFICO</item>
-        <item>OESTE-SANTE FE</item>
+        <item>OESTE-SANTE-FE</item>
         <item>PERIFERIA-PLAYAS</item>
         <item>PERIFERIA-SOLER</item>
         <item>PERIFERIA-ROSARITO</item>
@@ -41,19 +41,19 @@
 
         <item>PONIENTE-TURISTICO</item>
         <item>PONIENTE-CENTRO</item>
-        <item>PONIENTE-SALIDA TIJUANA</item>
+        <item>PONIENTE-SALIDA-TIJUANA</item>
         <item>ORIENTE/PRESA</item>
         <item>ORIENTE/LIBRAMIENTO</item>
         <item>ORIENTE/CORTEZ</item>
         <item>ORIENTE/ESMERALDA</item>
-        <item>SUR/PLAYAS HERMOSA</item>
+        <item>SUR/PLAYAS/HERMOSA</item>
         <item>SUR/GOBIERNO</item>
         <item>SUR/CHAPULTEPEC</item>
         <item>SUR/VILLAS</item>
-        <item>FORANEO/MANEADERO BAJA</item>
-        <item>FORANEO/MANEADERO ALTA</item>
+        <item>FORANEO/MANEADERO/BAJA</item>
+        <item>FORANEO/MANEADERO/ALTA</item>
         <item>FORANEO/BUFADORA</item>
-        <item>FORANEO/VALLE GPE</item>
+        <item>FORANEO/VALLE/GPE</item>
 
     </string-array>
 

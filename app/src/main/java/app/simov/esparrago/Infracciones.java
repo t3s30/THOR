@@ -224,18 +224,35 @@ public class Infracciones extends AppCompatActivity{
                     sector == "FORANEO/VALLE GPE"
 *
 *
-* */
+*
+*<item>PONIENTE-TURISTICO</item>
+        <item>PONIENTE-CENTRO</item>
+        <item>PONIENTE-SALIDA TIJUANA</item>
+        <item>ORIENTE/PRESA</item>
+        <item>ORIENTE/LIBRAMIENTO</item>
+        <item>ORIENTE/CORTEZ</item>
+        <item>ORIENTE/ESMERALDA</item>
+        <item>SUR/PLAYAS HERMOSA</item>
+        <item>SUR/GOBIERNO</item>
+        <item>SUR/CHAPULTEPEC</item>
+        <item>SUR/VILLAS</item>
+        <item>FORANEO/MANEADERO BAJA</item>
+        <item>FORANEO/MANEADERO ALTA</item>
+        <item>FORANEO/BUFADORA</item>
+        <item>FORANEO/VALLE GPE</item>
+*
+* * */
             Log.d("SECOTR","$$%$%$%$%$%$%$"+sector);
 
-            if(sector.equals("NORTE-CENTRO") || sector.equals("NORTE-OTA") || sector.equals("NORTE-AGUA CALIENTE") || sector.equals(">NORTE-5 Y 10") || sector.equals("SUR-NATURA") || sector.equals("SUR-BLV BENITEZ") ||
-                    sector.equals("SUR-DIAZ ORDAZ") || sector.equals("ESTE-CARR. TECATE") || sector.equals("ESTE-LA PRESA") || sector.equals("ESTE-INSURGENTGES") || sector.equals("ESTE-FLORIDO") || sector.equals("OESTE-PACIFICO") ||
-                    sector.equals("OESTE-SANTE FE") || sector.equals("PERIFERIA-PLAYAS") || sector.equals("PERIFERIA-SOLER") || sector.equals("PERIFERIA-ROSARITO") || sector.equals("PERIFERIA-TECATE")){
+            if(sector.equals("NORTE-CENTRO") || sector.equals("NORTE-OTAy") || sector.equals("NORTE-AGUA-CALIENTE") || sector.equals(">NORTE-5 Y 10") || sector.equals("SUR-NATURA") || sector.equals("SUR-BLV-BENITEZ") ||
+                    sector.equals("SUR-DIAZ-ORDAZ") || sector.equals("ESTE-CARR-TECATE") || sector.equals("ESTE-LA-PRESA") || sector.equals("ESTE-INSURGENTES") || sector.equals("ESTE-FLORIDO") || sector.equals("OESTE-PACIFICO") ||
+                    sector.equals("OESTE-SANTE-FE") || sector.equals("PERIFERIA-PLAYAS") || sector.equals("PERIFERIA-SOLER") || sector.equals("PERIFERIA-ROSARITO") || sector.equals("PERIFERIA-TECATE")){
 
                     sectorId = "2";
 
-            }if(sector.equals("PONIENTE-TURISTICO") || sector.equals("PONIENTE-CENTRO") || sector.equals("PONIENTE-SALIDA TIJUANA") || sector.equals("ORIENTE/LIBRAMIENTO") || sector.equals("ORIENTE/CORTEZ") ||
-                    sector.equals("ORIENTE/ESMERALDA") || sector.equals("SUR/PLAYAS HERMOSA") || sector.equals("SUR/GOBIERNO") || sector.equals("SUR/CHAPULTEPEC") || sector.equals("SUR/VILLAS") ||
-                    sector.equals("FORANEO/MANEADERO BAJA") || sector.equals("FORANEO/MANEADERO ALTA") || sector.equals("FORANEO/BUFADORA") || sector.equals("FORANEO/VALLE GPE")){
+            }if(sector.equals("PONIENTE-TURISTICO") || sector.equals("PONIENTE-CENTRO") || sector.equals("PONIENTE-SALIDA-TIJUANA") || sector.equals("ORIENTE/LIBRAMIENTO") || sector.equals("ORIENTE/CORTEZ") ||
+                    sector.equals("ORIENTE/ESMERALDA") || sector.equals("SUR/PLAYAS/HERMOSA") || sector.equals("SUR/GOBIERNO") || sector.equals("SUR/CHAPULTEPEC") || sector.equals("SUR/VILLAS") ||
+                    sector.equals("FORANEO/MANEADERO/BAJA") || sector.equals("FORANEO/MANEADERO/ALTA") || sector.equals("FORANEO/BUFADORA") || sector.equals("FORANEO/VALLE/GPE")){
 
                      sectorId = "3";
         } else{
@@ -432,12 +449,6 @@ public class Infracciones extends AppCompatActivity{
                         }
 
 
-
-
-                       /* Intent intent=new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                        intent.setType("image/");
-                        startActivityForResult(intent.createChooser(intent,"Seleccione la Aplicación"),COD_SELECCIONA);*/
                     }else{
                         dialogInterface.dismiss();
                     }
@@ -892,24 +903,27 @@ public class Infracciones extends AppCompatActivity{
                 if (bitmap2!=null){
                     imagenB2 = convertirImgString2(bitmap2);
                     params.put("foto2", imagenB2);
-
                 }else{
-                    String stringUri2 = miPath1.toString();
-                    params.put("foto2", stringUri2);
+                    imagen2.buildDrawingCache();
+                    Bitmap bitmap2 = imagen2.getDrawingCache();
+                    ByteArrayOutputStream stream=new ByteArrayOutputStream();
+                    bitmap2.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    byte[] image=stream.toByteArray();
+                    String img_str2 = Base64.encodeToString(image, 0);
+                    params.put("foto2", img_str2);
                 }
                 if (bitmap3!=null){
                     imagenB3 = convertirImgString3(bitmap3);
                     params.put("foto3", imagenB3);
-
                 }else{
-                    String stringUri3 = miPath2.toString();
-                    params.put("foto3", stringUri3);
+                    imagen3.buildDrawingCache();
+                    Bitmap bitmap3 = imagen3.getDrawingCache();
+                    ByteArrayOutputStream stream=new ByteArrayOutputStream();
+                    bitmap3.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    byte[] image=stream.toByteArray();
+                    String img_str3 = Base64.encodeToString(image, 0);
+                    params.put("foto3", img_str3);
                 }
-
-
-
-
-
 
 
 
