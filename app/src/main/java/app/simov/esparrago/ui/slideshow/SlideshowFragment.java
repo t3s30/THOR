@@ -114,7 +114,9 @@ public class SlideshowFragment extends Fragment {
     String VigenciaSeguro;
     String observaciones;
 
-
+    boolean isFound;
+    List<String> datosLicencia;
+    int sizeDatosLicencia;
 
     private SlideshowViewModel slideshowViewModel;
 
@@ -445,13 +447,17 @@ public class SlideshowFragment extends Fragment {
 
     //Clase para scanear el codigo QR
     public void escanear(){
+        try {
+            IntentIntegrator intent = IntentIntegrator.forSupportFragment(SlideshowFragment.this);
+            intent.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+            intent.setPrompt("ESCANEAR QR - IMOS -");
+            intent.setCameraId(0);
+            intent.setBarcodeImageEnabled(false);
+            intent.initiateScan();
+        }catch (Exception e){
+            Toast.makeText(getContext(),"QR NO VALIDO",Toast.LENGTH_LONG);
+        }
 
-        IntentIntegrator intent = IntentIntegrator.forSupportFragment(SlideshowFragment.this);
-        intent.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-        intent.setPrompt("ESCANEAR QR - IMOS -");
-        intent.setCameraId(0);
-        intent.setBarcodeImageEnabled(false);
-        intent.initiateScan();
 
     }
 
@@ -462,9 +468,11 @@ public class SlideshowFragment extends Fragment {
             if (result.getContents() == null){
                 Toast.makeText(getContext(),"CANCELASTE EL ESCANEO", Toast.LENGTH_LONG);
             }else {
+
                 //Aqui Agregamos las validaciones para los diferentes Formatos de QR´S
                 String infoQr = result.getContents();
                 List<String> datosLicencia = Arrays.asList(infoQr.split(","));
+
                 boolean isFound = datosLicencia.get(4).contains("BC"); // true
 
                 int sizeDatosLicencia = datosLicencia.size();
@@ -480,6 +488,7 @@ public class SlideshowFragment extends Fragment {
                 }catch (Exception e){
                     Toast.makeText(getContext(),"Hubo un error en QR",Toast.LENGTH_LONG);
                 }
+
 
 
             }

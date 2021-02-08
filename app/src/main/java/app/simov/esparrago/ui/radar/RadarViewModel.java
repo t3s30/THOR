@@ -10,7 +10,7 @@ public class RadarViewModel extends ViewModel {
 
     public RadarViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("ESTE ES EL FRAGMETO DEL RADAR");
+        mText.setValue("EN CONSTRUCCION");
     }
 
     public LiveData<String> getText() {

@@ -840,18 +840,19 @@ public class HomeFragment extends Fragment  {
     }
 //Clase para scanear el codigo QR
 public void escanear(){
+    try {
+        IntentIntegrator intent = IntentIntegrator.forSupportFragment(HomeFragment.this);
+        intent.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        intent.setPrompt("ESCANEAR QR - IMOS -");
+        intent.setCameraId(0);
+        intent.setBarcodeImageEnabled(false);
+        intent.initiateScan();
+    }catch (Exception e){
+        Toast.makeText(getContext(),"QR NO VALIDO",Toast.LENGTH_LONG).show();
+    }
 
-            IntentIntegrator intent = IntentIntegrator.forSupportFragment(HomeFragment.this);
-            intent.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
-            intent.setPrompt("ESCANEAR QR - IMOS -");
-            intent.setCameraId(0);
-            intent.setBarcodeImageEnabled(false);
-            intent.initiateScan();
 
 }
-
-
-
 
 
     @Override

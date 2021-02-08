@@ -169,9 +169,9 @@
     <string name="INFRACCIONES">INFRACCIONES</string>
     <string name="INFRACCION">SELECCIONE - INFRACCIÓN</string>
     <string name="ELIMINAR">ELIMINAR</string>
-    <string name="QR">QR</string>
+    <string name="QR">QR GAFETE-TARJETON</string>
     <string name="foto_placa">FOTO PLACA</string>
-    <string name="version">Gerencia de sistemas | IMOS | Version-3.0.0 ▲</string>
+    <string name="version">Gerencia de sistemas | IMOS | Version-3.1.0 ▲</string>
 
     <!--Strings Infracciones-->
     <string name="INFRACIONES_THOR">INFRACIONES-THOR</string>

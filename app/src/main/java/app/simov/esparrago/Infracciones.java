@@ -230,37 +230,53 @@ public class Infracciones extends AppCompatActivity{
 *
 *
 *  */
-            modalidad = modalidadH.trim();
+
+            if (modalidad !=null){
+                modalidad = modalidadH.trim();
+            }else{
+                modalidad = "SIN MODALIDAD";
+            }
+
+
 
             Log.d("SECOTR","$$%$%$%$%$%$%$"+sector);
             Log.d("MODALIDAD3","============================="+modalidad);
 
-            if(modalidad.equals("PERMISO-TAXI-RUTA") || modalidad.equals("PERMISO-TAXI-SITIO") || modalidad.equals("PERMISO-TAXI-LIBRE") || modalidad.equals("PERMISO-CARGA") || modalidad.equals("PERMISO-ESCOLAR") ||
-                    modalidad.equals("PERMISO-GRUA-ARRASTRE-ALMACENAMIENTO-Y-DEPOSITO")){
-                modi = "PERMISO";
-            }
-            if(modalidad.equals("MASIVO-UNTIMA") || modalidad.equals("MASIVO-CALAFIA") || modalidad.equals("MASIVO-CORREDOR-2000") || modalidad.equals("MASIVO-ALTISA") || modalidad.equals("MASIVO-AZUL-Y-BLANCO") ||
-                    modalidad.equals("MASIVO-VERDE-Y-CREMA") || modalidad.equals("MASIVO-AMARILLO-Y-PERLA") || modalidad.equals("MASIVO-TIJUANENSES") ||
-                    modalidad.equals("MASIVO-24-DE-FEBRERO") || modalidad.equals("MASIVO-SIN-REGISTRO")){
-                modi= "MASIVO";
-            }
-            if (modalidad.equals("ERT-UBER") || modalidad.equals("ERT-DIDI") || modalidad.equals("ERT-DIDI-FOOD") || modalidad.equals("ERT-SIN-REGISTRO") ){
-                modi= "ERT";
+            if (modalidad!= null){
+                if(modalidad.equals("PERMISO-TAXI-RUTA") || modalidad.equals("PERMISO-TAXI-SITIO") || modalidad.equals("PERMISO-TAXI-LIBRE") || modalidad.equals("PERMISO-CARGA") || modalidad.equals("PERMISO-ESCOLAR") ||
+                        modalidad.equals("PERMISO-GRUA-ARRASTRE-ALMACENAMIENTO-Y-DEPOSITO")){
+                    modi = "PERMISO";
+                }
+                if(modalidad.equals("MASIVO-UNTIMA") || modalidad.equals("MASIVO-CALAFIA") || modalidad.equals("MASIVO-CORREDOR-2000") || modalidad.equals("MASIVO-ALTISA") || modalidad.equals("MASIVO-AZUL-Y-BLANCO") ||
+                        modalidad.equals("MASIVO-VERDE-Y-CREMA") || modalidad.equals("MASIVO-AMARILLO-Y-PERLA") || modalidad.equals("MASIVO-TIJUANENSES") ||
+                        modalidad.equals("MASIVO-24-DE-FEBRERO") || modalidad.equals("MASIVO-SIN-REGISTRO")){
+                    modi= "MASIVO";
+                }
+                if (modalidad.equals("ERT-UBER") || modalidad.equals("ERT-DIDI") || modalidad.equals("ERT-DIDI-FOOD") || modalidad.equals("ERT-SIN-REGISTRO") ){
+                    modi= "ERT";
+                }
+            }else{
+                modalidad = "SIN MODALIDAD";
             }
 
-            if(sector.equals("NORTE-CENTRO") || sector.equals("NORTE-OTAY") || sector.equals("NORTE-AGUA-CALIENTE") || sector.equals("NORTE-5Y10") || sector.equals("SUR-NATURA") || sector.equals("SUR-BLV-BENITEZ") ||
-                    sector.equals("SUR-DIAZ-ORDAZ") || sector.equals("ESTE-CARR-TECATE") || sector.equals("ESTE-LA-PRESA") || sector.equals("ESTE-LA-PRESA-NORTE") || sector.equals("ESTE-INSURGENTES") || sector.equals("ESTE-FLORIDO") || sector.equals("OESTE-PACIFICO") ||
-                    sector.equals("OESTE-SANTE-FE") || sector.equals("PERIFERIA-PLAYAS") || sector.equals("PERIFERIA-SOLER") || sector.equals("PERIFERIA-ROSARITO") || sector.equals("PERIFERIA-TECATE")){
+if (sector !=null){
+    if(sector.equals("NORTE-CENTRO") || sector.equals("NORTE-OTAY") || sector.equals("NORTE-AGUA-CALIENTE") || sector.equals("NORTE-5Y10") || sector.equals("SUR-NATURA") || sector.equals("SUR-BLV-BENITEZ") ||
+            sector.equals("SUR-DIAZ-ORDAZ") || sector.equals("ESTE-CARR-TECATE") || sector.equals("ESTE-LA-PRESA") || sector.equals("ESTE-LA-PRESA-NORTE") || sector.equals("ESTE-INSURGENTES") || sector.equals("ESTE-FLORIDO") || sector.equals("OESTE-PACIFICO") ||
+            sector.equals("OESTE-SANTE-FE") || sector.equals("PERIFERIA-PLAYAS") || sector.equals("PERIFERIA-SOLER") || sector.equals("PERIFERIA-ROSARITO") || sector.equals("PERIFERIA-TECATE")){
 
-                    sectorId = "2";
+        sectorId = "2";
 
-            }
-            if(sector.equals("PONIENTE-TURISTICO") || sector.equals("PONIENTE-CENTRO") || sector.equals("PONIENTE-SALIDA-TIJUANA") || sector.equals("ORIENTE/LIBRAMIENTO") || sector.equals("ORIENTE/CORTEZ") ||
-                    sector.equals("ORIENTE/ESMERALDA") || sector.equals("SUR/PLAYAS/HERMOSA") || sector.equals("SUR/GOBIERNO") || sector.equals("SUR/CHAPULTEPEC") || sector.equals("SUR/VILLAS") ||
-                    sector.equals("FORANEO/MANEADERO/BAJA") || sector.equals("FORANEO/MANEADERO/ALTA") || sector.equals("FORANEO/BUFADORA") || sector.equals("FORANEO/VALLE/GPE")){
+    }
+    if(sector.equals("PONIENTE-TURISTICO") || sector.equals("PONIENTE-CENTRO") || sector.equals("PONIENTE-SALIDA-TIJUANA") || sector.equals("ORIENTE/LIBRAMIENTO") || sector.equals("ORIENTE/CORTEZ") ||
+            sector.equals("ORIENTE/ESMERALDA") || sector.equals("SUR/PLAYAS/HERMOSA") || sector.equals("SUR/GOBIERNO") || sector.equals("SUR/CHAPULTEPEC") || sector.equals("SUR/VILLAS") ||
+            sector.equals("FORANEO/MANEADERO/BAJA") || sector.equals("FORANEO/MANEADERO/ALTA") || sector.equals("FORANEO/BUFADORA") || sector.equals("FORANEO/VALLE/GPE")){
 
-                     sectorId = "3";
-            }
+        sectorId = "3";
+    }
+}else{
+    sector="SIN SECTOR";
+}
+
 
 
             infra1 = bundle.getString("infra1");
@@ -997,7 +1013,13 @@ public class Infracciones extends AppCompatActivity{
                 params.put("semana",semana);
                 params.put("anio",anio);
                 params.put("modalidad",modalidad);
-                params.put("modi",modi);
+
+                if (modi != null){
+                    params.put("modi",modi);
+                }else{
+                    params.put("modi","OTRO-SIN-REGISTRO");
+                }
+
 
 
                 return params;
