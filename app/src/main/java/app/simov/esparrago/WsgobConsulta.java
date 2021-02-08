@@ -362,6 +362,7 @@ public class WsgobConsulta extends AppCompatActivity {
         gotoBack.putExtra("delegacionId",delegacionId);
         gotoBack.putExtra("activo",activo);
         gotoBack.putExtra("placa",placa);
+        gotoBack.putExtra("licencia",licencia);
         //gotoBack.putExtra(USER_GLOBAL_SENDER, username_global); <-- Use this if you want to carry some data to the other activity.
         finish();
         startActivity(gotoBack);

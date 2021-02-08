@@ -326,9 +326,11 @@ public class HomeFragment extends Fragment  {
             delegacionId  = args.getString("delegacionId");
             activo  = args.getString("activo");
             placa  = args.getString("placa");
+            licencia  = args.getString("licencia");
             Log.d("MIPLACA","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID"+placa);
             tvUsuario.setText(nombre+" "+username);
             editTextPlaca.setText(placa);
+            editTextLicencia.setText(licencia);
 
 
 
@@ -339,7 +341,7 @@ public class HomeFragment extends Fragment  {
         }
 
 
-      //Validacion de Checkbox
+      /*//Validacion de Checkbox
         checkBoxLicencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -369,7 +371,7 @@ public class HomeFragment extends Fragment  {
 
             }
         });
-
+*/
 
 //Boton que termina el proceso para enviar la informacion de Infraccion.
         buttonInfraccion.setOnClickListener(new View.OnClickListener() {
@@ -387,7 +389,7 @@ public class HomeFragment extends Fragment  {
                 );
 
 
-                if (banderaPlaca == true) {
+
                     banderaLicencia = false;
                     //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
                     editTextPlaca = root.findViewById(R.id.edtPlaca);
@@ -399,18 +401,12 @@ public class HomeFragment extends Fragment  {
                     //Envia Ws
                     enviarWSConsultaInfraccion(URL);
 
-                }if (banderaLicencia == true){
 
-                    String URL = "https://simov.app/servicios/controlVehicular.php";
 
-                    //Envia Ws
-                    enviarWSConsultaInfraccion(URL);
-
-                }
-                else {
+               /*
                     progressDialog.hide();
                     Toast.makeText(getContext(), "Tienes que seleccionar PLACA o LICENCIA", Toast.LENGTH_LONG).show();
-                }
+                }*/
 
 
 
@@ -433,7 +429,7 @@ public class HomeFragment extends Fragment  {
                 );*/
 
 
-                if (banderaPlaca == true) {
+
                     banderaLicencia = false;
                     //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
                     editTextPlaca = root.findViewById(R.id.edtPlaca);
@@ -445,18 +441,11 @@ public class HomeFragment extends Fragment  {
                     //Envia Ws
                     enviarWSConsulta(URL);
 
-                }if (banderaLicencia == true){
+                /*
 
-                    String URL = "https://simov.app/servicios/controlVehicular.php";
-
-                    //Envia Ws
-                    enviarWSConsulta(URL);
-
-                }
-                else {
-                   /* progressDialog.hide();*/
+                   *//* progressDialog.hide();*//*
                     Toast.makeText(getContext(), "Tienes que seleccionar PLACA o LICENCIA", Toast.LENGTH_LONG).show();
-                }
+               */
 
             }
         });

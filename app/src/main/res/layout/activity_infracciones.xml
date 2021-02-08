@@ -336,12 +336,27 @@
         android:inputType="text"
         android:textColor="@color/white"/>
 
+    <EditText
+        android:id="@+id/edtFolio"
+        app:layout_constraintTop_toBottomOf="@id/edtComentarios"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/botonLogin"
+        android:textColorHint="@color/white"
+        android:hint="Folio"
+        android:inputType="text"
+        android:textColor="@color/white"/>
+
+
     <!--Termina zona de comentarios-->
 
     <!--Empieza zona de imágenes-->
     <ImageView
         android:id="@+id/imagemId"
-        app:layout_constraintTop_toBottomOf="@id/edtComentarios"
+        app:layout_constraintTop_toBottomOf="@id/edtFolio"
         app:layout_constraintStart_toStartOf="@+id/edtComentarios"
         app:layout_constraintEnd_toStartOf="@id/imagemId2"
         android:layout_marginTop="10dp"
@@ -351,7 +366,7 @@
 
     <ImageView
         android:id="@+id/imagemId2"
-        app:layout_constraintTop_toBottomOf="@id/edtComentarios"
+        app:layout_constraintTop_toBottomOf="@id/edtFolio"
         app:layout_constraintStart_toEndOf="@+id/imagemId"
         app:layout_constraintEnd_toEndOf="@id/edtComentarios"
         android:layout_marginTop="10dp"

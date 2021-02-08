@@ -105,6 +105,7 @@ public class Infracciones extends AppCompatActivity{
     TextView tvSectorInfraccion;
 
     EditText edtComentarios;
+    EditText edtFolio;
 
 
     String UPLOAD_URL = "https://simov.app/servicios/insertaInfraccion.php";
@@ -190,6 +191,7 @@ public class Infracciones extends AppCompatActivity{
         tvSectorInfraccion = findViewById(R.id.tvSector);
         tvInfraInfraccion = findViewById(R.id.tvInfra);
         edtComentarios = findViewById(R.id.edtComentarios);
+        edtFolio = findViewById(R.id.edtFolio);
 
         //Bundle de actividad anterior
         Bundle bundle  = getIntent().getExtras();
@@ -217,7 +219,7 @@ public class Infracciones extends AppCompatActivity{
             marca = bundle.getString("marca");
             infracciones = bundle.getString("infracciones");
             licencia = bundle.getString("licencia");
-            modalidadH = bundle.getString("modalidad");
+            modalidad = bundle.getString("modalidad");
             sector = bundle.getString("sector");
 
 
@@ -230,9 +232,9 @@ public class Infracciones extends AppCompatActivity{
 *
 *
 *  */
-
+            Log.d("modalidad","$"+modalidad);
             if (modalidad !=null){
-                modalidad = modalidadH.trim();
+                modalidad = modalidad.trim();
             }else{
                 modalidad = "SIN MODALIDAD";
             }
@@ -892,7 +894,18 @@ if (sector !=null){
             @Override
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
-                Toast.makeText(Infracciones.this, "##2"+error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Infracciones.this, "##2", Toast.LENGTH_LONG).show();
+                // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(),Drawer.class);
+                intent.putExtra("usersId",usersId);
+                intent.putExtra("username",username);
+                intent.putExtra("profile",profile);
+                intent.putExtra("nombre",nombreLogin);
+                intent.putExtra("delegacionId",delegacionId);
+                intent.putExtra("activo",activo);
+                finish();
+                startActivity(intent);
+
             }
         }){
             @Override
@@ -901,6 +914,7 @@ if (sector !=null){
 
 
                 String comentarios = edtComentarios.getText().toString().trim();
+                String folio = edtFolio.getText().toString().trim();
                 // Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
                 Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
                 Map<String, String> params = new Hashtable<String, String>();
@@ -993,6 +1007,7 @@ if (sector !=null){
                 Log.d("CUENTA","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
 
                 params.put("comentarios",comentarios);
+                params.put("folio",folio);
 
                 params.put("sectorId",sectorId);
                 Log.d("SECTORRR","ZONASECTOR%%%%%%%%%%%%%%%%%%%%"+sectorId);
