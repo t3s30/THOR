@@ -114,6 +114,39 @@ public class WsgobConsulta extends AppCompatActivity {
     TextView tvobservacionesrm2;
     TextView tvrevisionrm2;
 
+
+    TextView tvplacaFolio;
+    TextView tvfoliofolio;
+    TextView tvdelegacionFolio;
+    TextView tvnombrePlataformaFolio;
+    TextView tvnumeroPolizaFolio;
+    TextView tvnombrePropietarioFolio;
+    TextView tvserieFolio;
+    TextView tvmarcaFolio;
+    TextView tvtipoFolio;
+    TextView tvcolorFolio;
+    TextView tvmodeloFolio;
+    TextView tvfechaVigenciaFolio;
+    TextView tvfechaAltaFolio;
+    //TextView fechaVigenciaFoliio;
+    TextView tvnombreSocioFolio;
+    TextView tvestatusFolio;
+
+    TextView tvlnumeroTarjeton;
+    TextView tvlicenciaTarjeton;
+    TextView tvtipoChoferTarjeton;
+    TextView tvfolioTarjeton;
+    TextView tvmaternoTarjeton;
+    TextView tvpaternoTarjerton;
+    TextView tvnombreTarjeton;
+    TextView tvfechaAltaTarjeton;
+    TextView tvfechaVigenciaTarjeton;
+    TextView tvfechaLabTarjerton;
+    TextView tvestatusTarjerton;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -179,6 +212,42 @@ public class WsgobConsulta extends AppCompatActivity {
         tvobservacionesrm2 = findViewById(R.id.observacionesrm2);
         tvrevisionrm2 = findViewById(R.id.revisionrm2);
 
+
+
+
+       //FOLIO
+         tvplacaFolio = findViewById(R.id.placasplataformafolio);
+         tvfoliofolio = findViewById(R.id.folioplataformafolio);
+         tvdelegacionFolio = findViewById(R.id.delegacionidplataformafolio);
+         tvnombrePlataformaFolio = findViewById(R.id.plataformaplataformafolio);
+         tvnumeroPolizaFolio = findViewById(R.id.numeropolizaplataformafolio);
+         tvnombrePropietarioFolio = findViewById(R.id.propietarioplataformafolio);
+         tvserieFolio = findViewById(R.id.serieplataformafolio);
+         tvmarcaFolio = findViewById(R.id.marcaplataformafolio);
+         tvtipoFolio = findViewById(R.id.tipoplataformafolio);
+         tvcolorFolio = findViewById(R.id.colorplataformafolio);
+         tvmodeloFolio = findViewById(R.id.modeloplataformafolio);
+         tvfechaVigenciaFolio = findViewById(R.id.fechavigenciaplataformafolio);
+         tvfechaAltaFolio = findViewById(R.id.fechaaltaplataformafolio);
+         tvnombreSocioFolio = findViewById(R.id.nombresocioplataformafolio);
+         tvestatusFolio = findViewById(R.id.estatusplataformafolio);
+         tvestatusFolio = findViewById(R.id.estatusplataformafolio);
+
+
+         //TARJETON
+
+
+         tvlnumeroTarjeton = findViewById(R.id.lnumerotarjetonfolio);
+         tvlicenciaTarjeton = findViewById(R.id.licenciatarjetonfolio);
+         tvtipoChoferTarjeton = findViewById(R.id.tipochofertarjetonfolio);
+         tvfolioTarjeton = findViewById(R.id.foliotarjetonfolio);
+         tvmaternoTarjeton = findViewById(R.id.maternotarjetonfolio);
+         tvpaternoTarjerton = findViewById(R.id.paternotarjetonfolio);
+         tvnombreTarjeton = findViewById(R.id.nombretarjetonfolio);
+         tvfechaAltaTarjeton = findViewById(R.id.fechaaltatarjetonfolio);
+         tvfechaVigenciaTarjeton = findViewById(R.id.fechavigenciatarjtonfolio);
+         tvfechaLabTarjerton = findViewById(R.id.fechalaboratoriotarjetonfolio);
+         tvestatusTarjerton = findViewById(R.id.estatusfoliotarjetonfolio);
 
 
 
@@ -371,6 +440,67 @@ public class WsgobConsulta extends AppCompatActivity {
 
 
 
+            String placaFolio = bundle.getString("placaFolio");
+            String foliofolio = bundle.getString("foliofolio");
+            String delegacionFolio = bundle.getString("delegacionFolio");
+            String nombrePlataformaFolio = bundle.getString("nombrePlataformaFolio");
+            String numeroPolizaFolio = bundle.getString("numeroPolizaFolio");
+            String nombrePropietarioFolio = bundle.getString("nombrePropietarioFolio");
+            String serieFolio = bundle.getString("serieFolio");
+            String marcaFolio = bundle.getString("marcaFolio");
+            String tipoFolio = bundle.getString("tipoFolio");
+            String colorFolio = bundle.getString("colorFolio");
+            String modeloFolio = bundle.getString("modeloFolio");
+            String fechaVigenciaFolio = bundle.getString("fechaVigenciaFolio");
+
+            String fechaAltaFolio = bundle.getString("fechaAltaFolio");
+
+            String nombreSocioFolio = bundle.getString("nombreSocioFolio");
+            String estatusFolio = bundle.getString("estatusFolio");
+
+             tvplacaFolio.setText(placaFolio);
+             tvfoliofolio.setText(foliofolio);
+             tvdelegacionFolio.setText(delegacionFolio);
+             tvnombrePlataformaFolio.setText(nombrePlataformaFolio);
+             tvnumeroPolizaFolio.setText(numeroPolizaFolio);
+             tvnombrePropietarioFolio.setText(nombrePropietarioFolio);
+             tvserieFolio.setText(serieFolio);
+             tvmarcaFolio.setText(marcaFolio);
+             tvtipoFolio.setText(tipoFolio);
+             tvcolorFolio.setText(colorFolio);
+             tvmodeloFolio.setText(modeloFolio);
+             tvfechaVigenciaFolio.setText(fechaVigenciaFolio);
+             tvfechaAltaFolio.setText(fechaAltaFolio);
+             tvnombreSocioFolio.setText(nombreSocioFolio);
+             tvestatusFolio.setText(estatusFolio);
+
+
+
+            String lnumeroTarjeton = bundle.getString("lnumeroTarjeton");
+            String licenciaTarjeton = bundle.getString("licenciaTarjeton");
+            String tipoChoferTarjeton = bundle.getString("tipoChoferTarjeton");
+            String folioTarjeton = bundle.getString("folioTarjeton");
+            String maternoTarjeton = bundle.getString("maternoTarjeton");
+            String paternoTarjerton = bundle.getString("paternoTarjerton");
+            String nombreTarjeton = bundle.getString("nombreTarjeton");
+            String fechaAltaTarjeton = bundle.getString("fechaAltaTarjeton");
+            String fechaVigenciaTarjeton = bundle.getString("fechaVigenciaTarjeton");
+            String fechaLabTarjerton = bundle.getString("fechaLabTarjerton");
+            String estatusTarjerton = bundle.getString("estatusTarjerton");
+
+
+
+            tvlnumeroTarjeton.setText(lnumeroTarjeton);
+            tvlicenciaTarjeton.setText(licenciaTarjeton);
+            tvtipoChoferTarjeton.setText(tipoChoferTarjeton);
+            tvfolioTarjeton.setText(folioTarjeton);
+            tvmaternoTarjeton.setText(maternoTarjeton);
+            tvpaternoTarjerton.setText(paternoTarjerton);
+            tvnombreTarjeton.setText(nombreTarjeton);
+            tvfechaAltaTarjeton.setText(fechaAltaTarjeton);
+            tvfechaVigenciaTarjeton.setText(fechaVigenciaTarjeton);
+            tvfechaLabTarjerton.setText(fechaLabTarjerton);
+            tvestatusTarjerton.setText(estatusTarjerton);
 
         }
 

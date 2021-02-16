@@ -216,6 +216,35 @@ public class HomeFragment extends Fragment  {
     String revisionrm22;
 
 
+    String placaFolio;
+    String foliofolio;
+    String delegacionFolio;
+    String nombrePlataformaFolio;
+    String numeroPolizaFolio;
+    String nombrePropietarioFolio;
+    String serieFolio;
+    String marcaFolio;
+    String tipoFolio;
+    String colorFolio;
+    String modeloFolio;
+    String fechaVigenciaFolio;
+    String fechaAltaFolio;
+    String fechaVigenciaFoliio;
+    String nombreSocioFolio;
+    String estatusFolio;
+
+
+    String lnumeroTarjeton;
+    String licenciaTarjeton;
+    String tipoChoferTarjeton;
+    String folioTarjeton;
+    String maternoTarjeton;
+    String paternoTarjerton;
+    String nombreTarjeton;
+    String fechaAltaTarjeton;
+    String fechaVigenciaTarjeton;
+    String fechaLabTarjerton;
+    String estatusTarjerton;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -688,6 +717,43 @@ public class HomeFragment extends Fragment  {
 
 
 
+
+
+
+
+                            intentWs.putExtra("placaFolio",placaFolio);
+                            intentWs.putExtra("foliofolio",foliofolio);
+                            intentWs.putExtra("delegacionFolio",delegacionFolio);
+                            intentWs.putExtra("nombrePlataformaFolio",nombrePlataformaFolio);
+                            intentWs.putExtra("numeroPolizaFolio",numeroPolizaFolio);
+                            intentWs.putExtra("nombrePropietarioFolio",nombrePropietarioFolio);
+                            intentWs.putExtra("serieFolio",serieFolio);
+                            intentWs.putExtra("marcaFolio",marcaFolio);
+                            intentWs.putExtra("tipoFolio",tipoFolio);
+                            intentWs.putExtra("colorFolio",colorFolio);
+                            intentWs.putExtra("modeloFolio",modeloFolio);
+                            intentWs.putExtra("fechaVigenciaFolio",fechaVigenciaFolio);
+                            intentWs.putExtra("fechaAltaFolio",fechaAltaFolio);
+                            intentWs.putExtra("fechaVigenciaFoliio",fechaVigenciaFoliio);
+                            intentWs.putExtra("nombreSocioFolio",nombreSocioFolio);
+                            intentWs.putExtra("estatusFolio",estatusFolio);
+
+
+
+                            intentWs.putExtra("lnumeroTarjeton",lnumeroTarjeton);
+                            intentWs.putExtra("licenciaTarjeton",licenciaTarjeton);
+                            intentWs.putExtra("tipoChoferTarjeton",tipoChoferTarjeton);
+                            intentWs.putExtra("folioTarjeton",folioTarjeton);
+                            intentWs.putExtra("maternoTarjeton",maternoTarjeton);
+                            intentWs.putExtra("paternoTarjerton",paternoTarjerton);
+                            intentWs.putExtra("nombreTarjeton",nombreTarjeton);
+                            intentWs.putExtra("fechaAltaTarjeton",fechaAltaTarjeton);
+                            intentWs.putExtra("fechaVigenciaTarjeton",fechaVigenciaTarjeton);
+                            intentWs.putExtra("fechaLabTarjerton",fechaLabTarjerton);
+                            intentWs.putExtra("estatusTarjerton",estatusTarjerton);
+
+
+
                             startActivity(intentWs);
                             getActivity().finish();
                         }
@@ -810,6 +876,36 @@ public class HomeFragment extends Fragment  {
 
 
 
+                            intentWs.putExtra("placaFolio",placaFolio);
+                            intentWs.putExtra("foliofolio",foliofolio);
+                            intentWs.putExtra("delegacionFolio",delegacionFolio);
+                            intentWs.putExtra("nombrePlataformaFolio",nombrePlataformaFolio);
+                            intentWs.putExtra("numeroPolizaFolio",numeroPolizaFolio);
+                            intentWs.putExtra("nombrePropietarioFolio",nombrePropietarioFolio);
+                            intentWs.putExtra("serieFolio",serieFolio);
+                            intentWs.putExtra("marcaFolio",marcaFolio);
+                            intentWs.putExtra("tipoFolio",tipoFolio);
+                            intentWs.putExtra("colorFolio",colorFolio);
+                            intentWs.putExtra("modeloFolio",modeloFolio);
+                            intentWs.putExtra("fechaVigenciaFolio",fechaVigenciaFolio);
+                            intentWs.putExtra("fechaAltaFolio",fechaAltaFolio);
+                            intentWs.putExtra("fechaVigenciaFoliio",fechaVigenciaFoliio);
+                            intentWs.putExtra("nombreSocioFolio",nombreSocioFolio);
+                            intentWs.putExtra("estatusFolio",estatusFolio);
+
+
+                            intentWs.putExtra("lnumeroTarjeton",lnumeroTarjeton);
+                            intentWs.putExtra("licenciaTarjeton",licenciaTarjeton);
+                            intentWs.putExtra("tipoChoferTarjeton",tipoChoferTarjeton);
+                            intentWs.putExtra("folioTarjeton",folioTarjeton);
+                            intentWs.putExtra("maternoTarjeton",maternoTarjeton);
+                            intentWs.putExtra("paternoTarjerton",paternoTarjerton);
+                            intentWs.putExtra("nombreTarjeton",nombreTarjeton);
+                            intentWs.putExtra("fechaAltaTarjeton",fechaAltaTarjeton);
+                            intentWs.putExtra("fechaVigenciaTarjeton",fechaVigenciaTarjeton);
+                            intentWs.putExtra("fechaLabTarjerton",fechaLabTarjerton);
+                            intentWs.putExtra("estatusTarjerton",estatusTarjerton);
+
                             startActivity(intentWs);
                             getActivity().finish();
 
@@ -890,6 +986,37 @@ public class HomeFragment extends Fragment  {
                         intentWs.putExtra("vigenciaPlataforma",fecha_vigenciaPlataforma);
                         intentWs.putExtra("socioPlataforma",nombre_socioPlataforma);
                         intentWs.putExtra("estatusPlataforma",estatusPlataforma);
+
+
+
+                        intentWs.putExtra("placaFolio",placaFolio);
+                        intentWs.putExtra("foliofolio",foliofolio);
+                        intentWs.putExtra("delegacionFolio",delegacionFolio);
+                        intentWs.putExtra("nombrePlataformaFolio",nombrePlataformaFolio);
+                        intentWs.putExtra("numeroPolizaFolio",numeroPolizaFolio);
+                        intentWs.putExtra("nombrePropietarioFolio",nombrePropietarioFolio);
+                        intentWs.putExtra("serieFolio",serieFolio);
+                        intentWs.putExtra("marcaFolio",marcaFolio);
+                        intentWs.putExtra("tipoFolio",tipoFolio);
+                        intentWs.putExtra("colorFolio",colorFolio);
+                        intentWs.putExtra("modeloFolio",modeloFolio);
+                        intentWs.putExtra("fechaVigenciaFolio",fechaVigenciaFolio);
+                        intentWs.putExtra("fechaAltaFolio",fechaAltaFolio);
+                        intentWs.putExtra("fechaVigenciaFoliio",fechaVigenciaFoliio);
+                        intentWs.putExtra("nombreSocioFolio",nombreSocioFolio);
+                        intentWs.putExtra("estatusFolio",estatusFolio);
+
+                        intentWs.putExtra("lnumeroTarjeton",lnumeroTarjeton);
+                        intentWs.putExtra("licenciaTarjeton",licenciaTarjeton);
+                        intentWs.putExtra("tipoChoferTarjeton",tipoChoferTarjeton);
+                        intentWs.putExtra("folioTarjeton",folioTarjeton);
+                        intentWs.putExtra("maternoTarjeton",maternoTarjeton);
+                        intentWs.putExtra("paternoTarjerton",paternoTarjerton);
+                        intentWs.putExtra("nombreTarjeton",nombreTarjeton);
+                        intentWs.putExtra("fechaAltaTarjeton",fechaAltaTarjeton);
+                        intentWs.putExtra("fechaVigenciaTarjeton",fechaVigenciaTarjeton);
+                        intentWs.putExtra("fechaLabTarjerton",fechaLabTarjerton);
+                        intentWs.putExtra("estatusTarjerton",estatusTarjerton);
 
 
                         startActivity(intentWs);
@@ -1012,6 +1139,39 @@ public class HomeFragment extends Fragment  {
 
                     }
 
+/*  placas,folio,delegacionID,nombre_plataforma, numero_poliza,nombre_propietario,serie,marca,tipo,color,modelo,fecha_vigencia,fecha_alta,fecha_vigencia, nombre_socio,estatus FROM plata
+forma  */
+
+                    try {
+                        JSONArray jsonarray = new JSONArray(obj.getString("FOLIOPLATAFORMA"));
+                        for (int h = 0; h < jsonarray.length(); h++) {
+                            JSONObject jsonobject = jsonarray.getJSONObject(h);
+                            placaFolio = jsonobject.getString("placas");
+                            foliofolio = jsonobject.getString("folio");
+                            delegacionFolio = jsonobject.getString("delegacionID");
+                            nombrePlataformaFolio = jsonobject.getString("nombre_plataforma");
+                            numeroPolizaFolio = jsonobject.getString("numero_poliza");
+                            nombrePropietarioFolio = jsonobject.getString("nombre_propietario");
+                            serieFolio = jsonobject.getString("serie");
+                            marcaFolio = jsonobject.getString("marca");
+                            tipoFolio = jsonobject.getString("tipo");
+                            colorFolio = jsonobject.getString("color");
+                            modeloFolio = jsonobject.getString("modelo");
+                            fechaVigenciaFolio = jsonobject.getString("fecha_vigencia");
+                            fechaAltaFolio = jsonobject.getString("fecha_alta");
+                            fechaVigenciaFoliio = jsonobject.getString("fecha_vigencia");
+                            nombreSocioFolio = jsonobject.getString("nombre_socio");
+                            estatusFolio = jsonobject.getString("estatus");
+
+
+                            Log.d("RM33", "###Respuesta WS --- " + placarm2);
+                        }
+                    }catch (Exception e){
+
+                    }
+
+
+
 
                     try {
                         Log.d("RM10", "###Respuesta WS RM10" +obj.getString("QRSERIAL"));
@@ -1053,10 +1213,42 @@ public class HomeFragment extends Fragment  {
                             }
 
                         }catch (Exception e){
-                            Log.d("RM16", "NO ENTRE PUTO -- ");
+                         //   Log.d("RM16", "NO ENTRE PUTO -- ");
                         }
 
 
+/*
+* imos_tarjeton_lnumero,imos_tarjeton_licencia, imos_tarjeton_tipo_chofer,imos_tarjeton_folio,imos_tarjeton_materno,imos_tarjeton_paterno,imos_tarjeton_nombre, fecha_alta,fecha_vigencia_tarjeton,inserta_fecha_lab,estatus FROM
+tarjeton_TIJUANA
+*
+* */
+
+
+                        JSONArray jsonarrayTarjeton = new JSONArray(obj.getString("TARJETON"));
+
+                        try {
+                            Log.d("RM17",";;;;;;"+jsonarrayTarjeton);
+                            for(int i=0; i < jsonarrayTarjeton.length(); i++) {
+                                JSONObject jsonobject = jsonarrayTarjeton.getJSONObject(i);
+                                lnumeroTarjeton      = jsonobject.getString("imos_tarjeton_lnumero");
+                                licenciaTarjeton      = jsonobject.getString("imos_tarjeton_licencia");
+                                tipoChoferTarjeton      = jsonobject.getString("imos_tarjeton_tipo_chofer");
+                                folioTarjeton      = jsonobject.getString("imos_tarjeton_folio");
+                                maternoTarjeton      = jsonobject.getString("imos_tarjeton_materno");
+                                paternoTarjerton      = jsonobject.getString("imos_tarjeton_paterno");
+                                nombreTarjeton      = jsonobject.getString("imos_tarjeton_nombre");
+                                fechaAltaTarjeton = jsonobject.getString("fecha_alta");
+                                fechaVigenciaTarjeton      = jsonobject.getString("fecha_vigencia_tarjeton");
+                                fechaLabTarjerton      = jsonobject.getString("inserta_fecha_lab");
+                                estatusTarjerton      = jsonobject.getString("estatus");
+
+                                Log.d("TARJETON","DATOS DE TARJETON "+lnumeroTarjeton);
+
+                            }
+
+                        }catch (Exception e){
+                            Log.d("RM16", "NO ENTRE PUTO -- ");
+                        }
 
 
 
