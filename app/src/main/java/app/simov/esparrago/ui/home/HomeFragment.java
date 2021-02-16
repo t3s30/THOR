@@ -122,6 +122,31 @@ public class HomeFragment extends Fragment  {
     ImageView imageViewP;
     TextView textViewP;
 
+
+
+
+    String placaPlataforma;
+
+    String folioPlataforma;
+
+    String delegacionIDPlataforma;
+    String nombre_plataformaPlataforma;
+    String numero_polizaPlataforma     ;
+    String nombre_propietarioPlataforma ;
+    String seriePlataforma     ;
+
+    String marcaPlataforma  ;
+    String tipoPlataforma    ;
+    String modeloPlataforma   ;
+    String fecha_vigenciaPlataforma ;
+    String fecha_altaPlataforma     ;
+    String nombre_socioPlataforma    ;
+    String estatusPlataforma     ;
+    String colorPlataforma;
+
+
+
+    AlertDialog.Builder builder;
     final int COD_SELECCIONA=10;
     final int COD_FOTO=20;
     private final String CARPETA_RAIZ="misImagenesPrueba/";
@@ -130,12 +155,96 @@ public class HomeFragment extends Fragment  {
     String miPlacosa;
     private HomeViewModel homeViewModel;
     private static final String EXTRA_CODE = "app.simov.esparrago";
+
+
+    TextView tvplacasRM;
+    TextView tvdelegacionRM;
+    TextView tvplataformaRM;
+    TextView tvpolizaRM;
+    TextView tvpropietarioRM;
+    TextView tvserieRM;
+    TextView tvmarcaRM;
+    TextView tvtipoRM;
+    TextView tvcolorRM;
+    TextView tvmodeloRM;
+    TextView tvvigenciaRM;
+    TextView tvsocioRM;
+    TextView tvstatusRM;
+
+
+
+
+    String placaQR;
+    String serialQR;
+    String economicoQR;
+    String serieQR;
+    String marcaQR;
+    String modeloQR;
+    String tipoQR;
+    String colorQR;
+    String padronQR;
+    String modalidadQR;
+    String fechaAltaQR;
+    String prorrogaQR;
+    String fechaProrrojgaQR;
+    String estatusQR;
+    String coberturaSeguroQR;
+    String vigenciaPolizaQR;
+    String periodoQR;
+    String observacionesQR;
+    String revisionQR;
+
+    String placarm2;
+    String serialrm2;
+    String delegacionidrm2;
+    String economicorm2;
+    String serierm2;
+    String marcarm2;
+    String modelorm2;
+    String tiporm2;
+    String colorrm2;
+    String padronrm2;
+    String modalidadrm2;
+    String fechaAltarm2;
+    String prorrogarm2;
+    String fechaProrrojgarm2;
+    String estatusrm2;
+    String coberturaSegurorm2;
+    String vigenciaPolizarm2;
+    String periodorm2;
+    String observacionesrm2;
+    String revisionrm22;
+
+
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
       //  FirebaseApp.initializeApp(getActivity());
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+
+         tvplacasRM = root.findViewById(R.id.placasRM);
+         tvdelegacionRM = root.findViewById(R.id.delegacionRM);
+         tvplataformaRM = root.findViewById(R.id.plataformaRM);
+         tvpolizaRM = root.findViewById(R.id.propietarioRM);
+         tvpropietarioRM = root.findViewById(R.id.propietarioRM);
+         tvserieRM = root.findViewById(R.id.serieRM);
+         tvmarcaRM = root.findViewById(R.id.marcaRM);
+         tvtipoRM = root.findViewById(R.id.tipoRM);
+         tvcolorRM = root.findViewById(R.id.colorRM);
+         tvmodeloRM = root.findViewById(R.id.modeloRM);
+         tvvigenciaRM = root.findViewById(R.id.vigenciaRM);
+         tvsocioRM = root.findViewById(R.id.socioRM);
+         tvstatusRM = root.findViewById(R.id.estatusRM);
+
+
+
+
+
+        builder = new AlertDialog.Builder(getActivity());
 
         //camara placa
         //find imageview
@@ -403,6 +512,7 @@ public class HomeFragment extends Fragment  {
 
 
 
+
                /*
                     progressDialog.hide();
                     Toast.makeText(getContext(), "Tienes que seleccionar PLACA o LICENCIA", Toast.LENGTH_LONG).show();
@@ -437,9 +547,10 @@ public class HomeFragment extends Fragment  {
 
                     Log.d("Variable", "LICENCIA## " + placa);
                     String URL = "https://simov.app/servicios/controlVehicular.php";
-
+                    String URL2  = "https://simov.app/servicios/abdiel.php";
                     //Envia Ws
                     enviarWSConsulta(URL);
+                    enviarWSConsultaRM(URL2);
 
                 /*
 
@@ -469,8 +580,6 @@ public class HomeFragment extends Fragment  {
     }
 
 
-
-
     private void enviarWSConsulta(String URL) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
@@ -491,30 +600,97 @@ public class HomeFragment extends Fragment  {
                         Log.w("jARRAY","### QUE TIENE EL ARRAY?"+jsonarray.toString());
 
 
-                       if (jsonarray.length()==0){
-                           Log.d("#####","#### ENTRE");
-                           Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
-                           licencia = editTextLicencia.getText().toString();
-                           intentWs.putExtra("licencia", licencia);
-                           placa = editTextPlaca.getText().toString();
-                           //Spinner Modalidad
-                           modalidad =spinnerModalidad.getSelectedItem().toString();
-                           intentWs.putExtra("modalidad",modalidad);
-                           intentWs.putExtra("placa", placa);
+                        if (jsonarray.length()==0){
+                            Log.d("#####","#### ENTRE");
+                            Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
+                            licencia = editTextLicencia.getText().toString();
+                            intentWs.putExtra("licencia", licencia);
+                            placa = editTextPlaca.getText().toString();
+                            //Spinner Modalidad
+                            modalidad =spinnerModalidad.getSelectedItem().toString();
+                            intentWs.putExtra("modalidad",modalidad);
+                            intentWs.putExtra("placa", placa);
 
 
-                           intentWs.putExtra("usersId",usersId);
-                           Log.d("HomeFragment","USERSID########################--->"+usersId);
-                           intentWs.putExtra("username",username);
-                           intentWs.putExtra("profile",profile);
-                           intentWs.putExtra("nombre",nombre);
-                           intentWs.putExtra("delegacionId",delegacionId);
-                           intentWs.putExtra("activo",activo);
+                            intentWs.putExtra("usersId",usersId);
+                            Log.d("HomeFragment","USERSID########################--->"+usersId);
+                            intentWs.putExtra("username",username);
+                            intentWs.putExtra("profile",profile);
+                            intentWs.putExtra("nombre",nombre);
+                            intentWs.putExtra("delegacionId",delegacionId);
+                            intentWs.putExtra("activo",activo);
 
 
-                           startActivity(intentWs);
-                           getActivity().finish();
-                       }
+                            intentWs.putExtra("placaPlataforma",placaPlataforma);
+                            Log.d("RMWSGOB","VALOR"+placaPlataforma);
+
+                            Log.d("RMWSGOB1","VALOR"+placaPlataforma);
+
+                           intentWs.putExtra("delegacionPlataforma",delegacionIDPlataforma);
+                            intentWs.putExtra("nombrePlataforma",nombre_plataformaPlataforma);
+                            intentWs.putExtra("polizaPlataforma",numero_polizaPlataforma);
+                            intentWs.putExtra("propietarioPlataforma",nombre_propietarioPlataforma);
+                            intentWs.putExtra("seriePlataforma",seriePlataforma);
+                            intentWs.putExtra("marcaPlataforma",marcaPlataforma);
+                            intentWs.putExtra("tipoPlataforma",tipoPlataforma);
+                            intentWs.putExtra("colorPlataforma",colorPlataforma);
+                            intentWs.putExtra("modeloPlataforma",modeloPlataforma);
+                            intentWs.putExtra("vigenciaPlataforma",fecha_vigenciaPlataforma);
+                            intentWs.putExtra("socioPlataforma",nombre_socioPlataforma);
+                            intentWs.putExtra("estatusPlataforma",estatusPlataforma);
+
+
+
+
+
+
+                            intentWs.putExtra("placaQR",placaQR);
+                            intentWs.putExtra("serialQR",serialQR);
+                            intentWs.putExtra("economicoQR",economicoQR);
+                            intentWs.putExtra("serieQR",serieQR);
+                            intentWs.putExtra("marcaQR",marcaQR);
+                            intentWs.putExtra("modeloQR",modeloQR);
+                            intentWs.putExtra("tipoQR",tipoQR);
+                            intentWs.putExtra("colorQR",colorQR);
+                            intentWs.putExtra("padronQR",padronQR);
+                            intentWs.putExtra("modalidadQR",modalidadQR);
+                            intentWs.putExtra("fechaAltaQR",fechaAltaQR);
+                            intentWs.putExtra("prorrogaQR",prorrogaQR);
+                            intentWs.putExtra("fechaProrrojgaQR",fechaProrrojgaQR);
+                            intentWs.putExtra("estatusQR",estatusQR);
+                            intentWs.putExtra("coberturaSeguroQR",coberturaSeguroQR);
+                            intentWs.putExtra("vigenciaPolizaQR",vigenciaPolizaQR);
+                            intentWs.putExtra("periodoQR",periodoQR);
+                            intentWs.putExtra("observacionesQR",observacionesQR);
+                            intentWs.putExtra("revisionQR",revisionQR);
+
+                            intentWs.putExtra("placarm2",placarm2);
+                            intentWs.putExtra("serialrm2",serialrm2);
+                            intentWs.putExtra("economicorm2",economicorm2);
+                            intentWs.putExtra("serierm2",serierm2);
+                            intentWs.putExtra("marcarm2",marcarm2);
+                            intentWs.putExtra("modelorm2",modelorm2);
+                            intentWs.putExtra("tiporm2",tiporm2);
+                            intentWs.putExtra("colorrm2",colorrm2);
+                            intentWs.putExtra("padronrm2",padronrm2);
+                            intentWs.putExtra("modalidadrm2",modalidadrm2);
+                            intentWs.putExtra("fechaAltarm2",fechaAltarm2);
+                            intentWs.putExtra("prorrogarm2",prorrogarm2);
+                            intentWs.putExtra("fechaProrrojgarm2",fechaProrrojgarm2);
+                            intentWs.putExtra("estatusrm2",estatusrm2);
+                            intentWs.putExtra("coberturaSegurorm2",coberturaSegurorm2);
+                            intentWs.putExtra("vigenciaPolizarm2",vigenciaPolizarm2);
+                            intentWs.putExtra("periodorm2",periodorm2);
+                            intentWs.putExtra("observacionesrm2",observacionesrm2);
+                            intentWs.putExtra("revisionrm22",revisionrm22);
+
+
+
+
+
+                            startActivity(intentWs);
+                            getActivity().finish();
+                        }
 
                         //Obtenemos el total de elementos del objeto.
                         for (int i = 0; i < jsonarray.length(); i++) {
@@ -524,16 +700,16 @@ public class HomeFragment extends Fragment  {
 
                             String PLACA = jsonobject.getString("placa");
 
-                               Boolean validaEstatus = jsonobject.has("estatus");
-                               Boolean validaFechaVencimiento = jsonobject.has("fechaVencimiento");
+                            Boolean validaEstatus = jsonobject.has("estatus");
+                            Boolean validaFechaVencimiento = jsonobject.has("fechaVencimiento");
 
-                                modalidad =spinnerModalidad.getSelectedItem().toString();
-                                String PROPIETARIO = jsonobject.getString("propietario");
+                            modalidad =spinnerModalidad.getSelectedItem().toString();
+                            String PROPIETARIO = jsonobject.getString("propietario");
 
-                                String VIM = jsonobject.getString("serie");
-                                String MARCA = jsonobject.getString("marca");
-                                //Iniciamos actividad y mandamos parametros.
-                                Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
+                            String VIM = jsonobject.getString("serie");
+                            String MARCA = jsonobject.getString("marca");
+                            //Iniciamos actividad y mandamos parametros.
+                            Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
 
                             if (validaEstatus==false){
                                 String  ESTATUS = jsonobject.getString("estatusActual");
@@ -561,19 +737,81 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("delegacionId",delegacionId);
                             intentWs.putExtra("activo",activo);
 
-                                licencia = editTextLicencia.getText().toString();
-                                intentWs.putExtra("licencia", licencia);
-                                Log.d("licencia1", "###Valor de la licencia" + licencia);
-                                intentWs.putExtra("bandera", enviaBanderaLic);
-                                intentWs.putExtra("placa", PLACA);
-                                intentWs.putExtra("modalidad",modalidad);
-                                intentWs.putExtra("propietario", PROPIETARIO);
+                            licencia = editTextLicencia.getText().toString();
+                            intentWs.putExtra("licencia", licencia);
+                            Log.d("licencia1", "###Valor de la licencia" + licencia);
+                            intentWs.putExtra("bandera", enviaBanderaLic);
+                            intentWs.putExtra("placa", PLACA);
+                            intentWs.putExtra("modalidad",modalidad);
+                            intentWs.putExtra("propietario", PROPIETARIO);
 
-                                intentWs.putExtra("vim", VIM);
-                                intentWs.putExtra("marca", MARCA);
+                            intentWs.putExtra("vim", VIM);
+                            intentWs.putExtra("marca", MARCA);
 
-                                startActivity(intentWs);
-                                getActivity().finish();
+
+
+                            intentWs.putExtra("placaQR",placaQR);
+                            intentWs.putExtra("serialQR",serialQR);
+                            intentWs.putExtra("economicoQR",economicoQR);
+                            intentWs.putExtra("serieQR",serieQR);
+                            intentWs.putExtra("marcaQR",marcaQR);
+                            intentWs.putExtra("modeloQR",modeloQR);
+                            intentWs.putExtra("tipoQR",tipoQR);
+                            intentWs.putExtra("colorQR",colorQR);
+                            intentWs.putExtra("padronQR",padronQR);
+                            intentWs.putExtra("modalidadQR",modalidadQR);
+                            intentWs.putExtra("fechaAltaQR",fechaAltaQR);
+                            intentWs.putExtra("prorrogaQR",prorrogaQR);
+                            intentWs.putExtra("fechaProrrojgaQR",fechaProrrojgaQR);
+                            intentWs.putExtra("estatusQR",estatusQR);
+                            intentWs.putExtra("coberturaSeguroQR",coberturaSeguroQR);
+                            intentWs.putExtra("vigenciaPolizaQR",vigenciaPolizaQR);
+                            intentWs.putExtra("periodoQR",periodoQR);
+                            intentWs.putExtra("observacionesQR",observacionesQR);
+                            intentWs.putExtra("revisionQR",revisionQR);
+
+
+                            intentWs.putExtra("placarm2",placarm2);
+                            intentWs.putExtra("serialrm2",serialrm2);
+                            intentWs.putExtra("economicorm2",economicorm2);
+                            intentWs.putExtra("serierm2",serierm2);
+                            intentWs.putExtra("marcarm2",marcarm2);
+                            intentWs.putExtra("modelorm2",modelorm2);
+                            intentWs.putExtra("tiporm2",tiporm2);
+                            intentWs.putExtra("colorrm2",colorrm2);
+                            intentWs.putExtra("padronrm2",padronrm2);
+                            intentWs.putExtra("modalidadrm2",modalidadrm2);
+                            intentWs.putExtra("fechaAltarm2",fechaAltarm2);
+                            intentWs.putExtra("prorrogarm2",prorrogarm2);
+                            intentWs.putExtra("fechaProrrojgarm2",fechaProrrojgarm2);
+                            intentWs.putExtra("estatusrm2",estatusrm2);
+                            intentWs.putExtra("coberturaSegurorm2",coberturaSegurorm2);
+                            intentWs.putExtra("vigenciaPolizarm2",vigenciaPolizarm2);
+                            intentWs.putExtra("periodorm2",periodorm2);
+                            intentWs.putExtra("observacionesrm2",observacionesrm2);
+                            intentWs.putExtra("revisionrm22",revisionrm22);
+
+
+                            intentWs.putExtra("placaPlataforma",placaPlataforma);
+                            Log.d("RMWSGOB2","VALOR"+placaPlataforma);
+
+                            intentWs.putExtra("delegacionPlataforma",delegacionIDPlataforma);
+                            intentWs.putExtra("nombrePlataforma",nombre_plataformaPlataforma);
+                            intentWs.putExtra("polizaPlataforma",numero_polizaPlataforma);
+                            intentWs.putExtra("propietarioPlataforma",nombre_propietarioPlataforma);
+                            intentWs.putExtra("seriePlataforma",seriePlataforma);
+                            intentWs.putExtra("marcaPlataforma",marcaPlataforma);
+                            intentWs.putExtra("tipoPlataforma",tipoPlataforma);
+                            intentWs.putExtra("colorPlataforma",colorPlataforma);
+                            intentWs.putExtra("modeloPlataforma",modeloPlataforma);
+                            intentWs.putExtra("vigenciaPlataforma",fecha_vigenciaPlataforma);
+                            intentWs.putExtra("socioPlataforma",nombre_socioPlataforma);
+                            intentWs.putExtra("estatusPlataforma",estatusPlataforma);
+
+
+
+                            startActivity(intentWs);
+                            getActivity().finish();
 
                         }
 
@@ -594,11 +832,240 @@ public class HomeFragment extends Fragment  {
                         intentWs.putExtra("placa", "NO-PLACA");
                         Log.d("licencia2", "###Valor de la licencia" + licencia);
                         intentWs.putExtra("bandera", enviaBanderaLic);
+
+
+                        intentWs.putExtra("placaQR",placaQR);
+                        intentWs.putExtra("serialQR",serialQR);
+                        intentWs.putExtra("economicoQR",economicoQR);
+                        intentWs.putExtra("serieQR",serieQR);
+                        intentWs.putExtra("marcaQR",marcaQR);
+                        intentWs.putExtra("modeloQR",modeloQR);
+                        intentWs.putExtra("tipoQR",tipoQR);
+                        intentWs.putExtra("colorQR",colorQR);
+                        intentWs.putExtra("padronQR",padronQR);
+                        intentWs.putExtra("modalidadQR",modalidadQR);
+                        intentWs.putExtra("fechaAltaQR",fechaAltaQR);
+                        intentWs.putExtra("prorrogaQR",prorrogaQR);
+                        intentWs.putExtra("fechaProrrojgaQR",fechaProrrojgaQR);
+                        intentWs.putExtra("estatusQR",estatusQR);
+                        intentWs.putExtra("coberturaSeguroQR",coberturaSeguroQR);
+                        intentWs.putExtra("vigenciaPolizaQR",vigenciaPolizaQR);
+                        intentWs.putExtra("periodoQR",periodoQR);
+                        intentWs.putExtra("observacionesQR",observacionesQR);
+                        intentWs.putExtra("revisionQR",revisionQR);
+
+
+                        intentWs.putExtra("placarm2",placarm2);
+                        intentWs.putExtra("serialrm2",serialrm2);
+                        intentWs.putExtra("economicorm2",economicorm2);
+                        intentWs.putExtra("serierm2",serierm2);
+                        intentWs.putExtra("marcarm2",marcarm2);
+                        intentWs.putExtra("modelorm2",modelorm2);
+                        intentWs.putExtra("tiporm2",tiporm2);
+                        intentWs.putExtra("colorrm2",colorrm2);
+                        intentWs.putExtra("padronrm2",padronrm2);
+                        intentWs.putExtra("modalidadrm2",modalidadrm2);
+                        intentWs.putExtra("fechaAltarm2",fechaAltarm2);
+                        intentWs.putExtra("prorrogarm2",prorrogarm2);
+                        intentWs.putExtra("fechaProrrojgarm2",fechaProrrojgarm2);
+                        intentWs.putExtra("estatusrm2",estatusrm2);
+                        intentWs.putExtra("coberturaSegurorm2",coberturaSegurorm2);
+                        intentWs.putExtra("vigenciaPolizarm2",vigenciaPolizarm2);
+                        intentWs.putExtra("periodorm2",periodorm2);
+                        intentWs.putExtra("observacionesrm2",observacionesrm2);
+                        intentWs.putExtra("revisionrm22",revisionrm22);
+
+                        intentWs.putExtra("placaPlataforma",placaPlataforma);
+                        Log.d("RMWSGOB3","VALOR"+placaPlataforma);
+
+                        intentWs.putExtra("delegacionPlataforma",delegacionIDPlataforma);
+                        intentWs.putExtra("nombrePlataforma",nombre_plataformaPlataforma);
+                        intentWs.putExtra("polizaPlataforma",numero_polizaPlataforma);
+                        intentWs.putExtra("propietarioPlataforma",nombre_propietarioPlataforma);
+                        intentWs.putExtra("seriePlataforma",seriePlataforma);
+                        intentWs.putExtra("marcaPlataforma",marcaPlataforma);
+                        intentWs.putExtra("tipoPlataforma",tipoPlataforma);
+                        intentWs.putExtra("colorPlataforma",colorPlataforma);
+                        intentWs.putExtra("modeloPlataforma",modeloPlataforma);
+                        intentWs.putExtra("vigenciaPlataforma",fecha_vigenciaPlataforma);
+                        intentWs.putExtra("socioPlataforma",nombre_socioPlataforma);
+                        intentWs.putExtra("estatusPlataforma",estatusPlataforma);
+
+
                         startActivity(intentWs);
                         e.printStackTrace();
                         getActivity().finish();
 
                     }
+
+                    //Lanzamos Intent Navigation Drawer.
+                    /*Intent intent = new Intent(getApplicationContext(), Drawer.class);
+                    startActivity(intent);*/
+                } else {
+                    Toast.makeText(getContext(), "No se encontraron parametros en la consulta", Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<String, String>();
+                parametros.put("placa", editTextPlaca.getText().toString());
+
+
+
+                return parametros;
+            }
+        };
+        RequestQueue requesrQueue = Volley.newRequestQueue(getContext());
+        requesrQueue.add(stringRequest);
+    }
+
+
+
+
+
+    private void enviarWSConsultaRM(String URL) {
+        Log.d("RM", "###Respuesta WS RM---------------------------------" );
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
+            public void onResponse(String response) {
+                Log.d("RM2", "###Respuesta WS RM2---------------------------------"+response.toString() );
+                //Validamos que el response no este vacio
+                if (!response.isEmpty()) {
+                    //Esto contiene toda la cadena de respuesta del Ws.
+                    //Toast.makeText(getContext(), "CONSULTA" + response, Toast.LENGTH_LONG).show();
+                    Log.d("RM3", "###ENTRE AQUI A RESPONSE RM ----------");
+
+                        //Convertimos el String en JsonObject
+                    JSONObject obj = null;
+                    try {
+                        obj = new JSONObject(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        JSONArray jsonarrayQR = new JSONArray(obj.getString("QRSERIAL"));
+                        for(int a=0; a < jsonarrayQR.length(); a++) {
+                            JSONObject jsonobject = jsonarrayQR.getJSONObject(a);
+                            placaQR = jsonobject.getString("placas");
+                            serialQR = jsonobject.getString("qr_serial");
+                            economicoQR = jsonobject.getString("numero_economico");
+                            serieQR = jsonobject.getString("serie");
+                            marcaQR = jsonobject.getString("marca");
+                            modeloQR = jsonobject.getString("modelo");
+                            tipoQR = jsonobject.getString("tipo");
+                            colorQR = jsonobject.getString("color");
+                            padronQR = jsonobject.getString("padron_general");
+                            modalidadQR = jsonobject.getString("modalidad");
+                            fechaAltaQR = jsonobject.getString("fecha_alta");
+                            prorrogaQR = jsonobject.getString("prorroga");
+                            fechaProrrojgaQR = jsonobject.getString("fecha_prorroga");
+                            estatusQR = jsonobject.getString("estatus_revision_mecanica");
+                            coberturaSeguroQR = jsonobject.getString("cobertura_seguro");
+                            vigenciaPolizaQR = jsonobject.getString("vigencia_poliza");
+                            periodoQR = jsonobject.getString("periodo");
+                            observacionesQR = jsonobject.getString("observaciones");
+                            revisionQR = jsonobject.getString("revision_por");
+
+                            Log.d("RM15", "###Respuesta WS -- " + placaQR);
+
+                        }
+                    }catch (Exception e){
+
+                    }
+
+
+                    try {
+                        JSONArray jsonarray = new JSONArray(obj.getString("PLACARM"));
+                        for (int h = 0; h < jsonarray.length(); h++) {
+                            JSONObject jsonobject = jsonarray.getJSONObject(h);
+                            placarm2 = jsonobject.getString("placas");
+                            serialrm2 = jsonobject.getString("qr_serial");
+                            economicorm2 = jsonobject.getString("numero_economico");
+                            serierm2 = jsonobject.getString("serie");
+                            marcarm2 = jsonobject.getString("marca");
+                            modelorm2 = jsonobject.getString("modelo");
+                            tiporm2 = jsonobject.getString("tipo");
+                            colorrm2 = jsonobject.getString("color");
+                            padronrm2 = jsonobject.getString("padron_general");
+                            modalidadrm2 = jsonobject.getString("modalidad");
+                            fechaAltarm2 = jsonobject.getString("fecha_alta");
+                            prorrogarm2 = jsonobject.getString("prorroga");
+                            fechaProrrojgarm2 = jsonobject.getString("fecha_prorroga");
+                            estatusrm2 = jsonobject.getString("estatus_revision_mecanica");
+                            coberturaSegurorm2 = jsonobject.getString("cobertura_seguro");
+                            vigenciaPolizarm2 = jsonobject.getString("vigencia_poliza");
+                            periodorm2 = jsonobject.getString("periodo");
+                            observacionesrm2 = jsonobject.getString("observaciones");
+                            revisionrm22 = jsonobject.getString("revision_por");
+
+                            Log.d("RM33", "###Respuesta WS --- " + placarm2);
+                        }
+                    }catch (Exception e){
+
+                    }
+
+
+                    try {
+                        Log.d("RM10", "###Respuesta WS RM10" +obj.getString("QRSERIAL"));
+                        Log.d("RM11", "###Respuesta WS RM11" +obj.getString("PLACARM"));
+                        Log.d("RM12", "###Respuesta WS RM12" +obj.getString("FOLIOPLATAFORMA"));
+                        Log.d("RM13", "###Respuesta WS RM13" +obj.getString("PLACASPLATAFORMA"));
+                        Log.d("RM14", "###Respuesta WS RM14" +obj.getString("TARJETON"));
+
+                       // JSONObject placasPlataforma = obj.getJSONObject("PLACASPLATAFORMA");
+                        //JSONArray  placasPlataforma = obj.getString("PLACASPLATAFORMA");
+                        //Log.d("RM15", "###Respuesta WS RM14" +placasPlataforma);
+                       //String placasPlataformaArray = (String) placasPlataforma.get(1);
+                        //Log.d("RM16", "###Respuesta WS RM14" +placasPlataformaArray);
+
+                     JSONArray jsonarray = new JSONArray(obj.getString("PLACASPLATAFORMA"));
+
+                        try {
+                            Log.d("RM17",";;;;;;"+jsonarray);
+                            for(int i=0; i < jsonarray.length(); i++) {
+                                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                placaPlataforma      = jsonobject.getString("placas");
+                                Log.d("RM16", "###Respuesta WS -- " +placaPlataforma);
+                                folioPlataforma      = jsonobject.getString("folio");
+
+                                delegacionIDPlataforma      = jsonobject.getString("delegacionID");
+                                nombre_plataformaPlataforma      = jsonobject.getString("nombre_plataforma");
+                                numero_polizaPlataforma      = jsonobject.getString("numero_poliza");
+                                nombre_propietarioPlataforma      = jsonobject.getString("nombre_propietario");
+                                seriePlataforma      = jsonobject.getString("serie");
+                                colorPlataforma = jsonobject.getString("color");
+                                marcaPlataforma      = jsonobject.getString("marca");
+                                tipoPlataforma      = jsonobject.getString("tipo");
+                                modeloPlataforma      = jsonobject.getString("modelo");
+                                fecha_vigenciaPlataforma      = jsonobject.getString("fecha_vigencia");
+                                fecha_altaPlataforma      = jsonobject.getString("fecha_alta");
+                                nombre_socioPlataforma      = jsonobject.getString("nombre_socio");
+                                estatusPlataforma      = jsonobject.getString("estatus");
+
+                            }
+
+                        }catch (Exception e){
+                            Log.d("RM16", "NO ENTRE PUTO -- ");
+                        }
+
+
+
+
+
+                        Log.d("wsRMPlataforma","DATOS DE RM PLATAFORMA "+placaPlataforma);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
 
                     //Lanzamos Intent Navigation Drawer.
                     /*Intent intent = new Intent(getApplicationContext(), Drawer.class);
