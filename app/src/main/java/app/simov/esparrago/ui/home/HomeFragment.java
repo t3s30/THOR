@@ -5,9 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -50,16 +48,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-import app.simov.esparrago.Drawer;
 import app.simov.esparrago.Infracciones;
-import app.simov.esparrago.MainActivity;
 import app.simov.esparrago.R;
 import app.simov.esparrago.WsgobConsulta;
 
@@ -74,8 +68,6 @@ import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-
-import static androidx.core.content.ContextCompat.checkSelfPermission;
 
 public class HomeFragment extends Fragment  {
 
@@ -246,7 +238,7 @@ public class HomeFragment extends Fragment  {
     String fechaLabTarjerton;
     String estatusTarjerton;
 
-
+    String infoQr;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
       //  FirebaseApp.initializeApp(getActivity());
@@ -255,7 +247,7 @@ public class HomeFragment extends Fragment  {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-         tvplacasRM = root.findViewById(R.id.placasRM);
+         tvplacasRM = root.findViewById(R.id.placasRMTablaLay);
          tvdelegacionRM = root.findViewById(R.id.delegacionRM);
          tvplataformaRM = root.findViewById(R.id.plataformaRM);
          tvpolizaRM = root.findViewById(R.id.propietarioRM);
@@ -1558,6 +1550,14 @@ public void escanear(){
                         Log.d("IMAGENPLACA", "ALV ESTA ES TU PLACA " + s);
 
                         editTextPlaca.setText(nuevaPlaca);
+
+                       /* if (editTextPlaca.equals(null) || editTextPlaca.equals("")) {
+                            Log.d("ENTREEEEEEEEEE", "ALV ESTA ES TU PLACA " + s);
+                            editTextPlaca.setText(infoQr);
+
+                        }*/
+
+
                         // textViewP.setText(s);
 
                     } catch (Exception error) {
@@ -1584,16 +1584,36 @@ public void escanear(){
                 Toast.makeText(getContext(),"CANCELASTE EL ESCANEO", Toast.LENGTH_LONG);
             }else {
                 //Aqui Agregamos las validaciones para los diferentes Formatos de QR´S
-                String infoQr = result.getContents();
-                List<String> datosLicencia = Arrays.asList(infoQr.split(","));
-                boolean isFound = datosLicencia.get(4).contains("BC"); // true
+                infoQr = result.getContents();
+                try {
+                    infoQr = result.getContents();
+                    editTextPlaca.setText(infoQr);
+                    Log.d("QRSTRING", "ESTE ES EL VALOR DEL QR STRING" + result.getContents().toString());
+                }catch (Exception e){
 
-                int sizeDatosLicencia = datosLicencia.size();
+                }
+                Log.d("QRSTRING", "ESTE ES EL VALOR DEL QR STRING" + infoQr);
                     try {
+                        List<String> datosLicencia = Arrays.asList(infoQr.split(","));
+                        boolean isFound = datosLicencia.get(4).contains("BC"); // true
+
+                        int sizeDatosLicencia = datosLicencia.size();
                         if (isFound == true) {
                             editTextLicencia.setText(datosLicencia.get(4).trim());
                             Log.d("QRSTRING", "ESTE ES EL VALOR DEL QR STRING" + result.getContents().toString());
+                            editTextPlaca.setText("");
                         }
+                        int count = 0;
+
+                        /*//Counts each character except space
+                        for(int i = 0; i < infoQr.length(); i++) {
+                            if(infoQr.charAt(i) != ' ')
+                                count++;
+                        }
+                        Log.d("QRSTRING", "CONTADOR" + count);*/
+                      //  if (count==6) {
+
+                        /*}*/
 
                         if (sizeDatosLicencia >= 11) {
                             editTextPlaca.setText(datosLicencia.get(8).trim());

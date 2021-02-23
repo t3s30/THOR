@@ -9,17 +9,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -145,7 +143,18 @@ public class WsgobConsulta extends AppCompatActivity {
     TextView tvestatusTarjerton;
 
 
+    TableLayout placasPlataformaTabla;
+    TableLayout placasRMTabla;
+    TableLayout tablaQR;
+    TableLayout plataformaFolio;
+    TableLayout tarjetonFolio;
 
+
+   TextView tituloPlacasPlataforma;
+   TextView tituloDatosQR;
+   TextView tituloPlacasRM;
+   TextView tituloPlacasFolio;
+   TextView tituloTarjetonFolio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +170,23 @@ public class WsgobConsulta extends AppCompatActivity {
         enviarWSConsultaLicencia(URLICENCIA);
         enviarWSConsultaInfraccion(URLINFRACCION);
 
+        //TaBLAS
+
+
+         placasPlataformaTabla = findViewById(R.id.placasPlataformaTabla);
+         placasRMTabla = findViewById(R.id.placasRMTablaLay);
+         tablaQR = findViewById(R.id.tablaQRTabla);
+         plataformaFolio = findViewById(R.id.plataformaFolioTabla);
+         tarjetonFolio = findViewById(R.id.tarjetonFolioTabla);
+
+         tituloPlacasPlataforma =findViewById(R.id.tituloPlacasPlataforma);
+         tituloDatosQR = findViewById(R.id.tituloDatosQR);
+         tituloPlacasRM = findViewById(R.id.tituloPlacasRM);
+         tituloPlacasFolio = findViewById(R.id.tituloPlacasFolio);
+         tituloTarjetonFolio = findViewById(R.id.tituloTarjetonFolio);
+
+
+
         TextView textViewPlaca = (TextView)findViewById(R.id.tvPlaca);
         TextView textViewEstatus = (TextView)findViewById(R.id.tvEstatus);
         TextView textViewPropietario = (TextView)findViewById(R.id.tvPropietario);
@@ -168,7 +194,7 @@ public class WsgobConsulta extends AppCompatActivity {
         TextView textViewVim = (TextView)findViewById(R.id.tvVim);
         TextView textViewMarca = (TextView)findViewById(R.id.tvMarca);
         textViewInfracciones = (TextView)findViewById(R.id.tvInfracciones);
-        textViewLicencia = (TextView)findViewById(R.id.tvLicencia);
+        textViewLicencia = (TextView)findViewById(R.id.tvNumeroLicencia);
         textViewNombre = (TextView)findViewById(R.id.tvNombre);
         textViewFechaVencimiento = (TextView)findViewById(R.id.tvFechaVencimiento);
         textViewFechaInfracciones = (TextView)findViewById(R.id.tvFechaInfraccion);
@@ -251,7 +277,7 @@ public class WsgobConsulta extends AppCompatActivity {
 
 
 
-        tvplacasRM = findViewById(R.id.placasRM);
+
 
         //RM
         tvplacasRM = findViewById(R.id.placasRM);
@@ -322,6 +348,7 @@ public class WsgobConsulta extends AppCompatActivity {
 
 
 
+
             String placaQR = bundle.getString("placaQR");
             String serialQR = bundle.getString("serialQR");
             String economicoQR = bundle.getString("economicoQR");
@@ -342,24 +369,32 @@ public class WsgobConsulta extends AppCompatActivity {
             String observacionesQR = bundle.getString("observacionesQR");
             String revisionQR = bundle.getString("revisionQR");
 
-           tvplacaQR.setText(placaQR);
-            tveconomicoQR.setText(economicoQR);
-            tvserialQR.setText(serialQR);
-            tvmarcaQR.setText(marcaQR);
-            tvmodeloQR.setText(modeloQR);
-            tvtipoQR.setText(tipoQR);
-            tvcolorQR.setText(colorQR);
-            tvpadronQR.setText(padronQR);
-            tvmodalidadQR.setText(modalidadQR);
-            tvfechaAltaQR.setText(fechaAltaQR);
-            tvprorrogaQR.setText(prorrogaQR);
-            //tvfechaProrrojgaQR.setText(fechaProrrojgaQR);
-            tvestatusQR.setText(estatusQR);
-            tvcoberturaSeguroQR.setText(coberturaSeguroQR);
-            tvvigenciaPolizaQR.setText(vigenciaPolizaQR);
-            tvperiodoQR.setText(periodoQR);
-            tvobservacionesQR.setText(observacionesQR);
-            tvrevisionQR.setText(revisionQR);
+
+            if (serialQR!=null){
+                tvplacaQR.setText(placaQR);
+                tveconomicoQR.setText(economicoQR);
+                tvserialQR.setText(serialQR);
+                tvmarcaQR.setText(marcaQR);
+                tvmodeloQR.setText(modeloQR);
+                tvtipoQR.setText(tipoQR);
+                tvcolorQR.setText(colorQR);
+                tvpadronQR.setText(padronQR);
+                tvmodalidadQR.setText(modalidadQR);
+                tvfechaAltaQR.setText(fechaAltaQR);
+                tvprorrogaQR.setText(prorrogaQR);
+                //tvfechaProrrojgaQR.setText(fechaProrrojgaQR);
+                tvestatusQR.setText(estatusQR);
+                tvcoberturaSeguroQR.setText(coberturaSeguroQR);
+                tvvigenciaPolizaQR.setText(vigenciaPolizaQR);
+                tvperiodoQR.setText(periodoQR);
+                tvobservacionesQR.setText(observacionesQR);
+                tvrevisionQR.setText(revisionQR);
+
+                tablaQR.setVisibility(View.VISIBLE);
+                tituloDatosQR.setVisibility(View.VISIBLE);
+            }
+
+
 
             //PLACASRM2
 
@@ -383,24 +418,32 @@ public class WsgobConsulta extends AppCompatActivity {
             String observacionesrm2 = bundle.getString("observacionesrm2");
             String revisionrm2 = bundle.getString("revisionrm2");
 
-            tvplacarm2.setText(placarm2);
-            tveconomicorm2.setText(economicorm2);
-            tvserialrm2.setText(serialrm2);
-            tvmarcarm2.setText(marcarm2);
-            tvmodelorm2.setText(modelorm2);
-            tvtiporm2.setText(tiporm2);
-            tvcolorrm2.setText(colorrm2);
-            tvpadronrm2.setText(padronrm2);
-            tvmodalidadrm2.setText(modalidadrm2);
-            //tvfechaAltarm2.setText(fechaAltarm2);
-            tvprorrogarm2.setText(prorrogarm2);
-            //tvfechaProrrojgaQR.setText(fechaProrrojgaQR);
-            tvestatusrm2.setText(estatusrm2);
-            tvcoberturaSegurorm2.setText(coberturaSegurorm2);
-            tvvigenciaPolizarm2.setText(vigenciaPolizarm2);
-            tvperiodorm2.setText(periodorm2);
-            tvobservacionesrm2.setText(observacionesrm2);
-            tvrevisionrm2.setText(revisionrm2);
+
+
+            if (serialrm2!=null){
+                tvplacarm2.setText(placarm2);
+                tveconomicorm2.setText(economicorm2);
+                tvserialrm2.setText(serialrm2);
+                tvmarcarm2.setText(marcarm2);
+                tvmodelorm2.setText(modelorm2);
+                tvtiporm2.setText(tiporm2);
+                tvcolorrm2.setText(colorrm2);
+                tvpadronrm2.setText(padronrm2);
+                tvmodalidadrm2.setText(modalidadrm2);
+                //tvfechaAltarm2.setText(fechaAltarm2);
+                tvprorrogarm2.setText(prorrogarm2);
+                //tvfechaProrrojgaQR.setText(fechaProrrojgaQR);
+                tvestatusrm2.setText(estatusrm2);
+                tvcoberturaSegurorm2.setText(coberturaSegurorm2);
+                tvvigenciaPolizarm2.setText(vigenciaPolizarm2);
+                tvperiodorm2.setText(periodorm2);
+                tvobservacionesrm2.setText(observacionesrm2);
+                tvrevisionrm2.setText(revisionrm2);
+
+                placasRMTabla.setVisibility(View.VISIBLE);
+                tituloPlacasRM.setVisibility(View.VISIBLE);
+
+            }
 
 
 
@@ -422,20 +465,26 @@ public class WsgobConsulta extends AppCompatActivity {
 
             Log.d("RMWSGOB------%","VALOR"+placaPlataforma);
 
+                if (delegacionPlataforma!=null){
+                    tvplacasRM.setText(placaPlataforma);
+                    tvdelegacionRM.setText(delegacionPlataforma);
+                    tvplataformaRM.setText(nombrePlataforma);
+                    tvpolizaRM.setText(polizaPlataforma);
+                    tvpropietarioRM.setText(propietarioPlataforma);
+                    tvserieRM.setText(seriePlataforma);
+                    tvmarcaRM.setText(marcaPlataforma);
+                    tvtipoRM.setText(tipoPlataforma);
+                    tvcolorRM.setText(colorPlataforma);
+                    tvmodeloRM.setText(modeloPlataforma);
+                    tvvigenciaRM.setText(vigenciaPlataforma);
+                    tvsocioRM.setText(socioPlataforma);
+                    tvstatusRM.setText(estatusPlataforma);
 
-                tvplacasRM.setText(placaPlataforma);
-                tvdelegacionRM.setText(delegacionPlataforma);
-                tvplataformaRM.setText(nombrePlataforma);
-                tvpolizaRM.setText(polizaPlataforma);
-                tvpropietarioRM.setText(propietarioPlataforma);
-                tvserieRM.setText(seriePlataforma);
-                tvmarcaRM.setText(marcaPlataforma);
-                tvtipoRM.setText(tipoPlataforma);
-                tvcolorRM.setText(colorPlataforma);
-                tvmodeloRM.setText(modeloPlataforma);
-                tvvigenciaRM.setText(vigenciaPlataforma);
-                tvsocioRM.setText(socioPlataforma);
-                tvstatusRM.setText(estatusPlataforma);
+                    placasPlataformaTabla.setVisibility(View.VISIBLE);
+                    tituloPlacasPlataforma.setVisibility(View.VISIBLE);
+
+                }
+
 
 
 
@@ -458,21 +507,30 @@ public class WsgobConsulta extends AppCompatActivity {
             String nombreSocioFolio = bundle.getString("nombreSocioFolio");
             String estatusFolio = bundle.getString("estatusFolio");
 
-             tvplacaFolio.setText(placaFolio);
-             tvfoliofolio.setText(foliofolio);
-             tvdelegacionFolio.setText(delegacionFolio);
-             tvnombrePlataformaFolio.setText(nombrePlataformaFolio);
-             tvnumeroPolizaFolio.setText(numeroPolizaFolio);
-             tvnombrePropietarioFolio.setText(nombrePropietarioFolio);
-             tvserieFolio.setText(serieFolio);
-             tvmarcaFolio.setText(marcaFolio);
-             tvtipoFolio.setText(tipoFolio);
-             tvcolorFolio.setText(colorFolio);
-             tvmodeloFolio.setText(modeloFolio);
-             tvfechaVigenciaFolio.setText(fechaVigenciaFolio);
-             tvfechaAltaFolio.setText(fechaAltaFolio);
-             tvnombreSocioFolio.setText(nombreSocioFolio);
-             tvestatusFolio.setText(estatusFolio);
+            if (foliofolio!=null){
+                tvplacaFolio.setText(placaFolio);
+                tvfoliofolio.setText(foliofolio);
+                tvdelegacionFolio.setText(delegacionFolio);
+                tvnombrePlataformaFolio.setText(nombrePlataformaFolio);
+                tvnumeroPolizaFolio.setText(numeroPolizaFolio);
+                tvnombrePropietarioFolio.setText(nombrePropietarioFolio);
+                tvserieFolio.setText(serieFolio);
+                tvmarcaFolio.setText(marcaFolio);
+                tvtipoFolio.setText(tipoFolio);
+                tvcolorFolio.setText(colorFolio);
+                tvmodeloFolio.setText(modeloFolio);
+                tvfechaVigenciaFolio.setText(fechaVigenciaFolio);
+                tvfechaAltaFolio.setText(fechaAltaFolio);
+                tvnombreSocioFolio.setText(nombreSocioFolio);
+                tvestatusFolio.setText(estatusFolio);
+
+                plataformaFolio.setVisibility(View.VISIBLE);
+
+                tituloPlacasFolio.setVisibility(View.VISIBLE);
+            }
+
+
+
 
 
 
@@ -488,19 +546,23 @@ public class WsgobConsulta extends AppCompatActivity {
             String fechaLabTarjerton = bundle.getString("fechaLabTarjerton");
             String estatusTarjerton = bundle.getString("estatusTarjerton");
 
+            if (lnumeroTarjeton!=null){
+                tvlnumeroTarjeton.setText(lnumeroTarjeton);
+                tvlicenciaTarjeton.setText(licenciaTarjeton);
+                tvtipoChoferTarjeton.setText(tipoChoferTarjeton);
+                tvfolioTarjeton.setText(folioTarjeton);
+                tvmaternoTarjeton.setText(maternoTarjeton);
+                tvpaternoTarjerton.setText(paternoTarjerton);
+                tvnombreTarjeton.setText(nombreTarjeton);
+                tvfechaAltaTarjeton.setText(fechaAltaTarjeton);
+                tvfechaVigenciaTarjeton.setText(fechaVigenciaTarjeton);
+                tvfechaLabTarjerton.setText(fechaLabTarjerton);
+                tvestatusTarjerton.setText(estatusTarjerton);
+                tituloTarjetonFolio.setVisibility(View.VISIBLE);
+                tarjetonFolio.setVisibility(View.VISIBLE);
+            }
 
 
-            tvlnumeroTarjeton.setText(lnumeroTarjeton);
-            tvlicenciaTarjeton.setText(licenciaTarjeton);
-            tvtipoChoferTarjeton.setText(tipoChoferTarjeton);
-            tvfolioTarjeton.setText(folioTarjeton);
-            tvmaternoTarjeton.setText(maternoTarjeton);
-            tvpaternoTarjerton.setText(paternoTarjerton);
-            tvnombreTarjeton.setText(nombreTarjeton);
-            tvfechaAltaTarjeton.setText(fechaAltaTarjeton);
-            tvfechaVigenciaTarjeton.setText(fechaVigenciaTarjeton);
-            tvfechaLabTarjerton.setText(fechaLabTarjerton);
-            tvestatusTarjerton.setText(estatusTarjerton);
 
         }
 
