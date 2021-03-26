@@ -180,6 +180,17 @@ public class WsgobConsulta extends AppCompatActivity {
     TableLayout tblLicencia;
     TextView tvTituloInfracciones;
     TextView tvTituloLicencia;
+
+    String color;
+    String agrupacion;
+    String rutaSitio;
+
+    TextView tvColor;
+    TextView tvAgrupacion;
+    TextView tvRutaSitio;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,12 +223,7 @@ public class WsgobConsulta extends AppCompatActivity {
 
         tvEconomicos =  findViewById(R.id.tvEconomicos);
 
-
-
-
         //TaBLAS
-
-
 
         placasPlataformaTabla = findViewById(R.id.placasPlataformaTabla);
         placasRMTabla = findViewById(R.id.placasRMTablaLay);
@@ -230,6 +236,7 @@ public class WsgobConsulta extends AppCompatActivity {
         tituloPlacasRM = findViewById(R.id.tituloPlacasRM);
         tituloPlacasFolio = findViewById(R.id.tituloPlacasFolio);
         tituloTarjetonFolio = findViewById(R.id.tituloTarjetonFolio);
+
 
 
 
@@ -326,7 +333,9 @@ public class WsgobConsulta extends AppCompatActivity {
         tvestatusTarjerton = findViewById(R.id.estatusfoliotarjetonfolio);
 
 
-
+        tvColor = findViewById(R.id.tvColor);
+        tvAgrupacion = findViewById(R.id.tvAgrupacion);
+        tvRutaSitio = findViewById(R.id.tvRutaSitio);
 
 
         //RM
@@ -357,6 +366,19 @@ public class WsgobConsulta extends AppCompatActivity {
             vigencia = bundle.getString("vigencia");
             vim = bundle.getString("vim");
             marca = bundle.getString("marca");
+
+
+            color  = bundle.getString("colorW");
+            agrupacion  = bundle.getString("agrupacionW");
+            rutaSitio  = bundle.getString("rutaSitioW");
+
+            Log.d("datoswsInserta2","###################"+color);
+
+
+            tvColor.setText(color);
+            tvAgrupacion.setText(agrupacion);
+            tvRutaSitio.setText(rutaSitio);
+
 
             economico = bundle.getString("economico");
             Log.d("ECONOMICO","El numero economico"+ economico);

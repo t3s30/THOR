@@ -822,8 +822,21 @@ public class HomeFragment extends Fragment  {
                                     intentWs.putExtra("vim", VIM);
                                     String PROPIETARIO = jsonarray.getString(6);
                                     intentWs.putExtra("propietario", PROPIETARIO);
-                                    String VIGENCIA = jsonarray.getString(83);
+                                    String VIGENCIA = jsonarray.getString(3);
                                     intentWs.putExtra("vigencia", VIGENCIA);
+
+                                    String COLOR = jsonarray.getString(7);
+                                    String AGRUPACION = jsonarray.getString(8);
+                                    String RUTASITIO = jsonarray.getString(9);
+
+                                    Log.d("datoswsInserta1","###################"+COLOR);
+
+
+                                    intentWs.putExtra("colorW", COLOR);
+                                    intentWs.putExtra("agrupacionW", AGRUPACION);
+                                    intentWs.putExtra("rutaSitioW", RUTASITIO);
+
+
                                 }
                             }catch (Exception e){
 
@@ -1359,10 +1372,14 @@ tarjeton_TIJUANA
 
                     try {
                         //Convertimos el String en JsonObject
-                        JSONObject obj = new JSONObject(response);
-                        Log.d("objVehicular", "###Respuesta WS padron vehicular" + obj.toString());
+                        /*JSONObject obj = new JSONObject(response);*/
+
+                        JSONArray jsonarray = new JSONArray(response);
+
+
+                        Log.d("objVehicular", "###Respuesta WS padron vehicular" + jsonarray.toString());
                         //Accedemos al valor del Objeto deseado completo.
-                        JSONArray jsonarray = obj.getJSONArray("data");
+                       // JSONArray jsonarray = obj.getJSONArray("data");
 
                         Log.w("jARRAY","### QUE TIENE EL ARRAY?"+jsonarray.toString());
 
@@ -1409,7 +1426,7 @@ tarjeton_TIJUANA
                             startActivity(intentWs);
                         }
 
-                        //Obtenemos el total de elementos del objeto.
+                       /* //Obtenemos el total de elementos del objeto.
                         for (int i = 0; i < jsonarray.length(); i++) {
                             JSONObject jsonobject = jsonarray.getJSONObject(i);
                             //Accedemos a los elementos por medio de getString.
@@ -1447,6 +1464,85 @@ tarjeton_TIJUANA
                                 //Particular
                                 String VIGENCIA = jsonobject.getString("fechaVencimiento");
                                 intentWs.putExtra("vigencia", VIGENCIA);
+                            }*/
+
+                        //Obtenemos el total de elementos del objeto.
+                        for (int i = 0; i < jsonarray.length(); i++) {
+                            // JSONObject jsonobject = jsonarray.getJSONObject(i);
+                            //Accedemos a los elementos por medio de getString.
+
+
+                            //Iniciamos actividad y mandamos parametros.
+                            Intent intentWs = new Intent(getActivity(), Infracciones.class);
+                            String PLACA = jsonarray.getString(0);
+                            Log.d("vergasVato","### $#$#$$$US"+PLACA);
+                            // Boolean validaEstatus = false;
+
+
+
+                            try {
+                                String  ESTATUS = jsonarray.getString(24);
+
+
+                                if (ESTATUS.equals("ACTIVO") || ESTATUS.equals("BAJA TEMPORAL") ){
+                                    intentWs.putExtra("economico", "NO APLICA");
+                                    intentWs.putExtra("estatus", ESTATUS);
+                                    String VIGENCIA = jsonarray.getString(23);
+                                    intentWs.putExtra("vigencia", VIGENCIA);
+                                    Log.d("ESATUS","### VALOR ESTATUS"+ESTATUS);
+
+                                    Boolean validaFechaVencimiento = false;
+
+                                    // modalidad =spinnerModalidad.getSelectedItem().toString();
+                                    String PROPIETARIO = jsonarray.getString(18);
+
+                                    String VIM = jsonarray.getString(1);
+
+                                    String MARCA = jsonarray.getString(3);
+
+
+
+                                    intentWs.putExtra("propietario", PROPIETARIO);
+
+                                    intentWs.putExtra("vim", VIM);
+                                    intentWs.putExtra("marca", MARCA);
+
+                                }
+
+                            }catch (Exception e){
+
+                            }
+                            try {
+                                String  ESTATUST = jsonarray.getString(2);
+                                Log.d("WS111","entreeeeeee   "+ESTATUST);
+                                if (ESTATUST.equals("ACTIVO") || ESTATUST.equals("BAJA TEMPORAL") ){
+                                    Log.d("WS44","entreeeeeee   "+ESTATUST);
+                                    intentWs.putExtra("estatus", ESTATUST);
+                                    String economico = jsonarray.getString(1);
+                                    intentWs.putExtra("economico", economico);
+                                    String MARCA = jsonarray.getString(4);
+                                    intentWs.putExtra("marca", MARCA);
+                                    String VIM = jsonarray.getString(5);
+                                    intentWs.putExtra("vim", VIM);
+                                    String PROPIETARIO = jsonarray.getString(6);
+                                    intentWs.putExtra("propietario", PROPIETARIO);
+                                    String VIGENCIA = jsonarray.getString(3);
+                                    intentWs.putExtra("vigencia", VIGENCIA);
+
+                                    String COLOR = jsonarray.getString(7);
+                                    String AGRUPACION = jsonarray.getString(8);
+                                    String RUTASITIO = jsonarray.getString(9);
+
+                                    Log.d("datoswsInserta1","###################"+COLOR);
+
+
+                                    intentWs.putExtra("colorW", COLOR);
+                                    intentWs.putExtra("agrupacionW", AGRUPACION);
+                                    intentWs.putExtra("rutaSitioW", RUTASITIO);
+
+                                }
+                            }catch (Exception e){
+
                             }
 
 
@@ -1489,10 +1585,12 @@ tarjeton_TIJUANA
                             intentWs.putExtra("infra4",infraccion4);
                             intentWs.putExtra("infra5",infraccion5);
                             intentWs.putExtra("cuenta",cuentaString);
-                            intentWs.putExtra("propietario", PROPIETARIO);
+
+
+                           /* intentWs.putExtra("propietario", PROPIETARIO);
 
                             intentWs.putExtra("vim", VIM);
-                            intentWs.putExtra("marca", MARCA);
+                            intentWs.putExtra("marca", MARCA);*/
 
                             startActivity(intentWs);
 

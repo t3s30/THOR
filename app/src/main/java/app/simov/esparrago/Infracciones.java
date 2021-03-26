@@ -144,6 +144,12 @@ public class Infracciones extends AppCompatActivity{
     String delegacionId;
     String activo;
 
+
+    String color;
+    String agrupacion;
+    String rutaSitio;
+
+
     String VENCIMIENTO;
     String NOMBRECOMPLETO;
 
@@ -159,6 +165,10 @@ public class Infracciones extends AppCompatActivity{
     Uri miPath2;
 
     String modi;
+
+    TextView tvColor;
+    TextView tvAgrupacion;
+    TextView tvRutaSitio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,6 +203,12 @@ public class Infracciones extends AppCompatActivity{
         edtComentarios = findViewById(R.id.edtComentarios);
         edtFolio = findViewById(R.id.edtFolio);
 
+        tvColor = findViewById(R.id.tvColorInfra);
+        tvAgrupacion = findViewById(R.id.tvAgrupacion);
+        tvRutaSitio = findViewById(R.id.tvRutaSitio);
+
+
+
         //Bundle de actividad anterior
         Bundle bundle  = getIntent().getExtras();
         Log.d("BUNDLE","VALOR DEL BUNDLE ##############"+bundle.toString());
@@ -206,6 +222,20 @@ public class Infracciones extends AppCompatActivity{
             nombreLogin  = bundle.getString("nombre");
             delegacionId  = bundle.getString("delegacionId");
             activo  = bundle.getString("activo");
+
+
+
+            color  = bundle.getString("colorW");
+            agrupacion  = bundle.getString("agrupacionW");
+            rutaSitio  = bundle.getString("rutaSitioW");
+
+            Log.d("datoswsInserta2","###################"+color);
+
+
+            tvColor.setText(color);
+            tvAgrupacion.setText(agrupacion);
+            tvRutaSitio.setText(rutaSitio);
+
 
             //Recojemos parametros.
             placa = bundle.getString("placa");
@@ -1028,6 +1058,12 @@ if (sector !=null){
                 params.put("semana",semana);
                 params.put("anio",anio);
                 params.put("modalidad",modalidad);
+
+                params.put("color",color);
+                params.put("agrupacion",agrupacion);
+                params.put("rutaSitio",rutaSitio);
+
+
 
                 if (modi != null){
                     params.put("modi",modi);

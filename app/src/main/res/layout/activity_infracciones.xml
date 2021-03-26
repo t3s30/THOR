@@ -304,6 +304,89 @@
                     android:textColor="#FFFFFF" />
             </TableRow>
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textviewColor"
+                android:layout_width="115dp"
+                android:layout_height="match_parent"
+                android:text="Color"
+                android:textColor="#8BC34A"
+                android:textStyle="bold" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvColorInfra"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:text="Color"
+                    android:textColor="#FFFFFF" />
+            </TableRow>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textviewAgrupaciom"
+                android:layout_width="115dp"
+                android:layout_height="match_parent"
+                android:text="Agrupacion"
+                android:textColor="#8BC34A"
+                android:textStyle="bold" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvAgrupacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:text="Agrupacion"
+                    android:textColor="#FFFFFF" />
+            </TableRow>
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textviewRutaSitio"
+                android:layout_width="115dp"
+                android:layout_height="match_parent"
+                android:text="Ruta sitio"
+                android:textColor="#8BC34A"
+                android:textStyle="bold" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvRutaSitio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:text="Ruta Sitio"
+                    android:textColor="#FFFFFF" />
+            </TableRow>
+        </TableRow>
+
+
+
+
     </TableLayout>
 
     <!--Termina tabla y contenido de placas y licencia-->
