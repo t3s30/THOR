@@ -168,6 +168,7 @@ public class HomeFragment extends Fragment  {
 
     String placaQR;
     String serialQR;
+    String delegacionIdQR;
     String economicoQR;
     String serieQR;
     String marcaQR;
@@ -188,7 +189,7 @@ public class HomeFragment extends Fragment  {
 
     String placarm2;
     String serialrm2;
-    String delegacionidrm2;
+    String delegacionrm2;
     String economicorm2;
     String serierm2;
     String marcarm2;
@@ -237,6 +238,12 @@ public class HomeFragment extends Fragment  {
     String fechaVigenciaTarjeton;
     String fechaLabTarjerton;
     String estatusTarjerton;
+
+    String folioGafeteQR;
+    String delegacionGafeteQR;
+    String modalidadGafeteQR;
+    String serieRegistroGafeteQR;
+    String vigenciaGafeteQR;
 
     String infoQr;
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -526,7 +533,7 @@ public class HomeFragment extends Fragment  {
                     placa = editTextPlaca.getText().toString(); //gets you the contents of edit text
 
                     Log.d("Variable", "LICENCIA## " + placa);
-                    String URL = "https://simov.app/servicios/controlVehicular.php";
+                    String URL = "https://simov.app/servicios/controlVehicularNew.php";
 
                     //Envia Ws
                     enviarWSConsultaInfraccion(URL);
@@ -567,7 +574,7 @@ public class HomeFragment extends Fragment  {
                     placa = editTextPlaca.getText().toString(); //gets you the contents of edit text
 
                     Log.d("Variable", "LICENCIA## " + placa);
-                    String URL = "https://simov.app/servicios/controlVehicular.php";
+                    String URL = "https://simov.app/servicios/controlVehicularNew.php";
                     String URL2  = "https://simov.app/servicios/abdiel.php";
                     //Envia Ws
                     enviarWSConsulta(URL);
@@ -613,12 +620,15 @@ public class HomeFragment extends Fragment  {
 
                     try {
                         //Convertimos el String en JsonObject
-                        JSONObject obj = new JSONObject(response);
-                        Log.d("objVehicular", "###Respuesta WS padron vehicular" + obj.toString());
-                        //Accedemos al valor del Objeto deseado completo.
-                        JSONArray jsonarray = obj.getJSONArray("data");
+                        JSONArray jsonarray = new JSONArray(response);
+                        //Aqui hay que continuarle compa..
 
-                        Log.w("jARRAY","### QUE TIENE EL ARRAY?"+jsonarray.toString());
+
+                        Log.d("objVehicular", "###Respuesta WS padron vehicular" + jsonarray.toString());
+                        //Accedemos al valor del Objeto deseado completo.
+                       // JSONArray jsonarray = obj.getJSONArray("data");
+
+                        //Log.w("jARRAY","### QUE TIENE EL ARRAY?"+jsonarray.toString());
 
 
                         if (jsonarray.length()==0){
@@ -628,7 +638,7 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("licencia", licencia);
                             placa = editTextPlaca.getText().toString();
                             //Spinner Modalidad
-                            modalidad =spinnerModalidad.getSelectedItem().toString();
+                            // modalidad =spinnerModalidad.getSelectedItem().toString();
                             intentWs.putExtra("modalidad",modalidad);
                             intentWs.putExtra("placa", placa);
 
@@ -647,7 +657,7 @@ public class HomeFragment extends Fragment  {
 
                             Log.d("RMWSGOB1","VALOR"+placaPlataforma);
 
-                           intentWs.putExtra("delegacionPlataforma",delegacionIDPlataforma);
+                            intentWs.putExtra("delegacionPlataforma",delegacionIDPlataforma);
                             intentWs.putExtra("nombrePlataforma",nombre_plataformaPlataforma);
                             intentWs.putExtra("polizaPlataforma",numero_polizaPlataforma);
                             intentWs.putExtra("propietarioPlataforma",nombre_propietarioPlataforma);
@@ -661,12 +671,9 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("estatusPlataforma",estatusPlataforma);
 
 
-
-
-
-
                             intentWs.putExtra("placaQR",placaQR);
-                            intentWs.putExtra("serialQR",serialQR);
+                            intentWs.putExtra("qr_serial",serialQR);
+                            intentWs.putExtra("delegacionIdQR",delegacionIdQR);
                             intentWs.putExtra("economicoQR",economicoQR);
                             intentWs.putExtra("serieQR",serieQR);
                             intentWs.putExtra("marcaQR",marcaQR);
@@ -687,6 +694,7 @@ public class HomeFragment extends Fragment  {
 
                             intentWs.putExtra("placarm2",placarm2);
                             intentWs.putExtra("serialrm2",serialrm2);
+                            intentWs.putExtra("delegacionrm2",delegacionrm2);
                             intentWs.putExtra("economicorm2",economicorm2);
                             intentWs.putExtra("serierm2",serierm2);
                             intentWs.putExtra("marcarm2",marcarm2);
@@ -744,6 +752,12 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("fechaLabTarjerton",fechaLabTarjerton);
                             intentWs.putExtra("estatusTarjerton",estatusTarjerton);
 
+                            intentWs.putExtra("folioGafeteQR",folioGafeteQR);
+                            intentWs.putExtra("delegacionGafeteQR",delegacionGafeteQR);
+                            intentWs.putExtra("modalidadGafeteQR",modalidadGafeteQR);
+                            intentWs.putExtra("serieRegistroGafeteQR",serieRegistroGafeteQR);
+                            intentWs.putExtra("vigenciaGafeteQR",vigenciaGafeteQR);
+
 
 
                             startActivity(intentWs);
@@ -752,40 +766,80 @@ public class HomeFragment extends Fragment  {
 
                         //Obtenemos el total de elementos del objeto.
                         for (int i = 0; i < jsonarray.length(); i++) {
-                            JSONObject jsonobject = jsonarray.getJSONObject(i);
+                           // JSONObject jsonobject = jsonarray.getJSONObject(i);
                             //Accedemos a los elementos por medio de getString.
 
 
-                            String PLACA = jsonobject.getString("placa");
-
-                            Boolean validaEstatus = jsonobject.has("estatus");
-                            Boolean validaFechaVencimiento = jsonobject.has("fechaVencimiento");
-
-                            modalidad =spinnerModalidad.getSelectedItem().toString();
-                            String PROPIETARIO = jsonobject.getString("propietario");
-
-                            String VIM = jsonobject.getString("serie");
-                            String MARCA = jsonobject.getString("marca");
                             //Iniciamos actividad y mandamos parametros.
                             Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
+                            String PLACA = jsonarray.getString(0);
+                            Log.d("vergasVato","### $#$#$$$US"+PLACA);
+                           // Boolean validaEstatus = false;
 
-                            if (validaEstatus==false){
-                                String  ESTATUS = jsonobject.getString("estatusActual");
-                                intentWs.putExtra("estatus", ESTATUS);
-                                Log.d("ESATUS","### VALOR ESTATUS"+ESTATUS);
-                            }else {
-                                String  ESTATUS = jsonobject.getString("estatus");
-                                intentWs.putExtra("estatus", ESTATUS);
+
+
+                            try {
+                                String  ESTATUS = jsonarray.getString(24);
+
+
+                                if (ESTATUS.equals("ACTIVO") || ESTATUS.equals("BAJA TEMPORAL") ){
+                                    intentWs.putExtra("economico", "NO APLICA");
+                                    intentWs.putExtra("estatus", ESTATUS);
+                                    String VIGENCIA = jsonarray.getString(23);
+                                    intentWs.putExtra("vigencia", VIGENCIA);
+                                    Log.d("ESATUS","### VALOR ESTATUS"+ESTATUS);
+
+                                    Boolean validaFechaVencimiento = false;
+
+                                    // modalidad =spinnerModalidad.getSelectedItem().toString();
+                                    String PROPIETARIO = jsonarray.getString(18);
+
+                                    String VIM = jsonarray.getString(1);
+
+                                    String MARCA = jsonarray.getString(3);
+
+                                    intentWs.putExtra("propietario", PROPIETARIO);
+
+                                    intentWs.putExtra("vim", VIM);
+                                    intentWs.putExtra("marca", MARCA);
+
+                                }
+
+                            }catch (Exception e){
+
+                            }
+                            try {
+                                String  ESTATUST = jsonarray.getString(2);
+                                Log.d("WS111","entreeeeeee   "+ESTATUST);
+                                if (ESTATUST.equals("ACTIVO") || ESTATUST.equals("BAJA TEMPORAL") ){
+                                    Log.d("WS44","entreeeeeee   "+ESTATUST);
+                                    intentWs.putExtra("estatus", ESTATUST);
+                                    String economico = jsonarray.getString(1);
+                                    intentWs.putExtra("economico", economico);
+                                    String MARCA = jsonarray.getString(4);
+                                    intentWs.putExtra("marca", MARCA);
+                                    String VIM = jsonarray.getString(5);
+                                    intentWs.putExtra("vim", VIM);
+                                    String PROPIETARIO = jsonarray.getString(6);
+                                    intentWs.putExtra("propietario", PROPIETARIO);
+                                    String VIGENCIA = jsonarray.getString(83);
+                                    intentWs.putExtra("vigencia", VIGENCIA);
+                                }
+                            }catch (Exception e){
+
                             }
 
-                            if (validaFechaVencimiento==false){
-                                String VIGENCIA = jsonobject.getString("fechaVigencia");
+
+                           /* if (validaFechaVencimiento==false){
+                                String economico = jsonarray.getString(0);
+                                intentWs.putExtra("economico", economico);
+                                String VIGENCIA = jsonarray.getString(0);
                                 intentWs.putExtra("vigencia", VIGENCIA);
                                 Log.d("ESATUS","### VALOR ESTATUS"+VIGENCIA);
                             }else {
-                                String VIGENCIA = jsonobject.getString("fechaVencimiento");
+                                String VIGENCIA = jsonarray.getString(26);
                                 intentWs.putExtra("vigencia", VIGENCIA);
-                            }
+                            }*/
 
                             intentWs.putExtra("usersId",usersId);
                             Log.d("HomeFragment","USERSID########################--->"+usersId);
@@ -800,16 +854,15 @@ public class HomeFragment extends Fragment  {
                             Log.d("licencia1", "###Valor de la licencia" + licencia);
                             intentWs.putExtra("bandera", enviaBanderaLic);
                             intentWs.putExtra("placa", PLACA);
-                            intentWs.putExtra("modalidad",modalidad);
-                            intentWs.putExtra("propietario", PROPIETARIO);
+                            // intentWs.putExtra("modalidad",modalidad);
 
-                            intentWs.putExtra("vim", VIM);
-                            intentWs.putExtra("marca", MARCA);
+
 
 
 
                             intentWs.putExtra("placaQR",placaQR);
-                            intentWs.putExtra("serialQR",serialQR);
+                            intentWs.putExtra("qr_serial",serialQR);
+                            intentWs.putExtra("delegacionIdQR",delegacionIdQR);
                             intentWs.putExtra("economicoQR",economicoQR);
                             intentWs.putExtra("serieQR",serieQR);
                             intentWs.putExtra("marcaQR",marcaQR);
@@ -898,6 +951,13 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("fechaLabTarjerton",fechaLabTarjerton);
                             intentWs.putExtra("estatusTarjerton",estatusTarjerton);
 
+
+                            intentWs.putExtra("folioGafeteQR",folioGafeteQR);
+                            intentWs.putExtra("delegacionGafeteQR",delegacionGafeteQR);
+                            intentWs.putExtra("modalidadGafeteQR",modalidadGafeteQR);
+                            intentWs.putExtra("serieRegistroGafeteQR",serieRegistroGafeteQR);
+                            intentWs.putExtra("vigenciaGafeteQR",vigenciaGafeteQR);
+
                             startActivity(intentWs);
                             getActivity().finish();
 
@@ -923,7 +983,8 @@ public class HomeFragment extends Fragment  {
 
 
                         intentWs.putExtra("placaQR",placaQR);
-                        intentWs.putExtra("serialQR",serialQR);
+                        intentWs.putExtra("qr_serial",serialQR);
+                        intentWs.putExtra("delegacionIdQR",delegacionIdQR);
                         intentWs.putExtra("economicoQR",economicoQR);
                         intentWs.putExtra("serieQR",serieQR);
                         intentWs.putExtra("marcaQR",marcaQR);
@@ -1011,6 +1072,13 @@ public class HomeFragment extends Fragment  {
                         intentWs.putExtra("estatusTarjerton",estatusTarjerton);
 
 
+                        intentWs.putExtra("folioGafeteQR",folioGafeteQR);
+                        intentWs.putExtra("delegacionGafeteQR",delegacionGafeteQR);
+                        intentWs.putExtra("modalidadGafeteQR",modalidadGafeteQR);
+                        intentWs.putExtra("serieRegistroGafeteQR",serieRegistroGafeteQR);
+                        intentWs.putExtra("vigenciaGafeteQR",vigenciaGafeteQR);
+
+
                         startActivity(intentWs);
                         e.printStackTrace();
                         getActivity().finish();
@@ -1075,6 +1143,7 @@ public class HomeFragment extends Fragment  {
                             JSONObject jsonobject = jsonarrayQR.getJSONObject(a);
                             placaQR = jsonobject.getString("placas");
                             serialQR = jsonobject.getString("qr_serial");
+                            delegacionIdQR = jsonobject.getString("delegacionID");
                             economicoQR = jsonobject.getString("numero_economico");
                             serieQR = jsonobject.getString("serie");
                             marcaQR = jsonobject.getString("marca");
@@ -1107,6 +1176,7 @@ public class HomeFragment extends Fragment  {
                             JSONObject jsonobject = jsonarray.getJSONObject(h);
                             placarm2 = jsonobject.getString("placas");
                             serialrm2 = jsonobject.getString("qr_serial");
+                            delegacionrm2 = jsonobject.getString("delegacionID");
                             economicorm2 = jsonobject.getString("numero_economico");
                             serierm2 = jsonobject.getString("serie");
                             marcarm2 = jsonobject.getString("marca");
@@ -1172,13 +1242,13 @@ forma  */
                         Log.d("RM13", "###Respuesta WS RM13" +obj.getString("PLACASPLATAFORMA"));
                         Log.d("RM14", "###Respuesta WS RM14" +obj.getString("TARJETON"));
 
-                       // JSONObject placasPlataforma = obj.getJSONObject("PLACASPLATAFORMA");
+                        // JSONObject placasPlataforma = obj.getJSONObject("PLACASPLATAFORMA");
                         //JSONArray  placasPlataforma = obj.getString("PLACASPLATAFORMA");
                         //Log.d("RM15", "###Respuesta WS RM14" +placasPlataforma);
-                       //String placasPlataformaArray = (String) placasPlataforma.get(1);
+                        //String placasPlataformaArray = (String) placasPlataforma.get(1);
                         //Log.d("RM16", "###Respuesta WS RM14" +placasPlataformaArray);
 
-                     JSONArray jsonarray = new JSONArray(obj.getString("PLACASPLATAFORMA"));
+                        JSONArray jsonarray = new JSONArray(obj.getString("PLACASPLATAFORMA"));
 
                         try {
                             Log.d("RM17",";;;;;;"+jsonarray);
@@ -1205,9 +1275,8 @@ forma  */
                             }
 
                         }catch (Exception e){
-                         //   Log.d("RM16", "NO ENTRE PUTO -- ");
+                            //   Log.d("RM16", "NO ENTRE PUTO -- ");
                         }
-
 
 /*
 * imos_tarjeton_lnumero,imos_tarjeton_licencia, imos_tarjeton_tipo_chofer,imos_tarjeton_folio,imos_tarjeton_materno,imos_tarjeton_paterno,imos_tarjeton_nombre, fecha_alta,fecha_vigencia_tarjeton,inserta_fecha_lab,estatus FROM
@@ -1600,6 +1669,13 @@ public void escanear(){
                         int sizeDatosLicencia = datosLicencia.size();
                         if (isFound == true) {
                             editTextLicencia.setText(datosLicencia.get(4).trim());
+
+                            folioGafeteQR = datosLicencia.get(0).trim();
+                            delegacionGafeteQR =datosLicencia.get(1).trim();
+                            modalidadGafeteQR = datosLicencia.get(2).trim();
+                            serieRegistroGafeteQR = datosLicencia.get(6).trim();
+                            vigenciaGafeteQR = datosLicencia.get(7).trim();
+
                             Log.d("QRSTRING", "ESTE ES EL VALOR DEL QR STRING" + result.getContents().toString());
                             editTextPlaca.setText("");
                         }

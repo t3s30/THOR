@@ -10,7 +10,6 @@
     <string name="nav_header_subtitle">Abdiel Carrasco</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
     <string name="menu_home">THOR-PRINCIPAL</string>
     <string name="menu_qr_licencia">QR-LICENCIA</string>
     <string name="menu_consulta_poliza">CONSULTA-POLIZA</string>
@@ -171,7 +170,7 @@
     <string name="ELIMINAR">ELIMINAR</string>
     <string name="QR">QR GAFETE-TARJETON</string>
     <string name="foto_placa">FOTO PLACA</string>
-    <string name="version">Gerencia de sistemas | IMOS | Version-3.4.0 ▲</string>
+    <string name="version">Gerencia de sistemas | IMOS | Version-8.3.0 ▲</string>
 
     <!--Strings Infracciones-->
     <string name="INFRACIONES_THOR">INFRACIONES-THOR</string>
