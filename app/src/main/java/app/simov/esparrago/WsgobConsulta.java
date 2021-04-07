@@ -32,6 +32,7 @@ import app.simov.esparrago.R;
 
 public class WsgobConsulta extends AppCompatActivity {
 
+
     //
 
     String placa;
@@ -390,7 +391,12 @@ public class WsgobConsulta extends AppCompatActivity {
             Log.d("LICENCIA-VERGAS1","$$$$$$$$$$$$$$$"+licencia);
             nombre = bundle.getString("nnombre");
             fechaVecimiento = bundle.getString("fechaVencimiento");
-            textViewPlaca.setText(placa);
+
+            Log.d("MI-PLACA","lA PLACA ES: "+ placa);
+
+
+
+
 
 
             usersId  = bundle.getString("usersId");
@@ -404,7 +410,7 @@ public class WsgobConsulta extends AppCompatActivity {
 
 
             if (propietario==null){
-
+                textViewPlaca.setText("SIN-PLACA");
                 textViewEstatus.setText("NO EXISTEN DATOS");
                 textViewPropietario.setText("NO EXISTEN DATOS");
                 textViewVigencia.setText("NO EXISTEN DATOS");
@@ -412,7 +418,7 @@ public class WsgobConsulta extends AppCompatActivity {
                 textViewMarca.setText("NO EXISTEN DATOS");
             }else {
                 String banderaLic=  bundle.getString("bandera");
-
+                textViewPlaca.setText(placa);
                 textViewEstatus.setText(estatus);
                 textViewPropietario.setText(propietario);
                 textViewVigencia.setText(vigencia);
@@ -823,7 +829,7 @@ public class WsgobConsulta extends AppCompatActivity {
                         //Accedemos al valor del Objeto deseado completo.
                         String infracciones = obj.getString("infracciones");
 
-                       // Log.d("LAINFRACCION","CONTENIDO DE LAS INFRACCIONES"+ infracc);
+                        // Log.d("LAINFRACCION","CONTENIDO DE LAS INFRACCIONES"+ infracc);
                         // Log.d("infraccion2",fechaInfracion);
 
                       /* if (infracciones.equals("No hay datos")){
@@ -903,7 +909,12 @@ public class WsgobConsulta extends AppCompatActivity {
         gotoBack.putExtra("nombre",nombreLogin);
         gotoBack.putExtra("delegacionId",delegacionId);
         gotoBack.putExtra("activo",activo);
-        gotoBack.putExtra("placa",placa);
+        if (propietario==null){
+            gotoBack.putExtra("placa","SIN-PLACA");
+        }else{
+            gotoBack.putExtra("placa",placa);
+        }
+
         gotoBack.putExtra("licencia",licencia);
         //gotoBack.putExtra(USER_GLOBAL_SENDER, username_global); <-- Use this if you want to carry some data to the other activity.
         finish();
