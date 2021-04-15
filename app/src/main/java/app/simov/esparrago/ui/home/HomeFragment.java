@@ -268,10 +268,6 @@ public class HomeFragment extends Fragment  {
          tvsocioRM = root.findViewById(R.id.socioRM);
          tvstatusRM = root.findViewById(R.id.estatusRM);
 
-
-
-
-
         builder = new AlertDialog.Builder(getActivity());
 
         //camara placa
@@ -446,10 +442,6 @@ public class HomeFragment extends Fragment  {
         //Mayusculas a LICENCIA Y PLACA.
          editTextLicencia.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
          editTextPlaca.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
-
-
-
-
 
         //Datos de Bundle de inicio de session.
         Bundle args = getActivity().getIntent().getExtras();
@@ -782,7 +774,7 @@ public class HomeFragment extends Fragment  {
                                 String  ESTATUS = jsonarray.getString(24);
 
 
-                                if (ESTATUS.equals("ACTIVO") || ESTATUS.equals("BAJA TEMPORAL") ){
+                                if (ESTATUS.equals("ACTIVO") || ESTATUS.equals("BAJA TEMPORAL") || ESTATUS.equals("BAJA DEFINITIVA") ){
                                     intentWs.putExtra("economico", "NO APLICA");
                                     intentWs.putExtra("estatus", ESTATUS);
                                     String VIGENCIA = jsonarray.getString(23);

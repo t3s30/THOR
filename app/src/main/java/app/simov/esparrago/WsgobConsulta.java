@@ -363,10 +363,15 @@ public class WsgobConsulta extends AppCompatActivity {
             placa = bundle.getString("placa");
             Log.d("###PLACASSS","#######"+placa);
             estatus = bundle.getString("estatus");
+            Log.d("###PLACASSS","#######"+estatus);
             propietario = bundle.getString("propietario");
+            Log.d("###PLACASSS","#######"+propietario);
             vigencia = bundle.getString("vigencia");
+            Log.d("###PLACASSS","#######"+vigencia);
             vim = bundle.getString("vim");
+            Log.d("###PLACASSS","#######"+vim);
             marca = bundle.getString("marca");
+            Log.d("###PLACASSS","#######"+marca);
 
 
             color  = bundle.getString("colorW");
@@ -406,25 +411,25 @@ public class WsgobConsulta extends AppCompatActivity {
             nombreLogin  = bundle.getString("nombre");
             delegacionId  = bundle.getString("delegacionId");
             activo  = bundle.getString("activo");
+            textViewPlaca.setText(placa);
 
 
-
-            if (propietario==null){
-                textViewPlaca.setText("SIN-PLACA");
+          /*  if (propietario==null){
+               // textViewPlaca.setText("SIN-PLACA");
                 textViewEstatus.setText("NO EXISTEN DATOS");
                 textViewPropietario.setText("NO EXISTEN DATOS");
                 textViewVigencia.setText("NO EXISTEN DATOS");
                 textViewVim.setText("NO EXISTEN DATOS");
                 textViewMarca.setText("NO EXISTEN DATOS");
-            }else {
+            }else {*/
                 String banderaLic=  bundle.getString("bandera");
-                textViewPlaca.setText(placa);
+
                 textViewEstatus.setText(estatus);
                 textViewPropietario.setText(propietario);
                 textViewVigencia.setText(vigencia);
                 textViewVim.setText(vim);
                 textViewMarca.setText(marca);
-            }
+           // }
 
             //QR
 

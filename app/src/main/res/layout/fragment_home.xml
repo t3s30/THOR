@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,19 +7,30 @@
     android:background="@color/black"
     tools:context=".ui.home.HomeFragment">
 
-    <ImageView
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" android:layout_gravity="center"
-        android:layout_marginBottom="40dp"
-        android:alpha=".20"
-        app:srcCompat="@drawable/imos"/>
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/black"
+      >
 
-<!--Titulos y cabeceraz-->
-    <TextView
+
+      <!--Titulos y cabeceraz-->
+      <ImageView
+          android:id="@+id/imageView5"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_gravity="center"
+          android:layout_marginBottom="40dp"
+          android:alpha=".20"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.0"
+          app:srcCompat="@drawable/imos" />
+
+      <TextView
         android:id="@+id/tvApp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnQr"
@@ -61,16 +72,17 @@
 <!--Botón QR-->
     <Button
         android:id="@+id/btnQr"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/edtLicencia"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="130dp"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_round"
         android:backgroundTint="@color/botonLogin"
+        android:drawableLeft="@drawable/qrblancoc"
         android:textColor="@color/white"
-        android:text="@string/QR" />
+        app:layout_constraintEnd_toStartOf="@id/edtLicencia"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnFotoPlaca" />
 
 <!--Fin Botón QR-->
 
@@ -82,18 +94,20 @@
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:id="@+id/imageId"/>
+
     <Button
         android:id="@+id/btnFotoPlaca"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/edtLicencia"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="130dp"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_round"
         android:backgroundTint="@color/botonLogin"
+        android:drawableLeft="@drawable/fotob"
         android:textColor="@color/white"
-        android:text="@string/foto_placa" />
+        app:layout_constraintEnd_toStartOf="@id/edtLicencia"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,19 +131,19 @@
 
     <EditText
         android:id="@+id/edtLicencia"
-        app:layout_constraintTop_toTopOf="@id/tvMunicipio"
-        app:layout_constraintStart_toEndOf="@id/cBoxLicencia"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="@color/white"
         android:hint="@string/NUMERO_LICENCIA"
         android:inputType="textCapCharacters"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cBoxLicencia"
+        app:layout_constraintTop_toBottomOf="@+id/btnQr" />
 
     <CheckBox
         android:id="@+id/cBoxPlaca"
@@ -301,15 +315,16 @@
 
     <Button
         android:id="@+id/btnCuenta"
-        app:layout_constraintTop_toTopOf="@id/spModalidad"
-        app:layout_constraintStart_toStartOf="@+id/btnInfraccion"
-        app:layout_constraintEnd_toEndOf="@id/btnInfraccion"
-        android:layout_marginTop="60dp"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/bg_round"
         android:backgroundTint="@color/botonLogin"
+        android:drawableLeft="@drawable/infraccion"
         android:textColor="@color/white"
-        android:text="@string/INFRACCIONES"/>
+        app:layout_constraintEnd_toEndOf="@id/btnInfraccion"
+        app:layout_constraintStart_toStartOf="@+id/btnInfraccion"
+        app:layout_constraintTop_toTopOf="@id/spModalidad" />
 
     <Button
         android:id="@+id/btnQuitar"
@@ -317,29 +332,30 @@
         app:layout_constraintStart_toStartOf="@id/btnConsulta"
         app:layout_constraintEnd_toEndOf="@+id/btnConsulta"
         android:layout_marginTop="60dp"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_round"
         android:backgroundTint="@color/botonLogin"
+        android:drawableLeft="@drawable/borrar3"
         android:textColor="@color/white"
-        android:text="@string/ELIMINAR"/>
+        />
 
     <AutoCompleteTextView
         android:id="@+id/edtInfraccion1"
-        app:layout_constraintTop_toTopOf="@id/btnCuenta"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/white"
         android:backgroundTint="@color/white"
-        android:hint="@string/INFRACCION"
         android:completionHint="@string/INFRACCION"
+        android:completionThreshold="1"
+        android:hint="@string/INFRACCION"
+        android:inputType="textPersonName"
         android:textColor="@color/white"
-        android:completionThreshold="1" />
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCuenta" />
 
     <AutoCompleteTextView
         android:id="@+id/edtInfraccion2"
@@ -397,61 +413,61 @@
 
     <AutoCompleteTextView
         android:id="@+id/edtInfraccion5"
-        app:layout_constraintTop_toTopOf="@id/edtInfraccion4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/white"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
         android:backgroundTint="@color/white"
-        android:hint="@string/INFRACCION"
         android:completionHint="@string/INFRACCION"
+        android:completionThreshold="1"
+        android:hint="@string/INFRACCION"
+        android:inputType="textPersonName"
         android:textColor="@color/white"
-        android:completionThreshold="1" />
-
-
-    <Button
-        android:id="@+id/btnInfraccion"
-        app:layout_constraintBottom_toTopOf="@+id/tvVersion"
-        app:layout_constraintStart_toStartOf="@+id/spModalidad"
-        app:layout_constraintEnd_toEndOf="@id/btnConsulta"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/botonLogin"
-        android:textColor="@color/white"
-        android:text="INFRACCIONAR" />
-
-    <Button
-        android:id="@+id/btnConsulta"
-        app:layout_constraintBottom_toTopOf="@+id/tvVersion"
-        app:layout_constraintStart_toStartOf="@id/btnInfraccion"
-        app:layout_constraintEnd_toEndOf="@id/spModalidad"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="100dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/botonLogin"
-        android:textColor="@color/white"
-        android:text="CONSULTA" />
-
-    <TextView
-        android:id="@+id/tvVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/version"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/titulosVerdes"/>
+        tools:layout_editor_absoluteY="684dp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+      <Button
+          android:id="@+id/btnInfraccion"
+          android:layout_width="70dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="70dp"
+          android:background="@drawable/bg_round"
+          android:backgroundTint="@color/botonLogin"
+          android:drawableLeft="@drawable/infraccionarb"
+          android:textColor="@color/white"
+          app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+          app:layout_constraintEnd_toEndOf="@id/btnConsulta"
+          app:layout_constraintStart_toStartOf="@+id/spModalidad"
+          app:layout_constraintTop_toBottomOf="@+id/btnCuenta" />
+
+      <Button
+          android:id="@+id/btnConsulta"
+          android:layout_width="70dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="100dp"
+          android:background="@drawable/bg_round"
+          android:backgroundTint="@color/botonLogin"
+          android:drawableLeft="@drawable/consultainfraccion"
+          android:textColor="@color/white"
+          app:layout_constraintEnd_toEndOf="@id/spModalidad"
+          app:layout_constraintStart_toStartOf="@id/btnInfraccion"
+          app:layout_constraintTop_toTopOf="@+id/btnInfraccion" />
+
+      <TextView
+          android:id="@+id/tvVersion"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="10dp"
+          android:text="@string/version"
+          android:textColor="@color/titulosVerdes"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/btnInfraccion" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+
