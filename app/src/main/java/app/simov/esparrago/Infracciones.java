@@ -959,6 +959,7 @@ if (sector !=null){
                         intent.putExtra("nombre",nombreLogin);
                         intent.putExtra("delegacionId",delegacionId);
                         intent.putExtra("activo",activo);
+                        Toast.makeText(Infracciones.this, "Warning creado  con PLACA : "+ placa, Toast.LENGTH_LONG).show();
                         finish();
                         startActivity(intent);
 
@@ -967,7 +968,7 @@ if (sector !=null){
             @Override
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
-                Toast.makeText(Infracciones.this, "Las 3 fotos son Obligatorias: "+ error, Toast.LENGTH_LONG).show();
+                Toast.makeText(Infracciones.this, "Error al crear el Warning : "+ error, Toast.LENGTH_LONG).show();
                 // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(),Drawer.class);
                 intent.putExtra("usersId",usersId);
@@ -1165,6 +1166,7 @@ if (sector !=null){
                         intent.putExtra("nombre",nombreLogin);
                         intent.putExtra("delegacionId",delegacionId);
                         intent.putExtra("activo",activo);
+                        Toast.makeText(Infracciones.this, "Infracción creada con PLACA : "+ placa, Toast.LENGTH_LONG).show();
                         finish();
                         startActivity(intent);
 
@@ -1173,7 +1175,7 @@ if (sector !=null){
             @Override
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
-                Toast.makeText(Infracciones.this, "##2", Toast.LENGTH_LONG).show();
+                Toast.makeText(Infracciones.this, "Hubo un error al insertar infracción : "+ error, Toast.LENGTH_LONG).show();
                 // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(),Drawer.class);
                 intent.putExtra("usersId",usersId);
@@ -1189,8 +1191,6 @@ if (sector !=null){
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-
-
 
                 String comentarios = edtComentarios.getText().toString().trim();
                 String folio = edtFolio.getText().toString().trim();
@@ -1308,9 +1308,28 @@ if (sector !=null){
                 params.put("anio",anio);
                 params.put("modalidad",modalidad);
 
-                params.put("color",color);
-                params.put("agrupacion",agrupacion);
-                params.put("rutaSitio",rutaSitio);
+
+
+                params.put("vim",vim);
+
+
+                if (color!=null){
+                    params.put("color",color);
+                }else{
+                    params.put("color","NO APLICA");
+                }
+
+                if (agrupacion!=null){
+                    params.put("agrupacion",agrupacion);
+                }else{
+                    params.put("agrupacion","NO APLICA");
+                }
+
+                if (rutaSitio!=null){
+                    params.put("rutaSitio",rutaSitio);
+                }else{
+                    params.put("rutaSitio","NO APLICA");
+                }
 
 
 
@@ -1329,9 +1348,6 @@ if (sector !=null){
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
-
-
-
 
 
     private String convertirImgString(Bitmap bitmap) {
