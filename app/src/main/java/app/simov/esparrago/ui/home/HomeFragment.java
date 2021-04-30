@@ -280,10 +280,6 @@ public class HomeFragment extends Fragment  {
 
         requestPermissions(new String[]{Manifest.permission.CAMERA}, 101);
 
-
-        //camara placa
-
-
         //Orientacion de pantalla en fragment
         Activity a = getActivity();
         if(a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -462,45 +458,11 @@ public class HomeFragment extends Fragment  {
             editTextLicencia.setText(licencia);
 
 
-
-
-
             tvMunicipio.setText("Tijuana");
           Log.d("USERSID","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID"+usersId);
         }
 
 
-      /*//Validacion de Checkbox
-        checkBoxLicencia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkBoxLicencia.isChecked() == true) {
-                    banderaLicencia = true;
-                    Log.d("CHBOX", "ESTAS CLIKEANDO DE CHECK DE LICENCIA## el valor de la bandera es: " + banderaLicencia);
-
-                } else {
-                    banderaLicencia = false;
-                    Log.d("CHBOX", "ESTAS CLIKEANDO DE CHECK DE LICENCIA## el valor de la bandera es: " + banderaLicencia);
-                }
-
-            }
-        });
-
-
-        checkBoxPlaca.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (checkBoxPlaca.isChecked() == true) {
-                    banderaPlaca = true;
-                    Log.d("CHBOX", "ESTAS CLIKEANDO CHECK DE PLACA## el valor de la bandera es:  " + banderaPlaca);
-                } else {
-                    banderaPlaca = false;
-                    Log.d("CHBOX", "ESTAS CLIKEANDO CHECK DE PLACA## el valor de la bandera es:  " + banderaPlaca);
-                }
-
-            }
-        });
-*/
 
 //Boton que termina el proceso para enviar la informacion de Infraccion.
         buttonInfraccion.setOnClickListener(new View.OnClickListener() {
@@ -529,15 +491,6 @@ public class HomeFragment extends Fragment  {
 
                     //Envia Ws
                     enviarWSConsultaInfraccion(URL);
-
-
-
-
-               /*
-                    progressDialog.hide();
-                    Toast.makeText(getContext(), "Tienes que seleccionar PLACA o LICENCIA", Toast.LENGTH_LONG).show();
-                }*/
-
 
 
             }
@@ -1402,46 +1355,6 @@ tarjeton_TIJUANA
                             startActivity(intentWs);
                         }
 
-                       /* //Obtenemos el total de elementos del objeto.
-                        for (int i = 0; i < jsonarray.length(); i++) {
-                            JSONObject jsonobject = jsonarray.getJSONObject(i);
-                            //Accedemos a los elementos por medio de getString.
-
-
-                            String PLACA = jsonobject.getString("placa");
-
-                            Boolean validaEstatus = jsonobject.has("estatus");
-                            Boolean validaFechaVencimiento = jsonobject.has("fechaVencimiento");
-
-
-                            String PROPIETARIO = jsonobject.getString("propietario");
-                            Log.d("PROPIETARIO","#$##%#$%#$%#$%#$%#$%#$%#$%#$"+PROPIETARIO);
-
-                            String VIM = jsonobject.getString("serie");
-                            String MARCA = jsonobject.getString("marca");
-                            //Iniciamos actividad y mandamos parametros.
-                            Intent intentWs = new Intent(getActivity(), Infracciones.class);
-
-                            if (validaEstatus==false){
-                                String  ESTATUS = jsonobject.getString("estatusActual");
-                                intentWs.putExtra("estatus", ESTATUS);
-                                Log.d("ESATUS","### VALOR ESTATUS"+ESTATUS);
-                            }else {
-                                String  ESTATUS = jsonobject.getString("estatus");
-                                intentWs.putExtra("estatus", ESTATUS);
-                            }
-
-                            if (validaFechaVencimiento==false){
-                                //Publico
-                                String VIGENCIA = jsonobject.getString("fechaVigencia");
-                                intentWs.putExtra("vigencia", VIGENCIA);
-                                Log.d("ESATUS","### VALOR ESTATUS"+VIGENCIA);
-                            }else {
-                                //Particular
-                                String VIGENCIA = jsonobject.getString("fechaVencimiento");
-                                intentWs.putExtra("vigencia", VIGENCIA);
-                            }*/
-
                         //Obtenemos el total de elementos del objeto.
                         for (int i = 0; i < jsonarray.length(); i++) {
                             // JSONObject jsonobject = jsonarray.getJSONObject(i);
@@ -1453,8 +1366,6 @@ tarjeton_TIJUANA
                             String PLACA = jsonarray.getString(0);
                             Log.d("vergasVato","### $#$#$$$US"+PLACA);
                             // Boolean validaEstatus = false;
-
-
 
                             try {
                                 String  ESTATUS = jsonarray.getString(24);

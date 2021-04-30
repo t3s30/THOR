@@ -172,8 +172,6 @@ public class Infracciones extends AppCompatActivity{
     TextView tvRutaSitio;
     TextView tvEstatusInfracciones;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -212,8 +210,6 @@ public class Infracciones extends AppCompatActivity{
         tvAgrupacion = findViewById(R.id.tvAgrupacion);
         tvRutaSitio = findViewById(R.id.tvRutaSitio);
 
-
-
         //Bundle de actividad anterior
         Bundle bundle  = getIntent().getExtras();
         Log.d("BUNDLE","VALOR DEL BUNDLE ##############"+bundle.toString());
@@ -242,8 +238,6 @@ public class Infracciones extends AppCompatActivity{
             tvRutaSitio.setText(rutaSitio);
 
 
-
-
             //Recojemos parametros.
             placa = bundle.getString("placa");
             Log.d("###PLACASSS","#######"+placa);
@@ -258,8 +252,12 @@ public class Infracciones extends AppCompatActivity{
             marca = bundle.getString("marca");
             infracciones = bundle.getString("infracciones");
             licencia = bundle.getString("licencia");
+
             modalidad = bundle.getString("modalidad");
+            Log.d("SECTORLOG","VALOR MODALIDAD INFRACCIONES"+ modalidad);
             sector = bundle.getString("sector");
+            Log.d("SECTORLOG","VALOR SECTOR INFRACCIONES"+ sector);
+
 
             estatusPlacaInfracciones.setText(estatus);
             tvVimInfraccion.setText(vim);
@@ -340,7 +338,6 @@ if (sector !=null){
 }
 
 
-
             infra1 = bundle.getString("infra1");
             Log.d("INFRACCION1-2-3","#######################========>>>>>"+infra1);
             infra2 = bundle.getString("infra2");
@@ -364,8 +361,7 @@ if (sector !=null){
             nombre = bundle.getString("nnombre");
             fechaVecimiento = bundle.getString("fechaVencimiento");
 
-            tvModalidadInfraccion.setText(modalidad);
-            tvSectorInfraccion.setText(sector);
+
             tvInfraInfraccion.setText(infra1);
 
             Log.d("MODALIDAD","&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+modalidad);
@@ -384,10 +380,8 @@ if (sector !=null){
                 uploadImage();
             }
 
-
         });
 
-        //ENVIAR INFO
 
         warning.setOnClickListener(new View.OnClickListener() {
 
@@ -481,6 +475,124 @@ if (sector !=null){
         });
         dialogo.show();
     }
+
+
+    private void cargarAceptacion() {
+        AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
+        dialogo.setTitle("GENERA INFRACCION");
+        dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENT CON LA PLACA : "+ placa);
+
+
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+                // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(),Drawer.class);
+                intent.putExtra("usersId",usersId);
+                intent.putExtra("username",username);
+                intent.putExtra("profile",profile);
+                intent.putExtra("nombre",nombreLogin);
+                intent.putExtra("delegacionId",delegacionId);
+                intent.putExtra("activo",activo);
+                Toast.makeText(Infracciones.this, "Infracción creada con PLACA : "+ placa, Toast.LENGTH_LONG).show();
+
+
+                finish();
+                startActivity(intent);
+            }
+        });
+        dialogo.show();
+    }
+
+    private void cargarCancelacion() {
+        AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
+        dialogo.setTitle("GENERA INFRACCION");
+        dialogo.setMessage("La infracción no se  genero correctamente");
+
+
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+
+                // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(),Drawer.class);
+                intent.putExtra("usersId",usersId);
+                intent.putExtra("username",username);
+                intent.putExtra("profile",profile);
+                intent.putExtra("nombre",nombreLogin);
+                intent.putExtra("delegacionId",delegacionId);
+                intent.putExtra("activo",activo);
+                finish();
+                startActivity(intent);
+
+                finish();
+                startActivity(intent);
+            }
+        });
+        dialogo.show();
+    }
+
+
+    private void cargarAceptacionWarning() {
+        AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
+        dialogo.setTitle("WARNING INFRACCIONES");
+        dialogo.setMessage("EL WARNING SE GENERO CORRECTAMENTE CON LA PLACA: "+ placa);
+
+
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+
+                // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(),Drawer.class);
+                intent.putExtra("usersId",usersId);
+                intent.putExtra("username",username);
+                intent.putExtra("profile",profile);
+                intent.putExtra("nombre",nombreLogin);
+                intent.putExtra("delegacionId",delegacionId);
+                intent.putExtra("activo",activo);
+                Toast.makeText(Infracciones.this, "Warning creado  con PLACA : "+ placa, Toast.LENGTH_LONG).show();
+                finish();
+                startActivity(intent);
+            }
+        });
+        dialogo.show();
+    }
+
+
+    private void cargarCancelacionWarning() {
+        AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
+        dialogo.setTitle("WARNING INFRACCIONES");
+        dialogo.setMessage("EL WARNING NO SE GENERO");
+
+
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+
+
+                // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(),Drawer.class);
+                intent.putExtra("usersId",usersId);
+                intent.putExtra("username",username);
+                intent.putExtra("profile",profile);
+                intent.putExtra("nombre",nombreLogin);
+                intent.putExtra("delegacionId",delegacionId);
+                intent.putExtra("activo",activo);
+                finish();
+                startActivity(intent);
+
+            }
+        });
+        dialogo.show();
+    }
+
+
 
     public void onclick(View view) {
         count++;
@@ -951,35 +1063,15 @@ if (sector !=null){
                     @Override
                     public void onResponse(String response) {
                         loading.dismiss();
-                       // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(),Drawer.class);
-                        intent.putExtra("usersId",usersId);
-                        intent.putExtra("username",username);
-                        intent.putExtra("profile",profile);
-                        intent.putExtra("nombre",nombreLogin);
-                        intent.putExtra("delegacionId",delegacionId);
-                        intent.putExtra("activo",activo);
-                        Toast.makeText(Infracciones.this, "Warning creado  con PLACA : "+ placa, Toast.LENGTH_LONG).show();
-                        finish();
-                        startActivity(intent);
 
+                        cargarAceptacionWarning();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
-                Toast.makeText(Infracciones.this, "Error al crear el Warning : "+ error, Toast.LENGTH_LONG).show();
-                // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(),Drawer.class);
-                intent.putExtra("usersId",usersId);
-                intent.putExtra("username",username);
-                intent.putExtra("profile",profile);
-                intent.putExtra("nombre",nombreLogin);
-                intent.putExtra("delegacionId",delegacionId);
-                intent.putExtra("activo",activo);
-                finish();
-                startActivity(intent);
 
+                cargarCancelacionWarning();
             }
         }){
             @Override
@@ -1093,7 +1185,7 @@ if (sector !=null){
                 params.put("vim",vim);
 
 
-                params.put("sectorId",sectorId);
+                //params.put("sectorId",sectorId);
                 Log.d("SECTORRR","ZONASECTOR%%%%%%%%%%%%%%%%%%%%"+sectorId);
 
 
@@ -1111,7 +1203,23 @@ if (sector !=null){
 
                 params.put("semana",semana);
                 params.put("anio",anio);
-                params.put("modalidad",modalidad);
+
+
+                if(modalidad == "SELECCIONE-MODALIDAD"){
+                    tvModalidadInfraccion.setText("SIN DATOS");
+                    params.put("modalidad","SIN DATOS");
+                }else{
+                    tvModalidadInfraccion.setText(modalidad);
+                    params.put("modalidad",modalidad);
+                }
+
+
+                if(sectorId != null){
+                    params.put("sectorId",sectorId);
+                }else{
+                    params.put("sectorId","99");
+                }
+
 
                 if (color!=null){
                     params.put("color",color);
@@ -1157,35 +1265,17 @@ if (sector !=null){
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
                         loading.dismiss();
-                        // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(),Drawer.class);
-                        intent.putExtra("usersId",usersId);
-                        intent.putExtra("username",username);
-                        intent.putExtra("profile",profile);
-                        intent.putExtra("nombre",nombreLogin);
-                        intent.putExtra("delegacionId",delegacionId);
-                        intent.putExtra("activo",activo);
-                        Toast.makeText(Infracciones.this, "Infracción creada con PLACA : "+ placa, Toast.LENGTH_LONG).show();
-                        finish();
-                        startActivity(intent);
+                        cargarAceptacion();
+
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
-                Toast.makeText(Infracciones.this, "Hubo un error al insertar infracción : "+ error, Toast.LENGTH_LONG).show();
-                // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(),Drawer.class);
-                intent.putExtra("usersId",usersId);
-                intent.putExtra("username",username);
-                intent.putExtra("profile",profile);
-                intent.putExtra("nombre",nombreLogin);
-                intent.putExtra("delegacionId",delegacionId);
-                intent.putExtra("activo",activo);
-                finish();
-                startActivity(intent);
+                cargarCancelacion();
 
             }
         }){
@@ -1288,7 +1378,14 @@ if (sector !=null){
                 params.put("comentarios",comentarios);
                 params.put("folio",folio);
 
-                params.put("sectorId",sectorId);
+                if(sectorId != null){
+                    params.put("sectorId",sectorId);
+                }else{
+                    params.put("sectorId","99");
+                }
+
+
+
                 Log.d("SECTORRR","ZONASECTOR%%%%%%%%%%%%%%%%%%%%"+sectorId);
 
 
