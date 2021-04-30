@@ -548,17 +548,6 @@ public class HomeFragment extends Fragment  {
 
             @Override
             public void onClick(View v) {
-                /*//Inicializamos el progress BAR
-                progressDialog = new ProgressDialog(getContext());
-                //Mostramos el progressBAR
-                progressDialog.show();
-                progressDialog.setContentView(R.layout.progress_dialog);
-                //Fondo transparente
-                progressDialog.getWindow().setBackgroundDrawableResource(
-                        android.R.color.transparent
-                );*/
-
-
 
                     banderaLicencia = false;
                     //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
@@ -572,11 +561,6 @@ public class HomeFragment extends Fragment  {
                     enviarWSConsulta(URL);
                     enviarWSConsultaRM(URL2);
 
-                /*
-
-                   *//* progressDialog.hide();*//*
-                    Toast.makeText(getContext(), "Tienes que seleccionar PLACA o LICENCIA", Toast.LENGTH_LONG).show();
-               */
 
             }
         });
@@ -803,7 +787,7 @@ public class HomeFragment extends Fragment  {
                             try {
                                 String  ESTATUST = jsonarray.getString(2);
                                 Log.d("WS111","entreeeeeee   "+ESTATUST);
-                                if (ESTATUST.equals("ACTIVO") || ESTATUST.equals("BAJA TEMPORAL") ){
+                                if (ESTATUST.equals("ACTIVO") || ESTATUST.equals("BAJA TEMPORAL") || ESTATUST.equals("BAJA DEFINITIVA")   ){
                                     Log.d("WS44","entreeeeeee   "+ESTATUST);
                                     intentWs.putExtra("estatus", ESTATUST);
                                     String economico = jsonarray.getString(1);
@@ -1474,9 +1458,9 @@ tarjeton_TIJUANA
 
                             try {
                                 String  ESTATUS = jsonarray.getString(24);
+                                Log.d("ESTATUS-HOME-PLACA","### VALOR ESTATUS: "+ESTATUS);
 
-
-                                if (ESTATUS.equals("ACTIVO") || ESTATUS.equals("BAJA TEMPORAL") ){
+                                if (ESTATUS.equals("ACTIVO") || ESTATUS.equals("BAJA TEMPORAL") || ESTATUS.equals("BAJA DEFINITIVA")  ){
                                     intentWs.putExtra("economico", "NO APLICA");
                                     intentWs.putExtra("estatus", ESTATUS);
                                     String VIGENCIA = jsonarray.getString(23);
@@ -1516,6 +1500,7 @@ tarjeton_TIJUANA
                                     intentWs.putExtra("marca", MARCA);
                                     String VIM = jsonarray.getString(5);
                                     intentWs.putExtra("vim", VIM);
+                                    Log.d("WS44","entreeeeeee   "+VIM);
                                     String PROPIETARIO = jsonarray.getString(6);
                                     intentWs.putExtra("propietario", PROPIETARIO);
                                     String VIGENCIA = jsonarray.getString(3);

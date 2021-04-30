@@ -170,13 +170,14 @@
     <string name="ELIMINAR">ELIMINAR</string>
     <string name="QR">QR GAFETE-TARJETON</string>
     <string name="foto_placa">FOTO PLACA</string>
-    <string name="version">Gerencia de sistemas | IMOS | Version-17.0.0 ▲</string>
+    <string name="version">Gerencia de sistemas | IMOS | Version-18.9.1 ▲</string>
 
     <!--Strings Infracciones-->
     <string name="INFRACIONES_THOR">INFRACIONES-THOR</string>
     <string name="COMENTARIOS">COMENTARIOS</string>
     <string name="TOMAR_FOTO">TOMAR FOTO</string>
     <string name="ENVIA_INFRACCION">ENVIAR INFRACCIÓN</string>
+    <string name="ENVIA_WARNING">ENVIAR WARNING</string>
 
     <!--Strings consulta PLACAS Y LICENCIA-->
     <string name="placas_licencia">Datos Placas &amp; Licencias</string>

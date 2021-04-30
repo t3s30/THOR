@@ -121,6 +121,7 @@ public class Infracciones extends AppCompatActivity{
 
     Button botonCargar;
     Button botonCargar2;
+    Button warning;
     ImageView imagen;
     //Image2
     ImageView imagen2;
@@ -169,6 +170,9 @@ public class Infracciones extends AppCompatActivity{
     TextView tvColor;
     TextView tvAgrupacion;
     TextView tvRutaSitio;
+    TextView tvEstatusInfracciones;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,6 +187,7 @@ public class Infracciones extends AppCompatActivity{
         //Boton que lanza el AlertDialog.
         botonCargar= (Button) findViewById(R.id.btnCargarImg);
         botonCargar2= (Button) findViewById(R.id.btnCargarImg2);
+        warning = (Button) findViewById(R.id.btnWarning);
 
         //Metodos de Ws.
         enviarWSConsultaLicencia(URLICENCIA);
@@ -237,22 +242,47 @@ public class Infracciones extends AppCompatActivity{
             tvRutaSitio.setText(rutaSitio);
 
 
+
+
             //Recojemos parametros.
             placa = bundle.getString("placa");
             Log.d("###PLACASSS","#######"+placa);
             placaInfracciones.setText(placa);
             estatus = bundle.getString("estatus");
+            Log.d("ESTATUS VIGENCIA","####>>>>>>>"+estatus);
             propietario = bundle.getString("propietario");
             Log.d("PROPIETARIO","#####################&%&%&%&%&%&%&%&%&PROPIETARIO"+propietario);
             vigencia = bundle.getString("vigencia");
             vim = bundle.getString("vim");
+            Log.d("ESTATUS VIGENCIA VIM","####>>>>>>>"+vim);
             marca = bundle.getString("marca");
             infracciones = bundle.getString("infracciones");
             licencia = bundle.getString("licencia");
             modalidad = bundle.getString("modalidad");
             sector = bundle.getString("sector");
 
+            estatusPlacaInfracciones.setText(estatus);
+            tvVimInfraccion.setText(vim);
+            tvVigenciaTcInfraccion.setText(vigencia);
 
+            if(tvColor.getText() == null ||  tvColor.getText() == ""){
+                tvColor.setText("SIN DATOS");
+            }
+            if(tvAgrupacion.getText() == null ||  tvAgrupacion.getText() == ""){
+                tvAgrupacion.setText("SIN DATOS");
+            }
+            if(tvRutaSitio.getText() == null ||  tvRutaSitio.getText() == ""){
+                tvRutaSitio.setText("SIN DATOS");
+            }
+            if(estatusPlacaInfracciones.getText() == null ||  estatusPlacaInfracciones.getText() == ""){
+                estatusPlacaInfracciones.setText("SIN DATOS");
+            }
+            if(tvVimInfraccion.getText() == null ||  tvVimInfraccion.getText() == ""){
+                tvVimInfraccion.setText("SIN DATOS");
+            }
+            if(tvVigenciaTcInfraccion.getText() == null ||  tvVigenciaTcInfraccion.getText() == ""){
+                tvVigenciaTcInfraccion.setText("SIN DATOS");
+            }
 
 /*
 * || sector == "PONIENTE-TURISTICO" ||
@@ -356,6 +386,19 @@ if (sector !=null){
 
 
         });
+
+        //ENVIAR INFO
+
+        warning.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                uploadImageWarning();
+            }
+
+
+        });
+
 
 
         if(validaPermisos()){
@@ -827,7 +870,7 @@ if (sector !=null){
                             Boolean validaFechaVencimiento = jsonobject.has("fechaVencimiento");
                             Log.d("BOOLEAN####","FechaVencimiento valida$$$$$$$$$$$$$$$$$$$$$$$$$"+validaFechaVencimiento);
                             String SERIE = jsonobject.getString("serie");
-                            tvVimInfraccion.setText(SERIE);
+                           // tvVimInfraccion.setText(SERIE);
 
                             if (validaEstatus== false) {
                                 Log.d("FALSE","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
@@ -835,9 +878,9 @@ if (sector !=null){
                                 String ESTATUS = jsonobject.getString("estatusActual");
                                 Log.d("VALIDASTATUS","%%%%%%%%%% LO QUE HAY DE ESTATUS TRANSPORTE PUBLICO "+ESTATUS);
 
-                                estatusPlacaInfracciones.setText(ESTATUS);
+                               // estatusPlacaInfracciones.setText(ESTATUS);
                                 String VIGENCIA = jsonobject.getString("fechaVigencia");
-                                tvVigenciaTcInfraccion.setText(VIGENCIA);
+                               // tvVigenciaTcInfraccion.setText(VIGENCIA);
                                 Log.d("VIGECNCIA33","Esto es lo que trae la vigencia de transporte publico "+VIGENCIA);
 
                                 ECONOMICO = jsonobject.getString("economico");
@@ -845,10 +888,10 @@ if (sector !=null){
                             } if(validaEstatus == true){
                                 //Valida si viene de transporte particular.
                                 String ESTATUS = jsonobject.getString("estatus");
-                                estatusPlacaInfracciones.setText(ESTATUS);
+                               // estatusPlacaInfracciones.setText(ESTATUS);
                                 Log.d("VALIDASTATUS","%%%%%%%%%% LO QUE HAY DE ESTATUS TRANSPORTE PRIVADO "+ESTATUS);
                                 String VIGENCIA = jsonobject.getString("fechaVencimiento");
-                                tvVigenciaTcInfraccion.setText(VIGENCIA);
+                                //tvVigenciaTcInfraccion.setText(VIGENCIA);
                                 Log.d("VIGENCIA33","Esto es lo que trae la vigencia de transporte privado "+VIGENCIA);
 
                             }
@@ -901,7 +944,7 @@ if (sector !=null){
 
     //Subir imagen
 
-    public void uploadImage() {
+    public void uploadImageWarning() {
         final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new Response.Listener<String>() {
@@ -909,6 +952,212 @@ if (sector !=null){
                     public void onResponse(String response) {
                         loading.dismiss();
                        // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(),Drawer.class);
+                        intent.putExtra("usersId",usersId);
+                        intent.putExtra("username",username);
+                        intent.putExtra("profile",profile);
+                        intent.putExtra("nombre",nombreLogin);
+                        intent.putExtra("delegacionId",delegacionId);
+                        intent.putExtra("activo",activo);
+                        finish();
+                        startActivity(intent);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loading.dismiss();
+                Toast.makeText(Infracciones.this, "Las 3 fotos son Obligatorias: "+ error, Toast.LENGTH_LONG).show();
+                // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(),Drawer.class);
+                intent.putExtra("usersId",usersId);
+                intent.putExtra("username",username);
+                intent.putExtra("profile",profile);
+                intent.putExtra("nombre",nombreLogin);
+                intent.putExtra("delegacionId",delegacionId);
+                intent.putExtra("activo",activo);
+                finish();
+                startActivity(intent);
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                String comentarios = edtComentarios.getText().toString().trim();
+                String folio = edtFolio.getText().toString().trim();
+                // Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
+                Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
+                Map<String, String> params = new Hashtable<String, String>();
+
+                if (bitmap!=null){
+                    imagenB = convertirImgString(bitmap);
+                    params.put("foto", imagenB);
+                }else{
+
+                    imagen.buildDrawingCache();
+                    Bitmap bitmap = imagen.getDrawingCache();
+                    ByteArrayOutputStream stream=new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    byte[] image=stream.toByteArray();
+                    String img_str = Base64.encodeToString(image, 0);
+                    params.put("foto", img_str);
+                }
+
+                if (bitmap2!=null){
+                    imagenB2 = convertirImgString2(bitmap2);
+                    params.put("foto2", imagenB2);
+                }else{
+                    imagen2.buildDrawingCache();
+                    Bitmap bitmap2 = imagen2.getDrawingCache();
+                    ByteArrayOutputStream stream=new ByteArrayOutputStream();
+                    bitmap2.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    byte[] image=stream.toByteArray();
+                    String img_str2 = Base64.encodeToString(image, 0);
+                    params.put("foto2", img_str2);
+                }
+                if (bitmap3!=null){
+                    imagenB3 = convertirImgString3(bitmap3);
+                    params.put("foto3", imagenB3);
+                }else{
+                    imagen3.buildDrawingCache();
+                    Bitmap bitmap3 = imagen3.getDrawingCache();
+                    ByteArrayOutputStream stream=new ByteArrayOutputStream();
+                    bitmap3.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    byte[] image=stream.toByteArray();
+                    String img_str3 = Base64.encodeToString(image, 0);
+                    params.put("foto3", img_str3);
+                }
+
+
+
+                params.put("usersId", usersId);
+                //Aqui hay un Null pointer Exeption.
+                Log.d("USERSIDINFRA","###############%%%%%%%%%%"+usersId);
+                params.put("username", username);
+                Log.d("USERSIDINFRA","username"+username);
+                params.put("profile", profile);
+                Log.d("USERSIDINFRA","profile"+profile);
+                params.put("nombreLogin", nombreLogin);
+                Log.d("USERSIDINFRA","nombreLogin"+nombreLogin);
+                params.put("delegacionId", delegacionId);
+                Log.d("USERSIDINFRA","delegacionId"+delegacionId);
+                params.put("activo", activo);
+                Log.d("USERSIDINFRA","activo"+activo);
+                params.put("placa",placa);
+                Log.d("USERSIDINFRA","placa"+placa);
+                params.put("propietario",propietario);
+                Log.d("USERSIDINFRA","propietario"+propietario);
+                params.put("vigencia",vigencia);
+                Log.d("USERSIDINFRA","vigencia"+vigencia);
+
+                //LICENCIA
+                params.put("noLicencia",LICENCIA);
+                Log.d("LICENCIA","###############%%%%%%%%%%========================>"+LICENCIA);
+                params.put("nombreLicencia",NOMBRECOMPLETO);
+                params.put("fVigenciaLicencia",VENCIMIENTO);
+
+                //Infra
+                if (cuenta.equals("1")){
+                    infra2 = "-";
+                    infra3 = "-";
+                    infra4 = "-";
+                    infra5 = "-";
+                }
+                if (cuenta.equals("2")){
+                    infra3 = "-";
+                    infra4 = "-";
+                    infra5 = "-";
+                }
+                if (cuenta.equals("3")){
+                    infra4 = "-";
+                    infra5 = "-";
+                }
+                if (cuenta.equals("4")){
+                    infra5 = "-";
+                }
+                if (cuenta.equals("5")){
+
+                }
+                infraConcat = infra1+" | "+infra2+" | "+infra3+" | "+infra4+" | "+infra5;
+                params.put("infra",infraConcat);
+                Log.d("INFRA","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$=======>"+infraConcat);
+                params.put("cuenta",cuenta);
+                Log.d("CUENTA","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
+
+                params.put("comentarios",comentarios);
+                params.put("folio",folio);
+
+                params.put("warning","true");
+                params.put("vim",vim);
+
+
+                params.put("sectorId",sectorId);
+                Log.d("SECTORRR","ZONASECTOR%%%%%%%%%%%%%%%%%%%%"+sectorId);
+
+
+                if (ECONOMICO!=null){
+                    params.put("numeroEconomico",ECONOMICO);
+                }else{
+                    params.put("numeroEconomico","No APLICA");
+                }
+                Calendar calendar = Calendar.getInstance();
+                int numberWeekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+                int year = Calendar.getInstance().get(Calendar.YEAR);
+
+                String semana=String.valueOf(numberWeekOfYear);
+                String anio=String.valueOf(year);
+
+                params.put("semana",semana);
+                params.put("anio",anio);
+                params.put("modalidad",modalidad);
+
+                if (color!=null){
+                    params.put("color",color);
+                }else{
+                    params.put("color","NO APLICA");
+                }
+
+                if (agrupacion!=null){
+                    params.put("agrupacion",agrupacion);
+                }else{
+                    params.put("agrupacion","NO APLICA");
+                }
+
+                if (rutaSitio!=null){
+                    params.put("rutaSitio",rutaSitio);
+                }else{
+                    params.put("rutaSitio","NO APLICA");
+                }
+
+
+
+
+                if (modi != null){
+                    params.put("modi",modi);
+                }else{
+                    params.put("modi","OTRO-SIN-REGISTRO");
+                }
+
+
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+
+    public void uploadImage() {
+        final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        loading.dismiss();
+                        // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getApplicationContext(),Drawer.class);
                         intent.putExtra("usersId",usersId);
                         intent.putExtra("username",username);
@@ -1080,6 +1329,8 @@ if (sector !=null){
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
+
 
 
 
