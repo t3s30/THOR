@@ -3,18 +3,22 @@ package app.simov.esparrago.ui.home;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -62,6 +66,8 @@ import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class HomeFragment extends Fragment  {
 
@@ -219,12 +225,14 @@ public class HomeFragment extends Fragment  {
     String miPlacosa;
     String infoQr;
     private HomeViewModel homeViewModel;
-
+    MediaPlayer mMediaPlayer;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+
 
          tvplacasRM = root.findViewById(R.id.placasRMTablaLay);
          tvdelegacionRM = root.findViewById(R.id.delegacionRM);
@@ -335,6 +343,10 @@ public class HomeFragment extends Fragment  {
         bntQr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               /* mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
+                mMediaPlayer.start();*/
+                Viber(getContext(),"on");
+
         escanear();
      }
             });
@@ -343,6 +355,9 @@ public class HomeFragment extends Fragment  {
         bntFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               /* mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
+                mMediaPlayer.start();*/
+                Viber(getContext(),"on");
                 doProcess();
             }
             });
@@ -351,6 +366,13 @@ public class HomeFragment extends Fragment  {
             bntCuenta.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                   /* mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
+                    mMediaPlayer.start();*/
+
+                    Viber(getContext(),"on");
+
+//replace yourActivity.this with your own activity or if you declared a context you can write context.getSystemService(Context.VIBRATOR_SERVICE);
+
                 cuenta++;
                 Log.d("CUENTS+++","CONTADOR"+cuenta);
                 if (cuenta == 1){
@@ -379,6 +401,9 @@ public class HomeFragment extends Fragment  {
             @Override
             public void onClick(View v) {
 
+             /*   mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
+                mMediaPlayer.start();*/
+                Viber(getContext(),"on");
                 cuenta--;
                 Log.d("CUENTS---","CONTADOR"+cuenta);
                 if (cuenta == 4){
@@ -432,6 +457,10 @@ public class HomeFragment extends Fragment  {
 
             @Override
             public void onClick(View v) {
+                /*mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
+                mMediaPlayer.start();*/
+                Viber(getContext(),"on");
+
                 //Inicializamos el progress BAR
                 progressDialog = new ProgressDialog(getContext());
                 //Mostramos el progressBAR
@@ -460,6 +489,9 @@ public class HomeFragment extends Fragment  {
             @Override
             public void onClick(View v) {
 
+                    /*mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
+                    mMediaPlayer.start();*/
+                Viber(getContext(),"on");
                     banderaLicencia = false;
                     //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
                     editTextPlaca = root.findViewById(R.id.edtPlaca);
@@ -1528,6 +1560,18 @@ public void escanear(){
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imagen));
         }
         startActivityForResult(intent,COD_FOTO);
+
+    }
+
+
+    public void Viber(Context cn, String value) {
+        if (value.equals("on")) {
+            // Get instance of Vibrator from current Context
+            Vibrator v = (Vibrator) cn.getSystemService(Context.VIBRATOR_SERVICE);
+
+            // Vibrate for 300 milliseconds
+            v.vibrate(100);
+        }
 
     }
 
