@@ -4,17 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     tools:context=".ui.home.HomeFragment">
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/black"
-      >
+      android:background="@color/black">
 
-
-      <!--Titulos y cabeceraz-->
+     <!--Titulos y cabeceraz-->
       <ImageView
           android:id="@+id/imageView5"
           android:layout_width="wrap_content"
@@ -76,9 +73,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="130dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/bg_round"
+        android:background="@drawable/btn_home"
         android:backgroundTint="@color/botonLogin"
-        android:drawableLeft="@drawable/qrblancoc"
+        android:drawableLeft="@drawable/qr_home_40"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@id/edtLicencia"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="130dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/bg_round"
+        android:background="@drawable/btn_home"
         android:backgroundTint="@color/botonLogin"
         android:drawableLeft="@drawable/fotob"
         android:textColor="@color/white"
@@ -318,27 +315,25 @@
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:background="@drawable/bg_round"
+        android:layout_marginStart="30dp"
+        android:background="@drawable/btn_home"
         android:backgroundTint="@color/botonLogin"
-        android:drawableLeft="@drawable/infraccion"
+        android:drawableLeft="@drawable/add_home_40"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@id/btnInfraccion"
-        app:layout_constraintStart_toStartOf="@+id/btnInfraccion"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/spModalidad" />
 
     <Button
         android:id="@+id/btnQuitar"
-        app:layout_constraintTop_toTopOf="@id/spModalidad"
-        app:layout_constraintStart_toStartOf="@id/btnConsulta"
-        app:layout_constraintEnd_toEndOf="@+id/btnConsulta"
-        android:layout_marginTop="60dp"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_round"
+        android:background="@drawable/btn_home"
+        android:layout_marginStart="10dp"
         android:backgroundTint="@color/botonLogin"
-        android:drawableLeft="@drawable/borrar3"
+        android:drawableLeft="@drawable/delete_home_40"
         android:textColor="@color/white"
-        />
+        app:layout_constraintStart_toEndOf="@+id/btnCuenta"
+        app:layout_constraintTop_toTopOf="@+id/btnCuenta" />
 
     <AutoCompleteTextView
         android:id="@+id/edtInfraccion1"
@@ -395,27 +390,10 @@
 
     <AutoCompleteTextView
         android:id="@+id/edtInfraccion4"
-        app:layout_constraintTop_toTopOf="@id/edtInfraccion3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:textColorHint="@color/white"
-        android:backgroundTint="@color/white"
-        android:hint="@string/INFRACCION"
-        android:completionHint="@string/INFRACCION"
-        android:textColor="@color/white"
-        android:completionThreshold="1" />
-
-    <AutoCompleteTextView
-        android:id="@+id/edtInfraccion5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         android:backgroundTint="@color/white"
         android:completionHint="@string/INFRACCION"
@@ -426,35 +404,53 @@
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="684dp" />
+        app:layout_constraintTop_toTopOf="@id/edtInfraccion3" />
+
+    <AutoCompleteTextView
+        android:id="@+id/edtInfraccion5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="@color/white"
+        android:completionHint="@string/INFRACCION"
+        android:completionThreshold="1"
+        android:hint="@string/INFRACCION"
+        android:inputType="textPersonName"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtInfraccion4"
+        tools:ignore="MissingConstraints" />
 
 
-      <Button
-          android:id="@+id/btnInfraccion"
-          android:layout_width="70dp"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="70dp"
-          android:background="@drawable/bg_round"
-          android:backgroundTint="@color/botonLogin"
-          android:drawableLeft="@drawable/infraccionarb"
-          android:textColor="@color/white"
-          app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-          app:layout_constraintEnd_toEndOf="@id/btnConsulta"
-          app:layout_constraintStart_toStartOf="@+id/spModalidad"
-          app:layout_constraintTop_toBottomOf="@+id/btnCuenta" />
+    <Button
+        android:id="@+id/btnInfraccion"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="90dp"
+        android:background="@drawable/btn_home"
+        android:backgroundTint="@color/botonLogin"
+        android:drawableLeft="@drawable/infraccion"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnQuitar"
+        app:layout_constraintTop_toTopOf="@+id/btnQuitar" />
 
-      <Button
-          android:id="@+id/btnConsulta"
-          android:layout_width="70dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="100dp"
-          android:background="@drawable/bg_round"
-          android:backgroundTint="@color/botonLogin"
-          android:drawableLeft="@drawable/consultainfraccion"
-          android:textColor="@color/white"
-          app:layout_constraintEnd_toEndOf="@id/spModalidad"
-          app:layout_constraintStart_toStartOf="@id/btnInfraccion"
-          app:layout_constraintTop_toTopOf="@+id/btnInfraccion" />
+    <Button
+        android:id="@+id/btnConsulta"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_home"
+        android:backgroundTint="@color/botonLogin"
+        android:layout_marginEnd="40dp"
+        android:drawableLeft="@drawable/consultainfraccion"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnInfraccion"
+        app:layout_constraintTop_toTopOf="@+id/btnInfraccion" />
 
       <TextView
           android:id="@+id/tvVersion"
