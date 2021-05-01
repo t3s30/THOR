@@ -26,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -34,7 +33,6 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -42,21 +40,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import app.simov.esparrago.Infracciones;
 import app.simov.esparrago.R;
 import app.simov.esparrago.WsgobConsulta;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -78,12 +72,24 @@ public class HomeFragment extends Fragment  {
     CheckBox checkBoxLicencia;
     boolean banderaLicencia = false;
     boolean banderaPlaca = false;
+    final int COD_SELECCIONA=10;
+    final int COD_FOTO=20;
+    int cuenta ;
+    private final String CARPETA_RAIZ="misImagenesPrueba/";
+    private final String RUTA_IMAGEN=CARPETA_RAIZ+"misFotos";
+    private static final String EXTRA_CODE = "app.simov.esparrago";
+    ProgressDialog progressDialog;
+    AlertDialog.Builder builder;
     String enviaBanderaLic;
     String licencia;
     String placa;
     EditText editTextPlaca;
     EditText editTextLicencia;
-    ProgressDialog progressDialog;
+    AutoCompleteTextView edtInfraccion1;
+    AutoCompleteTextView edtInfraccion2;
+    AutoCompleteTextView edtInfraccion3;
+    AutoCompleteTextView edtInfraccion4;
+    AutoCompleteTextView edtInfraccion5;
     Spinner spinnerModalidad;
     Spinner spinerSector;
     String modalidad;
@@ -93,62 +99,14 @@ public class HomeFragment extends Fragment  {
     String infraccion3;
     String infraccion4;
     String infraccion5;
-
-    int cuenta ;
     String usersId;
     String username;
     String profile;
     String nombre;
     String delegacionId;
     String activo;
-
-
-    //EDTS INFRACCIÓN
-
-    AutoCompleteTextView edtInfraccion1;
-    AutoCompleteTextView edtInfraccion2;
-    AutoCompleteTextView edtInfraccion3;
-    AutoCompleteTextView edtInfraccion4;
-    AutoCompleteTextView edtInfraccion5;
-
     ImageView imageViewP;
     TextView textViewP;
-
-
-
-
-    String placaPlataforma;
-
-    String folioPlataforma;
-
-    String delegacionIDPlataforma;
-    String nombre_plataformaPlataforma;
-    String numero_polizaPlataforma     ;
-    String nombre_propietarioPlataforma ;
-    String seriePlataforma     ;
-
-    String marcaPlataforma  ;
-    String tipoPlataforma    ;
-    String modeloPlataforma   ;
-    String fecha_vigenciaPlataforma ;
-    String fecha_altaPlataforma     ;
-    String nombre_socioPlataforma    ;
-    String estatusPlataforma     ;
-    String colorPlataforma;
-
-
-
-    AlertDialog.Builder builder;
-    final int COD_SELECCIONA=10;
-    final int COD_FOTO=20;
-    private final String CARPETA_RAIZ="misImagenesPrueba/";
-    private final String RUTA_IMAGEN=CARPETA_RAIZ+"misFotos";
-    String path;
-    String miPlacosa;
-    private HomeViewModel homeViewModel;
-    private static final String EXTRA_CODE = "app.simov.esparrago";
-
-
     TextView tvplacasRM;
     TextView tvdelegacionRM;
     TextView tvplataformaRM;
@@ -162,10 +120,21 @@ public class HomeFragment extends Fragment  {
     TextView tvvigenciaRM;
     TextView tvsocioRM;
     TextView tvstatusRM;
-
-
-
-
+    String placaPlataforma;
+    String folioPlataforma;
+    String delegacionIDPlataforma;
+    String nombre_plataformaPlataforma;
+    String numero_polizaPlataforma;
+    String nombre_propietarioPlataforma;
+    String seriePlataforma;
+    String marcaPlataforma;
+    String tipoPlataforma;
+    String modeloPlataforma;
+    String fecha_vigenciaPlataforma;
+    String fecha_altaPlataforma;
+    String nombre_socioPlataforma;
+    String estatusPlataforma;
+    String colorPlataforma;
     String placaQR;
     String serialQR;
     String delegacionIdQR;
@@ -187,6 +156,7 @@ public class HomeFragment extends Fragment  {
     String observacionesQR;
     String revisionQR;
 
+    //Revision Mecanica
     String placarm2;
     String serialrm2;
     String delegacionrm2;
@@ -208,7 +178,7 @@ public class HomeFragment extends Fragment  {
     String observacionesrm2;
     String revisionrm22;
 
-
+    //Folio
     String placaFolio;
     String foliofolio;
     String delegacionFolio;
@@ -226,7 +196,7 @@ public class HomeFragment extends Fragment  {
     String nombreSocioFolio;
     String estatusFolio;
 
-
+    //TARJETON
     String lnumeroTarjeton;
     String licenciaTarjeton;
     String tipoChoferTarjeton;
@@ -239,20 +209,22 @@ public class HomeFragment extends Fragment  {
     String fechaLabTarjerton;
     String estatusTarjerton;
 
+    //FOLIOQR
     String folioGafeteQR;
     String delegacionGafeteQR;
     String modalidadGafeteQR;
     String serieRegistroGafeteQR;
     String vigenciaGafeteQR;
-
+    String path;
+    String miPlacosa;
     String infoQr;
+    private HomeViewModel homeViewModel;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-      //  FirebaseApp.initializeApp(getActivity());
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
 
          tvplacasRM = root.findViewById(R.id.placasRMTablaLay);
          tvdelegacionRM = root.findViewById(R.id.delegacionRM);
@@ -348,8 +320,6 @@ public class HomeFragment extends Fragment  {
         adapterZona.setDropDownViewResource(R.layout.spinner_dropdown_layout);
         spinerSector.setAdapter(adapterZona);
 
-
-
         edtInfraccion1.setVisibility(View.GONE);
         edtInfraccion2.setVisibility(View.GONE);
         edtInfraccion3.setVisibility(View.GONE);
@@ -359,16 +329,15 @@ public class HomeFragment extends Fragment  {
 
         NavigationView navigationView = (NavigationView) root.findViewById(R.id.nav_view);
 
+        //Boton Iniciar QR
 
 
-
- //Boton Iniciar QR
- bntQr.setOnClickListener(new View.OnClickListener() {
-     @Override
-     public void onClick(View v) {
+        bntQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
         escanear();
      }
- });
+            });
 
         //Boton Foto placa
         bntFoto.setOnClickListener(new View.OnClickListener() {
@@ -376,16 +345,13 @@ public class HomeFragment extends Fragment  {
             public void onClick(View v) {
                 doProcess();
             }
-        });
-
-
+            });
 
         //Boton agregar Infracciones
- bntCuenta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            bntCuenta.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                 cuenta++;
-
                 Log.d("CUENTS+++","CONTADOR"+cuenta);
                 if (cuenta == 1){
                     edtInfraccion1.setVisibility(View.VISIBLE);
@@ -408,7 +374,7 @@ public class HomeFragment extends Fragment  {
             }
         });
 
-//Boton Quitar Infracciones
+        //Boton Quitar Infracciones
          bntQuitar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -430,11 +396,10 @@ public class HomeFragment extends Fragment  {
                 if(cuenta == 0){
                     edtInfraccion1.setVisibility(View.GONE);
                     bntQuitar.setVisibility(View.GONE);
-
-
                 }
             }
         });
+
         //Mayusculas a LICENCIA Y PLACA.
          editTextLicencia.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
          editTextPlaca.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
@@ -456,15 +421,13 @@ public class HomeFragment extends Fragment  {
             tvUsuario.setText(nombre+" "+username);
             editTextPlaca.setText(placa);
             editTextLicencia.setText(licencia);
-
-
             tvMunicipio.setText("Tijuana");
-          Log.d("USERSID","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID"+usersId);
+            Log.d("USERSID","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID"+usersId);
         }
 
 
 
-//Boton que termina el proceso para enviar la informacion de Infraccion.
+        //Boton que termina el proceso para enviar la informacion de Infraccion.
         buttonInfraccion.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -478,9 +441,6 @@ public class HomeFragment extends Fragment  {
                 progressDialog.getWindow().setBackgroundDrawableResource(
                         android.R.color.transparent
                 );
-
-
-
                     banderaLicencia = false;
                     //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
                     editTextPlaca = root.findViewById(R.id.edtPlaca);
@@ -491,8 +451,6 @@ public class HomeFragment extends Fragment  {
 
                     //Envia Ws
                     enviarWSConsultaInfraccion(URL);
-
-
             }
         });
 
@@ -513,11 +471,8 @@ public class HomeFragment extends Fragment  {
                     //Envia Ws
                     enviarWSConsulta(URL);
                     enviarWSConsultaRM(URL2);
-
-
             }
         });
-
 
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -555,10 +510,6 @@ public class HomeFragment extends Fragment  {
 
                         Log.d("objVehicular", "###Respuesta WS padron vehicular" + jsonarray.toString());
                         //Accedemos al valor del Objeto deseado completo.
-                       // JSONArray jsonarray = obj.getJSONArray("data");
-
-                        //Log.w("jARRAY","### QUE TIENE EL ARRAY?"+jsonarray.toString());
-
 
                         if (jsonarray.length()==0){
                             Log.d("#####","#### ENTRE");
@@ -571,7 +522,6 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("modalidad",modalidad);
                             intentWs.putExtra("placa", placa);
 
-
                             intentWs.putExtra("usersId",usersId);
                             Log.d("HomeFragment","USERSID########################--->"+usersId);
                             intentWs.putExtra("username",username);
@@ -579,7 +529,6 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("nombre",nombre);
                             intentWs.putExtra("delegacionId",delegacionId);
                             intentWs.putExtra("activo",activo);
-
 
                             intentWs.putExtra("placaPlataforma",placaPlataforma);
                             Log.d("RMWSGOB","VALOR"+placaPlataforma);
@@ -598,8 +547,6 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("vigenciaPlataforma",fecha_vigenciaPlataforma);
                             intentWs.putExtra("socioPlataforma",nombre_socioPlataforma);
                             intentWs.putExtra("estatusPlataforma",estatusPlataforma);
-
-
                             intentWs.putExtra("placaQR",placaQR);
                             intentWs.putExtra("qr_serial",serialQR);
                             intentWs.putExtra("delegacionIdQR",delegacionIdQR);
@@ -642,14 +589,6 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("observacionesrm2",observacionesrm2);
                             intentWs.putExtra("revisionrm22",revisionrm22);
 
-
-
-
-
-
-
-
-
                             intentWs.putExtra("placaFolio",placaFolio);
                             intentWs.putExtra("foliofolio",foliofolio);
                             intentWs.putExtra("delegacionFolio",delegacionFolio);
@@ -666,8 +605,6 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("fechaVigenciaFoliio",fechaVigenciaFoliio);
                             intentWs.putExtra("nombreSocioFolio",nombreSocioFolio);
                             intentWs.putExtra("estatusFolio",estatusFolio);
-
-
 
                             intentWs.putExtra("lnumeroTarjeton",lnumeroTarjeton);
                             intentWs.putExtra("licenciaTarjeton",licenciaTarjeton);
@@ -686,27 +623,17 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("modalidadGafeteQR",modalidadGafeteQR);
                             intentWs.putExtra("serieRegistroGafeteQR",serieRegistroGafeteQR);
                             intentWs.putExtra("vigenciaGafeteQR",vigenciaGafeteQR);
-
-
-
                             startActivity(intentWs);
                             getActivity().finish();
                         }
 
                         //Obtenemos el total de elementos del objeto.
                         for (int i = 0; i < jsonarray.length(); i++) {
-                           // JSONObject jsonobject = jsonarray.getJSONObject(i);
-                            //Accedemos a los elementos por medio de getString.
-
-
                             //Iniciamos actividad y mandamos parametros.
                             Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
                             String PLACA = jsonarray.getString(0);
                             Log.d("vergasVato","### $#$#$$$US"+PLACA);
                            // Boolean validaEstatus = false;
-
-
-
                             try {
                                 String  ESTATUS = jsonarray.getString(24);
 
@@ -719,16 +646,10 @@ public class HomeFragment extends Fragment  {
                                     Log.d("ESATUS","### VALOR ESTATUS"+ESTATUS);
 
                                     Boolean validaFechaVencimiento = false;
-
-                                    // modalidad =spinnerModalidad.getSelectedItem().toString();
                                     String PROPIETARIO = jsonarray.getString(18);
-
                                     String VIM = jsonarray.getString(1);
-
                                     String MARCA = jsonarray.getString(3);
-
                                     intentWs.putExtra("propietario", PROPIETARIO);
-
                                     intentWs.putExtra("vim", VIM);
                                     intentWs.putExtra("marca", MARCA);
 
@@ -753,35 +674,17 @@ public class HomeFragment extends Fragment  {
                                     intentWs.putExtra("propietario", PROPIETARIO);
                                     String VIGENCIA = jsonarray.getString(3);
                                     intentWs.putExtra("vigencia", VIGENCIA);
-
                                     String COLOR = jsonarray.getString(7);
                                     String AGRUPACION = jsonarray.getString(8);
                                     String RUTASITIO = jsonarray.getString(9);
-
                                     Log.d("datoswsInserta1","###################"+COLOR);
-
-
                                     intentWs.putExtra("colorW", COLOR);
                                     intentWs.putExtra("agrupacionW", AGRUPACION);
                                     intentWs.putExtra("rutaSitioW", RUTASITIO);
-
-
                                 }
                             }catch (Exception e){
 
                             }
-
-
-                           /* if (validaFechaVencimiento==false){
-                                String economico = jsonarray.getString(0);
-                                intentWs.putExtra("economico", economico);
-                                String VIGENCIA = jsonarray.getString(0);
-                                intentWs.putExtra("vigencia", VIGENCIA);
-                                Log.d("ESATUS","### VALOR ESTATUS"+VIGENCIA);
-                            }else {
-                                String VIGENCIA = jsonarray.getString(26);
-                                intentWs.putExtra("vigencia", VIGENCIA);
-                            }*/
 
                             intentWs.putExtra("usersId",usersId);
                             Log.d("HomeFragment","USERSID########################--->"+usersId);
@@ -790,17 +693,11 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("nombre",nombre);
                             intentWs.putExtra("delegacionId",delegacionId);
                             intentWs.putExtra("activo",activo);
-
                             licencia = editTextLicencia.getText().toString();
                             intentWs.putExtra("licencia", licencia);
                             Log.d("licencia1", "###Valor de la licencia" + licencia);
                             intentWs.putExtra("bandera", enviaBanderaLic);
                             intentWs.putExtra("placa", PLACA);
-                            // intentWs.putExtra("modalidad",modalidad);
-
-
-
-
 
                             intentWs.putExtra("placaQR",placaQR);
                             intentWs.putExtra("qr_serial",serialQR);
@@ -822,7 +719,6 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("periodoQR",periodoQR);
                             intentWs.putExtra("observacionesQR",observacionesQR);
                             intentWs.putExtra("revisionQR",revisionQR);
-
 
                             intentWs.putExtra("placarm2",placarm2);
                             intentWs.putExtra("serialrm2",serialrm2);
@@ -861,8 +757,6 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("socioPlataforma",nombre_socioPlataforma);
                             intentWs.putExtra("estatusPlataforma",estatusPlataforma);
 
-
-
                             intentWs.putExtra("placaFolio",placaFolio);
                             intentWs.putExtra("foliofolio",foliofolio);
                             intentWs.putExtra("delegacionFolio",delegacionFolio);
@@ -880,7 +774,6 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("nombreSocioFolio",nombreSocioFolio);
                             intentWs.putExtra("estatusFolio",estatusFolio);
 
-
                             intentWs.putExtra("lnumeroTarjeton",lnumeroTarjeton);
                             intentWs.putExtra("licenciaTarjeton",licenciaTarjeton);
                             intentWs.putExtra("tipoChoferTarjeton",tipoChoferTarjeton);
@@ -893,13 +786,11 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("fechaLabTarjerton",fechaLabTarjerton);
                             intentWs.putExtra("estatusTarjerton",estatusTarjerton);
 
-
                             intentWs.putExtra("folioGafeteQR",folioGafeteQR);
                             intentWs.putExtra("delegacionGafeteQR",delegacionGafeteQR);
                             intentWs.putExtra("modalidadGafeteQR",modalidadGafeteQR);
                             intentWs.putExtra("serieRegistroGafeteQR",serieRegistroGafeteQR);
                             intentWs.putExtra("vigenciaGafeteQR",vigenciaGafeteQR);
-
                             startActivity(intentWs);
                             getActivity().finish();
 
@@ -945,7 +836,6 @@ public class HomeFragment extends Fragment  {
                         intentWs.putExtra("observacionesQR",observacionesQR);
                         intentWs.putExtra("revisionQR",revisionQR);
 
-
                         intentWs.putExtra("placarm2",placarm2);
                         intentWs.putExtra("serialrm2",serialrm2);
                         intentWs.putExtra("economicorm2",economicorm2);
@@ -982,8 +872,6 @@ public class HomeFragment extends Fragment  {
                         intentWs.putExtra("socioPlataforma",nombre_socioPlataforma);
                         intentWs.putExtra("estatusPlataforma",estatusPlataforma);
 
-
-
                         intentWs.putExtra("placaFolio",placaFolio);
                         intentWs.putExtra("foliofolio",foliofolio);
                         intentWs.putExtra("delegacionFolio",delegacionFolio);
@@ -1013,23 +901,17 @@ public class HomeFragment extends Fragment  {
                         intentWs.putExtra("fechaLabTarjerton",fechaLabTarjerton);
                         intentWs.putExtra("estatusTarjerton",estatusTarjerton);
 
-
                         intentWs.putExtra("folioGafeteQR",folioGafeteQR);
                         intentWs.putExtra("delegacionGafeteQR",delegacionGafeteQR);
                         intentWs.putExtra("modalidadGafeteQR",modalidadGafeteQR);
                         intentWs.putExtra("serieRegistroGafeteQR",serieRegistroGafeteQR);
                         intentWs.putExtra("vigenciaGafeteQR",vigenciaGafeteQR);
-
-
                         startActivity(intentWs);
                         e.printStackTrace();
                         getActivity().finish();
 
                     }
 
-                    //Lanzamos Intent Navigation Drawer.
-                    /*Intent intent = new Intent(getApplicationContext(), Drawer.class);
-                    startActivity(intent);*/
                 } else {
                     Toast.makeText(getContext(), "No se encontraron parametros en la consulta", Toast.LENGTH_LONG).show();
                 }
@@ -1044,18 +926,12 @@ public class HomeFragment extends Fragment  {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
                 parametros.put("placa", editTextPlaca.getText().toString());
-
-
-
                 return parametros;
             }
         };
         RequestQueue requesrQueue = Volley.newRequestQueue(getContext());
         requesrQueue.add(stringRequest);
     }
-
-
-
 
 
     private void enviarWSConsultaRM(String URL) {
@@ -1143,9 +1019,6 @@ public class HomeFragment extends Fragment  {
 
                     }
 
-/*  placas,folio,delegacionID,nombre_plataforma, numero_poliza,nombre_propietario,serie,marca,tipo,color,modelo,fecha_vigencia,fecha_alta,fecha_vigencia, nombre_socio,estatus FROM plata
-forma  */
-
                     try {
                         JSONArray jsonarray = new JSONArray(obj.getString("FOLIOPLATAFORMA"));
                         for (int h = 0; h < jsonarray.length(); h++) {
@@ -1166,16 +1039,11 @@ forma  */
                             fechaVigenciaFoliio = jsonobject.getString("fecha_vigencia");
                             nombreSocioFolio = jsonobject.getString("nombre_socio");
                             estatusFolio = jsonobject.getString("estatus");
-
-
                             Log.d("RM33", "###Respuesta WS --- " + placarm2);
                         }
                     }catch (Exception e){
 
                     }
-
-
-
 
                     try {
                         Log.d("RM10", "###Respuesta WS RM10" +obj.getString("QRSERIAL"));
@@ -1183,12 +1051,6 @@ forma  */
                         Log.d("RM12", "###Respuesta WS RM12" +obj.getString("FOLIOPLATAFORMA"));
                         Log.d("RM13", "###Respuesta WS RM13" +obj.getString("PLACASPLATAFORMA"));
                         Log.d("RM14", "###Respuesta WS RM14" +obj.getString("TARJETON"));
-
-                        // JSONObject placasPlataforma = obj.getJSONObject("PLACASPLATAFORMA");
-                        //JSONArray  placasPlataforma = obj.getString("PLACASPLATAFORMA");
-                        //Log.d("RM15", "###Respuesta WS RM14" +placasPlataforma);
-                        //String placasPlataformaArray = (String) placasPlataforma.get(1);
-                        //Log.d("RM16", "###Respuesta WS RM14" +placasPlataformaArray);
 
                         JSONArray jsonarray = new JSONArray(obj.getString("PLACASPLATAFORMA"));
 
@@ -1220,13 +1082,6 @@ forma  */
                             //   Log.d("RM16", "NO ENTRE PUTO -- ");
                         }
 
-/*
-* imos_tarjeton_lnumero,imos_tarjeton_licencia, imos_tarjeton_tipo_chofer,imos_tarjeton_folio,imos_tarjeton_materno,imos_tarjeton_paterno,imos_tarjeton_nombre, fecha_alta,fecha_vigencia_tarjeton,inserta_fecha_lab,estatus FROM
-tarjeton_TIJUANA
-*
-* */
-
-
                         JSONArray jsonarrayTarjeton = new JSONArray(obj.getString("TARJETON"));
 
                         try {
@@ -1244,7 +1099,6 @@ tarjeton_TIJUANA
                                 fechaVigenciaTarjeton      = jsonobject.getString("fecha_vigencia_tarjeton");
                                 fechaLabTarjerton      = jsonobject.getString("inserta_fecha_lab");
                                 estatusTarjerton      = jsonobject.getString("estatus");
-
                                 Log.d("TARJETON","DATOS DE TARJETON "+lnumeroTarjeton);
 
                             }
@@ -1252,19 +1106,12 @@ tarjeton_TIJUANA
                         }catch (Exception e){
                             Log.d("RM16", "NO ENTRE PUTO -- ");
                         }
-
-
-
                         Log.d("wsRMPlataforma","DATOS DE RM PLATAFORMA "+placaPlataforma);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-
-                    //Lanzamos Intent Navigation Drawer.
-                    /*Intent intent = new Intent(getApplicationContext(), Drawer.class);
-                    startActivity(intent);*/
                 } else {
                     Toast.makeText(getContext(), "No se encontraron parametros en la consulta", Toast.LENGTH_LONG).show();
                 }
@@ -1279,9 +1126,6 @@ tarjeton_TIJUANA
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
                 parametros.put("placa", editTextPlaca.getText().toString());
-
-
-
                 return parametros;
             }
         };
@@ -1379,18 +1223,10 @@ tarjeton_TIJUANA
                                     Log.d("ESATUS","### VALOR ESTATUS"+ESTATUS);
 
                                     Boolean validaFechaVencimiento = false;
-
-                                    // modalidad =spinnerModalidad.getSelectedItem().toString();
                                     String PROPIETARIO = jsonarray.getString(18);
-
                                     String VIM = jsonarray.getString(1);
-
                                     String MARCA = jsonarray.getString(3);
-
-
-
                                     intentWs.putExtra("propietario", PROPIETARIO);
-
                                     intentWs.putExtra("vim", VIM);
                                     intentWs.putExtra("marca", MARCA);
 
@@ -1416,14 +1252,10 @@ tarjeton_TIJUANA
                                     intentWs.putExtra("propietario", PROPIETARIO);
                                     String VIGENCIA = jsonarray.getString(3);
                                     intentWs.putExtra("vigencia", VIGENCIA);
-
                                     String COLOR = jsonarray.getString(7);
                                     String AGRUPACION = jsonarray.getString(8);
                                     String RUTASITIO = jsonarray.getString(9);
-
                                     Log.d("datoswsInserta1","###################"+COLOR);
-
-
                                     intentWs.putExtra("colorW", COLOR);
                                     intentWs.putExtra("agrupacionW", AGRUPACION);
                                     intentWs.putExtra("rutaSitioW", RUTASITIO);
@@ -1432,11 +1264,6 @@ tarjeton_TIJUANA
                             }catch (Exception e){
 
                             }
-
-
-
-
-                            //############################
 
                             intentWs.putExtra("usersId",usersId);
                             Log.d("HomeFragment","USERSID########################--->"+usersId);
@@ -1447,7 +1274,6 @@ tarjeton_TIJUANA
                             intentWs.putExtra("activo",activo);
 
                             //############################
-
                             licencia = editTextLicencia.getText().toString();
                             intentWs.putExtra("licencia", licencia);
                             Log.d("licencia1", "###Valor de la licencia" + licencia);
@@ -1473,17 +1299,7 @@ tarjeton_TIJUANA
                             intentWs.putExtra("infra4",infraccion4);
                             intentWs.putExtra("infra5",infraccion5);
                             intentWs.putExtra("cuenta",cuentaString);
-
-
-                           /* intentWs.putExtra("propietario", PROPIETARIO);
-
-                            intentWs.putExtra("vim", VIM);
-                            intentWs.putExtra("marca", MARCA);*/
-
                             startActivity(intentWs);
-
-
-
                         }
 
 
@@ -1497,7 +1313,6 @@ tarjeton_TIJUANA
                         intentWs.putExtra("nombre",nombre);
                         intentWs.putExtra("delegacionId",delegacionId);
                         intentWs.putExtra("activo",activo);
-
                         intentWs.putExtra("licencia", licencia);
                         intentWs.putExtra("placa", "NO-PLACA");
                         Log.d("licencia2", "###Valor de la licencia" + licencia);
@@ -1507,9 +1322,6 @@ tarjeton_TIJUANA
 
                     }
 
-                    //Lanzamos Intent Navigation Drawer.
-                    /*Intent intent = new Intent(getApplicationContext(), Drawer.class);
-                    startActivity(intent);*/
                 } else {
                     Toast.makeText(getContext(), "No se encontraron parametros en la consulta", Toast.LENGTH_LONG).show();
                 }
@@ -1524,15 +1336,13 @@ tarjeton_TIJUANA
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
                 parametros.put("placa", editTextPlaca.getText().toString());
-
-
-
                 return parametros;
             }
         };
         RequestQueue requesrQueue = Volley.newRequestQueue(getContext());
         requesrQueue.add(stringRequest);
     }
+
 //Clase para scanear el codigo QR
 public void escanear(){
     try {
@@ -1568,7 +1378,6 @@ public void escanear(){
             FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap(bitmap);
             //2. Get an instance of FirebaseVision
             FirebaseApp.initializeApp(getActivity());
-
             FirebaseVision firebaseVision = FirebaseVision.getInstance();
             //3. Create an instance of FirebaseVisionTextRecognizer
             FirebaseVisionTextRecognizer firebaseVisionTextRecognizer = firebaseVision.getOnDeviceTextRecognizer();
@@ -1590,37 +1399,20 @@ public void escanear(){
                                 miPlacosa = lines[i];
                             }
                         }
-
-
                         Log.d("CONTIENE", "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + miPlacosa);
-
                         String[] splitPlaca = miPlacosa.split("-");
-
                         String dato1 = splitPlaca[0];
                         String dato2 = splitPlaca[1];
                         String dato3 = splitPlaca[2];
-
                         String nuevaPlaca = dato1 + dato2 + dato3;
-
                         Log.d("IMAGENPLACA", "ALV ESTA ES TU PLACA " + s);
-
                         editTextPlaca.setText(nuevaPlaca);
-
-                       /* if (editTextPlaca.equals(null) || editTextPlaca.equals("")) {
-                            Log.d("ENTREEEEEEEEEE", "ALV ESTA ES TU PLACA " + s);
-                            editTextPlaca.setText(infoQr);
-
-                        }*/
-
-
-                        // textViewP.setText(s);
 
                     } catch (Exception error) {
                         Toast.makeText(getActivity(), "Tomar foto de nuevo", Toast.LENGTH_LONG).show();
                     }
 
                 }
-
 
             });
 
@@ -1655,28 +1447,15 @@ public void escanear(){
                         int sizeDatosLicencia = datosLicencia.size();
                         if (isFound == true) {
                             editTextLicencia.setText(datosLicencia.get(4).trim());
-
                             folioGafeteQR = datosLicencia.get(0).trim();
                             delegacionGafeteQR =datosLicencia.get(1).trim();
                             modalidadGafeteQR = datosLicencia.get(2).trim();
                             serieRegistroGafeteQR = datosLicencia.get(6).trim();
                             vigenciaGafeteQR = datosLicencia.get(7).trim();
-
                             Log.d("QRSTRING", "ESTE ES EL VALOR DEL QR STRING" + result.getContents().toString());
                             editTextPlaca.setText("");
                         }
                         int count = 0;
-
-                        /*//Counts each character except space
-                        for(int i = 0; i < infoQr.length(); i++) {
-                            if(infoQr.charAt(i) != ' ')
-                                count++;
-                        }
-                        Log.d("QRSTRING", "CONTADOR" + count);*/
-                      //  if (count==6) {
-
-                        /*}*/
-
                         if (sizeDatosLicencia >= 11) {
                             editTextPlaca.setText(datosLicencia.get(8).trim());
                         }
@@ -1691,24 +1470,7 @@ public void escanear(){
         }
     }
 
-
-// else continue with any other code you need in the method
-
-    /*private static final String[] InfracionesList = new String[]{
-            "FALTA DE PLACAS","CIRCULA SIN PLACAS","FALTA DE TARJETA CIRCULACION","TARJETA CIRCULACION VENCIDA","TRANSITAR EN EL CARRIL NO CORRESPONDIENTE","SUBIR BAJAR PASAJE LUGAR INDEBIDO",
-            "ESTACIONARSE EN LUGAR PROHIBIDO","FALTA DE ESPEJO(S) RETROVISOR","FALTA DE LUCES DELANTERAS","FATLA DE LUCES TRASERAS-FRENO","FALTA DE LUCES","EXCESO DE PASAJE","EXCESO DE CARGA",
-            "TRASLADO DE MERCANCIA VIA PUBLICA","IMPIDEN VISIBILIDAD AL CONDUCTOR","MODIFICACION CARROCERIA","FALTA DE ASEO AL OPERADOR","MODIFICAR ASIENTOS PARA ACEPTAR MAS PASAJEROS",
-            "SERVICIO DE PASAJEROS EN VEHICULO PARTICULAR","NO CONTAR CON EL TIPO DE LICENCIA CORRESPONDIENTE","NO REUNIR CONDICIONES DE IMAGEN Y COMODIDAD","NO CONTAR CON REVISION MECANICA",
-            "REVISION DE DOCUMENTOS","PRESTAR SERVICIO INTERMUNICIPAL SIN PERMISO","CONTAMINAR CON HUMO","LLANTAS LISAS","ROTULACION INAPROPIADA","EXTINGUIDOR,BOTIQUIN","VENTANAS ROTAS O SIN ELLA",
-            "LIMPIA PARABRISAS","TRABAJAR FUERA DE HORARIO DE 4 A 22HRS","TRAER PUERTAS CERRADAS MIENTRAS LA UNIDA SE MUEVE","OBSTRUCCION DE VISIBILIDAD DEL CONDUCTOR","TENER VIGENTE POLIZA DAÑOS A TERCEROS",
-            "UNIFORME OBLIGATORIO PARA PRESTAR EL SERVICIO","POR CIRCULAR CON CAJUELA ABIERTA","POR CIRCULAR CON MATERIAL FLAMABLE","SIN NUMERO ECONOMICO","POR CIRCULAR SIN NOMBRE DE LA RUTA A LOS COSTADOS",
-            "CIRCULAR SIN LA LEYENDA DE TAXI A LOS COSTADOS","FUMAR O TOMAR BEBIDAS ALCOHOLICAS EN LA UNIDAD","ARROJAR BASURA U OBJETOS EN LA VIA PUBLICA","OBSTRUIR CARRIL DE CIRCULACION",
-            "REALIZAR TODO TIPO DE REPARACIONES MECANICAS","HACER USO DE PARKIN AUN PAGANDO TARIFA","VIDRIOS POLARIZADOS","REALIZAR COBROS ADICIONALES","POR NO CONTAR CON PERMISO EN SITIO O LANZADERAS",
-            "ALTERAR MODIFICAR SISTEMA DE SONIDO NO ORIGINAL","NO CONTAR CON EXAMEN TOXICOLOGICO","NO TRAER LICENCIA","POR ABASTASER COMBUSTIBLE CON PASAJE ABORDO","POR UTILIZAR CELULAR O RADIO MIENTRAS CODUCE",
-            "POR MODIFICAR ESCAPE O SILENCIADOR","POR NO RESPETAR EL REGLAMENTO DE TRANSITO","POR CIRCULAR EN RUTA DIFERENTE A LA REGISTRADA"};*/
-
     private void cargarImagen() {
-
         final CharSequence[] opciones={"Tomar Foto","Cargar Imagen","Cancelar"};
         final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(getActivity());
         alertOpciones.setTitle("Seleccione una Opción");
@@ -1725,13 +1487,6 @@ public void escanear(){
                         intent.setAction(Intent.ACTION_GET_CONTENT);
                         startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), COD_SELECCIONA);
 
-
-
-
-                       /* Intent intent=new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                        intent.setType("image/");
-                        startActivityForResult(intent.createChooser(intent,"Seleccione la Aplicación"),COD_SELECCIONA);*/
                     }else{
                         dialogInterface.dismiss();
                     }
@@ -1774,7 +1529,6 @@ public void escanear(){
         }
         startActivityForResult(intent,COD_FOTO);
 
-        ////
     }
 
 }

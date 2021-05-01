@@ -21,23 +21,24 @@
         android:id="@+id/edtUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:drawablePadding="12dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         android:layout_gravity="center"
         android:backgroundTint="#F8F5F5"
         android:drawableLeft="@drawable/ic_persona"
         android:hint="@string/app_usuario"
         android:inputType="text"
         android:textAlignment="center"
-        android:textColor="#FAF8F8"
-        android:textColorHint="#F6F6F6" />
+        android:textColor="@color/white"
+        android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/edtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"
-        android:drawablePadding="12dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         android:layout_gravity="center"
         android:backgroundTint="#F8F5F5"
         android:drawableLeft="@drawable/ic_candado"
@@ -45,7 +46,7 @@
         android:inputType="textPassword"
         android:textAlignment="center"
         android:textColor="#FAF8F8"
-        android:textColorHint="#F6F6F6"
+        android:textColorHint="@color/white"
         />
     <Space
         android:layout_width="match_parent"
@@ -56,8 +57,10 @@
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="80px"
+        android:background="@drawable/btn"
         android:backgroundTint="@color/botonLogin"
         android:text="INICIAR"
         android:textColor="@color/white" />
