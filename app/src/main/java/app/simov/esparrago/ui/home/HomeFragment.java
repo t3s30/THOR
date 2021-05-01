@@ -268,6 +268,7 @@ public class HomeFragment extends Fragment  {
         //Parametros XML
        // final TextView nombreApp = root.findViewById(R.id.tvApp);
         final TextView tvUsuario = root.findViewById(R.id.tvUsuario);
+        final TextView tvUsuarioUser = root.findViewById(R.id.tvNombreUser);
        // final TextView tvUsuario2 = root.findViewById(R.id.tvUsuario2);
         final TextView tvMunicipio = root.findViewById(R.id.tvMunicipio);
         checkBoxLicencia = root.findViewById(R.id.cBoxLicencia);
@@ -443,7 +444,9 @@ public class HomeFragment extends Fragment  {
             placa  = args.getString("placa");
             licencia  = args.getString("licencia");
             Log.d("MIPLACA","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID"+placa);
-            tvUsuario.setText(nombre+" "+username);
+            tvUsuario.setText("Nombre : "+nombre);
+
+            tvUsuarioUser.setText("Usuario :" +username);
             editTextPlaca.setText(placa);
             editTextLicencia.setText(licencia);
             tvMunicipio.setText("Tijuana");

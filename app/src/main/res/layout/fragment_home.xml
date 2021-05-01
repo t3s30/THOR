@@ -12,22 +12,23 @@
       android:background="@color/black">
 
      <!--Titulos y cabeceraz-->
-      <ImageView
-          android:id="@+id/imageView5"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:layout_gravity="center"
-          android:layout_marginBottom="40dp"
-          android:alpha=".20"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="0.0"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.0"
-          app:srcCompat="@drawable/imos" />
 
-      <TextView
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        android:alpha=".20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/imos" />
+
+    <TextView
         android:id="@+id/tvApp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnQr"
@@ -41,37 +42,46 @@
 
     <TextView
         android:id="@+id/tvUsuario"
-        app:layout_constraintTop_toTopOf="@+id/tvApp"
-        app:layout_constraintStart_toEndOf="@id/btnQr"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="17dp"
-        android:textAlignment="textStart"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="match_parent"
+        android:layout_margin="17dp"
         android:text="Abdiel Carrasco"
-        android:textColor="#FFFFFF"/>
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnQr"
+        app:layout_constraintTop_toTopOf="@+id/tvApp" />
 
-
+    <TextView
+        android:id="@+id/tvNombreUser"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Abdiel Carrasco"
+        android:textAlignment="textStart"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnQr"
+        app:layout_constraintTop_toBottomOf="@+id/tvUsuario" />
 
     <TextView
         android:id="@+id/tvMunicipio"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnQr"
-        app:layout_constraintTop_toTopOf="@+id/tvUsuario"
-        android:layout_margin="20dp"
-        android:textAlignment="textStart"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
+
         android:text="Tijuana"
-        android:textColor="@color/titulosVerdes"/>
+        android:textAlignment="textStart"
+        android:textColor="@color/titulosVerdes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnQr"
+        app:layout_constraintTop_toBottomOf="@+id/tvNombreUser" />
 <!--Terminar Titlos y Cabeceras-->
 
 <!--Botón QR-->
     <Button
         android:id="@+id/btnQr"
         android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/btn_home"
         android:backgroundTint="@color/botonLogin"
@@ -95,8 +105,8 @@
     <Button
         android:id="@+id/btnFotoPlaca"
         android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="130dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/btn_home"
         android:backgroundTint="@color/botonLogin"
@@ -313,7 +323,7 @@
     <Button
         android:id="@+id/btnCuenta"
         android:layout_width="70dp"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_marginTop="60dp"
         android:layout_marginStart="30dp"
         android:background="@drawable/btn_home"
@@ -326,7 +336,7 @@
     <Button
         android:id="@+id/btnQuitar"
         android:layout_width="70dp"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:background="@drawable/btn_home"
         android:layout_marginStart="10dp"
         android:backgroundTint="@color/botonLogin"
@@ -429,7 +439,7 @@
     <Button
         android:id="@+id/btnInfraccion"
         android:layout_width="70dp"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_marginEnd="90dp"
         android:background="@drawable/btn_home"
         android:backgroundTint="@color/botonLogin"
@@ -442,7 +452,7 @@
     <Button
         android:id="@+id/btnConsulta"
         android:layout_width="70dp"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:background="@drawable/btn_home"
         android:backgroundTint="@color/botonLogin"
         android:layout_marginEnd="40dp"
