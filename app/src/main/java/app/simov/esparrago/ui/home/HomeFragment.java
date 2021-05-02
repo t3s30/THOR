@@ -226,12 +226,21 @@ public class HomeFragment extends Fragment  {
     String infoQr;
     private HomeViewModel homeViewModel;
     MediaPlayer mMediaPlayer;
+
+    String infracciones;
+    String  latitud;
+    String  longitud;
+    String  banderaInfraccion;
+    String fechaInfracion;
+    String motivoInfraccion;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
+        String URLINFRACCION = getResources().getString(R.string.URL_INFRACCION);
 
 
          tvplacasRM = root.findViewById(R.id.placasRMTablaLay);
@@ -516,8 +525,10 @@ public class HomeFragment extends Fragment  {
                     String URL = "https://simov.app/servicios/controlVehicularNew.php";
                     String URL2  = "https://simov.app/servicios/abdiel.php";
                     //Envia Ws
+                    enviarWSInfraccion(URLINFRACCION);
                     enviarWSConsulta(URL);
                     enviarWSConsultaRM(URL2);
+
             }
         });
 
@@ -670,6 +681,14 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("modalidadGafeteQR",modalidadGafeteQR);
                             intentWs.putExtra("serieRegistroGafeteQR",serieRegistroGafeteQR);
                             intentWs.putExtra("vigenciaGafeteQR",vigenciaGafeteQR);
+
+                            intentWs.putExtra("numeroInfracciones",infracciones);
+                            intentWs.putExtra("fechInfraccion",fechaInfracion);
+                            intentWs.putExtra("motivoInfraccion",motivoInfraccion);
+                            intentWs.putExtra("baderaInfraccion",banderaInfraccion);
+                            intentWs.putExtra("latitud",latitud);
+                            intentWs.putExtra("longitud",longitud);
+
                             startActivity(intentWs);
                             getActivity().finish();
                         }
@@ -678,6 +697,13 @@ public class HomeFragment extends Fragment  {
                         for (int i = 0; i < jsonarray.length(); i++) {
                             //Iniciamos actividad y mandamos parametros.
                             Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
+
+                            intentWs.putExtra("numeroInfracciones",infracciones);
+                            intentWs.putExtra("fechInfraccion",fechaInfracion);
+                            intentWs.putExtra("motivoInfraccion",motivoInfraccion);
+                            intentWs.putExtra("baderaInfraccion",banderaInfraccion);
+                            intentWs.putExtra("latitud",latitud);
+                            intentWs.putExtra("longitud",longitud);
                             String PLACA = jsonarray.getString(0);
                             Log.d("HOME-FRAGMENT-WS","Valor de la placa recojida <:> "+PLACA);
                            // Boolean validaEstatus = false;
@@ -700,10 +726,29 @@ public class HomeFragment extends Fragment  {
                                     intentWs.putExtra("vim", VIM);
                                     intentWs.putExtra("marca", MARCA);
 
+                                    intentWs.putExtra("numeroInfracciones",infracciones);
+                                    intentWs.putExtra("fechInfraccion",fechaInfracion);
+                                    intentWs.putExtra("motivoInfraccion",motivoInfraccion);
+                                    intentWs.putExtra("baderaInfraccion",banderaInfraccion);
+                                    intentWs.putExtra("latitud",latitud);
+                                    intentWs.putExtra("longitud",longitud);
+
                                 }
 
                             }catch (Exception e){
+                                intentWs.putExtra("numeroInfracciones",infracciones);
+                                intentWs.putExtra("fechInfraccion",fechaInfracion);
+                                intentWs.putExtra("motivoInfraccion",motivoInfraccion);
+                                intentWs.putExtra("baderaInfraccion",banderaInfraccion);
+                                intentWs.putExtra("latitud",latitud);
+                                intentWs.putExtra("longitud",longitud);
 
+                                intentWs.putExtra("numeroInfracciones",infracciones);
+                                intentWs.putExtra("fechInfraccion",fechaInfracion);
+                                intentWs.putExtra("motivoInfraccion",motivoInfraccion);
+                                intentWs.putExtra("baderaInfraccion",banderaInfraccion);
+                                intentWs.putExtra("latitud",latitud);
+                                intentWs.putExtra("longitud",longitud);
                             }
                             try {
                                 String  ESTATUST = jsonarray.getString(2);
@@ -728,9 +773,24 @@ public class HomeFragment extends Fragment  {
                                     intentWs.putExtra("colorW", COLOR);
                                     intentWs.putExtra("agrupacionW", AGRUPACION);
                                     intentWs.putExtra("rutaSitioW", RUTASITIO);
+
+
+
+                                    intentWs.putExtra("numeroInfracciones",infracciones);
+                                    intentWs.putExtra("fechInfraccion",fechaInfracion);
+                                    intentWs.putExtra("motivoInfraccion",motivoInfraccion);
+                                    intentWs.putExtra("baderaInfraccion",banderaInfraccion);
+                                    intentWs.putExtra("latitud",latitud);
+                                    intentWs.putExtra("longitud",longitud);
+
                                 }
                             }catch (Exception e){
-
+                                intentWs.putExtra("numeroInfracciones",infracciones);
+                                intentWs.putExtra("fechInfraccion",fechaInfracion);
+                                intentWs.putExtra("motivoInfraccion",motivoInfraccion);
+                                intentWs.putExtra("baderaInfraccion",banderaInfraccion);
+                                intentWs.putExtra("latitud",latitud);
+                                intentWs.putExtra("longitud",longitud);
                             }
 
                             intentWs.putExtra("usersId",usersId);
@@ -842,6 +902,15 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("modalidadGafeteQR",modalidadGafeteQR);
                             intentWs.putExtra("serieRegistroGafeteQR",serieRegistroGafeteQR);
                             intentWs.putExtra("vigenciaGafeteQR",vigenciaGafeteQR);
+
+
+                            intentWs.putExtra("numeroInfracciones",infracciones);
+                            intentWs.putExtra("fechInfraccion",fechaInfracion);
+                            intentWs.putExtra("motivoInfraccion",motivoInfraccion);
+                            intentWs.putExtra("baderaInfraccion",banderaInfraccion);
+                            intentWs.putExtra("latitud",latitud);
+                            intentWs.putExtra("longitud",longitud);
+
                             startActivity(intentWs);
                             getActivity().finish();
 
@@ -961,6 +1030,15 @@ public class HomeFragment extends Fragment  {
                         intentWs.putExtra("modalidadGafeteQR",modalidadGafeteQR);
                         intentWs.putExtra("serieRegistroGafeteQR",serieRegistroGafeteQR);
                         intentWs.putExtra("vigenciaGafeteQR",vigenciaGafeteQR);
+
+                        intentWs.putExtra("numeroInfracciones",infracciones);
+                        intentWs.putExtra("fechInfraccion",fechaInfracion);
+                        intentWs.putExtra("motivoInfraccion",motivoInfraccion);
+                        intentWs.putExtra("baderaInfraccion",banderaInfraccion);
+                        intentWs.putExtra("latitud",latitud);
+                        intentWs.putExtra("longitud",longitud);
+
+
                         startActivity(intentWs);
                         e.printStackTrace();
                         getActivity().finish();
@@ -974,6 +1052,14 @@ public class HomeFragment extends Fragment  {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
+                intentWs.putExtra("numeroInfracciones",infracciones);
+                intentWs.putExtra("fechInfraccion",fechaInfracion);
+                intentWs.putExtra("motivoInfraccion",motivoInfraccion);
+                intentWs.putExtra("baderaInfraccion",banderaInfraccion);
+                intentWs.putExtra("latitud",latitud);
+                intentWs.putExtra("longitud",longitud);
+
                 Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
             }
         }) {
@@ -1551,6 +1637,80 @@ public void escanear(){
         alertOpciones.show();
 
     }
+
+    private void enviarWSInfraccion(String URLINFRACCION) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLINFRACCION, new Response.Listener<String>() {
+            @Override
+            //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
+            public void onResponse(String response) {
+                //Validamos que el response no este vacio
+                if (!response.isEmpty()) {
+                    //Esto contiene toda la cadena de respuesta del Ws.
+                    // Toast.makeText(WsgobConsulta.this, "SE MANDO PETICION CORRECTA A WS INFRACCIONES" + response, Toast.LENGTH_LONG).show();
+
+                    try {
+                        //Convertimos el String en JsonObject
+                        JSONObject obj = new JSONObject(response);
+                        Log.d("x-1", "###Respuesta WS infraccion" + obj.toString());
+                        //Accedemos al valor del Objeto deseado completo.
+                        infracciones = obj.getString("infracciones");
+                        latitud = obj.getString("latitud");
+                        longitud = obj.getString("longitud");
+
+                        //CONVERTIR A DOUBLE PARA DECIMALES DE MAPAS
+
+
+                        Log.d("INFRACCIONWS-2","Número de Infracciones <:> "+ infracciones);
+                        Log.d("INFRACCIONWS-4","Latitud de WS <:> "+latitud);
+                        Log.d("INFRACCIONWS-5","Longitud de WS <:> "+longitud);
+                        /*Log.d("INFRACCIONWS-6","Longitud de WS <:> "+longitud);*/
+
+                        if (infracciones.equals("No hay datos")){
+
+                           banderaInfraccion = "false";
+
+                        }else{
+
+                            fechaInfracion = obj.getString("fechaInfracion");
+                            Log.d("INFRACCIONWS-6","Fecha de Infraccion <:> "+fechaInfracion);
+                            motivoInfraccion = obj.getString("motivoInfraccion");
+                            Log.d("INFRACCIONWS-7","Motivo de Infraccion  <:> "+motivoInfraccion);
+                        }
+
+
+
+                    } catch (JSONException e) {
+
+                        e.printStackTrace();
+                    }
+
+                    //Lanzamos Intent Navigation Drawer.
+                    /*Intent intent = new Intent(getApplicationContext(), Drawer.class);
+                    startActivity(intent);*/
+                } else {
+                    Toast.makeText(getActivity(), "No se encontraron parametros en la consulta de infracciones", Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(),"No Hay Infracciones Disponibles!.", Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<String, String>();
+                parametros.put("licencia",licencia);
+                Log.d("placaWsInfracciones","Parametro placa para WS infracciones : "+ placa);
+                parametros.put("placa", placa);
+                return parametros;
+            }
+        };
+        RequestQueue requesrQueue = Volley.newRequestQueue(getActivity());
+        requesrQueue.add(stringRequest);
+
+    }
+
 
     private void tomarFotografia() {
         File fileImagen=new File(Environment.getExternalStorageDirectory(),RUTA_IMAGEN);

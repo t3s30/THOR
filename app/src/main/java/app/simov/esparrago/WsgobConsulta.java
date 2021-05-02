@@ -1,6 +1,5 @@
 package app.simov.esparrago;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -14,23 +13,17 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -40,26 +33,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import app.simov.esparrago.R;
+public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback{
+    Double parserLat;
+    Double parserLongt;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+    private final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
+    private final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
 
-public class WsgobConsulta extends AppCompatActivity implements OnMapReadyCallback {
-
-
+    private Marker markerPerth;
+    private Marker markerSydney;
+    private Marker markerBrisbane;
 
 
-    private GoogleMap mMap;
 
+    String latitud;
+    String longitud;
+
+    LatLng infraccionLatLong;
     String placa;
     String placaWS;
     String estatus;
@@ -222,16 +215,18 @@ public class WsgobConsulta extends AppCompatActivity implements OnMapReadyCallba
     String fechaInfracion;
 
     Button btnMapa;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wsgob_consulta);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
 
         //Orientacion de pantalla.
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -242,7 +237,7 @@ public class WsgobConsulta extends AppCompatActivity implements OnMapReadyCallba
 
 
         enviarWSConsultaLicencia(URLICENCIA);
-        enviarWSConsultaInfraccion(URLINFRACCION);
+       // enviarWSConsultaInfraccion(URLINFRACCION);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
@@ -482,6 +477,44 @@ public class WsgobConsulta extends AppCompatActivity implements OnMapReadyCallba
                 tvAgrupacion.setText(agrupacion);
                 tvRutaSitio.setText(rutaSitio);
             }
+
+            //Infracciones
+
+            String numeroInfracciones = bundle.getString("numeroInfracciones");
+            String fechInfraccion = bundle.getString("fechInfraccion");
+            String motivoInfraccion = bundle.getString("motivoInfraccion");
+            String baderaInfraccion = bundle.getString("baderaInfraccion");
+            latitud = bundle.getString("latitud");
+            longitud = bundle.getString("longitud");
+
+            Log.d("BUNDLEiNFRACCIONES-1","Valor Numero Infracciones <:>"+ numeroInfracciones);
+            Log.d("BUNDLEiNFRACCIONES-2","Valor Fecha Infraccion <:>"+ fechInfraccion);
+            Log.d("BUNDLEiNFRACCIONES-3","Valor Motivo de Infraccion <:>"+ motivoInfraccion);
+            Log.d("BUNDLEiNFRACCIONES-4","Valor Bandera de Infraccion <:>"+ baderaInfraccion);
+            Log.d("BUNDLEiNFRACCIONES-5","Valor Latitud <:>"+ latitud);
+            Log.d("BUNDLEiNFRACCIONES-6","Valor Longitud <:>"+ longitud);
+
+
+            try {
+                if (baderaInfraccion != null){
+                    textViewNumeroInfracciones.setText("SIN INFRACCIONES");
+                    textViewFechaInfracciones.setText("SIN INFRACCIONES");
+                    textViewMotivoInfracciones.setText("SIN INFRACCIONES");
+                    tvTituloInfracciones.setVisibility(View.GONE);
+                    tblIfracciones.setVisibility(View.GONE);
+
+                }else{
+
+                    textViewNumeroInfracciones.setText(numeroInfracciones);
+                    textViewFechaInfracciones.setText(fechInfraccion);
+                    textViewMotivoInfracciones.setText(motivoInfraccion);
+                }
+            }catch (Exception e){
+
+            }
+
+
+
 
             //QR
 
@@ -822,75 +855,8 @@ public class WsgobConsulta extends AppCompatActivity implements OnMapReadyCallba
 
 
 
-    private void enviarWSConsultaInfraccion(String URLINFRACCION) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLINFRACCION, new Response.Listener<String>() {
-            @Override
-            //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
-            public void onResponse(String response) {
-                //Validamos que el response no este vacio
-                if (!response.isEmpty()) {
-                    //Esto contiene toda la cadena de respuesta del Ws.
-                    // Toast.makeText(WsgobConsulta.this, "SE MANDO PETICION CORRECTA A WS INFRACCIONES" + response, Toast.LENGTH_LONG).show();
-
-                    try {
-                        //Convertimos el String en JsonObject
-                        JSONObject obj = new JSONObject(response);
-                        Log.d("INFRACCIONWS-1", "###Respuesta WS infraccion" + obj.toString());
-                        //Accedemos al valor del Objeto deseado completo.
-                        String infracciones = obj.getString("infracciones");
-                        String motivoInfraccion = obj.getString("motivoInfraccion");
-
-                         Log.d("INFRACCIONWS-2","Número de Infracciones <:> "+ infracciones);
-                         Log.d("INFRACCIONWS-3","Fecha de Infraccion <:> "+fechaInfracion);
-                         Log.d("INFRACCIONWS-4","Motivo de Infracción <:> "+motivoInfraccion);
-
-                       if (infracciones.equals("No hay datos")){
-                            textViewNumeroInfracciones.setText("SIN INFRACCIONES");
-                            textViewFechaInfracciones.setText("SIN INFRACCIONES");
-                            textViewMotivoInfracciones.setText("SIN INFRACCIONES");
-                            tvTituloInfracciones.setVisibility(View.GONE);
-                            tblIfracciones.setVisibility(View.GONE);
-
-                        }else{
-                            String fechaInfracion = obj.getString("fechaInfracion");
-                           textViewNumeroInfracciones.setText(infracciones);
-                            textViewFechaInfracciones.setText(fechaInfracion);
-                            textViewMotivoInfracciones.setText(motivoInfraccion);
-                        }
 
 
-                    } catch (JSONException e) {
-
-                        e.printStackTrace();
-                    }
-
-                    //Lanzamos Intent Navigation Drawer.
-                    /*Intent intent = new Intent(getApplicationContext(), Drawer.class);
-                    startActivity(intent);*/
-                } else {
-                    Toast.makeText(WsgobConsulta.this, "No se encontraron parametros en la consulta de infracciones", Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(WsgobConsulta.this,"No Hay Infracciones Disponibles!.", Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("licencia",licencia);
-                Log.d("placaWsInfracciones","Parametro placa para WS infracciones : "+ placa);
-                parametros.put("placa", placa);
-                return parametros;
-            }
-        };
-        RequestQueue requesrQueue = Volley.newRequestQueue(WsgobConsulta.this);
-        requesrQueue.add(stringRequest);
-    }
-
-//Cuando se va atras refrescar fragmento.
 
 
     @Override
@@ -923,14 +889,76 @@ public class WsgobConsulta extends AppCompatActivity implements OnMapReadyCallba
     }
 
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
+  /*  public void onMapReady(GoogleMap googleMap) {
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        parserLat = Double.parseDouble(latitud);
+        parserLongt = Double.parseDouble(longitud);
+
+        infraccionLatLong = new LatLng(parserLat,parserLongt);
+        *//*Log.d("MAPA-INFRACCION-1","Valor de lat al generar Mapa <:> "+latitudDecimal);
+        Log.d("MAPA-INFRACCION-2","Valor de longitud al generar al Mapa <:> "+ longitudDecimal);*//*
+        mMap.addMarker(new MarkerOptions().position(infraccionLatLong).title("ZONA INFRACCION"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(infraccionLatLong));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(infraccionLatLong,20));
+    }*/
+
+    /*private void animarMadrid()
+    {
+       GoogleMap mMap = null;
+
+        LatLng infraccionLatLong = new LatLng(40.417325, -3.683081);
+        mMap.addMarker(new MarkerOptions().position(infraccionLatLong).title("ZONA INFRACCION"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(infraccionLatLong));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(infraccionLatLong,20));
     }
+*/
+
+
+    public void onMapReady(GoogleMap map) {
+        // Add some markers to the map, and add a data object to each marker.
+        try {
+            Double paserLat = Double.parseDouble(latitud);
+            Double parserLong = Double.parseDouble(longitud);
+
+            LatLng INFRACCIONESWS = new LatLng(paserLat, parserLong);
+            markerPerth = map.addMarker(new MarkerOptions().position(INFRACCIONESWS).title("Perth"));
+            map.moveCamera(CameraUpdateFactory.newLatLng(INFRACCIONESWS));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(INFRACCIONESWS,17));
+            markerPerth.setTag(0);
+
+
+            // Set a listener for marker click.
+            map.setOnMarkerClickListener(this);
+        }catch (Exception e){
+
+        }
+
+
+    }
+
+    /** Called when the user clicks a marker. */
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+        // Retrieve the data from the marker.
+        Integer clickCount = (Integer) marker.getTag();
+
+        // Check if a click count was set, then display the click count.
+        if (clickCount != null) {
+            clickCount = clickCount + 1;
+            marker.setTag(clickCount);
+            Toast.makeText(this,
+                    marker.getTitle() +
+                            " has been clicked " + clickCount + " times.",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
+    }
+
 
 }
