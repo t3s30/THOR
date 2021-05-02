@@ -570,7 +570,7 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("placa", placa);
 
                             intentWs.putExtra("usersId",usersId);
-                            Log.d("HomeFragment","USERSID########################--->"+usersId);
+                            Log.d("HomeFragment-1","USERSID########################--->"+usersId);
                             intentWs.putExtra("username",username);
                             intentWs.putExtra("profile",profile);
                             intentWs.putExtra("nombre",nombre);
@@ -679,7 +679,7 @@ public class HomeFragment extends Fragment  {
                             //Iniciamos actividad y mandamos parametros.
                             Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
                             String PLACA = jsonarray.getString(0);
-                            Log.d("vergasVato","### $#$#$$$US"+PLACA);
+                            Log.d("HOME-FRAGMENT-WS","Valor de la placa recojida <:> "+PLACA);
                            // Boolean validaEstatus = false;
                             try {
                                 String  ESTATUS = jsonarray.getString(24);
@@ -734,7 +734,7 @@ public class HomeFragment extends Fragment  {
                             }
 
                             intentWs.putExtra("usersId",usersId);
-                            Log.d("HomeFragment","USERSID########################--->"+usersId);
+                            Log.d("HomeFragment-2","USERSID########################--->"+usersId);
                             intentWs.putExtra("username",username);
                             intentWs.putExtra("profile",profile);
                             intentWs.putExtra("nombre",nombre);
@@ -744,7 +744,11 @@ public class HomeFragment extends Fragment  {
                             intentWs.putExtra("licencia", licencia);
                             Log.d("licencia1", "###Valor de la licencia" + licencia);
                             intentWs.putExtra("bandera", enviaBanderaLic);
-                            intentWs.putExtra("placa", PLACA);
+
+                            //SI NO EXISTE PLACA EN WSGOB CONSULTAMOS EN IMOS.
+                            intentWs.putExtra("placa",placa);
+                            Log.d("HomeFragment-2-1",placa);
+
 
                             intentWs.putExtra("placaQR",placaQR);
                             intentWs.putExtra("qr_serial",serialQR);
@@ -847,8 +851,12 @@ public class HomeFragment extends Fragment  {
                     } catch (JSONException e) {
                         Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
 
+                        //SI LA PLACA NO REGREA NADA DEL WS SE CONTINUA CON CONSULTA INTERNA DE IMOS
+                        intentWs.putExtra("placa", placa);
+                        Log.d("HOME-FRAGMENT-WS-3","El valor de la placa despues de pasar la validacion <:> "+placa);
+
                         intentWs.putExtra("usersId",usersId);
-                        Log.d("HomeFragment","USERSID########################--->"+usersId);
+                        Log.d("HomeFragment-3","USERSID########################--->"+usersId);
                         intentWs.putExtra("username",username);
                         intentWs.putExtra("profile",profile);
                         intentWs.putExtra("nombre",nombre);
@@ -1220,7 +1228,7 @@ public class HomeFragment extends Fragment  {
                             //############################
 
                             intentWs.putExtra("usersId",usersId);
-                            Log.d("HomeFragment","USERSID########################--->"+usersId);
+                            Log.d("HomeFragment-4","USERSID########################--->"+usersId);
                             intentWs.putExtra("username",username);
                             intentWs.putExtra("profile",profile);
                             intentWs.putExtra("nombre",nombre);
@@ -1313,7 +1321,7 @@ public class HomeFragment extends Fragment  {
                             }
 
                             intentWs.putExtra("usersId",usersId);
-                            Log.d("HomeFragment","USERSID########################--->"+usersId);
+                            Log.d("HomeFragment-5","USERSID########################--->"+usersId);
                             intentWs.putExtra("username",username);
                             intentWs.putExtra("profile",profile);
                             intentWs.putExtra("nombre",nombre);
@@ -1354,7 +1362,7 @@ public class HomeFragment extends Fragment  {
                         Intent intentWs = new Intent(getActivity(), Infracciones.class);
                         licencia = editTextLicencia.getText().toString();
                         intentWs.putExtra("usersId",usersId);
-                        Log.d("HomeFragment","USERSID########################--->"+usersId);
+                        Log.d("HomeFragment-6","USERSID########################--->"+usersId);
                         intentWs.putExtra("username",username);
                         intentWs.putExtra("profile",profile);
                         intentWs.putExtra("nombre",nombre);

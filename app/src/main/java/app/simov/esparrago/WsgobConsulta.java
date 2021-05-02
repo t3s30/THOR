@@ -32,10 +32,8 @@ import app.simov.esparrago.R;
 
 public class WsgobConsulta extends AppCompatActivity {
 
-
-    //
-
     String placa;
+    String placaWS;
     String estatus;
     String propietario;
     String vigencia;
@@ -53,6 +51,8 @@ public class WsgobConsulta extends AppCompatActivity {
     TextView textViewFechaVencimiento;
     TextView textViewInfracciones;
     TextView textViewFechaInfracciones;
+    TextView textViewNumeroInfracciones;
+    TextView textViewMotivoInfracciones;
 
     String usersId;
     String username;
@@ -174,7 +174,6 @@ public class WsgobConsulta extends AppCompatActivity {
     TextView tvmodalidadGafeteQR;
     TextView tvserieRegistroGafeteQR;
     TextView tvvigenciaGafeteQR;
-
     TextView tvEconomicos;
 
     TableLayout tblIfracciones;
@@ -190,6 +189,9 @@ public class WsgobConsulta extends AppCompatActivity {
     TextView tvAgrupacion;
     TextView tvRutaSitio;
 
+    //INFRACCIONES
+    String infracc;
+    String fechaInfracion;
 
 
     @Override
@@ -213,9 +215,9 @@ public class WsgobConsulta extends AppCompatActivity {
         //Tablas
         tblIfracciones = findViewById(R.id.tblIfracciones);
         tblLicencia = findViewById(R.id.tblLicencia);
-        tblIfracciones.setVisibility(View.GONE);
+       // tblIfracciones.setVisibility(View.GONE);
         tvTituloInfracciones = findViewById(R.id.tvTituloInfracciones);
-        tvTituloInfracciones.setVisibility(View.GONE);
+       // tvTituloInfracciones.setVisibility(View.GONE);
 
         //Gafete
         tvfolioGafeteQR =  findViewById(R.id.tvGafeteFolioQR2);
@@ -254,6 +256,8 @@ public class WsgobConsulta extends AppCompatActivity {
         textViewNombre = (TextView)findViewById(R.id.tvNombre);
         textViewFechaVencimiento = (TextView)findViewById(R.id.tvFechaVencimiento);
         textViewFechaInfracciones = (TextView)findViewById(R.id.tvFechaInfraccion);
+        textViewNumeroInfracciones = (TextView)findViewById(R.id.tvNumeroInfracciones);
+        textViewMotivoInfracciones = (TextView)findViewById(R.id.tvMotivoInfraccion);
 
         //QRSERIAL
 
@@ -363,7 +367,8 @@ public class WsgobConsulta extends AppCompatActivity {
 
             //Recojemos parametros.
             placa = bundle.getString("placa");
-            Log.d("###PLACASSS","#######"+placa);
+
+            Log.d("BUNDLE-1","Placa que recojemos del intent anterior <:> "+placa);
             estatus = bundle.getString("estatus");
             Log.d("###PLACASSS","#######"+estatus);
             propietario = bundle.getString("propietario");
@@ -416,22 +421,30 @@ public class WsgobConsulta extends AppCompatActivity {
             textViewPlaca.setText(placa);
 
 
-          /*  if (propietario==null){
-               // textViewPlaca.setText("SIN-PLACA");
-                textViewEstatus.setText("NO EXISTEN DATOS");
-                textViewPropietario.setText("NO EXISTEN DATOS");
-                textViewVigencia.setText("NO EXISTEN DATOS");
-                textViewVim.setText("NO EXISTEN DATOS");
-                textViewMarca.setText("NO EXISTEN DATOS");
-            }else {*/
-                String banderaLic=  bundle.getString("bandera");
 
+
+            if (propietario==null){
+                textViewEstatus.setText("NO HAY DATA EN WS");
+                tvEconomicos.setText("NO HAY DATA EN WS");
+                textViewPropietario.setText("NO HAY DATA EN WS");
+                textViewVigencia.setText("NO HAY DATA EN WS");
+                textViewVim.setText("NO HAY DATA EN WS");
+                textViewMarca.setText("NO HAY DATA EN WS");
+                tvColor.setText("NO HAY DATA EN WS");
+                tvAgrupacion.setText("NO HAY DATA EN WS");
+                tvRutaSitio.setText("NO HAY DATA EN WS");
+            }else {
+                String banderaLic=  bundle.getString("bandera");
                 textViewEstatus.setText(estatus);
+                tvEconomicos.setText(economico);
                 textViewPropietario.setText(propietario);
                 textViewVigencia.setText(vigencia);
                 textViewVim.setText(vim);
                 textViewMarca.setText(marca);
-           // }
+                tvColor.setText(color);
+                tvAgrupacion.setText(agrupacion);
+                tvRutaSitio.setText(rutaSitio);
+            }
 
             //QR
 
@@ -785,36 +798,28 @@ public class WsgobConsulta extends AppCompatActivity {
                     try {
                         //Convertimos el String en JsonObject
                         JSONObject obj = new JSONObject(response);
-                        Log.d("objInfraccion", "###Respuesta WS infraccion" + obj.toString());
+                        Log.d("INFRACCIONWS-1", "###Respuesta WS infraccion" + obj.toString());
                         //Accedemos al valor del Objeto deseado completo.
                         String infracciones = obj.getString("infracciones");
+                        String motivoInfraccion = obj.getString("motivoInfraccion");
 
-                        // Log.d("LAINFRACCION","CONTENIDO DE LAS INFRACCIONES"+ infracc);
-                        // Log.d("infraccion2",fechaInfracion);
+                         Log.d("INFRACCIONWS-2","Número de Infracciones <:> "+ infracciones);
+                         Log.d("INFRACCIONWS-3","Fecha de Infraccion <:> "+fechaInfracion);
+                         Log.d("INFRACCIONWS-4","Motivo de Infracción <:> "+motivoInfraccion);
 
-                      /* if (infracciones.equals("No hay datos")){
-                            textViewInfracciones.setText("SIN INFRACCIONES");
+                       if (infracciones.equals("No hay datos")){
+                            textViewNumeroInfracciones.setText("SIN INFRACCIONES");
                             textViewFechaInfracciones.setText("SIN INFRACCIONES");
-
-                           tblIfracciones.setVisibility(View.GONE);
-
+                            textViewMotivoInfracciones.setText("SIN INFRACCIONES");
+                            tvTituloInfracciones.setVisibility(View.GONE);
+                            tblIfracciones.setVisibility(View.GONE);
 
                         }else{
                             String fechaInfracion = obj.getString("fechaInfracion");
-                            textViewInfracciones.setText(infracciones);
+                           textViewNumeroInfracciones.setText(infracciones);
                             textViewFechaInfracciones.setText(fechaInfracion);
-                        }*/
-
-
-                        //Obtenemos el total de elementos del objeto
-                   /*     for (int i = 0; i < jsonarray.length(); i++) {
-                            JSONObject jsonobject = jsonarray.getJSONObject(i);
-                            //Accedemos a los elementos por medio de getString.
-                            String BOLETA = jsonobject.getString("boleta");
-                            Log.d("wsInfraccion#1","Los datos de infraciones son los siguientes"+BOLETA.toString());
-
+                            textViewMotivoInfracciones.setText(motivoInfraccion);
                         }
-*/
 
 
                     } catch (JSONException e) {
@@ -839,10 +844,8 @@ public class WsgobConsulta extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
                 parametros.put("licencia",licencia);
-                Log.d("licencia","######################### mi parametro LICENCIA"+licencia);
-
+                Log.d("placaWsInfracciones","Parametro placa para WS infracciones : "+ placa);
                 parametros.put("placa", placa);
-
                 return parametros;
             }
         };
@@ -870,7 +873,7 @@ public class WsgobConsulta extends AppCompatActivity {
         gotoBack.putExtra("delegacionId",delegacionId);
         gotoBack.putExtra("activo",activo);
         gotoBack.putExtra("licencia",licencia);
-        if (propietario==null){
+        if (placa==null){
             gotoBack.putExtra("placa","");
         }else{
             gotoBack.putExtra("placa",placa);

@@ -429,6 +429,15 @@
                     android:text="@string/NUMERO_INFRACCIONES"
                     android:textColor="@color/white" />
 
+                <TextView
+                    android:id="@+id/tvNumeroInfracciones"
+                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/SIN_INFRACCION"
+                    android:textStyle="bold"
+                    android:textColor="@color/titulosVerdes"/>
+
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -461,6 +470,42 @@
                         android:textColor="@color/titulosVerdes"/>
                 </TableRow>
             </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tvLabelMotivoInfraccion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="0dp"
+                    android:text="@string/MOTIVO_INFRACCION"
+                    android:textStyle="bold"
+                    android:textColor="@color/white" />
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/tvMotivoInfraccion"
+                        android:layout_height="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="@string/SIN_INFRACCION"
+                        android:textStyle="bold"
+                        android:textColor="@color/titulosVerdes"/>
+                </TableRow>
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </TableRow>
+
 
         </TableLayout>
 

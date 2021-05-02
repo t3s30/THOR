@@ -194,6 +194,7 @@
     <string name="NUMERO_INFRACCIONES"> INFRACCIONES :</string>
     <string name="SIN_INFRACCION"> SIN-INFRACCIONES </string>
     <string name="FECHA_INFRA"> FECHA INFRACCION :</string>
+    <string name="MOTIVO_INFRACCION"> MOTIVO INFRACCION :</string>
     <string name="DATA_LICENCIA"> DATOS LICENCIA :</string>
     <string name="SIN_LICENCIA"> SIN-LICENCIA :</string>
     <string name="NUMERO_LICENCIA_PUNTOS">NÚMERO DE LICENCIA :</string>
