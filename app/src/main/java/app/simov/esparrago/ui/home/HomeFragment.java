@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment  {
     boolean banderaPlaca = false;
     final int COD_SELECCIONA=10;
     final int COD_FOTO=20;
-    int cuenta ;
+    int cuenta;
     private final String CARPETA_RAIZ="misImagenesPrueba/";
     private final String RUTA_IMAGEN=CARPETA_RAIZ+"misFotos";
     private static final String EXTRA_CODE = "app.simov.esparrago";

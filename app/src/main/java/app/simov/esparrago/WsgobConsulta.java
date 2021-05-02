@@ -203,6 +203,8 @@ public class WsgobConsulta extends AppCompatActivity {
         setSupportActionBar(toolbar);
         String URLICENCIA = getResources().getString(R.string.URL_LICENCIA);;
         String URLINFRACCION = getResources().getString(R.string.URL_INFRACCION);
+
+
         enviarWSConsultaLicencia(URLICENCIA);
         enviarWSConsultaInfraccion(URLINFRACCION);
 
@@ -706,9 +708,6 @@ public class WsgobConsulta extends AppCompatActivity {
                             textViewLicencia.setText("NO EXISTE EN BD");
                             textViewFechaVencimiento.setText("NO EXISTE EN BD");
 
-
-
-
                         }
 
 
@@ -721,16 +720,11 @@ public class WsgobConsulta extends AppCompatActivity {
                             String paterno = jsonobject.getString("paterno");
                             String materno = jsonobject.getString("materno");
                             String nombre  = jsonobject.getString("nombre");
-
                             String nombreCompleto = nombre+" "+paterno+" "+materno;
-
-
 
                             textViewNombre.setText(nombreCompleto);
                             textViewLicencia.setText(LICENCIA);
                             textViewFechaVencimiento.setText(VENCIMIENTO);
-
-
                         }
 
 
@@ -752,11 +746,15 @@ public class WsgobConsulta extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                //OCULTAMOS VISTA CUANDO FALLA LA CONSULTA DE LA RESPUESTA DEL WS.
+                tblLicencia.setVisibility(View.GONE);
+                tvTituloLicencia.setVisibility(View.GONE);
                 //Seteamos valor cuando sobre pasa el tiempo de esepera
                 textViewNombre.setText("LIMITE DE ESPERA");
                 textViewLicencia.setText("LIMITE DE ESPERA");
                 textViewFechaVencimiento.setText("LIMITE DE ESPERA");
-                Toast.makeText(WsgobConsulta.this, error.toString(), Toast.LENGTH_LONG).show();
+                //Error de Voley para cuando falla o hay un dato nulo
+                Toast.makeText(WsgobConsulta.this, " SIN DATOS DE LICENCIA", Toast.LENGTH_LONG).show();
             }
         }) {
             @Override
@@ -773,49 +771,6 @@ public class WsgobConsulta extends AppCompatActivity {
     }
 
 
-   /* private void enviarWSConsultaInfraccion() {
-
-        String url = "https://simov.app/servicios/consultaInfraccion.php";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-            public void onResponse(JSONObject response) {
-                try {
-
-                  //  JSONArray jsonArray = response.getJSONArray("data");
-                    JSONObject jObject2 = response.getJSONObject("data");
-
-                    Log.d("boleta","Estamos en la boleta"+jObject2.toString());
-                    for (int i = 0; i < jObject2.length(); i++) {
-                        boleta = jObject2.getString("boleta");
-
-
-                      textViewInfracciones.setText(boleta);
-
-
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> parametros = new HashMap<String,String>();
-                parametros.put("placa",placa);
-
-                return parametros;
-            }
-        };
-        RequestQueue requesrQueue   = Volley.newRequestQueue(WsgobConsulta.this);
-        requesrQueue.add(request);
-
-    }*/
 
     private void enviarWSConsultaInfraccion(String URLINFRACCION) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLINFRACCION, new Response.Listener<String>() {
@@ -877,7 +832,7 @@ public class WsgobConsulta extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(WsgobConsulta.this, error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(WsgobConsulta.this,"No Hay Infracciones Disponibles!.", Toast.LENGTH_LONG).show();
             }
         }) {
             @Override
