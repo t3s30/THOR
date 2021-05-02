@@ -283,12 +283,10 @@ public class HomeFragment extends Fragment  {
         final Button buttonInfraccion = root.findViewById(R.id.btnInfraccion);
         final Button buttonConsulta = root.findViewById(R.id.btnConsulta);
         final Button bntCuenta = root.findViewById(R.id.btnCuenta);
-
         final Button bntQuitar = root.findViewById(R.id.btnQuitar);
-
         final Button bntQr = root.findViewById(R.id.btnQr);
-
         final Button bntFoto = root.findViewById(R.id.btnFotoPlaca);
+        final Button btnLimpiar = root.findViewById(R.id.btnClean);
 
         String[] InfracionesList = getResources().getStringArray(R.array.infracciones_arrays);
 
@@ -362,6 +360,20 @@ public class HomeFragment extends Fragment  {
                 doProcess();
             }
             });
+
+
+        //Boton para limpiar campos.
+        //Boton Foto placa
+        btnLimpiar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
+                mMediaPlayer.start();
+                Viber(getContext(),"on");
+                editTextLicencia.setText("");
+                editTextPlaca.setText("");
+            }
+        });
 
         //Boton agregar Infracciones
             bntCuenta.setOnClickListener(new View.OnClickListener() {

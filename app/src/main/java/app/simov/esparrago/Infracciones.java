@@ -1489,7 +1489,13 @@ if (sector !=null){
         gotoBack.putExtra("nombre",nombreLogin);
         gotoBack.putExtra("delegacionId",delegacionId);
         gotoBack.putExtra("activo",activo);
-        gotoBack.putExtra("placa",placa);
+        gotoBack.putExtra("licencia",licencia);
+        if (propietario==null){
+            gotoBack.putExtra("placa","");
+        }else{
+            gotoBack.putExtra("placa",placa);
+        }
+
         //gotoBack.putExtra(USER_GLOBAL_SENDER, username_global); <-- Use this if you want to carry some data to the other activity.
         finish();
         startActivity(gotoBack);

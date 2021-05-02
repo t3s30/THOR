@@ -869,8 +869,9 @@ public class WsgobConsulta extends AppCompatActivity {
         gotoBack.putExtra("nombre",nombreLogin);
         gotoBack.putExtra("delegacionId",delegacionId);
         gotoBack.putExtra("activo",activo);
+        gotoBack.putExtra("licencia",licencia);
         if (propietario==null){
-            gotoBack.putExtra("placa","SIN-PLACA");
+            gotoBack.putExtra("placa","");
         }else{
             gotoBack.putExtra("placa",placa);
         }
