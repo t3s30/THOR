@@ -496,7 +496,7 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
 
 
             try {
-                if (baderaInfraccion != null){
+                if (numeroInfracciones.equals("No hay datos") || numeroInfracciones.equals(null) ){
                     textViewNumeroInfracciones.setText("SIN INFRACCIONES");
                     textViewFechaInfracciones.setText("SIN INFRACCIONES");
                     textViewMotivoInfracciones.setText("SIN INFRACCIONES");

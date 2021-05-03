@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -242,6 +244,13 @@ public class HomeFragment extends Fragment  {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         String URLINFRACCION = getResources().getString(R.string.URL_INFRACCION);
 
+        //PROGRESS DIALOG
+        progressDialog = new ProgressDialog(getContext());
+        //Mostramos el progressBAR
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(109,30,30)));
+        progressDialog.setMessage("ESPERE PORFAVOR...");
+
 
          tvplacasRM = root.findViewById(R.id.placasRMTablaLay);
          tvdelegacionRM = root.findViewById(R.id.delegacionRM);
@@ -355,7 +364,7 @@ public class HomeFragment extends Fragment  {
                 mMediaPlayer.start();*/
                 Viber(getContext(),"on");
 
-        escanear();
+                 escanear();
      }
             });
 
@@ -484,16 +493,10 @@ public class HomeFragment extends Fragment  {
                 /*mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
                 mMediaPlayer.start();*/
                 Viber(getContext(),"on");
-
                 //Inicializamos el progress BAR
-                progressDialog = new ProgressDialog(getContext());
-                //Mostramos el progressBAR
+
                 progressDialog.show();
-                progressDialog.setContentView(R.layout.progress_dialog);
-                //Fondo transparente
-                progressDialog.getWindow().setBackgroundDrawableResource(
-                        android.R.color.transparent
-                );
+
                     banderaLicencia = false;
                     //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
                     editTextPlaca = root.findViewById(R.id.edtPlaca);
@@ -513,8 +516,6 @@ public class HomeFragment extends Fragment  {
             @Override
             public void onClick(View v) {
 
-                    /*mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
-                    mMediaPlayer.start();*/
                 Viber(getContext(),"on");
                     banderaLicencia = false;
                     //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
@@ -555,6 +556,7 @@ public class HomeFragment extends Fragment  {
             @Override
             //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
             public void onResponse(String response) {
+
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
                     //Esto contiene toda la cadena de respuesta del Ws.
@@ -1061,6 +1063,7 @@ public class HomeFragment extends Fragment  {
                 intentWs.putExtra("longitud",longitud);
 
                 Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                progressDialog.dismiss();
             }
         }) {
             @Override
@@ -1072,6 +1075,7 @@ public class HomeFragment extends Fragment  {
         };
         RequestQueue requesrQueue = Volley.newRequestQueue(getContext());
         requesrQueue.add(stringRequest);
+        progressDialog.hide();
     }
 
 
@@ -1081,6 +1085,7 @@ public class HomeFragment extends Fragment  {
             @Override
             //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
             public void onResponse(String response) {
+
                 Log.d("RM2", "###Respuesta WS RM2---------------------------------"+response.toString() );
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
@@ -1272,6 +1277,7 @@ public class HomeFragment extends Fragment  {
         };
         RequestQueue requesrQueue = Volley.newRequestQueue(getContext());
         requesrQueue.add(stringRequest);
+        progressDialog.hide();
     }
 
     private void enviarWSConsultaInfraccion(String URL) {
@@ -1279,6 +1285,7 @@ public class HomeFragment extends Fragment  {
             @Override
             //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
             public void onResponse(String response) {
+                progressDialog.show();
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
                     //Esto contiene toda la cadena de respuesta del Ws.
@@ -1374,7 +1381,7 @@ public class HomeFragment extends Fragment  {
                                 }
 
                             }catch (Exception e){
-
+                                progressDialog.hide();
                             }
                             try {
                                 String  ESTATUST = jsonarray.getString(2);
@@ -1403,7 +1410,7 @@ public class HomeFragment extends Fragment  {
 
                                 }
                             }catch (Exception e){
-
+                                progressDialog.hide();
                             }
 
                             intentWs.putExtra("usersId",usersId);
@@ -1460,10 +1467,12 @@ public class HomeFragment extends Fragment  {
                         intentWs.putExtra("bandera", enviaBanderaLic);
                         startActivity(intentWs);
                         e.printStackTrace();
+                        progressDialog.hide();
 
                     }
 
                 } else {
+                    progressDialog.hide();
                     Toast.makeText(getContext(), "No se encontraron parametros en la consulta", Toast.LENGTH_LONG).show();
                 }
             }
@@ -1471,6 +1480,7 @@ public class HomeFragment extends Fragment  {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                progressDialog.hide();
             }
         }) {
             @Override
@@ -1482,6 +1492,7 @@ public class HomeFragment extends Fragment  {
         };
         RequestQueue requesrQueue = Volley.newRequestQueue(getContext());
         requesrQueue.add(stringRequest);
+        progressDialog.hide();
     }
 
 //Clase para scanear el codigo QR
@@ -1570,6 +1581,9 @@ public void escanear(){
         if (result != null){
             if (result.getContents() == null){
                 Toast.makeText(getContext(),"CANCELASTE EL ESCANEO", Toast.LENGTH_LONG);
+                Intent intent = new Intent(getContext(), HomeFragment.class);
+                    startActivity(intent);
+
             }else {
                 //Aqui Agregamos las validaciones para los diferentes Formatos de QR´S
                 infoQr = result.getContents();
@@ -1694,19 +1708,19 @@ public void escanear(){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getActivity(),"No Hay Infracciones Disponibles!.", Toast.LENGTH_LONG).show();
+
             }
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("licencia",licencia);
                 Log.d("placaWsInfracciones","Parametro placa para WS infracciones : "+ placa);
                 parametros.put("placa", placa);
                 return parametros;
             }
         };
-        RequestQueue requesrQueue = Volley.newRequestQueue(getActivity());
+        RequestQueue requesrQueue = Volley.newRequestQueue(getContext());
+        requesrQueue.add(stringRequest);
         requesrQueue.add(stringRequest);
 
     }
