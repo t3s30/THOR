@@ -49,10 +49,10 @@
         <item>SUR/GOBIERNO</item>
         <item>SUR/CHAPULTEPEC</item>
         <item>SUR/VILLAS</item>
-        <item>FORANEO/MANEADERO/BAJA</item>
+        <!--<item>FORANEO/MANEADERO/BAJA</item>
         <item>FORANEO/MANEADERO/ALTA</item>
         <item>FORANEO/BUFADORA</item>
-        <item>FORANEO/VALLE/GPE</item>
+        <item>FORANEO/VALLE/GPE</item>-->
 
     </string-array>
 
@@ -170,7 +170,7 @@
     <string name="ELIMINAR">ELIMINAR</string>
     <string name="QR">QR GAFETE-TARJETON</string>
     <string name="foto_placa">FOTO PLACA</string>
-    <string name="version">Gerencia de sistemas | IMOS | Version-20.5.0 ▲</string>
+    <string name="version">Gerencia de sistemas | IMOS | Version-24.5.3 ▲</string>
 
     <!--Strings Infracciones-->
     <string name="INFRACIONES_THOR">INFRACIONES-THOR</string>

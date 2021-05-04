@@ -1196,6 +1196,8 @@ if (sector !=null){
                 }
                 Calendar calendar = Calendar.getInstance();
                 int numberWeekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+                numberWeekOfYear = numberWeekOfYear-1;
+                Log.d("SEMANA-INFRACCION-1","EL VALOR DE LA SEMANA"+ numberWeekOfYear);
                 int year = Calendar.getInstance().get(Calendar.YEAR);
 
                 String semana=String.valueOf(numberWeekOfYear);
@@ -1396,6 +1398,7 @@ if (sector !=null){
                 }
                 Calendar calendar = Calendar.getInstance();
                 int numberWeekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+                numberWeekOfYear = numberWeekOfYear-1;
                 int year = Calendar.getInstance().get(Calendar.YEAR);
 
                 String semana=String.valueOf(numberWeekOfYear);
