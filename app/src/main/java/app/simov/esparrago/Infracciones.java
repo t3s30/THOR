@@ -2,12 +2,15 @@ package app.simov.esparrago;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -21,6 +24,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import android.location.LocationListener;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -34,6 +46,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Base64;
@@ -62,10 +75,22 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
+import app.simov.esparrago.utils.GPSTracker;
+
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class Infracciones extends AppCompatActivity{
+public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
+
+    LocationManager locationManager;
+    ProgressDialog loading;
+    String locationText = "";
+    String locationLatitude = "";
+    String locationLongitude = "";
+
+    private int mInterval = 3000; // 3 seconds by default, can be changed later
+    private Handler mHandler;
+
 
     String placa;
     String estatus;
@@ -92,7 +117,7 @@ public class Infracciones extends AppCompatActivity{
     TextView tvVimInfraccion;
     TextView tvInfraInfraccion;
     String   modalidadH;
-    String modalidad;
+    String   modalidad;
     String   infra1;
     String   infra2;
     String   infra3;
@@ -103,11 +128,8 @@ public class Infracciones extends AppCompatActivity{
     String   sector;
     TextView tvModalidadInfraccion;
     TextView tvSectorInfraccion;
-
     EditText edtComentarios;
     EditText edtFolio;
-
-
     String UPLOAD_URL = "https://simov.app/servicios/insertaInfraccion.php";
     String URLICENCIA = "https://simov.app/servicios/consultaLicencia.php";
     String URLVEHICULAR = "https://simov.app/servicios/controlVehicular.php";
@@ -144,19 +166,13 @@ public class Infracciones extends AppCompatActivity{
     String nombreLogin;
     String delegacionId;
     String activo;
-
-
     String color;
     String agrupacion;
     String rutaSitio;
-
-
     String VENCIMIENTO;
     String NOMBRECOMPLETO;
-
     String ECONOMICO;
     String sectorId;
-
     String imagenB;
     String imagenB2;
     String imagenB3;
@@ -171,13 +187,24 @@ public class Infracciones extends AppCompatActivity{
     TextView tvAgrupacion;
     TextView tvRutaSitio;
     TextView tvEstatusInfracciones;
-
+    // GPSTracker class
+    GPSTracker gps;
+    double latitude;
+    double longitud;
+    private Marker markerInfraacion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infracciones);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //MAPA
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapInfracciones);
+        mapFragment.getMapAsync(this);
+
+
         //Layouts de las imagenes
         imagen= (ImageView) findViewById(R.id.imagemId);
         imagen2= (ImageView) findViewById(R.id.imagemId2);
@@ -189,7 +216,7 @@ public class Infracciones extends AppCompatActivity{
 
         //Metodos de Ws.
         enviarWSConsultaLicencia(URLICENCIA);
-         enviarWSControlVehichular(URLVEHICULAR);
+         //enviarWSControlVehichular(URLVEHICULAR);
         // enviarWSConsultaInfraccion(URLINFRACCION);
 
         //Seteamos los valores de los Textviews.
@@ -223,6 +250,28 @@ public class Infracciones extends AppCompatActivity{
             nombreLogin  = bundle.getString("nombre");
             delegacionId  = bundle.getString("delegacionId");
             activo  = bundle.getString("activo");
+
+
+            // Create class object
+            gps = new GPSTracker(Infracciones.this);
+
+            // Check if GPS enabled
+            if(gps.canGetLocation()) {
+
+                latitude = gps.getLatitude();
+                longitud = gps.getLongitude();
+
+                // \n is for new line
+                Toast.makeText(getApplicationContext(), "Geoposición  - \nLat: " + latitude + "\nLong: " + longitud, Toast.LENGTH_LONG).show();
+            } else {
+                // Can't get location.
+                // GPS or network is not enabled.
+                // Ask user to enable GPS/network in settings.
+                gps.showSettingsAlert();
+            }
+
+
+
 
 
 
@@ -370,6 +419,8 @@ if (sector !=null){
 
 
         }
+
+
 
         //ENVIAR INFO
 
@@ -876,6 +927,10 @@ if (sector !=null){
                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                                 //Accedemos a los elementos por medio de getString.
                                 LICENCIA = jsonobject.getString("licencia");
+                                if (LICENCIA.equals(null)){
+                                    LICENCIA = "SIN-LICENCIA";
+                                }
+
                                 VENCIMIENTO = jsonobject.getString("fechaVenc");
                                 String paterno = jsonobject.getString("paterno");
                                 String materno = jsonobject.getString("materno");
@@ -926,7 +981,7 @@ if (sector !=null){
                 //*textViewNombre.setText("LIMITE DE ESPERA");
                 textViewLicencia.setText("LIMITE DE ESPERA");
                 textViewFechaVencimiento.setText("LIMITE DE ESPERA");
-                Toast.makeText(Infracciones.this, error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Infracciones.this, "SIN DATOS LICENCIA", Toast.LENGTH_LONG).show();
             }
         }) {
             @Override
@@ -1184,6 +1239,11 @@ if (sector !=null){
                 params.put("warning","true");
                 params.put("vim",vim);
 
+                String latitudS = Double.toString(latitude);
+                String longitudS = Double.toString(longitud);
+
+                params.put("latitud",latitudS);
+                params.put("longitud",longitudS);
 
                 //params.put("sectorId",sectorId);
                 Log.d("SECTORRR","ZONASECTOR%%%%%%%%%%%%%%%%%%%%"+sectorId);
@@ -1343,11 +1403,24 @@ if (sector !=null){
                 params.put("propietario",propietario);
                 params.put("vigencia",vigencia);
 
-                //LICENCIA
-                params.put("noLicencia",LICENCIA);
-                Log.d("LICENCIA","###############%%%%%%%%%%========================>"+LICENCIA);
-                params.put("nombreLicencia",NOMBRECOMPLETO);
-                params.put("fVigenciaLicencia",VENCIMIENTO);
+                try {
+                    //LICENCIA
+                    if (LICENCIA.equals(null)){
+                        params.put("noLicencia","SIN-LICENCIA");
+                        params.put("nombreLicencia","SIN-LICENCIA");
+                        params.put("fVigenciaLicencia","SIN-LICENCIA");
+                    }else{
+                        params.put("noLicencia",LICENCIA);
+
+                        Log.d("LICENCIA","###############%%%%%%%%%%========================>"+LICENCIA);
+                        params.put("nombreLicencia",NOMBRECOMPLETO);
+                        params.put("fVigenciaLicencia",VENCIMIENTO);
+                    }
+                }catch(Exception e){
+
+                }
+
+
 
                 //Infra
                 if (cuenta.equals("1")){
@@ -1385,8 +1458,11 @@ if (sector !=null){
                 }else{
                     params.put("sectorId","99");
                 }
+                String latitudS = Double.toString(latitude);
+                String longitudS = Double.toString(longitud);
 
-
+                params.put("latitud",latitudS);
+                params.put("longitud",longitudS);
 
                 Log.d("SECTORRR","ZONASECTOR%%%%%%%%%%%%%%%%%%%%"+sectorId);
 
@@ -1504,6 +1580,52 @@ if (sector !=null){
         startActivity(gotoBack);
 
     }
+
+
+    public void onMapReady(GoogleMap map) {
+        // Add some markers to the map, and add a data object to each marker.
+        try {
+
+            LatLng INFRACCIONESWS = new LatLng(latitude, longitud);
+            markerInfraacion = map.addMarker(new MarkerOptions().position(INFRACCIONESWS).title("Perth"));
+            map.moveCamera(CameraUpdateFactory.newLatLng(INFRACCIONESWS));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(INFRACCIONESWS,17));
+            markerInfraacion.setTag(0);
+
+
+            // Set a listener for marker click.
+            map.setOnMarkerClickListener(this);
+        }catch (Exception e){
+
+        }
+
+
+    }
+
+    /** Called when the user clicks a marker. */
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+        // Retrieve the data from the marker.
+        Integer clickCount = (Integer) marker.getTag();
+
+        // Check if a click count was set, then display the click count.
+        if (clickCount != null) {
+            clickCount = clickCount + 1;
+            marker.setTag(clickCount);
+            Toast.makeText(this,
+                    marker.getTitle() +
+                            " has been clicked " + clickCount + " times.",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
+    }
+
+
 
 
 }

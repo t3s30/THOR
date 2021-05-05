@@ -17,7 +17,7 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:alpha=".20"
             app:layout_constraintBottom_toBottomOf="@+id/btnWarning"
@@ -462,7 +462,7 @@
 
         <ImageView
             android:id="@+id/imagemId3"
-            android:layout_width="239dp"
+            android:layout_width="310dp"
             android:layout_height="206dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/img_base"
@@ -471,42 +471,57 @@
             app:layout_constraintTop_toBottomOf="@id/imagemId2" />
 
 
+        <fragment
+            android:id="@+id/mapInfracciones"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:tag="fragment_map"
+            app:layout_constraintTop_toBottomOf="@+id/imagemId3"
+            tools:context=".WsgobConsulta" />
+
+
         <Button
             android:id="@+id/btnCargarImg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_home"
             android:backgroundTint="@color/botonLogin"
-            android:onClick="onclick"
-            android:layout_marginTop="50px"
-            android:text="@string/TOMAR_FOTO"
+            android:drawableLeft="@drawable/fotob"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="onclick"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imagemId3" />
+            app:layout_constraintTop_toBottomOf="@+id/mapInfracciones" />
 
         <Button
             android:id="@+id/btnCargarImg2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="0dp"
+            android:background="@drawable/btn_home"
             android:backgroundTint="@color/botonLogin"
-            android:onClick="onclick"
-            android:text="@string/ENVIA_INFRACCION"
+            android:drawableLeft="@drawable/infraccion_white_40"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toStartOf="@id/btnWarning"
+            app:layout_constraintEnd_toStartOf="@+id/btnWarning"
             app:layout_constraintStart_toEndOf="@id/btnCargarImg"
-            app:layout_constraintTop_toBottomOf="@+id/btnCargarImg" />
+            app:layout_constraintTop_toTopOf="@+id/btnCargarImg" />
 
         <Button
             android:id="@+id/btnWarning"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/btn_home"
             android:backgroundTint="@color/lima"
-            android:onClick="onclick"
-            android:text="@string/ENVIA_WARNING"
-            android:textColor="@color/black"
+            android:drawableLeft="@drawable/warning_yellow_40"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCargarImg2" />
+            app:layout_constraintTop_toTopOf="@+id/btnCargarImg2" />
 
 
     <TextView
@@ -514,8 +529,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/version"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnWarning"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="@color/titulosVerdes"/>

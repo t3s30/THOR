@@ -63,6 +63,9 @@ import app.simov.esparrago.Drawer;
 import app.simov.esparrago.Infracciones;
 import app.simov.esparrago.R;
 import app.simov.esparrago.WsgobConsulta;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -249,6 +252,8 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         String URLINFRACCION = getResources().getString(R.string.URL_INFRACCION);
+
+
 
         //PROGRESS DIALOG
         progressDialog = new ProgressDialog(getContext());
