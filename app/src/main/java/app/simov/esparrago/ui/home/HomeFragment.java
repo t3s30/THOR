@@ -44,9 +44,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -238,6 +243,7 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     MediaPlayer mMediaPlayer;
 
+    //INFRACCIONES
     String infracciones;
     String latitud;
     String longitud;
@@ -245,6 +251,13 @@ public class HomeFragment extends Fragment {
     String fechaInfracion;
     String motivoInfraccion;
 
+
+    //licencia
+    String licenciaEdt;
+    String licenciaWs;
+    String vencimientoLicenciaWs;
+    String nombreCompletoLicencia;
+    String URLICENCIA = "https://simov.app/servicios/consultaLicencia.php";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -304,7 +317,10 @@ public class HomeFragment extends Fragment {
         final CheckBox checkBoxPlaca = root.findViewById(R.id.cBoxPlaca);
 
         editTextPlaca = root.findViewById(R.id.edtPlaca);
-        editTextLicencia = root.findViewById(R.id.edtLicencia);
+
+        editTextLicencia = root.findViewById(R.id.edtLicenciaHome);
+
+
         //final Spinner spinnerZona = root.findViewById(R.id.spZona);
 
         //final Spinner spinnerInfraccion = root.findViewById(R.id.spInfraccion3);
@@ -532,11 +548,12 @@ public class HomeFragment extends Fragment {
                 editTextPlaca = root.findViewById(R.id.edtPlaca);
                 placa = editTextPlaca.getText().toString(); //gets you the contents of edit text
 
-                Log.d("Variable", "LICENCIA## " + placa);
+                Log.d("Variable-Placa", "valor de la placa EditText " + placa);
                 String URL = "https://simov.app/servicios/controlVehicularNew.php";
                 String URL2 = "https://simov.app/servicios/abdiel.php";
                 //Envia Ws
                 enviarWSInfraccion(URLINFRACCION);
+                enviarWSConsultaLicencia(URLICENCIA);
                 enviarWSConsulta(URL);
                 enviarWSConsultaRM(URL2);
 
@@ -701,6 +718,11 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("latitud", latitud);
                             intentWs.putExtra("longitud", longitud);
 
+                            //licencia
+                            intentWs.putExtra("licenciaWs",licenciaWs);
+                            intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                            intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
+
                             startActivity(intentWs);
                             getActivity().finish();
                         }
@@ -745,6 +767,11 @@ public class HomeFragment extends Fragment {
                                     intentWs.putExtra("latitud", latitud);
                                     intentWs.putExtra("longitud", longitud);
 
+                                    //Licencia
+                                    intentWs.putExtra("licenciaWs",licenciaWs);
+                                    intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                                    intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
+
                                 }
 
                             } catch (Exception e) {
@@ -761,6 +788,11 @@ public class HomeFragment extends Fragment {
                                 intentWs.putExtra("baderaInfraccion", banderaInfraccion);
                                 intentWs.putExtra("latitud", latitud);
                                 intentWs.putExtra("longitud", longitud);
+
+                                //Licencia
+                                intentWs.putExtra("licenciaWs",licenciaWs);
+                                intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                                intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
                             }
                             try {
                                 String ESTATUST = jsonarray.getString(2);
@@ -794,6 +826,12 @@ public class HomeFragment extends Fragment {
                                     intentWs.putExtra("latitud", latitud);
                                     intentWs.putExtra("longitud", longitud);
 
+
+                                    //Licencia
+                                    intentWs.putExtra("licenciaWs",licenciaWs);
+                                    intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                                    intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
+
                                 }
                             } catch (Exception e) {
                                 intentWs.putExtra("numeroInfracciones", infracciones);
@@ -802,6 +840,11 @@ public class HomeFragment extends Fragment {
                                 intentWs.putExtra("baderaInfraccion", banderaInfraccion);
                                 intentWs.putExtra("latitud", latitud);
                                 intentWs.putExtra("longitud", longitud);
+
+                                //Licencia
+                                intentWs.putExtra("licenciaWs",licenciaWs);
+                                intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                                intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
                             }
 
                             intentWs.putExtra("usersId", usersId);
@@ -921,6 +964,11 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("baderaInfraccion", banderaInfraccion);
                             intentWs.putExtra("latitud", latitud);
                             intentWs.putExtra("longitud", longitud);
+
+                            //licencia
+                            intentWs.putExtra("licenciaWs",licenciaWs);
+                            intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                            intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
 
                             startActivity(intentWs);
                             getActivity().finish();
@@ -1049,6 +1097,11 @@ public class HomeFragment extends Fragment {
                         intentWs.putExtra("latitud", latitud);
                         intentWs.putExtra("longitud", longitud);
 
+                        //Licencia
+                        intentWs.putExtra("licenciaWs",licenciaWs);
+                        intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                        intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
+
 
                         startActivity(intentWs);
                         e.printStackTrace();
@@ -1070,6 +1123,11 @@ public class HomeFragment extends Fragment {
                 intentWs.putExtra("baderaInfraccion", banderaInfraccion);
                 intentWs.putExtra("latitud", latitud);
                 intentWs.putExtra("longitud", longitud);
+
+                //Licencia
+                intentWs.putExtra("licenciaWs",licenciaWs);
+                intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
 
                 Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
                 progressDialog.dismiss();
@@ -1779,6 +1837,106 @@ public class HomeFragment extends Fragment {
 
     }
 
+
+
+    //Consulta Licencia.
+    private void enviarWSConsultaLicencia(String URLICENCIA) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLICENCIA, new Response.Listener<String>() {
+            @Override
+            //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
+            public void onResponse(String response) {
+                //Validamos que el response no este vacio
+                if (!response.isEmpty()) {
+                    //Esto contiene toda la cadena de respuesta del Ws.
+                    // Toast.makeText(Infracciones.this, "SE MANDO PETICION CORRECTA A WS LICENCIA" + response, Toast.LENGTH_LONG).show();
+
+                    try {
+                        //Convertimos el String en JsonObject
+                        JSONObject obj = new JSONObject(response);
+                        Log.d("objLicencia", "###Respuesta WS licencia Infracciones" + obj.toString());
+                        //Accedemos al valor del Objeto deseado completo.tos
+
+
+                        if (obj.has("data")){
+                            JSONArray jsonarray = obj.getJSONArray("data");
+                            //Obtenemos el total de elementos del objeto
+                            for (int i = 0; i < jsonarray.length(); i++) {
+                                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                //Accedemos a los elementos por medio de getString.
+                                licenciaWs = jsonobject.getString("licencia");
+                                if (licenciaWs.equals(null)){
+                                    licenciaWs = "SIN-LICENCIA";
+                                }
+
+                                vencimientoLicenciaWs = jsonobject.getString("fechaVenc");
+                                String paterno = jsonobject.getString("paterno");
+                                String materno = jsonobject.getString("materno");
+                                String nombre  = jsonobject.getString("nombre");
+
+                                nombreCompletoLicencia = nombre+" "+paterno+" "+materno;
+
+
+
+                            }
+                        }else{
+
+                            licenciaWs = "NO-LICENCIA";
+                            vencimientoLicenciaWs = "NO-LICENCIA";
+                            nombreCompletoLicencia = "NO-LICENCIA";
+                        }
+
+
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        licenciaWs = "NO-LICENCIA";
+                        vencimientoLicenciaWs = "NO-LICENCIA";
+                        nombreCompletoLicencia = "NO-LICENCIA";
+
+                    }
+
+                } else {
+
+                    Toast.makeText(getActivity(), "No se encontraron parametros en la consulta de licencia", Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getActivity(), "SIN DATOS LICENCIA(C-L-01)", Toast.LENGTH_LONG).show();
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    Toast.makeText(getActivity(),"Error de conexion",Toast.LENGTH_LONG).show();
+                } else if (error instanceof AuthFailureError) {
+                    Toast.makeText(getActivity(),"Error de Auteticacion",Toast.LENGTH_LONG).show();
+                } else if (error instanceof ServerError) {
+                    Toast.makeText(getActivity(),"Error de Servidor",Toast.LENGTH_LONG).show();
+                } else if (error instanceof NetworkError) {
+
+                    Toast.makeText(getActivity(),"Error de Red",Toast.LENGTH_LONG).show();
+                } else if (error instanceof ParseError) {
+                    Toast.makeText(getActivity(),"Error de Parseo",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<String, String>();
+                licenciaEdt = editTextLicencia.getText().toString();
+                Log.d("OnCreateLicencia","Valor de la licencia que recoje del EDT : "+ licenciaEdt);
+                Log.d("MAPEOWSLICENCIA","Valor de la licencia envio WS : "+ licenciaEdt);
+
+                parametros.put("licencia", licenciaEdt);
+
+                return parametros;
+            }
+        };
+        RequestQueue requesrQueue = Volley.newRequestQueue(getActivity());
+        requesrQueue.add(stringRequest);
+    }
 
 
 

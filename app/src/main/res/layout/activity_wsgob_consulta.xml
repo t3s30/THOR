@@ -640,7 +640,7 @@
             </TableRow>
 
 
-            <TableRow
+           <!-- <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -697,9 +697,9 @@
                         android:textStyle="bold"
                         android:textColor="@color/titulosVerdes"   />
                 </TableRow>
-            </TableRow>
+            </TableRow>-->
 
-            <TableRow
+            <!--<TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -774,9 +774,9 @@
                     android:layout_width="wrap_content"
                     android:textStyle="bold"
                     android:text="VENCE GAFETE"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"/>-->
 
-                <TableRow
+               <!-- <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
@@ -788,8 +788,8 @@
                         android:text="@string/SIN_LICENCIA"
                         android:textStyle="bold"
                         android:textColor="@color/titulosVerdes"   />
-                </TableRow>
-            </TableRow>
+                </TableRow>-->
+           <!-- </TableRow>-->
 
 
 

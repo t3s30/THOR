@@ -46,9 +46,7 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
     private Marker markerPerth;
     private Marker markerSydney;
     private Marker markerBrisbane;
-
-
-
+    
     String latitud;
     String longitud;
 
@@ -62,8 +60,6 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
     String marca;
     String economico;
     String infracciones;
-    String licencia;
-    String LICENCIA;
     String nombre;
     String fechaVecimiento;
     String boleta;
@@ -213,8 +209,12 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
     //INFRACCIONES
     String infracc;
     String fechaInfracion;
-
     Button btnMapa;
+
+    //Licencia
+    String licenciaWs;
+    String vencimientoLicenciaWs;
+    String nombreCompletoLicenciaWs;
 
 
 
@@ -232,32 +232,24 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setSupportActionBar(toolbar);
-        String URLICENCIA = getResources().getString(R.string.URL_LICENCIA);;
+
         String URLINFRACCION = getResources().getString(R.string.URL_INFRACCION);
 
 
-        enviarWSConsultaLicencia(URLICENCIA);
-       // enviarWSConsultaInfraccion(URLINFRACCION);
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-
-
-
         tvTituloLicencia = findViewById(R.id.tvTituloLicencia);
-
         //Tablas
         tblIfracciones = findViewById(R.id.tblIfracciones);
         tblLicencia = findViewById(R.id.tblLicencia);
        // tblIfracciones.setVisibility(View.GONE);
         tvTituloInfracciones = findViewById(R.id.tvTituloInfracciones);
        // tvTituloInfracciones.setVisibility(View.GONE);
-
+/*
         //Gafete
         tvfolioGafeteQR =  findViewById(R.id.tvGafeteFolioQR2);
         tvdelegacionGafeteQR = findViewById(R.id.tvGafeteMunicipioQR) ;
         tvmodalidadGafeteQR = findViewById(R.id.tvGafeteModalidadQR) ;
         tvserieRegistroGafeteQR = findViewById(R.id.tvGafeteRegistroQR);
-        tvvigenciaGafeteQR =  findViewById(R.id.tvGafeteVigenciaQR);
+        tvvigenciaGafeteQR =  findViewById(R.id.tvGafeteVigenciaQR);*/
 
         tvEconomicos =  findViewById(R.id.tvEconomicos);
 
@@ -400,6 +392,13 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
             //Recojemos parametros.
             placa = bundle.getString("placa");
 
+            if (placa==""){
+                tablaQR.setVisibility(View.GONE);
+
+            }else{
+
+            }
+
             Log.d("BUNDLE-1","Placa que recojemos del intent anterior <:> "+placa);
             estatus = bundle.getString("estatus");
             Log.d("###PLACASSS","#######"+estatus);
@@ -411,6 +410,20 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
             Log.d("###PLACASSS","#######"+vim);
             marca = bundle.getString("marca");
             Log.d("###PLACASSS","#######"+marca);
+
+
+//##################### BLOQUE LICENCIAS #######################################################
+            //Datos Licencia que vienen del HomeFragment
+            licenciaWs = bundle.getString("licenciaWs");
+            vencimientoLicenciaWs = bundle.getString("vecimientoLicenciaWs");
+            nombreCompletoLicenciaWs = bundle.getString("nombreCompletoLicenciaWs");
+            Log.d("B-licencias-1","Valor licencia del Bundle recojido :"+ licenciaWs);
+            //Textos de Licencias.
+            textViewNombre.setText(nombreCompletoLicenciaWs);
+            textViewLicencia.setText(licenciaWs);
+            textViewFechaVencimiento.setText(vencimientoLicenciaWs);
+
+//##################### TERMINA BLOQUE LICENCIAS #######################################################
 
 
             color  = bundle.getString("colorW");
@@ -430,9 +443,7 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
 
             tvEconomicos.setText(economico);
             infracciones = bundle.getString("infracciones");
-            licencia = bundle.getString("licencia");
 
-            Log.d("LICENCIA-VERGAS1","$$$$$$$$$$$$$$$"+licencia);
             nombre = bundle.getString("nnombre");
             fechaVecimiento = bundle.getString("fechaVencimiento");
 
@@ -456,6 +467,9 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
 
 
             if (propietario==null){
+                tablaQR.setVisibility(View.GONE);
+                textViewPlaca.setText("NO HAY DATA EN WS");
+                placa= "NO HAY DATA EN WS";
                 textViewEstatus.setText("NO HAY DATA EN WS");
                 tvEconomicos.setText("NO HAY DATA EN WS");
                 textViewPropietario.setText("NO HAY DATA EN WS");
@@ -553,12 +567,12 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
             String modalidadGafeteQR = bundle.getString("modalidadGafeteQR");
             String serieRegistroGafeteQR = bundle.getString("serieRegistroGafeteQR");
             String vigenciaGafeteQR = bundle.getString("vigenciaGafeteQR");
-
+/*
             tvfolioGafeteQR.setText(folioGafeteQR);
             tvdelegacionGafeteQR.setText(delegacionGafeteQR);
             tvmodalidadGafeteQR.setText(modalidadGafeteQR);
             tvserieRegistroGafeteQR.setText(serieRegistroGafeteQR);
-            tvvigenciaGafeteQR.setText(vigenciaGafeteQR);
+            tvvigenciaGafeteQR.setText(vigenciaGafeteQR);*/
 
             if (serieQR!=null) {
                 tvplacaQR.setText(placaQR);
@@ -767,98 +781,6 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
     }
 
 
-
-    private void enviarWSConsultaLicencia(String URLICENCIA) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLICENCIA, new Response.Listener<String>() {
-            @Override
-            //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
-            public void onResponse(String response) {
-                //Validamos que el response no este vacio
-                if (!response.isEmpty()) {
-                    //Esto contiene toda la cadena de respuesta del Ws.
-                    //Toast.makeText(WsgobConsulta.this, "SE MANDO PETICION CORRECTA A WS LICENCIA" + response, Toast.LENGTH_LONG).show();
-
-                    try {
-                        //Convertimos el String en JsonObject
-                        JSONObject obj = new JSONObject(response);
-                        Log.d("objLicencia", "###Respuesta WS licencia" + obj.toString());
-                        //Accedemos al valor del Objeto deseado completo.tos
-                        JSONArray jsonarray = obj.getJSONArray("data");
-
-
-                        if (jsonarray.length()==0){
-                            textViewNombre.setText("NO EXISTE EN BD");
-                            textViewLicencia.setText("NO EXISTE EN BD");
-                            textViewFechaVencimiento.setText("NO EXISTE EN BD");
-
-                        }
-
-
-                        //Obtenemos el total de elementos del objeto
-                        for (int i = 0; i < jsonarray.length(); i++) {
-                            JSONObject jsonobject = jsonarray.getJSONObject(i);
-                            //Accedemos a los elementos por medio de getString.
-                            LICENCIA = jsonobject.getString("licencia");
-                            String VENCIMIENTO = jsonobject.getString("fechaVenc");
-                            String paterno = jsonobject.getString("paterno");
-                            String materno = jsonobject.getString("materno");
-                            String nombre  = jsonobject.getString("nombre");
-                            String nombreCompleto = nombre+" "+paterno+" "+materno;
-
-                            textViewNombre.setText(nombreCompleto);
-                            textViewLicencia.setText(LICENCIA);
-                            textViewFechaVencimiento.setText(VENCIMIENTO);
-                        }
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        //Seteamos valor cuando no se ingrese licencia
-                        textViewNombre.setText("NO-LICENCIA");
-                        textViewLicencia.setText("NO-LICENCIA");
-                        textViewFechaVencimiento.setText("NO-LICENCIA");
-                        tblLicencia.setVisibility(View.GONE);
-                        tvTituloLicencia.setVisibility(View.GONE);
-                    }
-
-                } else {
-
-                    Toast.makeText(WsgobConsulta.this, "No se encontraron parametros en la consulta de licencia", Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //OCULTAMOS VISTA CUANDO FALLA LA CONSULTA DE LA RESPUESTA DEL WS.
-                tblLicencia.setVisibility(View.GONE);
-                tvTituloLicencia.setVisibility(View.GONE);
-                //Seteamos valor cuando sobre pasa el tiempo de esepera
-                textViewNombre.setText("LIMITE DE ESPERA");
-                textViewLicencia.setText("LIMITE DE ESPERA");
-                textViewFechaVencimiento.setText("LIMITE DE ESPERA");
-                //Error de Voley para cuando falla o hay un dato nulo
-                Toast.makeText(WsgobConsulta.this, " SIN DATOS DE LICENCIA", Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<String, String>();
-                Log.d("LICENCIA-VERGAS2","$$$$$$$$$$$$$$$$"+licencia);
-                parametros.put("licencia", licencia);
-
-                return parametros;
-            }
-        };
-        RequestQueue requesrQueue = Volley.newRequestQueue(WsgobConsulta.this);
-        requesrQueue.add(stringRequest);
-    }
-
-
-
-
-
-
-
     @Override
     public void onBackPressed()
     {
@@ -875,44 +797,19 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
         gotoBack.putExtra("nombre",nombreLogin);
         gotoBack.putExtra("delegacionId",delegacionId);
         gotoBack.putExtra("activo",activo);
-        gotoBack.putExtra("licencia",licencia);
+        gotoBack.putExtra("licencia",licenciaWs);
         if (placa==null){
             gotoBack.putExtra("placa","");
         }else{
             gotoBack.putExtra("placa",placa);
         }
 
-        gotoBack.putExtra("licencia",licencia);
+        gotoBack.putExtra("licencia",licenciaWs);
         //gotoBack.putExtra(USER_GLOBAL_SENDER, username_global); <-- Use this if you want to carry some data to the other activity.
         finish();
         startActivity(gotoBack);
     }
 
-
-  /*  public void onMapReady(GoogleMap googleMap) {
-        // Add a marker in Sydney and move the camera
-
-        parserLat = Double.parseDouble(latitud);
-        parserLongt = Double.parseDouble(longitud);
-
-        infraccionLatLong = new LatLng(parserLat,parserLongt);
-        *//*Log.d("MAPA-INFRACCION-1","Valor de lat al generar Mapa <:> "+latitudDecimal);
-        Log.d("MAPA-INFRACCION-2","Valor de longitud al generar al Mapa <:> "+ longitudDecimal);*//*
-        mMap.addMarker(new MarkerOptions().position(infraccionLatLong).title("ZONA INFRACCION"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(infraccionLatLong));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(infraccionLatLong,20));
-    }*/
-
-    /*private void animarMadrid()
-    {
-       GoogleMap mMap = null;
-
-        LatLng infraccionLatLong = new LatLng(40.417325, -3.683081);
-        mMap.addMarker(new MarkerOptions().position(infraccionLatLong).title("ZONA INFRACCION"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(infraccionLatLong));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(infraccionLatLong,20));
-    }
-*/
 
 
     public void onMapReady(GoogleMap map) {

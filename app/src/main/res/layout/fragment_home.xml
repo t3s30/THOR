@@ -87,7 +87,7 @@
         android:backgroundTint="@color/botonLogin"
         android:drawableLeft="@drawable/qr_home_40"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@id/edtLicencia"
+        app:layout_constraintEnd_toStartOf="@id/edtLicenciaHome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnFotoPlaca" />
 
@@ -104,7 +104,7 @@
         android:backgroundTint="@color/botonLogin"
         android:drawableLeft="@drawable/clean_inputs_40_white"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@+id/edtLicencia"
+        app:layout_constraintEnd_toStartOf="@+id/edtLicenciaHome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnQr" />
 
@@ -131,7 +131,7 @@
         android:backgroundTint="@color/botonLogin"
         android:drawableLeft="@drawable/fotob"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@id/edtLicencia"
+        app:layout_constraintEnd_toStartOf="@id/edtLicenciaHome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <TextView
@@ -147,7 +147,7 @@
         android:id="@+id/cBoxLicencia"
         app:layout_constraintTop_toTopOf="@id/tvMunicipio"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/edtLicencia"
+        app:layout_constraintEnd_toStartOf="@id/edtLicenciaHome"
         android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:visibility="gone"
@@ -156,7 +156,7 @@
         android:textColor="@color/titulosVerdes" />
 
     <EditText
-        android:id="@+id/edtLicencia"
+        android:id="@+id/edtLicenciaHome"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
         android:layout_marginTop="10dp"
@@ -201,7 +201,7 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/edtLicencia" />
+        app:layout_constraintTop_toTopOf="@id/edtLicenciaHome" />
 
 <!--Termian Inputs y checks-->
 

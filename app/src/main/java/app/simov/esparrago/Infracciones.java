@@ -215,7 +215,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
         warning = (Button) findViewById(R.id.btnWarning);
 
         //Metodos de Ws.
-        enviarWSConsultaLicencia(URLICENCIA);
+         enviarWSConsultaLicencia(URLICENCIA);
          //enviarWSControlVehichular(URLVEHICULAR);
         // enviarWSConsultaInfraccion(URLINFRACCION);
 
@@ -916,7 +916,7 @@ if (sector !=null){
                     try {
                         //Convertimos el String en JsonObject
                         JSONObject obj = new JSONObject(response);
-                        Log.d("objLicencia", "###Respuesta WS licencia" + obj.toString());
+                        Log.d("objLicencia", "###Respuesta WS licencia Infracciones" + obj.toString());
                         //Accedemos al valor del Objeto deseado completo.tos
 
 
@@ -1400,7 +1400,18 @@ if (sector !=null){
                 params.put("delegacionId", delegacionId);
                 params.put("activo", activo);
                 params.put("placa",placa);
-                params.put("propietario",propietario);
+
+                try {
+                    if (propietario==null){
+                        params.put("propietario","Sin propietario");
+                    }else{
+                        params.put("propietario",propietario);
+                    }
+                }catch (Exception e){
+
+                }
+
+
                 params.put("vigencia",vigencia);
 
                 try {

@@ -1,8 +1,10 @@
  package app.simov.esparrago;
 
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -25,7 +27,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity<restoredText> extends AppCompatActivity {
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+ public class MainActivity<restoredText> extends AppCompatActivity {
 
     private EditText edtUser;
     private EditText edtPassword;
@@ -39,10 +44,23 @@ public class MainActivity<restoredText> extends AppCompatActivity {
     String delegacionId;
     String activo;
     String usersId;
-
+    AlertDialog.Builder dialogo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Dialogo.
+
+        dialogo=new AlertDialog.Builder(MainActivity.this);
+        dialogo.setTitle("MENSAJE DEL THOR");
+        dialogo.setMessage("Debes ser Inspector para poder ingresar...");
+        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
         //Ocultanos e action bar9
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
@@ -95,7 +113,7 @@ public class MainActivity<restoredText> extends AppCompatActivity {
             public void onResponse(String response) {
                 //Validamos que el response no este vacio
                 if(!response.isEmpty()){
-                    Toast.makeText(MainActivity.this,"BIENVENIDO A THOR",Toast.LENGTH_LONG).show();
+
                     try {
                         JSONObject obj = new JSONObject(response);
                         String usersId = obj.getString("UsersID");
@@ -127,7 +145,16 @@ public class MainActivity<restoredText> extends AppCompatActivity {
                         edtUser.setText(usuario);
                         edtPassword.setText(pass);
                         editor.commit();
-                        startActivity(intent);
+                        if(profile.equals("inspector")){
+                            startActivity(intent);
+                            Toast.makeText(MainActivity.this,"BIENVENIDO A THOR",Toast.LENGTH_LONG).show();
+                        }else{
+                            dialogo.show();
+
+                        }
+
+
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
