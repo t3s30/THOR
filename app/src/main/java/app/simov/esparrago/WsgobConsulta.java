@@ -46,7 +46,7 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
     private Marker markerPerth;
     private Marker markerSydney;
     private Marker markerBrisbane;
-    
+
     String latitud;
     String longitud;
 

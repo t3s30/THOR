@@ -99,8 +99,8 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
     String vim;
     String marca;
     String infracciones;
-    String licencia;
-    String LICENCIA;
+   // String licencia;
+   //String LICENCIA;
     String nombre;
     String fechaVecimiento;
     String boleta;
@@ -131,7 +131,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
     EditText edtComentarios;
     EditText edtFolio;
     String UPLOAD_URL = "https://simov.app/servicios/insertaInfraccion.php";
-    String URLICENCIA = "https://simov.app/servicios/consultaLicencia.php";
+   // String URLICENCIA = "https://simov.app/servicios/consultaLicencia.php";
     String URLVEHICULAR = "https://simov.app/servicios/controlVehicular.php";
     String URLINFRACCION = "https://simov.app/servicios/consultaInfraccion.php";
 
@@ -192,6 +192,16 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
     double latitude;
     double longitud;
     private Marker markerInfraacion;
+
+
+    //Licencia
+    String licenciaWs;
+    String vencimientoLicenciaWs;
+    String nombreCompletoLicenciaWs;
+
+    //VALIDACION MSJ
+    String mensaje;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -215,7 +225,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
         warning = (Button) findViewById(R.id.btnWarning);
 
         //Metodos de Ws.
-         enviarWSConsultaLicencia(URLICENCIA);
+        // enviarWSConsultaLicencia(URLICENCIA);
          //enviarWSControlVehichular(URLVEHICULAR);
         // enviarWSConsultaInfraccion(URLINFRACCION);
 
@@ -243,8 +253,9 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
         //Validamos que no venga vacio
         if (bundle != null){
             //Recojemos parametros que vienen desde el LOGIN.
+            //VALORES POR DEFECTO
             usersId  = bundle.getString("usersId");
-            Log.d("USERSSSSSSSS","#####################&%&%&%&%&%&%&%&%&USERSSSSSSSS"+usersId);
+            Log.d("B-l-Infracciones-0","Valor Users ID"+usersId);
             username  = bundle.getString("username");
             profile  = bundle.getString("profile");
             nombreLogin  = bundle.getString("nombre");
@@ -252,6 +263,39 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
             activo  = bundle.getString("activo");
 
 
+            //##################### BLOQUE LICENCIAS #######################################################
+            //Datos Licencia que vienen del HomeFragment
+            licenciaWs = bundle.getString("licenciaWs");
+            vencimientoLicenciaWs = bundle.getString("vecimientoLicenciaWs");
+            nombreCompletoLicenciaWs = bundle.getString("nombreCompletoLicenciaWs");
+
+
+            try {
+                if (licenciaWs == null){
+                    //Textos de Licencias.
+                   // textViewNombre.setText("NO-DATA");
+                    textViewLicencia.setText("NO-DATA");
+                    textViewFechaVencimiento.setText("NO-DATA");
+                    Log.d("B-l-Infracciones-1","Valor licencia del Bundle recojido :"+ licenciaWs);
+                }else{
+                    //Textos de Licencias.
+                   // textViewNombre.setText(nombreCompletoLicenciaWs);
+                    textViewLicencia.setText(licenciaWs);
+                    textViewFechaVencimiento.setText(vencimientoLicenciaWs);
+                    Log.d("B-l-Infracciones-2","Valor licencia del Bundle recojido :"+ licenciaWs);
+                }
+            }catch(Exception error){
+                //Textos de Licencias.
+               // textViewNombre.setText("NO-DATA");
+                textViewLicencia.setText("NO-DATA");
+                textViewFechaVencimiento.setText("NO-DATA");
+                Log.d("B-l-Infracciones-3","Valor licencia del Bundle recojido :"+ licenciaWs);
+            }
+            //##################### TERMINA BLOQUE LICENCIAS #######################################################
+
+
+
+            //##################### BLOQUE GPS #######################################################
             // Create class object
             gps = new GPSTracker(Infracciones.this);
 
@@ -270,16 +314,16 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 gps.showSettingsAlert();
             }
 
+            //##################### TERMINA BLOQUE GPS #######################################################
 
 
-
-
+            //#####################  DATOS VEHICULO #######################################################
 
             color  = bundle.getString("colorW");
             agrupacion  = bundle.getString("agrupacionW");
             rutaSitio  = bundle.getString("rutaSitioW");
 
-            Log.d("datoswsInserta2","###################"+color);
+            Log.d("B-l-Infracciones-4","Color del Taxi"+color);
 
 
             tvColor.setText(color);
@@ -289,18 +333,32 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
 
             //Recojemos parametros.
             placa = bundle.getString("placa");
-            Log.d("###PLACASSS","#######"+placa);
+            Log.d("B-l-Infracciones-5","Valor de la placa que viene del HomeFragmet"+placa);
             placaInfracciones.setText(placa);
             estatus = bundle.getString("estatus");
             Log.d("ESTATUS VIGENCIA","####>>>>>>>"+estatus);
             propietario = bundle.getString("propietario");
             Log.d("PROPIETARIO","#####################&%&%&%&%&%&%&%&%&PROPIETARIO"+propietario);
-            vigencia = bundle.getString("vigencia");
-            vim = bundle.getString("vim");
+
+
+            //VIGENCIA PLACAS
+
+            if(vigencia== null || vigencia == "" || vigencia.equals(null) || vigencia.equals("")){
+                vigencia = "SIN-PLACA";
+                vim = "SIN-PLACA";
+                placa = "null";
+            }else{
+                vigencia = bundle.getString("vigencia");
+                vim = bundle.getString("vim");
+            }
+
+
+
+
             Log.d("ESTATUS VIGENCIA VIM","####>>>>>>>"+vim);
             marca = bundle.getString("marca");
             infracciones = bundle.getString("infracciones");
-            licencia = bundle.getString("licencia");
+           // licencia = bundle.getString("licencia");
 
             modalidad = bundle.getString("modalidad");
             Log.d("SECTORLOG","VALOR MODALIDAD INFRACCIONES"+ modalidad);
@@ -406,7 +464,7 @@ if (sector !=null){
 
 
 
-            Log.d("LICENCIA-VERGAS1","$$$$$$$$$$$$$$$"+licencia);
+          //  Log.d("LICENCIA-VERGAS1","$$$$$$$$$$$$$$$"+licencia);
             nombre = bundle.getString("nnombre");
             fechaVecimiento = bundle.getString("fechaVencimiento");
 
@@ -531,7 +589,18 @@ if (sector !=null){
     private void cargarAceptacion() {
         AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
         dialogo.setTitle("GENERA INFRACCION");
-        dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENT CON LA PLACA : "+ placa);
+        Log.d("Cargar-Aceptacion-1","Valor placa : " + placa);
+
+
+        if (placa == "null"){
+            mensaje = licenciaWs;
+            dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENT CON LICENCIA : "+ mensaje);
+        }else{
+            mensaje = placa;
+            dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENT CON PLACA : "+ mensaje);
+        }
+
+
 
 
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -547,7 +616,7 @@ if (sector !=null){
                 intent.putExtra("nombre",nombreLogin);
                 intent.putExtra("delegacionId",delegacionId);
                 intent.putExtra("activo",activo);
-                Toast.makeText(Infracciones.this, "Infracción creada con PLACA : "+ placa, Toast.LENGTH_LONG).show();
+                Toast.makeText(Infracciones.this, "Infracción creada con identificador : "+ mensaje, Toast.LENGTH_LONG).show();
 
 
                 finish();
@@ -590,7 +659,15 @@ if (sector !=null){
     private void cargarAceptacionWarning() {
         AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
         dialogo.setTitle("WARNING INFRACCIONES");
-        dialogo.setMessage("EL WARNING SE GENERO CORRECTAMENTE CON LA PLACA: "+ placa);
+
+        if (placa == "null"){
+            mensaje = licenciaWs;
+            dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENT CON LICENCIA : "+ mensaje);
+        }else{
+            mensaje = placa;
+            dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENT CON PLACA : "+ mensaje);
+        }
+
 
 
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -606,7 +683,7 @@ if (sector !=null){
                 intent.putExtra("nombre",nombreLogin);
                 intent.putExtra("delegacionId",delegacionId);
                 intent.putExtra("activo",activo);
-                Toast.makeText(Infracciones.this, "Warning creado  con PLACA : "+ placa, Toast.LENGTH_LONG).show();
+                Toast.makeText(Infracciones.this, "Warning creado  con PLACA : "+ mensaje, Toast.LENGTH_LONG).show();
                 finish();
                 startActivity(intent);
             }
@@ -902,102 +979,6 @@ if (sector !=null){
     }
 
 
-    //Consulta Licencia.
-    private void enviarWSConsultaLicencia(String URLICENCIA) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLICENCIA, new Response.Listener<String>() {
-            @Override
-            //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
-            public void onResponse(String response) {
-                //Validamos que el response no este vacio
-                if (!response.isEmpty()) {
-                    //Esto contiene toda la cadena de respuesta del Ws.
-                   // Toast.makeText(Infracciones.this, "SE MANDO PETICION CORRECTA A WS LICENCIA" + response, Toast.LENGTH_LONG).show();
-
-                    try {
-                        //Convertimos el String en JsonObject
-                        JSONObject obj = new JSONObject(response);
-                        Log.d("objLicencia", "###Respuesta WS licencia Infracciones" + obj.toString());
-                        //Accedemos al valor del Objeto deseado completo.tos
-
-
-                        if (obj.has("data")){
-                            JSONArray jsonarray = obj.getJSONArray("data");
-                            //Obtenemos el total de elementos del objeto
-                            for (int i = 0; i < jsonarray.length(); i++) {
-                                JSONObject jsonobject = jsonarray.getJSONObject(i);
-                                //Accedemos a los elementos por medio de getString.
-                                LICENCIA = jsonobject.getString("licencia");
-                                if (LICENCIA.equals(null)){
-                                    LICENCIA = "SIN-LICENCIA";
-                                }
-
-                                VENCIMIENTO = jsonobject.getString("fechaVenc");
-                                String paterno = jsonobject.getString("paterno");
-                                String materno = jsonobject.getString("materno");
-                                String nombre  = jsonobject.getString("nombre");
-
-                                NOMBRECOMPLETO = nombre+" "+paterno+" "+materno;
-
-                                //textViewNombre.setText(nombreCompleto);
-                                textViewLicencia.setText(LICENCIA);
-                                textViewFechaVencimiento.setText(VENCIMIENTO);
-
-
-                            }
-                        }else{
-                            //textViewNombre.setText(nombreCompleto);
-                            textViewLicencia.setText("NO-LICENCIA");
-                            textViewFechaVencimiento.setText("NO-LICENCIA");
-                            LICENCIA = "NO-LICENCIA";
-                            VENCIMIENTO = "NO-LICENCIA";
-                            NOMBRECOMPLETO = "NO-LICENCIA";
-                        }
-
-
-
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        //Seteamos valor cuando no se ingrese licencia
-                       //* textViewNombre.setText("NO-LICENCIA");
-                        textViewLicencia.setText("NO-LICENCIA");
-                        textViewFechaVencimiento.setText("NO-LICENCIA");
-                        LICENCIA = "NO-LICENCIA";
-                        VENCIMIENTO = "NO-LICENCIA";
-                        NOMBRECOMPLETO = "NO-LICENCIA";
-
-                    }
-
-                } else {
-
-                    Toast.makeText(Infracciones.this, "No se encontraron parametros en la consulta de licencia", Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //Seteamos valor cuando sobre pasa el tiempo de esepera
-                //*textViewNombre.setText("LIMITE DE ESPERA");
-                textViewLicencia.setText("LIMITE DE ESPERA");
-                textViewFechaVencimiento.setText("LIMITE DE ESPERA");
-                Toast.makeText(Infracciones.this, "SIN DATOS LICENCIA", Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<String, String>();
-                Log.d("LICENCIA-VERGAS2","$$$$$$$$$$$$$$$$"+licencia);
-
-                parametros.put("licencia", licencia);
-
-                return parametros;
-            }
-        };
-        RequestQueue requesrQueue = Volley.newRequestQueue(Infracciones.this);
-        requesrQueue.add(stringRequest);
-    }
-
     //Consulta de placas.
 
     private void enviarWSControlVehichular(String URLVEHICULAR) {
@@ -1200,10 +1181,10 @@ if (sector !=null){
                 Log.d("USERSIDINFRA","vigencia"+vigencia);
 
                 //LICENCIA
-                params.put("noLicencia",LICENCIA);
-                Log.d("LICENCIA","###############%%%%%%%%%%========================>"+LICENCIA);
-                params.put("nombreLicencia",NOMBRECOMPLETO);
-                params.put("fVigenciaLicencia",VENCIMIENTO);
+                params.put("noLicencia",licenciaWs);
+                Log.d("LICENCIA","###############%%%%%%%%%%========================>"+licenciaWs);
+                params.put("nombreLicencia",nombreCompletoLicenciaWs);
+                params.put("fVigenciaLicencia",vencimientoLicenciaWs);
 
                 //Infra
                 if (cuenta.equals("1")){
@@ -1416,16 +1397,16 @@ if (sector !=null){
 
                 try {
                     //LICENCIA
-                    if (LICENCIA.equals(null)){
+                    if (licenciaWs.equals(null)){
                         params.put("noLicencia","SIN-LICENCIA");
                         params.put("nombreLicencia","SIN-LICENCIA");
                         params.put("fVigenciaLicencia","SIN-LICENCIA");
                     }else{
-                        params.put("noLicencia",LICENCIA);
+                        params.put("noLicencia",licenciaWs);
 
-                        Log.d("LICENCIA","###############%%%%%%%%%%========================>"+LICENCIA);
-                        params.put("nombreLicencia",NOMBRECOMPLETO);
-                        params.put("fVigenciaLicencia",VENCIMIENTO);
+                        Log.d("LICENCIA","###############%%%%%%%%%%========================>"+licenciaWs);
+                        params.put("nombreLicencia",nombreCompletoLicenciaWs);
+                        params.put("fVigenciaLicencia",vencimientoLicenciaWs);
                     }
                 }catch(Exception e){
 
@@ -1579,7 +1560,7 @@ if (sector !=null){
         gotoBack.putExtra("nombre",nombreLogin);
         gotoBack.putExtra("delegacionId",delegacionId);
         gotoBack.putExtra("activo",activo);
-        gotoBack.putExtra("licencia",licencia);
+        gotoBack.putExtra("licencia",licenciaWs);
         if (propietario==null){
             gotoBack.putExtra("placa","");
         }else{

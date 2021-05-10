@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
     ProgressDialog progressDialog;
     AlertDialog.Builder builder;
     String enviaBanderaLic;
-    String licencia;
+   // String licencia;
     String placa;
     EditText editTextPlaca;
     EditText editTextLicencia;
@@ -499,13 +499,13 @@ public class HomeFragment extends Fragment {
             delegacionId = args.getString("delegacionId");
             activo = args.getString("activo");
             placa = args.getString("placa");
-            licencia = args.getString("licencia");
+            licenciaWs = args.getString("licencia");
             Log.d("MIPLACA", "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID" + placa);
             tvUsuario.setText("Nombre : " + nombre);
 
             tvUsuarioUser.setText("Usuario :" + username);
             editTextPlaca.setText(placa);
-            editTextLicencia.setText(licencia);
+            editTextLicencia.setText(licenciaWs);
             tvMunicipio.setText("Tijuana");
             Log.d("USERSID", "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID" + usersId);
         }
@@ -532,6 +532,7 @@ public class HomeFragment extends Fragment {
                 String URL = "https://simov.app/servicios/controlVehicularNew.php";
 
                 //Envia Ws
+                enviarWSConsultaLicencia(URLICENCIA);
                 enviarWSConsultaInfraccion(URL);
             }
         });
@@ -601,8 +602,8 @@ public class HomeFragment extends Fragment {
                         if (jsonarray.length() == 0) {
                             Log.d("#####", "#### ENTRE");
                             Intent intentWs = new Intent(getActivity(), WsgobConsulta.class);
-                            licencia = editTextLicencia.getText().toString();
-                            intentWs.putExtra("licencia", licencia);
+                           // licencia = editTextLicencia.getText().toString();
+                            //intentWs.putExtra("licencia", licencia);
                             placa = editTextPlaca.getText().toString();
                             //Spinner Modalidad
                             // modalidad =spinnerModalidad.getSelectedItem().toString();
@@ -854,9 +855,9 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("nombre", nombre);
                             intentWs.putExtra("delegacionId", delegacionId);
                             intentWs.putExtra("activo", activo);
-                            licencia = editTextLicencia.getText().toString();
-                            intentWs.putExtra("licencia", licencia);
-                            Log.d("licencia1", "###Valor de la licencia" + licencia);
+                           // licencia = editTextLicencia.getText().toString();
+                          //  intentWs.putExtra("licencia", licencia);
+                           // Log.d("licencia1", "###Valor de la licencia" + licencia);
                             intentWs.putExtra("bandera", enviaBanderaLic);
 
                             //SI NO EXISTE PLACA EN WSGOB CONSULTAMOS EN IMOS.
@@ -991,10 +992,10 @@ public class HomeFragment extends Fragment {
                         intentWs.putExtra("delegacionId", delegacionId);
                         intentWs.putExtra("activo", activo);
 
-                        licencia = editTextLicencia.getText().toString();
-                        intentWs.putExtra("licencia", licencia);
+                        //licencia = editTextLicencia.getText().toString();
+                       /* intentWs.putExtra("licencia", licencia);
                         intentWs.putExtra("placa", "NO-PLACA");
-                        Log.d("licencia2", "###Valor de la licencia" + licencia);
+                        Log.d("licencia2", "###Valor de la licencia" + licencia);intentWs*/
                         intentWs.putExtra("bandera", enviaBanderaLic);
 
 
@@ -1352,6 +1353,20 @@ public class HomeFragment extends Fragment {
             @Override
             //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
             public void onResponse(String response) {
+                /*int importantInfo = 4;
+                for (int i = 0;
+                     i < importantInfo;
+                     i++) {
+                    //Pause for 4 seconds
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    //Print a message
+                    System.out.println(importantInfo);
+                }*/
+
                 progressDialog.show();
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
@@ -1375,7 +1390,7 @@ public class HomeFragment extends Fragment {
                         if (jsonarray.length() == 0) {
                             Log.d("#####", "#### ENTRE");
                             Intent intentWs = new Intent(getActivity(), Infracciones.class);
-                            licencia = editTextLicencia.getText().toString();
+                            //licencia = editTextLicencia.getText().toString();
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             sector = spinerSector.getSelectedItem().toString();
                             infraccion1 = edtInfraccion1.getText().toString();
@@ -1408,7 +1423,13 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("infra5", infraccion5);
                             intentWs.putExtra("cuenta", cuentaString);
 
-                            intentWs.putExtra("licencia", licencia);
+                            //Licencia
+                            intentWs.putExtra("licenciaWs",licenciaWs);
+                            intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                            intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
+                            Log.d("L-I-WS-1", "VALOR CUANDO TRAE PLACA" + licenciaWs);
+
+                           // intentWs.putExtra("licencia", licencia);
                             placa = editTextPlaca.getText().toString();
                             intentWs.putExtra("placa", placa);
                             startActivity(intentWs);
@@ -1445,6 +1466,12 @@ public class HomeFragment extends Fragment {
                                     intentWs.putExtra("vim", VIM);
                                     intentWs.putExtra("marca", MARCA);
 
+                                    //Licencia
+                                    intentWs.putExtra("licenciaWs",licenciaWs);
+                                    intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                                    intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
+                                    Log.d("L-I-WS-2", "VALOR CUANDO TRAE PLACA" + licenciaWs);
+
                                 }
 
                             } catch (Exception e) {
@@ -1475,6 +1502,12 @@ public class HomeFragment extends Fragment {
                                     intentWs.putExtra("agrupacionW", AGRUPACION);
                                     intentWs.putExtra("rutaSitioW", RUTASITIO);
 
+                                    //Licencia
+                                    intentWs.putExtra("licenciaWs",licenciaWs);
+                                    intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                                    intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
+                                    Log.d("L-I-WS-3", "VALOR CUANDO TRAE PLACA" + licenciaWs);
+
                                 }
                             } catch (Exception e) {
                                 progressDialog.hide();
@@ -1489,9 +1522,9 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("activo", activo);
 
                             //############################
-                            licencia = editTextLicencia.getText().toString();
-                            intentWs.putExtra("licencia", licencia);
-                            Log.d("licencia1", "###Valor de la licencia" + licencia);
+                           // licencia = editTextLicencia.getText().toString();
+                           // intentWs.putExtra("licencia", licencia);
+                            //og.d("licencia1", "###Valor de la licencia" + licencia);
                             intentWs.putExtra("bandera", enviaBanderaLic);
                             intentWs.putExtra("placa", PLACA);
                             modalidad = spinnerModalidad.getSelectedItem().toString();
@@ -1514,13 +1547,20 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("infra4", infraccion4);
                             intentWs.putExtra("infra5", infraccion5);
                             intentWs.putExtra("cuenta", cuentaString);
+
+                            //Licencia
+                            intentWs.putExtra("licenciaWs",licenciaWs);
+                            intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                            intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
+                            Log.d("L-I-WS-4", "VALOR CUANDO TRAE PLACA" + licenciaWs);
+
                             startActivity(intentWs);
                         }
 
 
                     } catch (JSONException e) {
                         Intent intentWs = new Intent(getActivity(), Infracciones.class);
-                        licencia = editTextLicencia.getText().toString();
+                       // licencia = editTextLicencia.getText().toString();
                         intentWs.putExtra("usersId", usersId);
                         Log.d("HomeFragment-6", "USERSID########################--->" + usersId);
                         intentWs.putExtra("username", username);
@@ -1528,9 +1568,17 @@ public class HomeFragment extends Fragment {
                         intentWs.putExtra("nombre", nombre);
                         intentWs.putExtra("delegacionId", delegacionId);
                         intentWs.putExtra("activo", activo);
-                        intentWs.putExtra("licencia", licencia);
+
+                        //Licencia
+                        intentWs.putExtra("licenciaWs",licenciaWs);
+                        intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
+                        intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
+
+                        Log.d("L-I-WS-5", "VALOR CUANDO TRAE PLACA" + licenciaWs);
+
+                      //  intentWs.putExtra("licencia", licencia);
                         intentWs.putExtra("placa", "NO-PLACA");
-                        Log.d("licencia2", "###Valor de la licencia" + licencia);
+                        //Log.d("licencia2", "###Valor de la licencia" + licencia);
                         intentWs.putExtra("bandera", enviaBanderaLic);
                         startActivity(intentWs);
                         e.printStackTrace();
@@ -1864,7 +1912,7 @@ public class HomeFragment extends Fragment {
                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                                 //Accedemos a los elementos por medio de getString.
                                 licenciaWs = jsonobject.getString("licencia");
-                                if (licenciaWs.equals(null)){
+                                if (licenciaWs== null){
                                     licenciaWs = "SIN-LICENCIA";
                                 }
 
