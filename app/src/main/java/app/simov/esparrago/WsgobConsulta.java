@@ -423,10 +423,19 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
             textViewLicencia.setText(licenciaWs);
             textViewFechaVencimiento.setText(vencimientoLicenciaWs);
 
+            try {
+                if (licenciaWs.equals("NO-LICENCIA")){
+                    tblLicencia.setVisibility(View.GONE);
+                    tvTituloLicencia.setVisibility(View.GONE);
+                }
+            }catch (Exception e){
+
+            }
+
 //##################### TERMINA BLOQUE LICENCIAS #######################################################
 
 
-            color  = bundle.getString("colorW");
+            color  = bundle.getString("Wcolor");
             agrupacion  = bundle.getString("agrupacionW");
             rutaSitio  = bundle.getString("rutaSitioW");
 

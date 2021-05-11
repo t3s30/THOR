@@ -748,6 +748,9 @@ public class HomeFragment extends Fragment {
 
                                 if (ESTATUS.equals("ACTIVO") || ESTATUS.equals("BAJA TEMPORAL") || ESTATUS.equals("BAJA DEFINITIVA")) {
                                     intentWs.putExtra("economico", "NO APLICA");
+                                    intentWs.putExtra("Wcolor", "NO-APLICA");
+                                    intentWs.putExtra("agrupacionW", "NO-APLICA");
+                                    intentWs.putExtra("rutaSitioW", "NO-APLICA");
                                     intentWs.putExtra("estatus", ESTATUS);
                                     String VIGENCIA = jsonarray.getString(23);
                                     intentWs.putExtra("vigencia", VIGENCIA);
@@ -815,7 +818,7 @@ public class HomeFragment extends Fragment {
                                     String AGRUPACION = jsonarray.getString(8);
                                     String RUTASITIO = jsonarray.getString(9);
                                     Log.d("datoswsInserta1", "###################" + COLOR);
-                                    intentWs.putExtra("colorW", COLOR);
+                                    intentWs.putExtra("Wcolor", COLOR);
                                     intentWs.putExtra("agrupacionW", AGRUPACION);
                                     intentWs.putExtra("rutaSitioW", RUTASITIO);
 
@@ -1453,6 +1456,9 @@ public class HomeFragment extends Fragment {
 
                                 if (ESTATUS.equals("ACTIVO") || ESTATUS.equals("BAJA TEMPORAL") || ESTATUS.equals("BAJA DEFINITIVA")) {
                                     intentWs.putExtra("economico", "NO APLICA");
+                                    intentWs.putExtra("Wcolor", "NO-APLICA");
+                                    intentWs.putExtra("agrupacionW", "NO-APLICA");
+                                    intentWs.putExtra("rutaSitioW", "NO-APLICA");
                                     intentWs.putExtra("estatus", ESTATUS);
                                     String VIGENCIA = jsonarray.getString(23);
                                     intentWs.putExtra("vigencia", VIGENCIA);
