@@ -74,6 +74,7 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.logging.Logger;
 
 import app.simov.esparrago.utils.GPSTracker;
 
@@ -132,7 +133,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
     EditText edtFolio;
     String UPLOAD_URL = "https://simov.app/servicios/insertaInfraccion.php";
    // String URLICENCIA = "https://simov.app/servicios/consultaLicencia.php";
-    String URLVEHICULAR = "https://simov.app/servicios/controlVehicular.php";
+   // String URLVEHICULAR = "https://simov.app/servicios/controlVehicular.php";
     String URLINFRACCION = "https://simov.app/servicios/consultaInfraccion.php";
 
     private final String CARPETA_RAIZ="misImagenesPrueba/";
@@ -142,7 +143,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
     final int COD_FOTO=20;
 
     Button botonCargar;
-    Button botonCargar2;
+    Button botonInfraccion;
     Button warning;
     ImageView imagen;
     //Image2
@@ -221,7 +222,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
         imagen3= (ImageView) findViewById(R.id.imagemId3);
         //Boton que lanza el AlertDialog.
         botonCargar= (Button) findViewById(R.id.btnCargarImg);
-        botonCargar2= (Button) findViewById(R.id.btnCargarImg2);
+        botonInfraccion= (Button) findViewById(R.id.btnCargarImg2);
         warning = (Button) findViewById(R.id.btnWarning);
 
         //Metodos de Ws.
@@ -319,45 +320,67 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
 
             //#####################  DATOS VEHICULO #######################################################
 
-            color  = bundle.getString("colorW");
-            agrupacion  = bundle.getString("agrupacionW");
-            rutaSitio  = bundle.getString("rutaSitioW");
-
-            Log.d("B-l-Infracciones-4","Color del Taxi"+color);
-
-
-            tvColor.setText(color);
-            tvAgrupacion.setText(agrupacion);
-            tvRutaSitio.setText(rutaSitio);
-
-
-            //Recojemos parametros.
-            placa = bundle.getString("placa");
-            Log.d("B-l-Infracciones-5","Valor de la placa que viene del HomeFragmet"+placa);
-            placaInfracciones.setText(placa);
-            estatus = bundle.getString("estatus");
-            Log.d("ESTATUS VIGENCIA","####>>>>>>>"+estatus);
-            propietario = bundle.getString("propietario");
-            Log.d("PROPIETARIO","#####################&%&%&%&%&%&%&%&%&PROPIETARIO"+propietario);
-
-
             //VIGENCIA PLACAS
-
+            vigencia = bundle.getString("vigencia");
             if(vigencia== null || vigencia == "" || vigencia.equals(null) || vigencia.equals("")){
+                Log.d("VALIDA-FLUJO-1","Entro a la validacion de la LICENCIA : "+ licenciaWs);
                 vigencia = "SIN-PLACA";
                 vim = "SIN-PLACA";
                 placa = "null";
+
             }else{
-                vigencia = bundle.getString("vigencia");
+                licenciaWs = "NO-LICENCIA";
+                nombreCompletoLicenciaWs = "NO-LICENCIA";
+                vencimientoLicenciaWs = "NO-LICENCIA";
+
+                placa = bundle.getString("placa");
+                Log.d("VALIDA-FLUJO-2","Entro a la validacion de la PLACA : "+ placa);
+                Log.d("B-l-Infracciones-5","Valor de la placa que viene del HomeFragmet : "+placa);
+                estatus = bundle.getString("estatus");
+                Log.d("B-l-Infracciones-6","Estatus de placa de HomeFragment : "+estatus);
+                propietario = bundle.getString("propietario");
+                Log.d("B-l-Infracciones-7","Propietario Placas : "+propietario);
                 vim = bundle.getString("vim");
+                Log.d("B-l-Infracciones-8","Numero de serie de Vehiculo : "+vim);
+                color  = bundle.getString("colorW");
+                agrupacion  = bundle.getString("agrupacionW");
+                rutaSitio  = bundle.getString("rutaSitioW");
+                Log.d("B-l-Infracciones-9","Color del Taxi : "+color);
+                placaInfracciones.setText(placa);
+                tvColor.setText(color);
+                tvAgrupacion.setText(agrupacion);
+                tvRutaSitio.setText(rutaSitio);
+                marca = bundle.getString("marca");
+                infracciones = bundle.getString("infracciones");
+                estatusPlacaInfracciones.setText(estatus);
+                tvVimInfraccion.setText(vim);
+                tvVigenciaTcInfraccion.setText(vigencia);
+
+                if(tvColor.getText() == null ||  tvColor.getText() == ""){
+                    tvColor.setText("SIN DATOS");
+                }
+                if(tvAgrupacion.getText() == null ||  tvAgrupacion.getText() == ""){
+                    tvAgrupacion.setText("SIN DATOS");
+                }
+                if(tvRutaSitio.getText() == null ||  tvRutaSitio.getText() == ""){
+                    tvRutaSitio.setText("SIN DATOS");
+                }
+                if(estatusPlacaInfracciones.getText() == null ||  estatusPlacaInfracciones.getText() == ""){
+                    estatusPlacaInfracciones.setText("SIN DATOS");
+                }
+                if(tvVimInfraccion.getText() == null ||  tvVimInfraccion.getText() == ""){
+                    tvVimInfraccion.setText("SIN DATOS");
+                }
+                if(tvVigenciaTcInfraccion.getText() == null ||  tvVigenciaTcInfraccion.getText() == ""){
+                    tvVigenciaTcInfraccion.setText("SIN DATOS");
+                }
+
             }
 
 
 
 
-            Log.d("ESTATUS VIGENCIA VIM","####>>>>>>>"+vim);
-            marca = bundle.getString("marca");
-            infracciones = bundle.getString("infracciones");
+
            // licencia = bundle.getString("licencia");
 
             modalidad = bundle.getString("modalidad");
@@ -366,28 +389,9 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
             Log.d("SECTORLOG","VALOR SECTOR INFRACCIONES"+ sector);
 
 
-            estatusPlacaInfracciones.setText(estatus);
-            tvVimInfraccion.setText(vim);
-            tvVigenciaTcInfraccion.setText(vigencia);
 
-            if(tvColor.getText() == null ||  tvColor.getText() == ""){
-                tvColor.setText("SIN DATOS");
-            }
-            if(tvAgrupacion.getText() == null ||  tvAgrupacion.getText() == ""){
-                tvAgrupacion.setText("SIN DATOS");
-            }
-            if(tvRutaSitio.getText() == null ||  tvRutaSitio.getText() == ""){
-                tvRutaSitio.setText("SIN DATOS");
-            }
-            if(estatusPlacaInfracciones.getText() == null ||  estatusPlacaInfracciones.getText() == ""){
-                estatusPlacaInfracciones.setText("SIN DATOS");
-            }
-            if(tvVimInfraccion.getText() == null ||  tvVimInfraccion.getText() == ""){
-                tvVimInfraccion.setText("SIN DATOS");
-            }
-            if(tvVigenciaTcInfraccion.getText() == null ||  tvVigenciaTcInfraccion.getText() == ""){
-                tvVigenciaTcInfraccion.setText("SIN DATOS");
-            }
+
+
 
 /*
 * || sector == "PONIENTE-TURISTICO" ||
@@ -482,11 +486,11 @@ if (sector !=null){
 
         //ENVIAR INFO
 
-        botonCargar2.setOnClickListener(new View.OnClickListener() {
+        botonInfraccion.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                uploadImage();
+                cargarInfraccion();
             }
 
         });
@@ -978,6 +982,7 @@ if (sector !=null){
         }
     }
 
+/*
 
     //Consulta de placas.
 
@@ -1089,6 +1094,7 @@ if (sector !=null){
         RequestQueue requesrQueue = Volley.newRequestQueue(getApplicationContext());
         requesrQueue.add(stringRequest);
     }
+*/
 
     //Subir imagen
 
@@ -1162,23 +1168,23 @@ if (sector !=null){
 
                 params.put("usersId", usersId);
                 //Aqui hay un Null pointer Exeption.
-                Log.d("USERSIDINFRA","###############%%%%%%%%%%"+usersId);
+                Log.d("USERSIDINFRA1","###############%%%%%%%%%%"+usersId);
                 params.put("username", username);
-                Log.d("USERSIDINFRA","username"+username);
+                Log.d("USERSIDINFRA2","username"+username);
                 params.put("profile", profile);
-                Log.d("USERSIDINFRA","profile"+profile);
+                Log.d("USERSIDINFRA3","profile"+profile);
                 params.put("nombreLogin", nombreLogin);
-                Log.d("USERSIDINFRA","nombreLogin"+nombreLogin);
-                params.put("delegacionId", delegacionId);
-                Log.d("USERSIDINFRA","delegacionId"+delegacionId);
+                Log.d("USERSIDINFRA4","nombreLogin"+nombreLogin);
+                params.put("delegacionId5", delegacionId);
+                Log.d("USERSIDINFRA6","delegacionId"+delegacionId);
                 params.put("activo", activo);
-                Log.d("USERSIDINFRA","activo"+activo);
+                Log.d("USERSIDINFRA7","activo"+activo);
                 params.put("placa",placa);
-                Log.d("USERSIDINFRA","placa"+placa);
+                Log.d("USERSIDINFRA8","placa"+placa);
                 params.put("propietario",propietario);
-                Log.d("USERSIDINFRA","propietario"+propietario);
+                Log.d("USERSIDINFRA9","propietario"+propietario);
                 params.put("vigencia",vigencia);
-                Log.d("USERSIDINFRA","vigencia"+vigencia);
+                Log.d("USERSIDINFRA10","vigencia"+vigencia);
 
                 //LICENCIA
                 params.put("noLicencia",licenciaWs);
@@ -1210,24 +1216,29 @@ if (sector !=null){
                 }
                 infraConcat = infra1+" | "+infra2+" | "+infra3+" | "+infra4+" | "+infra5;
                 params.put("infra",infraConcat);
-                Log.d("INFRA","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$=======>"+infraConcat);
+                Log.d("USERSIDINFRA11","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$=======>"+infraConcat);
                 params.put("cuenta",cuenta);
-                Log.d("CUENTA","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
+                Log.d("USERSIDINFRA12","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
 
                 params.put("comentarios",comentarios);
+                Log.d("USERSIDINFRA13","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
                 params.put("folio",folio);
-
+                Log.d("USERSIDINFRA14","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
                 params.put("warning","true");
+                Log.d("USERSIDINFRA15","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
                 params.put("vim",vim);
+                Log.d("USERSIDINFRA17","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
 
                 String latitudS = Double.toString(latitude);
+                Log.d("USERSIDINFRA16","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
                 String longitudS = Double.toString(longitud);
+                Log.d("USERSIDINFRA18","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
 
                 params.put("latitud",latitudS);
                 params.put("longitud",longitudS);
 
                 //params.put("sectorId",sectorId);
-                Log.d("SECTORRR","ZONASECTOR%%%%%%%%%%%%%%%%%%%%"+sectorId);
+                Log.d("USERSIDINFRA19","ZONASECTOR%%%%%%%%%%%%%%%%%%%%"+sectorId);
 
 
                 if (ECONOMICO!=null){
@@ -1302,7 +1313,9 @@ if (sector !=null){
     }
 
 
-    public void uploadImage() {
+
+    //SUBIR INFRACCION
+    public void cargarInfraccion() {
         final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new Response.Listener<String>() {
@@ -1318,6 +1331,7 @@ if (sector !=null){
             @Override
             public void onErrorResponse(VolleyError error) {
                 loading.dismiss();
+                //CUANDO FALLA LA CAERGA DE LA INFRACCION
                 cargarCancelacion();
 
             }
@@ -1328,7 +1342,7 @@ if (sector !=null){
                 String comentarios = edtComentarios.getText().toString().trim();
                 String folio = edtFolio.getText().toString().trim();
                 // Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
-                Log.d("imagen","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+imagen);
+                Log.d("CARGA-IFRN-1","Valor de la Imagen: "+imagen);
                 Map<String, String> params = new Hashtable<String, String>();
 
                 if (bitmap!=null){
@@ -1373,44 +1387,46 @@ if (sector !=null){
 
 
                 params.put("usersId", usersId);
-                //Aqui hay un Null pointer Exeption.
-                Log.d("USERSIDINFRA","###############%%%%%%%%%%"+usersId);
+                Log.d("CARGA-IFRN-1","Valor licencia antes de cargar Infraccion : "+ usersId);
+
                 params.put("username", username);
+                Log.d("CARGA-IFRN-3","Valor licencia antes de cargar Infraccion : "+ username);
                 params.put("profile", profile);
+                Log.d("CARGA-IFRN-4","Valor licencia antes de cargar Infraccion : "+ profile);
                 params.put("nombreLogin", nombreLogin);
+                Log.d("CARGA-IFRN-5","Valor licencia antes de cargar Infraccion : "+ nombreLogin);
                 params.put("delegacionId", delegacionId);
+                Log.d("CARGA-IFRN-6","Valor licencia antes de cargar Infraccion : "+ delegacionId);
                 params.put("activo", activo);
-                params.put("placa",placa);
+                Log.d("CARGA-IFRN-7","Valor licencia antes de cargar Infraccion : "+ activo);
+
 
                 try {
                     if (propietario==null){
                         params.put("propietario","Sin propietario");
+                        params.put("placa","SIN-PLACA");
                     }else{
                         params.put("propietario",propietario);
+                        params.put("placa",placa);
+
+                        params.put("vigencia",vigencia);
+                        Log.d("CARGA-IFRN-10","Valor licencia antes de cargar Infraccion : "+ vigencia);
+
+                        Log.d("CARGA-IFRN-8","Valor licencia antes de cargar Infraccion : "+ placa);
+                        Log.d("CARGA-IFRN-9","Valor licencia antes de cargar Infraccion : "+ propietario);
                     }
                 }catch (Exception e){
 
                 }
 
 
-                params.put("vigencia",vigencia);
 
-                try {
-                    //LICENCIA
-                    if (licenciaWs.equals(null)){
-                        params.put("noLicencia","SIN-LICENCIA");
-                        params.put("nombreLicencia","SIN-LICENCIA");
-                        params.put("fVigenciaLicencia","SIN-LICENCIA");
-                    }else{
-                        params.put("noLicencia",licenciaWs);
-
-                        Log.d("LICENCIA","###############%%%%%%%%%%========================>"+licenciaWs);
-                        params.put("nombreLicencia",nombreCompletoLicenciaWs);
-                        params.put("fVigenciaLicencia",vencimientoLicenciaWs);
-                    }
-                }catch(Exception e){
-
-                }
+                params.put("num",licenciaWs);
+                Log.d("CARGA-IFRN-1","Valor licencia antes de cargar Infraccion : "+ licenciaWs);
+                params.put("nombreL",nombreCompletoLicenciaWs);
+                Log.d("CARGA-IFRN-12","Valor licencia antes de cargar Infraccion : "+ nombreCompletoLicenciaWs);
+                params.put("fvl",vencimientoLicenciaWs);
+                Log.d("CARGA-IFRN-13","Valor licencia antes de cargar Infraccion : "+ vencimientoLicenciaWs);
 
 
 
@@ -1438,25 +1454,30 @@ if (sector !=null){
                 }
                 infraConcat = infra1+" | "+infra2+" | "+infra3+" | "+infra4+" | "+infra5;
                 params.put("infra",infraConcat);
-                Log.d("INFRA","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$=======>"+infraConcat);
+                Log.d("CARGA-IFRN-14","Valor licencia antes de cargar Infraccion : "+ infraConcat);
                 params.put("cuenta",cuenta);
-                Log.d("CUENTA","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
+                Log.d("CARGA-IFRN-15","Valor licencia antes de cargar Infraccion : "+ cuenta);
 
                 params.put("comentarios",comentarios);
+                Log.d("CARGA-IFRN-16","Valor licencia antes de cargar Infraccion : "+ comentarios);
                 params.put("folio",folio);
+                Log.d("CARGA-IFRN-17","Valor licencia antes de cargar Infraccion : "+ folio);
 
                 if(sectorId != null){
                     params.put("sectorId",sectorId);
+                    Log.d("CARGA-IFRN-18","Valor licencia antes de cargar Infraccion : "+ sectorId);
                 }else{
                     params.put("sectorId","99");
                 }
                 String latitudS = Double.toString(latitude);
+                Log.d("CARGA-IFRN-19","Valor licencia antes de cargar Infraccion : "+ latitudS);
                 String longitudS = Double.toString(longitud);
+                Log.d("CARGA-IFRN-20","Valor licencia antes de cargar Infraccion : "+ longitudS);
 
                 params.put("latitud",latitudS);
                 params.put("longitud",longitudS);
 
-                Log.d("SECTORRR","ZONASECTOR%%%%%%%%%%%%%%%%%%%%"+sectorId);
+
 
 
                 if (ECONOMICO!=null){
