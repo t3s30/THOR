@@ -1893,6 +1893,7 @@ public class HomeFragment extends Fragment {
             @Override
             //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
             public void onResponse(String response) {
+                progressDialog.show();
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
                     //Esto contiene toda la cadena de respuesta del Ws.
@@ -1942,17 +1943,19 @@ public class HomeFragment extends Fragment {
                         licenciaWs = "NO-LICENCIA";
                         vencimientoLicenciaWs = "NO-LICENCIA";
                         nombreCompletoLicencia = "NO-LICENCIA";
+                        progressDialog.hide();
 
                     }
 
                 } else {
-
+                    progressDialog.hide();
                     Toast.makeText(getActivity(), "No se encontraron parametros en la consulta de licencia", Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressDialog.hide();
 
                 Toast.makeText(getActivity(), "SIN DATOS LICENCIA(C-L-01)", Toast.LENGTH_LONG).show();
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
@@ -1978,7 +1981,7 @@ public class HomeFragment extends Fragment {
                 Log.d("MAPEOWSLICENCIA","Valor de la licencia envio WS : "+ licenciaEdt);
 
                 parametros.put("licencia", licenciaEdt);
-
+                progressDialog.hide();
                 return parametros;
             }
         };

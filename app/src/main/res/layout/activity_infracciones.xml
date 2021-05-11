@@ -442,7 +442,7 @@
     <!--Empieza zona de imágenes-->
     <ImageView
         android:id="@+id/imagemId"
-        app:layout_constraintTop_toBottomOf="@id/edtFolio"
+        app:layout_constraintTop_toBottomOf="@id/mapInfracciones"
         app:layout_constraintStart_toStartOf="@+id/edtComentarios"
         app:layout_constraintEnd_toStartOf="@id/imagemId2"
         android:layout_marginTop="10dp"
@@ -452,7 +452,7 @@
 
     <ImageView
         android:id="@+id/imagemId2"
-        app:layout_constraintTop_toBottomOf="@id/edtFolio"
+        app:layout_constraintTop_toBottomOf="@id/mapInfracciones"
         app:layout_constraintStart_toEndOf="@+id/imagemId"
         app:layout_constraintEnd_toEndOf="@id/edtComentarios"
         android:layout_marginTop="10dp"
@@ -476,12 +476,11 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginTop="50dp"
             android:tag="fragment_map"
-            app:layout_constraintTop_toBottomOf="@+id/imagemId3"
-            tools:context=".WsgobConsulta" />
+            app:layout_constraintTop_toBottomOf="@+id/edtFolio"
+            tools:context=".WsgobConsulta"
+            tools:layout_editor_absoluteX="10dp" />
 
 
         <Button
@@ -496,7 +495,7 @@
             android:textColor="@color/white"
             android:onClick="onclick"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mapInfracciones" />
+            app:layout_constraintTop_toBottomOf="@+id/imagemId3" />
 
         <Button
             android:id="@+id/btnCargarImg2"

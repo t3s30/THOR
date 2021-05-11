@@ -307,7 +307,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 longitud = gps.getLongitude();
 
                 // \n is for new line
-                Toast.makeText(getApplicationContext(), "Geoposición  - \nLat: " + latitude + "\nLong: " + longitud, Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(), "Geoposición  - \nLat: " + latitude + "\nLong: " + longitud, Toast.LENGTH_LONG).show();
             } else {
                 // Can't get location.
                 // GPS or network is not enabled.
@@ -1167,30 +1167,48 @@ if (sector !=null){
 
 
                 params.put("usersId", usersId);
-                //Aqui hay un Null pointer Exeption.
-                Log.d("USERSIDINFRA1","###############%%%%%%%%%%"+usersId);
+                Log.d("CARGA-IFRN-1","Valor licencia antes de cargar Infraccion : "+ usersId);
+                params.put("warning","true");
                 params.put("username", username);
-                Log.d("USERSIDINFRA2","username"+username);
+                Log.d("CARGA-IFRN-3","Valor licencia antes de cargar Infraccion : "+ username);
                 params.put("profile", profile);
-                Log.d("USERSIDINFRA3","profile"+profile);
+                Log.d("CARGA-IFRN-4","Valor licencia antes de cargar Infraccion : "+ profile);
                 params.put("nombreLogin", nombreLogin);
-                Log.d("USERSIDINFRA4","nombreLogin"+nombreLogin);
-                params.put("delegacionId5", delegacionId);
-                Log.d("USERSIDINFRA6","delegacionId"+delegacionId);
+                Log.d("CARGA-IFRN-5","Valor licencia antes de cargar Infraccion : "+ nombreLogin);
+                params.put("delegacionId", delegacionId);
+                Log.d("CARGA-IFRN-6","Valor licencia antes de cargar Infraccion : "+ delegacionId);
                 params.put("activo", activo);
-                Log.d("USERSIDINFRA7","activo"+activo);
-                params.put("placa",placa);
-                Log.d("USERSIDINFRA8","placa"+placa);
-                params.put("propietario",propietario);
-                Log.d("USERSIDINFRA9","propietario"+propietario);
-                params.put("vigencia",vigencia);
-                Log.d("USERSIDINFRA10","vigencia"+vigencia);
+                Log.d("CARGA-IFRN-7","Valor licencia antes de cargar Infraccion : "+ activo);
 
-                //LICENCIA
-                params.put("noLicencia",licenciaWs);
-                Log.d("LICENCIA","###############%%%%%%%%%%========================>"+licenciaWs);
-                params.put("nombreLicencia",nombreCompletoLicenciaWs);
-                params.put("fVigenciaLicencia",vencimientoLicenciaWs);
+
+                try {
+                    if (propietario==null){
+                        params.put("propietario","Sin propietario");
+                        params.put("placa","SIN-PLACA");
+                    }else{
+                        params.put("propietario",propietario);
+                        params.put("placa",placa);
+
+                        params.put("vigencia",vigencia);
+                        Log.d("CARGA-IFRN-10","Valor licencia antes de cargar Infraccion : "+ vigencia);
+
+                        Log.d("CARGA-IFRN-8","Valor licencia antes de cargar Infraccion : "+ placa);
+                        Log.d("CARGA-IFRN-9","Valor licencia antes de cargar Infraccion : "+ propietario);
+                    }
+                }catch (Exception e){
+
+                }
+
+
+
+                params.put("num",licenciaWs);
+                Log.d("CARGA-IFRN-1","Valor licencia antes de cargar Infraccion : "+ licenciaWs);
+                params.put("nombreL",nombreCompletoLicenciaWs);
+                Log.d("CARGA-IFRN-12","Valor licencia antes de cargar Infraccion : "+ nombreCompletoLicenciaWs);
+                params.put("fvl",vencimientoLicenciaWs);
+                Log.d("CARGA-IFRN-13","Valor licencia antes de cargar Infraccion : "+ vencimientoLicenciaWs);
+
+
 
                 //Infra
                 if (cuenta.equals("1")){
@@ -1216,40 +1234,40 @@ if (sector !=null){
                 }
                 infraConcat = infra1+" | "+infra2+" | "+infra3+" | "+infra4+" | "+infra5;
                 params.put("infra",infraConcat);
-                Log.d("USERSIDINFRA11","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$=======>"+infraConcat);
+                Log.d("CARGA-IFRN-14","Valor licencia antes de cargar Infraccion : "+ infraConcat);
                 params.put("cuenta",cuenta);
-                Log.d("USERSIDINFRA12","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
+                Log.d("CARGA-IFRN-15","Valor licencia antes de cargar Infraccion : "+ cuenta);
 
                 params.put("comentarios",comentarios);
-                Log.d("USERSIDINFRA13","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
+                Log.d("CARGA-IFRN-16","Valor licencia antes de cargar Infraccion : "+ comentarios);
                 params.put("folio",folio);
-                Log.d("USERSIDINFRA14","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
-                params.put("warning","true");
-                Log.d("USERSIDINFRA15","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
-                params.put("vim",vim);
-                Log.d("USERSIDINFRA17","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
+                Log.d("CARGA-IFRN-17","Valor licencia antes de cargar Infraccion : "+ folio);
 
+                if(sectorId != null){
+                    params.put("sectorId",sectorId);
+                    Log.d("CARGA-IFRN-18","Valor licencia antes de cargar Infraccion : "+ sectorId);
+                }else{
+                    params.put("sectorId","99");
+                }
                 String latitudS = Double.toString(latitude);
-                Log.d("USERSIDINFRA16","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
+                Log.d("CARGA-IFRN-19","Valor licencia antes de cargar Infraccion : "+ latitudS);
                 String longitudS = Double.toString(longitud);
-                Log.d("USERSIDINFRA18","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%========>"+cuenta);
+                Log.d("CARGA-IFRN-20","Valor licencia antes de cargar Infraccion : "+ longitudS);
 
                 params.put("latitud",latitudS);
                 params.put("longitud",longitudS);
 
-                //params.put("sectorId",sectorId);
-                Log.d("USERSIDINFRA19","ZONASECTOR%%%%%%%%%%%%%%%%%%%%"+sectorId);
+
 
 
                 if (ECONOMICO!=null){
                     params.put("numeroEconomico",ECONOMICO);
                 }else{
-                    params.put("numeroEconomico","No APLICA");
+                    params.put("numeroEconomico","SIN/NUMERO");
                 }
                 Calendar calendar = Calendar.getInstance();
                 int numberWeekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
                 numberWeekOfYear = numberWeekOfYear-1;
-                Log.d("SEMANA-INFRACCION-1","EL VALOR DE LA SEMANA"+ numberWeekOfYear);
                 int year = Calendar.getInstance().get(Calendar.YEAR);
 
                 String semana=String.valueOf(numberWeekOfYear);
@@ -1257,22 +1275,11 @@ if (sector !=null){
 
                 params.put("semana",semana);
                 params.put("anio",anio);
+                params.put("modalidad",modalidad);
 
 
-                if(modalidad == "SELECCIONE-MODALIDAD"){
-                    tvModalidadInfraccion.setText("SIN DATOS");
-                    params.put("modalidad","SIN DATOS");
-                }else{
-                    tvModalidadInfraccion.setText(modalidad);
-                    params.put("modalidad",modalidad);
-                }
 
-
-                if(sectorId != null){
-                    params.put("sectorId",sectorId);
-                }else{
-                    params.put("sectorId","99");
-                }
+                params.put("vim",vim);
 
 
                 if (color!=null){
@@ -1295,12 +1302,12 @@ if (sector !=null){
 
 
 
-
                 if (modi != null){
                     params.put("modi",modi);
                 }else{
                     params.put("modi","OTRO-SIN-REGISTRO");
                 }
+
 
 
 
