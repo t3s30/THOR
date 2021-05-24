@@ -17,7 +17,7 @@
     <string name="menu_salir">SALIR</string>
     <string name="titulo_principal">ESPARRAGO PRINCIPAL</string>
 
-    <string-array name="zonas_arrays">
+    <string-array name="zonas_arrays_2">
         <item>SELECCIONA-ZONA-SECTOR</item>
         <item>NORTE-CENTRO</item>
         <item>NORTE-OTAY</item>
@@ -38,6 +38,8 @@
         <item>PERIFERIA-ROSARITO</item>
         <item>PERIFERIA-TECATE</item>
 
+
+
         <item>PONIENTE-TURISTICO</item>
         <item>PONIENTE-CENTRO</item>
         <item>PONIENTE-SALIDA-TIJUANA</item>
@@ -49,12 +51,43 @@
         <item>SUR/GOBIERNO</item>
         <item>SUR/CHAPULTEPEC</item>
         <item>SUR/VILLAS</item>
-        <!--<item>FORANEO/MANEADERO/BAJA</item>
+    </string-array>
+
+
+    <string-array name="zonas_arrays_3">
+        <item>FORANEO/MANEADERO/BAJA</item>
         <item>FORANEO/MANEADERO/ALTA</item>
         <item>FORANEO/BUFADORA</item>
-        <item>FORANEO/VALLE/GPE</item>-->
+        <item>FORANEO/VALLE/GPE</item>
+        <item>ENS_01</item>
+        <item>ENS_02</item>
+        <item>ENS_03</item>
+        <item>ENS_04</item>
+        <item>ENS_05</item>
 
     </string-array>
+
+    <string-array name="zonas_arrays_1">
+        <item>MXL_01</item>
+        <item>MXL_02</item>
+        <item>MXL_03</item>
+        <item>MXL_04</item>
+        <item>MXL_05</item>
+        <item>MXL_06</item>
+        <item>MXL_07</item>
+        <item>MXL_08</item>
+        <item>MXL_09</item>
+        <item>MXL_10</item>
+        <item>MXL_11</item>
+        <item>MXL_12</item>
+        <item>MXL_13</item>
+
+
+    </string-array>
+
+
+
+
 
     <string-array name="infracciones_arrays">
         <item>SELECCIONE-INFRACCION</item>
@@ -170,7 +203,7 @@
     <string name="ELIMINAR">ELIMINAR</string>
     <string name="QR">QR GAFETE-TARJETON</string>
     <string name="foto_placa">FOTO PLACA</string>
-    <string name="version">Gerencia de sistemas | IMOS | Version-25.5.1 ▲</string>
+    <string name="version">Gerencia de sistemas | IMOS | Version-28.0.0 ▲</string>
 
     <!--Strings Infracciones-->
     <string name="INFRACIONES_THOR">INFRACIONES-THOR</string>

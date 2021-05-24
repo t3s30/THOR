@@ -220,7 +220,7 @@
         android:textColor="@color/titulosVerdes" />
 
     <Spinner
-        android:id="@+id/spZona"
+        android:id="@+id/spZona2"
         app:layout_constraintTop_toTopOf="@id/edtPlaca"
         app:layout_constraintStart_toEndOf="@id/tvZonaSector"
         app:layout_constraintEnd_toEndOf="parent"
@@ -228,9 +228,38 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:background="@color/white"
+        android:visibility="gone"
         android:backgroundTint="@color/botonLogin"
         android:dropDownSelector="@color/purple_500"
-        android:entries="@array/zonas_arrays"
+        android:entries="@array/zonas_arrays_2"
+        android:textAlignment="center"/>
+    <Spinner
+        android:id="@+id/spZona1"
+        app:layout_constraintTop_toTopOf="@id/edtPlaca"
+        app:layout_constraintStart_toEndOf="@id/tvZonaSector"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:backgroundTint="@color/botonLogin"
+        android:dropDownSelector="@color/purple_500"
+        android:entries="@array/zonas_arrays_1"
+        android:textAlignment="center"/>
+    <Spinner
+        android:id="@+id/spZona3"
+        app:layout_constraintTop_toTopOf="@id/edtPlaca"
+        app:layout_constraintStart_toEndOf="@id/tvZonaSector"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:background="@color/white"
+        android:backgroundTint="@color/botonLogin"
+        android:dropDownSelector="@color/purple_500"
+        android:entries="@array/zonas_arrays_3"
         android:textAlignment="center"/>
 
 

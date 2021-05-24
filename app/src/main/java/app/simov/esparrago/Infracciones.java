@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.media.MediaScannerConnection;
@@ -84,15 +86,14 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback {
 
     LocationManager locationManager;
-    ProgressDialog loading;
+    //ProgressDialog loading;
     String locationText = "";
     String locationLatitude = "";
     String locationLongitude = "";
 
     private int mInterval = 3000; // 3 seconds by default, can be changed later
     private Handler mHandler;
-
-
+    ProgressDialog progressDialog;
     String placa;
     String estatus;
     String propietario;
@@ -216,6 +217,15 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
         mapFragment.getMapAsync(this);
 
 
+        //DIALOGO
+        //PROGRESS DIALOG
+        progressDialog = new ProgressDialog(Infracciones.this);
+        //Mostramos el progressBAR
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(109, 30, 30)));
+        progressDialog.setMessage("Subiendo Imagenes al servidor...");
+
+
         //Layouts de las imagenes
         imagen= (ImageView) findViewById(R.id.imagemId);
         imagen2= (ImageView) findViewById(R.id.imagemId2);
@@ -272,12 +282,15 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
 
 
             try {
-                if (licenciaWs == null){
+                if (licenciaWs.equals("NO-LICENCIA")){
                     //Textos de Licencias.
                    // textViewNombre.setText("NO-DATA");
                     textViewLicencia.setText("NO-DATA");
                     textViewFechaVencimiento.setText("NO-DATA");
                     Log.d("B-l-Infracciones-1","Valor licencia del Bundle recojido :"+ licenciaWs);
+                    licenciaWs = "NO-LICENCIA";
+                    vencimientoLicenciaWs = "NO-LICENCUA";
+                    nombreCompletoLicenciaWs = "NO-LICENCIA";
                 }else{
                     //Textos de Licencias.
                    // textViewNombre.setText(nombreCompletoLicenciaWs);
@@ -591,43 +604,59 @@ if (sector !=null){
 
 
     private void cargarAceptacion() {
-        AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
-        dialogo.setTitle("GENERA INFRACCION");
-        Log.d("Cargar-Aceptacion-1","Valor placa : " + placa);
+        Log.d("ENTRE","$$$");
+        if(edtFolio.getText().toString().trim().equals("")||edtFolio.getText().toString().trim().equals(null)){
+            AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
+            dialogo.setTitle("FOLIO VACIO");
+            dialogo.setMessage("EL CAMPO FOLIO ES OBLIGATORIO");
 
 
-        if (placa == "null"){
-            mensaje = licenciaWs;
-            dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENT CON LICENCIA : "+ mensaje);
-        }else{
-            mensaje = placa;
-            dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENT CON PLACA : "+ mensaje);
-        }
+            dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
 
+                }
+            });
+            dialogo.show();
+        }else {
+
+            AlertDialog.Builder dialogo = new AlertDialog.Builder(Infracciones.this);
+            dialogo.setTitle("GENERA INFRACCION");
+            Log.d("Cargar-Aceptacion-1", "Valor placa : " + placa);
 
 
-        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
-                // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(),Drawer.class);
-                intent.putExtra("usersId",usersId);
-                intent.putExtra("username",username);
-                intent.putExtra("profile",profile);
-                intent.putExtra("nombre",nombreLogin);
-                intent.putExtra("delegacionId",delegacionId);
-                intent.putExtra("activo",activo);
-                Toast.makeText(Infracciones.this, "Infracción creada con identificador : "+ mensaje, Toast.LENGTH_LONG).show();
-
-
-                finish();
-                startActivity(intent);
+            if (placa == "null") {
+                mensaje = licenciaWs;
+                dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENT CON LICENCIA : " + mensaje);
+            } else {
+                mensaje = placa;
+                dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENT CON PLACA : " + mensaje);
             }
-        });
-        dialogo.show();
+
+
+            dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                    requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, 100);
+                    // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), Drawer.class);
+                    intent.putExtra("usersId", usersId);
+                    intent.putExtra("username", username);
+                    intent.putExtra("profile", profile);
+                    intent.putExtra("nombre", nombreLogin);
+                    intent.putExtra("delegacionId", delegacionId);
+                    intent.putExtra("activo", activo);
+                    Toast.makeText(Infracciones.this, "Infracción creada con identificador : " + mensaje, Toast.LENGTH_LONG).show();
+
+
+                    finish();
+                    startActivity(intent);
+                }
+            });
+            dialogo.show();
+        }
     }
 
     private void cargarCancelacion() {
@@ -661,69 +690,73 @@ if (sector !=null){
 
 
     private void cargarAceptacionWarning() {
-        AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
-        dialogo.setTitle("WARNING INFRACCIONES");
-
-        if (placa == "null"){
-            mensaje = licenciaWs;
-            dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENT CON LICENCIA : "+ mensaje);
-        }else{
-            mensaje = placa;
-            dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENT CON PLACA : "+ mensaje);
-        }
 
 
 
-        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+            AlertDialog.Builder dialogo = new AlertDialog.Builder(Infracciones.this);
+            dialogo.setTitle("WARNING INFRACCIONES");
 
-                // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(),Drawer.class);
-                intent.putExtra("usersId",usersId);
-                intent.putExtra("username",username);
-                intent.putExtra("profile",profile);
-                intent.putExtra("nombre",nombreLogin);
-                intent.putExtra("delegacionId",delegacionId);
-                intent.putExtra("activo",activo);
-                Toast.makeText(Infracciones.this, "Warning creado  con PLACA : "+ mensaje, Toast.LENGTH_LONG).show();
-                finish();
-                startActivity(intent);
+            if (placa == "null") {
+                mensaje = licenciaWs;
+                dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENTE CON LICENCIA : " + mensaje);
+            } else {
+                mensaje = placa;
+                dialogo.setMessage("LA INFRACCION SE GENERO CORRECTAMENTE CON PLACA : " + mensaje);
             }
-        });
-        dialogo.show();
+
+
+            dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, 100);
+
+                    // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), Drawer.class);
+                    intent.putExtra("usersId", usersId);
+                    intent.putExtra("username", username);
+                    intent.putExtra("profile", profile);
+                    intent.putExtra("nombre", nombreLogin);
+                    intent.putExtra("delegacionId", delegacionId);
+                    intent.putExtra("activo", activo);
+                    Toast.makeText(Infracciones.this, "Warning creado  con PLACA : " + mensaje, Toast.LENGTH_LONG).show();
+                    finish();
+                    startActivity(intent);
+                }
+            });
+            dialogo.show();
+
     }
 
 
     private void cargarCancelacionWarning() {
-        AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
-        dialogo.setTitle("WARNING INFRACCIONES");
-        dialogo.setMessage("EL WARNING NO SE GENERO");
 
 
-        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+            AlertDialog.Builder dialogo = new AlertDialog.Builder(Infracciones.this);
+            dialogo.setTitle("WARNING INFRACCIONES");
+            dialogo.setMessage("EL WARNING NO SE GENERO");
 
 
-                // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(),Drawer.class);
-                intent.putExtra("usersId",usersId);
-                intent.putExtra("username",username);
-                intent.putExtra("profile",profile);
-                intent.putExtra("nombre",nombreLogin);
-                intent.putExtra("delegacionId",delegacionId);
-                intent.putExtra("activo",activo);
-                finish();
-                startActivity(intent);
+            dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, 100);
 
-            }
-        });
-        dialogo.show();
-    }
 
+                    // Toast.makeText(Infracciones.this, "##1"+response, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplicationContext(), Drawer.class);
+                    intent.putExtra("usersId", usersId);
+                    intent.putExtra("username", username);
+                    intent.putExtra("profile", profile);
+                    intent.putExtra("nombre", nombreLogin);
+                    intent.putExtra("delegacionId", delegacionId);
+                    intent.putExtra("activo", activo);
+                    finish();
+                    startActivity(intent);
+
+                }
+            });
+            dialogo.show();
+        }
 
 
     public void onclick(View view) {
@@ -1099,20 +1132,20 @@ if (sector !=null){
     //Subir imagen
 
     public void uploadImageWarning() {
-        final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
+        progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        loading.dismiss();
 
+                        progressDialog.hide();
                         cargarAceptacionWarning();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                loading.dismiss();
 
+                progressDialog.hide();
                 cargarCancelacionWarning();
             }
         }){
@@ -1196,7 +1229,7 @@ if (sector !=null){
                         Log.d("CARGA-IFRN-9","Valor licencia antes de cargar Infraccion : "+ propietario);
                     }
                 }catch (Exception e){
-
+                    progressDialog.hide();
                 }
 
 
@@ -1323,13 +1356,13 @@ if (sector !=null){
 
     //SUBIR INFRACCION
     public void cargarInfraccion() {
-        final ProgressDialog loading = ProgressDialog.show(this, "Subiendo...", "Espere por favor");
+        progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        progressDialog.hide();
 
-                        loading.dismiss();
                         cargarAceptacion();
 
 
@@ -1337,7 +1370,8 @@ if (sector !=null){
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                loading.dismiss();
+
+                progressDialog.show();
                 //CUANDO FALLA LA CAERGA DE LA INFRACCION
                 cargarCancelacion();
 
@@ -1423,7 +1457,7 @@ if (sector !=null){
                         Log.d("CARGA-IFRN-9","Valor licencia antes de cargar Infraccion : "+ propietario);
                     }
                 }catch (Exception e){
-
+                    progressDialog.hide();
                 }
 
 

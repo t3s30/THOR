@@ -113,7 +113,9 @@ public class HomeFragment extends Fragment {
     AutoCompleteTextView edtInfraccion4;
     AutoCompleteTextView edtInfraccion5;
     Spinner spinnerModalidad;
-    Spinner spinerSector;
+    Spinner spinerSector1;
+    Spinner spinerSector2;
+    Spinner spinerSector3;
     String modalidad;
     String sector;
     String infraccion1;
@@ -365,12 +367,9 @@ public class HomeFragment extends Fragment {
         spinnerModalidad.setAdapter(adapterModalidad);
 
 
-        spinerSector = root.findViewById(R.id.spZona);
-        //Lista principal despliega primero
-        ArrayAdapter adapterZona = ArrayAdapter.createFromResource(getActivity(), R.array.zonas_arrays, R.layout.spinner_item);
-        //Mostramos el contenido del source en un dropDown y lo seteamos.
-        adapterZona.setDropDownViewResource(R.layout.spinner_dropdown_layout);
-        spinerSector.setAdapter(adapterZona);
+
+
+
 
         edtInfraccion1.setVisibility(View.GONE);
         edtInfraccion2.setVisibility(View.GONE);
@@ -508,6 +507,47 @@ public class HomeFragment extends Fragment {
             editTextLicencia.setText(licenciaWs);
             tvMunicipio.setText("Tijuana");
             Log.d("USERSID", "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID" + usersId);
+
+
+
+
+            //Lista principal despliega primero
+
+            if (delegacionId.equals("2")){
+
+                Log.d("ENTREsPINNER2","$$$");
+                spinerSector2 = root.findViewById(R.id.spZona2);
+                ArrayAdapter adapterZona = ArrayAdapter.createFromResource(getActivity(), R.array.zonas_arrays_2, R.layout.spinner_item);
+                //Mostramos el contenido del source en un dropDown y lo seteamos.
+                adapterZona.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+                spinerSector2.setAdapter(adapterZona);
+                spinerSector2.setVisibility(View.VISIBLE);
+
+            }
+            if (delegacionId.equals("1")){
+
+                Log.d("ENTREsPINNER1","$$$");
+                spinerSector1 = root.findViewById(R.id.spZona1);
+                ArrayAdapter adapterZona = ArrayAdapter.createFromResource(getActivity(), R.array.zonas_arrays_1, R.layout.spinner_item);
+                //Mostramos el contenido del source en un dropDown y lo seteamos.
+                adapterZona.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+                spinerSector1.setAdapter(adapterZona);
+                spinerSector1.setVisibility(View.VISIBLE);
+
+            }
+            if (delegacionId.equals("3")){
+
+                Log.d("ENTREsPINNER3","$$$");
+                spinerSector3 = root.findViewById(R.id.spZona3);
+                ArrayAdapter adapterZona = ArrayAdapter.createFromResource(getActivity(), R.array.zonas_arrays_3, R.layout.spinner_item);
+                //Mostramos el contenido del source en un dropDown y lo seteamos.
+                adapterZona.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+                spinerSector3.setAdapter(adapterZona);
+                spinerSector3.setVisibility(View.VISIBLE);
+
+            }
+
+
         }
 
 
@@ -1395,7 +1435,9 @@ public class HomeFragment extends Fragment {
                             Intent intentWs = new Intent(getActivity(), Infracciones.class);
                             //licencia = editTextLicencia.getText().toString();
                             modalidad = spinnerModalidad.getSelectedItem().toString();
-                            sector = spinerSector.getSelectedItem().toString();
+                            sector = spinerSector1.getSelectedItem().toString();
+                            sector = spinerSector2.getSelectedItem().toString();
+                            sector = spinerSector3.getSelectedItem().toString();
                             infraccion1 = edtInfraccion1.getText().toString();
                             Log.d("INFRACCION1-1", "################========>>>>>" + infraccion1);
                             infraccion2 = edtInfraccion2.getText().toString();
@@ -1535,7 +1577,9 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("placa", PLACA);
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             Log.d("MODALIDAD1", "#################" + modalidad);
-                            sector = spinerSector.getSelectedItem().toString();
+                            sector = spinerSector1.getSelectedItem().toString();
+                            sector = spinerSector2.getSelectedItem().toString();
+                            sector = spinerSector3.getSelectedItem().toString();
                             infraccion1 = edtInfraccion1.getText().toString();
                             Log.d("INFRACCION1-2", "################========>>>>>" + infraccion1);
                             infraccion2 = edtInfraccion2.getText().toString();
