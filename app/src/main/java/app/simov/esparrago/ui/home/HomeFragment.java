@@ -66,6 +66,7 @@ import java.util.Map;
 
 import app.simov.esparrago.Drawer;
 import app.simov.esparrago.Infracciones;
+import app.simov.esparrago.MainActivity;
 import app.simov.esparrago.R;
 import app.simov.esparrago.WsgobConsulta;
 
@@ -260,6 +261,7 @@ public class HomeFragment extends Fragment {
     String vencimientoLicenciaWs;
     String nombreCompletoLicencia;
     String URLICENCIA = "https://simov.app/servicios/consultaLicencia.php";
+    AlertDialog.Builder dialogo;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -562,18 +564,35 @@ public class HomeFragment extends Fragment {
                 //Inicializamos el progress BAR
 
                 progressDialog.show();
-
                 banderaLicencia = false;
                 //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
                 editTextPlaca = root.findViewById(R.id.edtPlaca);
                 placa = editTextPlaca.getText().toString(); //gets you the contents of edit text
-
                 Log.d("Variable", "LICENCIA## " + placa);
                 String URL = "https://simov.app/servicios/controlVehicularNew.php";
-
                 //Envia Ws
-                enviarWSConsultaLicencia(URLICENCIA);
-                enviarWSConsultaInfraccion(URL);
+                if(edtInfraccion1.getText().toString().trim().equals("")||edtInfraccion1.getText().toString().trim().equals(null)||
+                        edtInfraccion2.getText().toString().trim().equals("")||edtInfraccion2.getText().toString().trim().equals(null)||
+                        edtInfraccion3.getText().toString().trim().equals("")||edtInfraccion3.getText().toString().trim().equals(null)||
+                        edtInfraccion4.getText().toString().trim().equals("")||edtInfraccion4.getText().toString().trim().equals(null)||
+                        edtInfraccion5.getText().toString().trim().equals("")||edtInfraccion5.getText().toString().trim().equals(null)){
+
+                    dialogo=new AlertDialog.Builder(getActivity());
+                    dialogo.setTitle("MENSAJE DEL THOR");
+                    dialogo.setMessage("Debes Ingresar Infracción");
+                    dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    dialogo.show();
+                    progressDialog.hide();
+                }else{
+                    enviarWSConsultaLicencia(URLICENCIA);
+                    enviarWSConsultaInfraccion(URL);
+                }
+
             }
         });
 
@@ -593,10 +612,27 @@ public class HomeFragment extends Fragment {
                 String URL = "https://simov.app/servicios/controlVehicularNew.php";
                 String URL2 = "https://simov.app/servicios/abdiel.php";
                 //Envia Ws
-                enviarWSInfraccion(URLINFRACCION);
-                enviarWSConsultaLicencia(URLICENCIA);
-                enviarWSConsulta(URL);
-                enviarWSConsultaRM(URL2);
+                Log.d("koke", "valor de EditText " + editTextLicencia);
+                Log.d("koke2", "valor de EditText " + editTextPlaca);
+
+                if (editTextLicencia.getText().toString().trim().equals("") && editTextPlaca.getText().toString().trim().equals("")){
+                    dialogo=new AlertDialog.Builder(getActivity());
+                    dialogo.setTitle("MENSAJE DEL THOR");
+                    dialogo.setMessage("Debes Ingresar Un elemento de consulta");
+                    dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    dialogo.show();
+                }else{
+                    enviarWSInfraccion(URLINFRACCION);
+                    enviarWSConsultaLicencia(URLICENCIA);
+                    enviarWSConsulta(URL);
+                    enviarWSConsultaRM(URL2);
+                }
+
 
             }
         });

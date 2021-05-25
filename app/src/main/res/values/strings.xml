@@ -55,6 +55,7 @@
 
 
     <string-array name="zonas_arrays_3">
+        <item>SELECCIONA-ZONA-SECTOR</item>
         <item>FORANEO/MANEADERO/BAJA</item>
         <item>FORANEO/MANEADERO/ALTA</item>
         <item>FORANEO/BUFADORA</item>
@@ -68,6 +69,7 @@
     </string-array>
 
     <string-array name="zonas_arrays_1">
+        <item>SELECCIONA-ZONA-SECTOR</item>
         <item>MXL_01</item>
         <item>MXL_02</item>
         <item>MXL_03</item>
@@ -81,13 +83,7 @@
         <item>MXL_11</item>
         <item>MXL_12</item>
         <item>MXL_13</item>
-
-
     </string-array>
-
-
-
-
 
     <string-array name="infracciones_arrays">
         <item>SELECCIONE-INFRACCION</item>
@@ -149,7 +145,25 @@
         <item>POR CIRCULAR EN RUTA DIFERENTE A LA REGISTRADA</item>
 
     </string-array>
+
     <string-array name="modalidad_arrays">
+        <item>SELECCIONE-MODALIDAD</item>
+        <item>TAXI-RUTA</item>
+        <item>TAXI-SITIO</item>
+        <item>TAXI-LIBRE</item>
+        <item>CARGA</item>
+        <item>ESCOLAR</item>
+        <item>GRUA-ARRASTRE-ALMACENAMIENTO-Y-DEPOSITO</item>
+        <item>MASIVO</item>
+        <item>ERT</item>
+        <item>TURISTICO-SIN-REGISTRO</item>
+        <item>OTRO-SIN-REGISTRO</item>
+
+
+    </string-array>
+
+
+   <!-- <string-array name="modalidad_arrays">
         <item>SELECCIONE-MODALIDAD</item>
         <item>PERMISO-TAXI-RUTA</item>
         <item>PERMISO-TAXI-SITIO</item>
@@ -175,7 +189,7 @@
         <item>OTRO-SIN-REGISTRO</item>
 
 
-    </string-array>
+    </string-array>-->
 
 
     <string name="title_activity_wsgob">Wsgob</string>
