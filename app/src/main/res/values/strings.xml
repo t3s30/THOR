@@ -39,7 +39,7 @@
         <item>PERIFERIA-TECATE</item>
 
 
-
+<!--
         <item>PONIENTE-TURISTICO</item>
         <item>PONIENTE-CENTRO</item>
         <item>PONIENTE-SALIDA-TIJUANA</item>
@@ -50,16 +50,16 @@
         <item>SUR/PLAYAS/HERMOSA</item>
         <item>SUR/GOBIERNO</item>
         <item>SUR/CHAPULTEPEC</item>
-        <item>SUR/VILLAS</item>
+        <item>SUR/VILLAS</item>-->
     </string-array>
 
 
     <string-array name="zonas_arrays_3">
-        <item>SELECCIONA-ZONA-SECTOR</item>
+       <!-- <item>SELECCIONA-ZONA-SECTOR</item>
         <item>FORANEO/MANEADERO/BAJA</item>
         <item>FORANEO/MANEADERO/ALTA</item>
         <item>FORANEO/BUFADORA</item>
-        <item>FORANEO/VALLE/GPE</item>
+        <item>FORANEO/VALLE/GPE</item>-->
         <item>ENS_01</item>
         <item>ENS_02</item>
         <item>ENS_03</item>
@@ -217,7 +217,7 @@
     <string name="ELIMINAR">ELIMINAR</string>
     <string name="QR">QR GAFETE-TARJETON</string>
     <string name="foto_placa">FOTO PLACA</string>
-    <string name="version">Gerencia de sistemas | IMOS | Version-28.0.0 ▲</string>
+    <string name="version">Gerencia de sistemas | IMOS | Version-28.5.0 ▲</string>
 
     <!--Strings Infracciones-->
     <string name="INFRACIONES_THOR">INFRACIONES-THOR</string>

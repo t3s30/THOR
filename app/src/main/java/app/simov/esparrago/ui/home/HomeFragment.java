@@ -118,7 +118,9 @@ public class HomeFragment extends Fragment {
     Spinner spinerSector2;
     Spinner spinerSector3;
     String modalidad;
-    String sector;
+    String sector1;
+    String sector2;
+    String sector3;
     String infraccion1;
     String infraccion2;
     String infraccion3;
@@ -571,11 +573,14 @@ public class HomeFragment extends Fragment {
                 Log.d("Variable", "LICENCIA## " + placa);
                 String URL = "https://simov.app/servicios/controlVehicularNew.php";
                 //Envia Ws
-                if(edtInfraccion1.getText().toString().trim().equals("")||edtInfraccion1.getText().toString().trim().equals(null)||
-                        edtInfraccion2.getText().toString().trim().equals("")||edtInfraccion2.getText().toString().trim().equals(null)||
-                        edtInfraccion3.getText().toString().trim().equals("")||edtInfraccion3.getText().toString().trim().equals(null)||
-                        edtInfraccion4.getText().toString().trim().equals("")||edtInfraccion4.getText().toString().trim().equals(null)||
-                        edtInfraccion5.getText().toString().trim().equals("")||edtInfraccion5.getText().toString().trim().equals(null)){
+               /* if(edtInfraccion1.getText().toString().trim().equals(null)&&
+                        edtInfraccion2.getText().toString().trim().equals(null)&&
+                        edtInfraccion3.getText().toString().trim().equals(null)&&
+                        edtInfraccion4.getText().toString().trim().equals(null)&&
+                        edtInfraccion5.getText().toString().trim().equals(null)){*/
+                Log.d("CUENTA", "VALOR## " + cuenta);
+
+                    if(cuenta==0){
 
                     dialogo=new AlertDialog.Builder(getActivity());
                     dialogo.setTitle("MENSAJE DEL THOR");
@@ -1471,9 +1476,29 @@ public class HomeFragment extends Fragment {
                             Intent intentWs = new Intent(getActivity(), Infracciones.class);
                             //licencia = editTextLicencia.getText().toString();
                             modalidad = spinnerModalidad.getSelectedItem().toString();
-                            sector = spinerSector1.getSelectedItem().toString();
-                            sector = spinerSector2.getSelectedItem().toString();
-                            sector = spinerSector3.getSelectedItem().toString();
+
+                            try {
+                                if(spinerSector1.getSelectedItem().toString().trim().equals(null)){
+                                    sector1 = "SIN-SECTOR";
+                                }else{
+                                    sector1 = spinerSector1.getSelectedItem().toString();
+                                }
+                                if(spinerSector2.getSelectedItem().toString().trim().equals(null)){
+                                    sector2 = "SIN-SECTOR";
+                                }else{
+                                    sector2 = spinerSector1.getSelectedItem().toString();
+                                }
+                                if(spinerSector3.getSelectedItem().toString().trim().equals(null)){
+                                    sector3 = "SIN-SECTOR";
+                                }else{
+                                    sector3 = spinerSector1.getSelectedItem().toString();
+                                }
+
+                            }catch (Exception e){
+
+                            }
+
+
                             infraccion1 = edtInfraccion1.getText().toString();
                             Log.d("INFRACCION1-1", "################========>>>>>" + infraccion1);
                             infraccion2 = edtInfraccion2.getText().toString();
@@ -1495,7 +1520,9 @@ public class HomeFragment extends Fragment {
 
                             String cuentaString = Integer.toString(cuenta);
 
-                            intentWs.putExtra("sector", sector);
+                            intentWs.putExtra("sector1", sector1);
+                            intentWs.putExtra("sector2", sector2);
+                            intentWs.putExtra("sector3", sector3);
                             intentWs.putExtra("modalidad", modalidad);
                             intentWs.putExtra("infra1", infraccion1);
                             intentWs.putExtra("infra2", infraccion2);
@@ -1613,9 +1640,31 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("placa", PLACA);
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             Log.d("MODALIDAD1", "#################" + modalidad);
-                            sector = spinerSector1.getSelectedItem().toString();
-                            sector = spinerSector2.getSelectedItem().toString();
-                            sector = spinerSector3.getSelectedItem().toString();
+
+                            try {
+                                if(spinerSector1.getSelectedItem().toString().trim().equals(null)){
+                                    sector1 = "SIN-SECTOR";
+                                }else{
+                                    sector1 = spinerSector1.getSelectedItem().toString();
+                                }
+                                if(spinerSector2.getSelectedItem().toString().trim().equals(null)){
+                                    sector2 = "SIN-SECTOR";
+                                }else{
+                                    sector2 = spinerSector1.getSelectedItem().toString();
+                                }
+                                if(spinerSector3.getSelectedItem().toString().trim().equals(null)){
+                                    sector3 = "SIN-SECTOR";
+                                }else{
+                                    sector3 = spinerSector1.getSelectedItem().toString();
+                                }
+
+                            }catch (Exception e){
+
+                            }
+
+
+
+
                             infraccion1 = edtInfraccion1.getText().toString();
                             Log.d("INFRACCION1-2", "################========>>>>>" + infraccion1);
                             infraccion2 = edtInfraccion2.getText().toString();
@@ -1624,7 +1673,10 @@ public class HomeFragment extends Fragment {
                             infraccion5 = edtInfraccion5.getText().toString();
                             String cuentaString = Integer.toString(cuenta);
 
-                            intentWs.putExtra("sector", sector);
+                            intentWs.putExtra("sector1", sector1);
+                            intentWs.putExtra("sector2", sector2);
+                            intentWs.putExtra("sector3", sector3);
+
                             intentWs.putExtra("modalidad", modalidad);
                             Log.d("MODALIDAD2", "#################" + modalidad);
                             intentWs.putExtra("infra1", infraccion1);

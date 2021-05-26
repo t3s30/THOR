@@ -127,7 +127,10 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
     String   infra5;
     String   infraConcat;
     String   cuenta;
-    String   sector;
+    String   sector1;
+    String   sector2;
+    String   sector3;
+    String folio;
     TextView tvModalidadInfraccion;
     TextView tvSectorInfraccion;
     EditText edtComentarios;
@@ -398,8 +401,12 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
 
             modalidad = bundle.getString("modalidad");
             Log.d("SECTORLOG","VALOR MODALIDAD INFRACCIONES"+ modalidad);
-            sector = bundle.getString("sector");
-            Log.d("SECTORLOG","VALOR SECTOR INFRACCIONES"+ sector);
+
+            sector1 = bundle.getString("sector1");
+            sector2 = bundle.getString("sector2");
+            sector3 = bundle.getString("sector3");
+
+            Log.d("SECTORLOG","VALOR SECTOR INFRACCIONES"+ sector1);
 
 
 
@@ -423,7 +430,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
 
 
 
-            Log.d("SECOTR","$$%$%$%$%$%$%$"+sector);
+            Log.d("SECOTR","$$%$%$%$%$%$%$"+sector1);
             Log.d("MODALIDAD3","============================="+modalidad);
 
             if (modalidad!= null){
@@ -443,23 +450,61 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 modalidad = "SIN MODALIDAD";
             }
 
-if (sector !=null){
-    if(sector.equals("NORTE-CENTRO") || sector.equals("NORTE-OTAY") || sector.equals("NORTE-AGUA-CALIENTE") || sector.equals("NORTE-5Y10") || sector.equals("SUR-NATURA") || sector.equals("SUR-BLV-BENITEZ") ||
-            sector.equals("SUR-DIAZ-ORDAZ") || sector.equals("ESTE-CARR-TECATE") || sector.equals("ESTE-LA-PRESA") || sector.equals("ESTE-LA-PRESA-NORTE") || sector.equals("ESTE-INSURGENTES") || sector.equals("ESTE-FLORIDO") || sector.equals("OESTE-PACIFICO") ||
-            sector.equals("OESTE-SANTE-FE") || sector.equals("PERIFERIA-PLAYAS") || sector.equals("PERIFERIA-SOLER") || sector.equals("PERIFERIA-ROSARITO") || sector.equals("PERIFERIA-TECATE")){
+if (sector1 !=null){
+    if(sector1.equals("NORTE-CENTRO") || sector1.equals("NORTE-OTAY") || sector1.equals("NORTE-AGUA-CALIENTE") || sector1.equals("NORTE-5Y10") || sector1.equals("SUR-NATURA") || sector1.equals("SUR-BLV-BENITEZ") ||
+            sector1.equals("SUR-DIAZ-ORDAZ") || sector1.equals("ESTE-CARR-TECATE") || sector1.equals("ESTE-LA-PRESA") || sector1.equals("ESTE-LA-PRESA-NORTE") || sector1.equals("ESTE-INSURGENTES") || sector1.equals("ESTE-FLORIDO") || sector1.equals("OESTE-PACIFICO") ||
+            sector1.equals("OESTE-SANTE-FE") || sector1.equals("PERIFERIA-PLAYAS") || sector1.equals("PERIFERIA-SOLER") || sector1.equals("PERIFERIA-ROSARITO") || sector1.equals("PERIFERIA-TECATE")){
 
         sectorId = "2";
 
     }
-    if(sector.equals("PONIENTE-TURISTICO") || sector.equals("PONIENTE-CENTRO") || sector.equals("PONIENTE-SALIDA-TIJUANA") || sector.equals("ORIENTE/LIBRAMIENTO") || sector.equals("ORIENTE/CORTEZ") ||
-            sector.equals("ORIENTE/ESMERALDA") || sector.equals("SUR/PLAYAS/HERMOSA") || sector.equals("SUR/GOBIERNO") || sector.equals("SUR/CHAPULTEPEC") || sector.equals("SUR/VILLAS") ||
-            sector.equals("FORANEO/MANEADERO/BAJA") || sector.equals("FORANEO/MANEADERO/ALTA") || sector.equals("FORANEO/BUFADORA") || sector.equals("FORANEO/VALLE/GPE")){
+    if(sector1.equals("PONIENTE-TURISTICO") || sector1.equals("PONIENTE-CENTRO") || sector1.equals("PONIENTE-SALIDA-TIJUANA") || sector1.equals("ORIENTE/LIBRAMIENTO") || sector1.equals("ORIENTE/CORTEZ") ||
+            sector1.equals("ORIENTE/ESMERALDA") || sector1.equals("SUR/PLAYAS/HERMOSA") || sector1.equals("SUR/GOBIERNO") || sector1.equals("SUR/CHAPULTEPEC") || sector1.equals("SUR/VILLAS") ||
+            sector1.equals("FORANEO/MANEADERO/BAJA") || sector1.equals("FORANEO/MANEADERO/ALTA") || sector1.equals("FORANEO/BUFADORA") || sector1.equals("FORANEO/VALLE/GPE")){
 
         sectorId = "3";
     }
 }else{
-    sector="SIN SECTOR";
+    sector1="SIN-SECTOR1";
 }
+
+            if (sector2 !=null){
+                if(sector2.equals("NORTE-CENTRO") || sector2.equals("NORTE-OTAY") || sector2.equals("NORTE-AGUA-CALIENTE") || sector2.equals("NORTE-5Y10") || sector2.equals("SUR-NATURA") || sector2.equals("SUR-BLV-BENITEZ") ||
+                        sector2.equals("SUR-DIAZ-ORDAZ") || sector2.equals("ESTE-CARR-TECATE") || sector2.equals("ESTE-LA-PRESA") || sector2.equals("ESTE-LA-PRESA-NORTE") || sector2.equals("ESTE-INSURGENTES") || sector2.equals("ESTE-FLORIDO") || sector2.equals("OESTE-PACIFICO") ||
+                        sector2.equals("OESTE-SANTE-FE") || sector2.equals("PERIFERIA-PLAYAS") || sector2.equals("PERIFERIA-SOLER") || sector2.equals("PERIFERIA-ROSARITO") || sector2.equals("PERIFERIA-TECATE")){
+
+                    sectorId = "2";
+
+                }
+                if(sector2.equals("PONIENTE-TURISTICO") || sector2.equals("PONIENTE-CENTRO") || sector2.equals("PONIENTE-SALIDA-TIJUANA") || sector2.equals("ORIENTE/LIBRAMIENTO") || sector2.equals("ORIENTE/CORTEZ") ||
+                        sector2.equals("ORIENTE/ESMERALDA") || sector2.equals("SUR/PLAYAS/HERMOSA") || sector2.equals("SUR/GOBIERNO") || sector2.equals("SUR/CHAPULTEPEC") || sector2.equals("SUR/VILLAS") ||
+                        sector2.equals("FORANEO/MANEADERO/BAJA") || sector2.equals("FORANEO/MANEADERO/ALTA") || sector2.equals("FORANEO/BUFADORA") || sector2.equals("FORANEO/VALLE/GPE")){
+
+                    sectorId = "3";
+                }
+            }else{
+                sector2="SIN-SECTOR2";
+            }
+
+            if (sector3 !=null){
+                if(sector3.equals("NORTE-CENTRO") || sector3.equals("NORTE-OTAY") || sector3.equals("NORTE-AGUA-CALIENTE") || sector3.equals("NORTE-5Y10") || sector3.equals("SUR-NATURA") || sector3.equals("SUR-BLV-BENITEZ") ||
+                        sector3.equals("SUR-DIAZ-ORDAZ") || sector3.equals("ESTE-CARR-TECATE") || sector3.equals("ESTE-LA-PRESA") || sector3.equals("ESTE-LA-PRESA-NORTE") || sector3.equals("ESTE-INSURGENTES") || sector3.equals("ESTE-FLORIDO") || sector3.equals("OESTE-PACIFICO") ||
+                        sector3.equals("OESTE-SANTE-FE") || sector3.equals("PERIFERIA-PLAYAS") || sector3.equals("PERIFERIA-SOLER") || sector3.equals("PERIFERIA-ROSARITO") || sector3.equals("PERIFERIA-TECATE")){
+
+                    sectorId = "2";
+
+                }
+                if(sector3.equals("PONIENTE-TURISTICO") || sector3.equals("PONIENTE-CENTRO") || sector3.equals("PONIENTE-SALIDA-TIJUANA") || sector3.equals("ORIENTE/LIBRAMIENTO") || sector3.equals("ORIENTE/CORTEZ") ||
+                        sector3.equals("ORIENTE/ESMERALDA") || sector3.equals("SUR/PLAYAS/HERMOSA") || sector3.equals("SUR/GOBIERNO") || sector3.equals("SUR/CHAPULTEPEC") || sector3.equals("SUR/VILLAS") ||
+                        sector3.equals("FORANEO/MANEADERO/BAJA") || sector3.equals("FORANEO/MANEADERO/ALTA") || sector3.equals("FORANEO/BUFADORA") || sector3.equals("FORANEO/VALLE/GPE")){
+
+                    sectorId = "3";
+                }
+            }else{
+                sector3="SIN-SECTOR3";
+            }
+
+
 
 
             infra1 = bundle.getString("infra1");
@@ -605,7 +650,7 @@ if (sector !=null){
 
     private void cargarAceptacion() {
         Log.d("ENTRE","$$$");
-        if(edtFolio.getText().toString().trim().equals("")||edtFolio.getText().toString().trim().equals(null)){
+        if(edtFolio.getText().toString().trim().equals("")){
             AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
             dialogo.setTitle("FOLIO VACIO");
             dialogo.setMessage("EL CAMPO FOLIO ES OBLIGATORIO");
@@ -1353,17 +1398,36 @@ if (sector !=null){
     }
 
 
-
     //SUBIR INFRACCION
     public void cargarInfraccion() {
-        progressDialog.show();
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressDialog.hide();
+                        progressDialog.show();
 
-                        cargarAceptacion();
+
+                        if (edtFolio.getText().toString().trim().equals(null)){
+                            AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
+                            dialogo.setTitle("FOLIO VACIO");
+                            dialogo.setMessage("EL CAMPO FOLIO ES OBLIGATORIO");
+
+
+                            dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                                }
+                            });
+                            progressDialog.hide();
+                            dialogo.show();
+                        }else{
+                            progressDialog.hide();
+                            cargarAceptacion();
+                        }
+
 
 
                     }
@@ -1371,7 +1435,7 @@ if (sector !=null){
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                progressDialog.show();
+                progressDialog.hide();
                 //CUANDO FALLA LA CAERGA DE LA INFRACCION
                 cargarCancelacion();
 
@@ -1501,6 +1565,9 @@ if (sector !=null){
 
                 params.put("comentarios",comentarios);
                 Log.d("CARGA-IFRN-16","Valor licencia antes de cargar Infraccion : "+ comentarios);
+
+
+
                 params.put("folio",folio);
                 Log.d("CARGA-IFRN-17","Valor licencia antes de cargar Infraccion : "+ folio);
 
