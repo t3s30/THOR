@@ -282,7 +282,9 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
             licenciaWs = bundle.getString("licenciaWs");
             vencimientoLicenciaWs = bundle.getString("vecimientoLicenciaWs");
             nombreCompletoLicenciaWs = bundle.getString("nombreCompletoLicenciaWs");
-
+            if(licenciaWs.equals(null)){
+                licenciaWs = "NO-LICENCIA";
+            }
 
             try {
                 if (licenciaWs.equals("NO-LICENCIA")){
@@ -1278,15 +1280,13 @@ if (sector1 !=null){
                 }
 
 
-
+                //TODO
                 params.put("num",licenciaWs);
                 Log.d("CARGA-IFRN-1","Valor licencia antes de cargar Infraccion : "+ licenciaWs);
                 params.put("nombreL",nombreCompletoLicenciaWs);
                 Log.d("CARGA-IFRN-12","Valor licencia antes de cargar Infraccion : "+ nombreCompletoLicenciaWs);
                 params.put("fvl",vencimientoLicenciaWs);
                 Log.d("CARGA-IFRN-13","Valor licencia antes de cargar Infraccion : "+ vencimientoLicenciaWs);
-
-
 
                 //Infra
                 if (cuenta.equals("1")){
