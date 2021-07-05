@@ -279,23 +279,39 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
 
             //##################### BLOQUE LICENCIAS #######################################################
             //Datos Licencia que vienen del HomeFragment
-            licenciaWs = bundle.getString("licenciaWs");
-            vencimientoLicenciaWs = bundle.getString("vecimientoLicenciaWs");
-            nombreCompletoLicenciaWs = bundle.getString("nombreCompletoLicenciaWs");
-            if(licenciaWs.equals(null)){
-                licenciaWs = "NO-LICENCIA";
-            }
 
             try {
+                licenciaWs = bundle.getString("licenciaWs");
+                vencimientoLicenciaWs = bundle.getString("vecimientoLicenciaWs");
+                nombreCompletoLicenciaWs = bundle.getString("nombreCompletoLicenciaWs");
+
                 if (licenciaWs.equals("NO-LICENCIA")){
                     //Textos de Licencias.
                    // textViewNombre.setText("NO-DATA");
-                    textViewLicencia.setText("NO-DATA");
-                    textViewFechaVencimiento.setText("NO-DATA");
+                    textViewLicencia.setText("NO-LICENCIA");
+                    textViewFechaVencimiento.setText("NO-LICENCIA");
+                    licenciaWs = "NO-LICENCIA";
                     Log.d("B-l-Infracciones-1","Valor licencia del Bundle recojido :"+ licenciaWs);
                     licenciaWs = "NO-LICENCIA";
                     vencimientoLicenciaWs = "NO-LICENCUA";
                     nombreCompletoLicenciaWs = "NO-LICENCIA";
+
+                    AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
+                    dialogo.setTitle("CONSULTA LICENCIA");
+                    dialogo.setMessage("LICENCIA MAL CAPTURADA O INEXISTENTE");
+
+
+                    dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                        }
+                    });
+
+                    dialogo.show();
+
+
                 }else{
                     //Textos de Licencias.
                    // textViewNombre.setText(nombreCompletoLicenciaWs);
@@ -306,9 +322,31 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
             }catch(Exception error){
                 //Textos de Licencias.
                // textViewNombre.setText("NO-DATA");
-                textViewLicencia.setText("NO-DATA");
-                textViewFechaVencimiento.setText("NO-DATA");
+                textViewLicencia.setText("NO-LICENCIA");
+                textViewFechaVencimiento.setText("NO-LICENCIA");
                 Log.d("B-l-Infracciones-3","Valor licencia del Bundle recojido :"+ licenciaWs);
+
+
+                AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
+                dialogo.setTitle("CONSULTA LICENCIA");
+                dialogo.setMessage("LICENCIA MAL CAPTURADA O INEXISTENTE");
+
+
+                dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(Infracciones.this, Drawer.class);
+                        startActivity(intent);
+                        onBackPressed();
+                        finish();
+
+                    }
+                });
+                licenciaWs = "NO-LICENCIA";
+                dialogo.show();
+
+
+
             }
             //##################### TERMINA BLOQUE LICENCIAS #######################################################
 
@@ -1280,13 +1318,23 @@ if (sector1 !=null){
                 }
 
 
-                //TODO
-                params.put("num",licenciaWs);
-                Log.d("CARGA-IFRN-1","Valor licencia antes de cargar Infraccion : "+ licenciaWs);
-                params.put("nombreL",nombreCompletoLicenciaWs);
-                Log.d("CARGA-IFRN-12","Valor licencia antes de cargar Infraccion : "+ nombreCompletoLicenciaWs);
-                params.put("fvl",vencimientoLicenciaWs);
-                Log.d("CARGA-IFRN-13","Valor licencia antes de cargar Infraccion : "+ vencimientoLicenciaWs);
+                try{
+                    params.put("num",licenciaWs);
+                    Log.d("CARGA-IFRN-1","Valor licencia antes de cargar Infraccion : "+ licenciaWs);
+                    params.put("nombreL",nombreCompletoLicenciaWs);
+                    Log.d("CARGA-IFRN-12","Valor licencia antes de cargar Infraccion : "+ nombreCompletoLicenciaWs);
+                    params.put("fvl",vencimientoLicenciaWs);
+                    Log.d("CARGA-IFRN-13","Valor licencia antes de cargar Infraccion : "+ vencimientoLicenciaWs);
+                }catch(Exception e){
+                    params.put("num","NO-LICENCIA");
+                    Log.d("CARGA-IFRN-1","Valor licencia antes de cargar Infraccion : "+ licenciaWs);
+                    params.put("nombreL","NO-LICENCIA");
+                    Log.d("CARGA-IFRN-12","Valor licencia antes de cargar Infraccion : "+ nombreCompletoLicenciaWs);
+                    params.put("fvl","NO-LICENCIA");
+                    params.put("fvl","NO-LICENCIA");
+                    Log.d("CARGA-IFRN-13","Valor licencia antes de cargar Infraccion : "+ vencimientoLicenciaWs);
+                }
+
 
                 //Infra
                 if (cuenta.equals("1")){
@@ -1677,6 +1725,7 @@ if (sector1 !=null){
     {
         //Para llamarse asi mismo y ejecutarse
         super.onBackPressed();
+        
         //Terminando la actividad en curso
         this.finish();
         //Regresando a la actividad principal
@@ -1689,7 +1738,7 @@ if (sector1 !=null){
         gotoBack.putExtra("nombre",nombreLogin);
         gotoBack.putExtra("delegacionId",delegacionId);
         gotoBack.putExtra("activo",activo);
-        gotoBack.putExtra("licencia",licenciaWs);
+        gotoBack.putExtra("licencia","");
         if (propietario==null){
             gotoBack.putExtra("placa","");
         }else{
