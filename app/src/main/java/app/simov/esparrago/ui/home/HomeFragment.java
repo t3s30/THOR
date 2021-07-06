@@ -570,6 +570,7 @@ public class HomeFragment extends Fragment {
                 //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
                 editTextPlaca = root.findViewById(R.id.edtPlaca);
                 placa = editTextPlaca.getText().toString(); //gets you the contents of edit text
+                licenciaWs = editTextLicencia.getText().toString(); //gets you the contents of edit text
                 Log.d("Variable", "LICENCIA## " + placa);
                 String URL = "https://simov.app/servicios/controlVehicularNew.php";
                 //Envia Ws
@@ -612,7 +613,8 @@ public class HomeFragment extends Fragment {
                 //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
                 editTextPlaca = root.findViewById(R.id.edtPlaca);
                 placa = editTextPlaca.getText().toString(); //gets you the contents of edit text
-
+                editTextLicencia = root.findViewById(R.id.edtPlaca);
+                licenciaWs = editTextLicencia.getText().toString(); //gets you the contents of edit text
                 Log.d("Variable-Placa", "valor de la placa EditText " + placa);
                 String URL = "https://simov.app/servicios/controlVehicularNew.php";
                 String URL2 = "https://simov.app/servicios/abdiel.php";

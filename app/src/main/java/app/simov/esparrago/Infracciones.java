@@ -385,9 +385,9 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 placa = "null";
 
             }else{
-                licenciaWs = "NO-LICENCIA";
+                /*licenciaWs = "NO-LICENCIA";
                 nombreCompletoLicenciaWs = "NO-LICENCIA";
-                vencimientoLicenciaWs = "NO-LICENCIA";
+                vencimientoLicenciaWs = "NO-LICENCIA";*/
 
                 placa = bundle.getString("placa");
                 Log.d("VALIDA-FLUJO-2","Entro a la validacion de la PLACA : "+ placa);
@@ -1725,7 +1725,7 @@ if (sector1 !=null){
     {
         //Para llamarse asi mismo y ejecutarse
         super.onBackPressed();
-        
+
         //Terminando la actividad en curso
         this.finish();
         //Regresando a la actividad principal
