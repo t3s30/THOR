@@ -487,7 +487,7 @@ public class HomeFragment extends Fragment {
                 adapterZona.setDropDownViewResource(R.layout.spinner_dropdown_layout);
                 spinerSector2.setAdapter(adapterZona);
                 spinerSector2.setVisibility(View.VISIBLE);
-
+                Log.d(_TAG,"Delegacion id 2");
             }
             if (delegacionId.equals("1")){
                 spinerSector1 = root.findViewById(R.id.spZona1);
@@ -496,7 +496,7 @@ public class HomeFragment extends Fragment {
                 adapterZona.setDropDownViewResource(R.layout.spinner_dropdown_layout);
                 spinerSector1.setAdapter(adapterZona);
                 spinerSector1.setVisibility(View.VISIBLE);
-
+                Log.d(_TAG,"Delegacion id 1");
             }
             if (delegacionId.equals("3")){
                 spinerSector3 = root.findViewById(R.id.spZona3);
@@ -505,7 +505,7 @@ public class HomeFragment extends Fragment {
                 adapterZona.setDropDownViewResource(R.layout.spinner_dropdown_layout);
                 spinerSector3.setAdapter(adapterZona);
                 spinerSector3.setVisibility(View.VISIBLE);
-
+                Log.d(_TAG,"Delegacion id 3");
             }
         }
 
@@ -1380,20 +1380,6 @@ public class HomeFragment extends Fragment {
             @Override
             //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
             public void onResponse(String response) {
-                /*int importantInfo = 4;
-                for (int i = 0;
-                     i < importantInfo;
-                     i++) {
-                    //Pause for 4 seconds
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    //Print a message
-                    System.out.println(importantInfo);
-                }*/
-
                 progressDialog.show();
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
@@ -1403,41 +1389,48 @@ public class HomeFragment extends Fragment {
                     try {
                         //Convertimos el String en JsonObject
                         /*JSONObject obj = new JSONObject(response);*/
-
                         JSONArray jsonarray = new JSONArray(response);
-
-
-                        Log.d("objVehicular", "###Respuesta WS padron vehicular" + jsonarray.toString());
+                        Log.d(_TAG, "objVehicular" + jsonarray.toString());
                         //Accedemos al valor del Objeto deseado completo.
                         // JSONArray jsonarray = obj.getJSONArray("data");
-
-                        Log.w("jARRAY", "### QUE TIENE EL ARRAY?" + jsonarray.toString());
+                        Log.w(_TAG, "jARRAY" + jsonarray.toString());
 
 
                         if (jsonarray.length() == 0) {
-                            Log.d("#####", "#### ENTRE");
+                            Log.d(_TAG, "Validacion Array");
                             Intent intentWs = new Intent(getActivity(), Infracciones.class);
                             //licencia = editTextLicencia.getText().toString();
                             modalidad = spinnerModalidad.getSelectedItem().toString();
+                            Log.d(_TAG, "ENTRE -1 #");
 
                             try {
-                                if(spinerSector1.getSelectedItem().toString().trim().equals(null)){
-                                    sector1 = "SIN-SECTOR";
-                                }else{
-                                    sector1 = spinerSector1.getSelectedItem().toString();
-                                }
-                                if(spinerSector2.getSelectedItem().toString().trim().equals(null)){
-                                    sector2 = "SIN-SECTOR";
-                                }else{
-                                    sector2 = spinerSector1.getSelectedItem().toString();
-                                }
-                                if(spinerSector3.getSelectedItem().toString().trim().equals(null)){
-                                    sector3 = "SIN-SECTOR";
-                                }else{
-                                    sector3 = spinerSector1.getSelectedItem().toString();
-                                }
 
-                            }catch (Exception e){
+
+
+                                sector1 = spinerSector1.getSelectedItem().toString();
+                                intentWs.putExtra("sector1", sector1);
+                                Log.w(_TAG, "SETEO SECTODDDD" + sector1);
+                            } catch (Exception e) {
+
+                            }
+                            try {
+
+
+
+                                sector2 = spinerSector1.getSelectedItem().toString();
+                                intentWs.putExtra("sector2", sector2);
+                                Log.w(_TAG, "SETEO SECTOR 2DDDD"+ sector2);
+                            } catch (Exception e) {
+
+                            }
+                            try {
+
+
+                                sector3 = spinerSector1.getSelectedItem().toString();
+                                intentWs.putExtra("sector3", sector3);
+                                Log.w(_TAG, "SETEO SECTOR 3DDDD" + sector3);
+                            } catch (Exception e) {
+
 
                             }
 
@@ -1499,9 +1492,9 @@ public class HomeFragment extends Fragment {
                             // Boolean validaEstatus = false;
 
                             try {
+                                Log.d(_TAG, "ENTRE -2 #");
                                 String ESTATUS = jsonarray.getString(24);
                                 Log.d("ESTATUS-HOME-PLACA", "### VALOR ESTATUS: " + ESTATUS);
-
                                 if (ESTATUS.equals("ACTIVO") || ESTATUS.equals("BAJA TEMPORAL") || ESTATUS.equals("BAJA DEFINITIVA")) {
                                     intentWs.putExtra("economico", "NO APLICA");
                                     intentWs.putExtra("Wcolor", "NO-APLICA");
@@ -1531,10 +1524,71 @@ public class HomeFragment extends Fragment {
                             } catch (Exception e) {
                                 progressDialog.hide();
                             }
+                                try {
+
+                                    sector1 = spinerSector1.getSelectedItem().toString();
+                                    intentWs.putExtra("sector1", sector1);
+                                    Log.w(_TAG, "SETEO SECTOR 1aaa"+sector1);
+                                } catch (Exception e) {
+
+                                }
+                                try {
+
+
+
+                                    sector2 = spinerSector1.getSelectedItem().toString();
+                                    intentWs.putExtra("sector2", sector2);
+                                    Log.w(_TAG, "SETEO SECTOR aaaa"+sector2);
+                                } catch (Exception e) {
+
+                                }
+                                try {
+
+
+                                    sector3 = spinerSector1.getSelectedItem().toString();
+                                    intentWs.putExtra("sector3", sector3);
+                                    Log.w(_TAG, "SETEO SECTOR aaaa" + sector3);
+                                } catch (Exception e) {
+
+
+                                }
+
+
+
                             try {
+
                                 String ESTATUST = jsonarray.getString(2);
                                 Log.d("WS111", "entreeeeeee   " + ESTATUST);
                                 if (ESTATUST.equals("ACTIVO") || ESTATUST.equals("BAJA TEMPORAL")) {
+                                    Log.d(_TAG, "ENTRE -3 #");
+                                   /* try {
+                                        Log.w(_TAG, "TRY SECTORES");
+                                        if(spinerSector1.getSelectedItem().toString().trim().equals(null)){
+                                            sector1 = "SIN-SECTOR";
+                                        }else{
+                                            intentWs.putExtra("sector1", sector1);
+                                            Log.w(_TAG, "SETEO SECTOR 1");
+                                            sector1 = spinerSector1.getSelectedItem().toString();
+                                        }
+                                        if(spinerSector2.getSelectedItem().toString().trim().equals(null)){
+                                            sector2 = "SIN-SECTOR";
+                                        }else{
+                                            intentWs.putExtra("sector2", sector2);
+                                            Log.w(_TAG, "SETEO SECTOR 2");
+                                            sector2 = spinerSector1.getSelectedItem().toString();
+                                        }
+                                        if(spinerSector3.getSelectedItem().toString().trim().equals(null)){
+                                            sector3 = "SIN-SECTOR";
+                                        }else{
+                                            intentWs.putExtra("sector3", sector3);
+                                            Log.w(_TAG, "SETEO SECTOR 3");
+                                            sector3 = spinerSector1.getSelectedItem().toString();
+                                        }
+
+                                    }catch (Exception e){
+
+                                    }*/
+
                                     Log.d("WS44", "entreeeeeee   " + ESTATUST);
                                     intentWs.putExtra("estatus", ESTATUST);
                                     String economico = jsonarray.getString(1);
@@ -1584,26 +1638,37 @@ public class HomeFragment extends Fragment {
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             Log.d("MODALIDAD1", "#################" + modalidad);
 
-                            try {
-                                if(spinerSector1.getSelectedItem().toString().trim().equals(null)){
-                                    sector1 = "SIN-SECTOR";
-                                }else{
+                           /* sector2 = spinerSector2.getSelectedItem().toString();
+                            intentWs.putExtra("sector2", sector2);
+                            Log.w(_TAG, "SETEO SECTOR2 fff"+sector2);*/
+                                try {
+
                                     sector1 = spinerSector1.getSelectedItem().toString();
-                                }
-                                if(spinerSector2.getSelectedItem().toString().trim().equals(null)){
-                                    sector2 = "SIN-SECTOR";
-                                }else{
-                                    sector2 = spinerSector1.getSelectedItem().toString();
-                                }
-                                if(spinerSector3.getSelectedItem().toString().trim().equals(null)){
-                                    sector3 = "SIN-SECTOR";
-                                }else{
-                                    sector3 = spinerSector1.getSelectedItem().toString();
-                                }
+                                    intentWs.putExtra("sector1", sector1);
+                                    Log.w(_TAG, "SETEO SECTOR1 ff"+sector1);
+                                } catch (Exception e) {
 
-                            }catch (Exception e){
+                                }
+                                try {
 
-                            }
+
+
+                                    sector2 = spinerSector2.getSelectedItem().toString();
+                                    intentWs.putExtra("sector2", sector2);
+                                    Log.w(_TAG, "SETEO SECTOR2 fff"+sector2);
+                                } catch (Exception e) {
+
+                                }
+                                try {
+
+
+                                    sector3 = spinerSector3.getSelectedItem().toString();
+                                    intentWs.putExtra("sector3", sector3);
+                                    Log.w(_TAG, "SETEO SECTOR3 ffff" + sector3);
+                                } catch (Exception e) {
+
+
+                                }
 
 
 
@@ -1634,6 +1699,8 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("vecimientoLicenciaWs",vencimientoLicenciaWs);
                             intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
                             Log.d("L-I-WS-4", "VALOR CUANDO TRAE PLACA" + licenciaWs);
+
+
 
                             startActivity(intentWs);
                         }

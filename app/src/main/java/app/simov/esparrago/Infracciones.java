@@ -132,7 +132,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
     String   sector3;
     String folio;
     TextView tvModalidadInfraccion;
-    TextView tvSectorInfraccion;
+    TextView tvZonaSector;
     EditText edtComentarios;
     EditText edtFolio;
     String UPLOAD_URL = "https://simov.app/servicios/insertaInfraccion.php";
@@ -199,7 +199,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
     //VALIDACION MSJ
     String mensaje;
     private final String _TAG = "INFRALOG";
-
+    private String zonaSectorFinal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -234,7 +234,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
         tvVimInfraccion = findViewById(R.id.tvVimInfraccion);
         //tvInfraInfraccion = findViewById(R.id.tvInfraInfraccion);
         tvModalidadInfraccion = findViewById(R.id.tvModalidadInfraccion);
-        tvSectorInfraccion = findViewById(R.id.tvSector);
+        tvZonaSector = findViewById(R.id.tvZonaSector);
         tvInfraInfraccion = findViewById(R.id.tvInfra);
         edtComentarios = findViewById(R.id.edtComentarios);
         edtFolio = findViewById(R.id.edtFolio);
@@ -264,7 +264,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 vencimientoLicenciaWs = bundle.getString("vecimientoLicenciaWs");
                 nombreCompletoLicenciaWs = bundle.getString("nombreCompletoLicenciaWs");
 
-                if (licenciaWs.equals("NO-LICENCIA")){
+                if (licenciaWs.equals("NO-LICENCIA") && placa.equals("null")){
                     textViewLicencia.setText("NO-LICENCIA");
                     textViewFechaVencimiento.setText("NO-LICENCIA");
                     licenciaWs = "NO-LICENCIA";
@@ -300,23 +300,11 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 Log.d("B-l-Infracciones-3","Valor licencia del Bundle recojido :"+ licenciaWs);
 
 
-                AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
-                dialogo.setTitle("CONSULTA LICENCIA");
-                dialogo.setMessage("LICENCIA MAL CAPTURADA O INEXISTENTE");
 
 
-                dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(Infracciones.this, Drawer.class);
-                        startActivity(intent);
-                        onBackPressed();
-                        finish();
 
-                    }
-                });
-                licenciaWs = "NO-LICENCIA";
-                dialogo.show();
+                    licenciaWs = "NO-LICENCIA";
+
             }
             //##################### TERMINA BLOQUE LICENCIAS #######################################################
 
@@ -391,15 +379,48 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
 
             }
             modalidad = bundle.getString("modalidad");
-            Log.d(_TAG,"VALOR MODALIDAD INFRACCIONES"+ modalidad);
             tvModalidadInfraccion.setText(modalidad);
 
-            sector1 = bundle.getString("sector1");
-            sector2 = bundle.getString("sector2");
-            sector3 = bundle.getString("sector3");
-            Log.d(_TAG,"VALOR SECTOR INFRACCIONES"+ sector1);
-            Log.d(_TAG,"VALOR SECTOR INFRACCIONES"+ sector2);
-            Log.d(_TAG,"VALOR SECTOR INFRACCIONES"+ sector3);
+            try {
+                sector1 = bundle.getString("sector1");
+                sector2 = bundle.getString("sector2");
+                sector3 = bundle.getString("sector3");
+
+                if (sector1.equals(null)){
+
+                }else{
+                    Log.d(_TAG, "VALOR SECTOR : $ " + sector1);
+                    tvZonaSector.setText(sector1);
+                }
+
+
+                if (sector2.equals(null)){
+
+                }else{
+                    Log.d(_TAG, "VALOR SECTOR : $ " + sector2);
+                    tvZonaSector.setText(sector2);
+                }
+
+
+                if (sector3.equals(null)){
+
+                }else{
+                    Log.d(_TAG, "VALOR SECTOR : $ " + sector3);
+                    tvZonaSector.setText(sector3);
+                }
+
+
+
+
+            }catch(Exception e){
+                tvZonaSector.setText(sector2);
+            }
+
+
+
+
+
+
 
             Log.d("modalidad","$"+modalidad);
             if (modalidad !=null){
