@@ -282,9 +282,8 @@ public class HomeFragment extends Fragment {
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(109, 30, 30)));
         progressDialog.setMessage("ESPERE PORFAVOR...");
-
-        licenciaWs = editTextLicencia.getText().toString();
         editTextPlaca = root.findViewById(R.id.edtPlaca);
+        editTextLicencia = root.findViewById(R.id.edtLicenciaHome);
         tvplacasRM = root.findViewById(R.id.placasRMTablaLay);
         tvdelegacionRM = root.findViewById(R.id.delegacionRM);
         tvplataformaRM = root.findViewById(R.id.plataformaRM);
@@ -319,8 +318,7 @@ public class HomeFragment extends Fragment {
         final TextView tvMunicipio = root.findViewById(R.id.tvMunicipio);
         checkBoxLicencia = root.findViewById(R.id.cBoxLicencia);
         final CheckBox checkBoxPlaca = root.findViewById(R.id.cBoxPlaca);
-        editTextPlaca = root.findViewById(R.id.edtPlaca);
-        editTextLicencia = root.findViewById(R.id.edtLicenciaHome);
+
         //BOTONES DE ACCIONES
         final Button buttonInfraccion = root.findViewById(R.id.btnInfraccion);
         final Button buttonConsulta = root.findViewById(R.id.btnConsulta);
@@ -553,7 +551,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-
                 Viber(getContext(), "on");
                 banderaLicencia = false;
                 //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
@@ -597,8 +594,6 @@ public class HomeFragment extends Fragment {
             }
         });
         return root;
-
-
     }
 
     public void doProcess() {

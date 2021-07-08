@@ -139,10 +139,8 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
    // String URLICENCIA = "https://simov.app/servicios/consultaLicencia.php";
    // String URLVEHICULAR = "https://simov.app/servicios/controlVehicular.php";
     String URLINFRACCION = "https://simov.app/servicios/consultaInfraccion.php";
-
     private final String CARPETA_RAIZ="misImagenesPrueba/";
     private final String RUTA_IMAGEN=CARPETA_RAIZ+"misFotos";
-
     final int COD_SELECCIONA=10;
     final int COD_FOTO=20;
 
@@ -181,13 +179,10 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
     String imagenB;
     String imagenB2;
     String imagenB3;
-
     Uri miPath;
     Uri miPath1;
     Uri miPath2;
-
     String modi;
-
     TextView tvColor;
     TextView tvAgrupacion;
     TextView tvRutaSitio;
@@ -197,15 +192,13 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
     double latitude;
     double longitud;
     private Marker markerInfraacion;
-
-
     //Licencia
     String licenciaWs;
     String vencimientoLicenciaWs;
     String nombreCompletoLicenciaWs;
-
     //VALIDACION MSJ
     String mensaje;
+    private final String _TAG = "INFRALOG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,13 +206,10 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
         setContentView(R.layout.activity_infracciones);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         //MAPA
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapInfracciones);
         mapFragment.getMapAsync(this);
-
-
         //DIALOGO
         //PROGRESS DIALOG
         progressDialog = new ProgressDialog(Infracciones.this);
@@ -227,8 +217,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(109, 30, 30)));
         progressDialog.setMessage("Subiendo Imagenes al servidor...");
-
-
         //Layouts de las imagenes
         imagen= (ImageView) findViewById(R.id.imagemId);
         imagen2= (ImageView) findViewById(R.id.imagemId2);
@@ -237,12 +225,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
         botonCargar= (Button) findViewById(R.id.btnCargarImg);
         botonInfraccion= (Button) findViewById(R.id.btnCargarImg2);
         warning = (Button) findViewById(R.id.btnWarning);
-
-        //Metodos de Ws.
-        // enviarWSConsultaLicencia(URLICENCIA);
-         //enviarWSControlVehichular(URLVEHICULAR);
-        // enviarWSConsultaInfraccion(URLINFRACCION);
-
         //Seteamos los valores de los Textviews.
         textViewLicencia = findViewById(R.id.tvLicenciaInfraccion);
         textViewFechaVencimiento = findViewById(R.id.tvFechaVencimientoInfraccion);
@@ -256,7 +238,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
         tvInfraInfraccion = findViewById(R.id.tvInfra);
         edtComentarios = findViewById(R.id.edtComentarios);
         edtFolio = findViewById(R.id.edtFolio);
-
         tvColor = findViewById(R.id.tvColorInfra);
         tvAgrupacion = findViewById(R.id.tvAgrupacion);
         tvRutaSitio = findViewById(R.id.tvRutaSitio);
@@ -278,16 +259,12 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
 
 
             //##################### BLOQUE LICENCIAS #######################################################
-            //Datos Licencia que vienen del HomeFragment
-
-            try {
+             try {
                 licenciaWs = bundle.getString("licenciaWs");
                 vencimientoLicenciaWs = bundle.getString("vecimientoLicenciaWs");
                 nombreCompletoLicenciaWs = bundle.getString("nombreCompletoLicenciaWs");
 
                 if (licenciaWs.equals("NO-LICENCIA")){
-                    //Textos de Licencias.
-                   // textViewNombre.setText("NO-DATA");
                     textViewLicencia.setText("NO-LICENCIA");
                     textViewFechaVencimiento.setText("NO-LICENCIA");
                     licenciaWs = "NO-LICENCIA";
@@ -313,15 +290,11 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
 
 
                 }else{
-                    //Textos de Licencias.
-                   // textViewNombre.setText(nombreCompletoLicenciaWs);
                     textViewLicencia.setText(licenciaWs);
                     textViewFechaVencimiento.setText(vencimientoLicenciaWs);
                     Log.d("B-l-Infracciones-2","Valor licencia del Bundle recojido :"+ licenciaWs);
                 }
             }catch(Exception error){
-                //Textos de Licencias.
-               // textViewNombre.setText("NO-DATA");
                 textViewLicencia.setText("NO-LICENCIA");
                 textViewFechaVencimiento.setText("NO-LICENCIA");
                 Log.d("B-l-Infracciones-3","Valor licencia del Bundle recojido :"+ licenciaWs);
@@ -344,9 +317,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 });
                 licenciaWs = "NO-LICENCIA";
                 dialogo.show();
-
-
-
             }
             //##################### TERMINA BLOQUE LICENCIAS #######################################################
 
@@ -355,15 +325,10 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
             //##################### BLOQUE GPS #######################################################
             // Create class object
             gps = new GPSTracker(Infracciones.this);
-
             // Check if GPS enabled
             if(gps.canGetLocation()) {
-
                 latitude = gps.getLatitude();
                 longitud = gps.getLongitude();
-
-                // \n is for new line
-               // Toast.makeText(getApplicationContext(), "Geoposición  - \nLat: " + latitude + "\nLong: " + longitud, Toast.LENGTH_LONG).show();
             } else {
                 gps.showSettingsAlert();
             }
@@ -382,10 +347,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 placa = "null";
 
             }else{
-                /*licenciaWs = "NO-LICENCIA";
-                nombreCompletoLicenciaWs = "NO-LICENCIA";
-                vencimientoLicenciaWs = "NO-LICENCIA";*/
-
                 placa = bundle.getString("placa");
                 Log.d("VALIDA-FLUJO-2","Entro a la validacion de la PLACA : "+ placa);
                 Log.d("B-l-Infracciones-5","Valor de la placa que viene del HomeFragmet : "+placa);
@@ -429,60 +390,20 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 }
 
             }
-
-
-
-
-
-           // licencia = bundle.getString("licencia");
-
             modalidad = bundle.getString("modalidad");
-            Log.d("SECTORLOG","VALOR MODALIDAD INFRACCIONES"+ modalidad);
+            Log.d(_TAG,"VALOR MODALIDAD INFRACCIONES"+ modalidad);
+            tvModalidadInfraccion.setText(modalidad);
 
             sector1 = bundle.getString("sector1");
             sector2 = bundle.getString("sector2");
             sector3 = bundle.getString("sector3");
+            Log.d(_TAG,"VALOR SECTOR INFRACCIONES"+ sector1);
+            Log.d(_TAG,"VALOR SECTOR INFRACCIONES"+ sector2);
+            Log.d(_TAG,"VALOR SECTOR INFRACCIONES"+ sector3);
 
-            Log.d("SECTORLOG","VALOR SECTOR INFRACCIONES"+ sector1);
-
-
-
-
-
-
-/*
-* || sector == "PONIENTE-TURISTICO" ||
-                    sector == "PONIENTE-CENTRO" || sector == "PONIENTE-SALIDA TIJUANA" || sector == "ORIENTE/LIBRAMIENTO" || sector == "ORIENTE/CORTEZ" || sector == "ORIENTE/ESMERALDA" || sector == "SUR/PLAYAS HERMOSA" ||
-                    sector == "SUR/GOBIERNO" || sector == "SUR/CHAPULTEPEC" || sector == "SUR/VILLAS" || sector == "FORANEO/MANEADERO BAJA" || sector == "FORANEO/MANEADERO ALTA" || sector == "FORANEO/BUFADORA" ||
-                    sector == "FORANEO/VALLE GPE"
-*
-*
-*  */
             Log.d("modalidad","$"+modalidad);
             if (modalidad !=null){
                 modalidad = modalidad.trim();
-            }else{
-                modalidad = "SIN MODALIDAD";
-            }
-
-
-
-            Log.d("SECOTR","$$%$%$%$%$%$%$"+sector1);
-            Log.d("MODALIDAD3","============================="+modalidad);
-
-            if (modalidad!= null){
-                if(modalidad.equals("PERMISO-TAXI-RUTA") || modalidad.equals("PERMISO-TAXI-SITIO") || modalidad.equals("PERMISO-TAXI-LIBRE") || modalidad.equals("PERMISO-CARGA") || modalidad.equals("PERMISO-ESCOLAR") ||
-                        modalidad.equals("PERMISO-GRUA-ARRASTRE-ALMACENAMIENTO-Y-DEPOSITO")){
-                    modi = "PERMISO";
-                }
-                if(modalidad.equals("MASIVO-UNTIMA") || modalidad.equals("MASIVO-CALAFIA") || modalidad.equals("MASIVO-CORREDOR-2000") || modalidad.equals("MASIVO-ALTISA") || modalidad.equals("MASIVO-AZUL-Y-BLANCO") ||
-                        modalidad.equals("MASIVO-VERDE-Y-CREMA") || modalidad.equals("MASIVO-AMARILLO-Y-PERLA") || modalidad.equals("MASIVO-TIJUANENSES") ||
-                        modalidad.equals("MASIVO-24-DE-FEBRERO") || modalidad.equals("MASIVO-SIN-REGISTRO")){
-                    modi= "MASIVO";
-                }
-                if (modalidad.equals("ERT-UBER") || modalidad.equals("ERT-DIDI") || modalidad.equals("ERT-DIDI-FOOD") || modalidad.equals("ERT-SIN-REGISTRO") ){
-                    modi= "ERT";
-                }
             }else{
                 modalidad = "SIN MODALIDAD";
             }
