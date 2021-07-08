@@ -365,9 +365,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 // \n is for new line
                // Toast.makeText(getApplicationContext(), "Geoposición  - \nLat: " + latitude + "\nLong: " + longitud, Toast.LENGTH_LONG).show();
             } else {
-                // Can't get location.
-                // GPS or network is not enabled.
-                // Ask user to enable GPS/network in settings.
                 gps.showSettingsAlert();
             }
 
