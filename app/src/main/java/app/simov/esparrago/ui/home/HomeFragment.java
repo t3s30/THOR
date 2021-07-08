@@ -92,188 +92,190 @@ public class HomeFragment extends Fragment {
 
     }
 
-    CheckBox checkBoxLicencia;
-    boolean banderaLicencia = false;
-    boolean banderaPlaca = false;
-    final int COD_SELECCIONA = 10;
-    final int COD_FOTO = 20;
-    int cuenta;
+    private CheckBox checkBoxLicencia;
+    private boolean banderaLicencia = false;
+    private boolean banderaPlaca = false;
+    private final int COD_SELECCIONA = 10;
+    private final int COD_FOTO = 20;
+    private int cuenta;
     private final String CARPETA_RAIZ = "misImagenesPrueba/";
     private final String RUTA_IMAGEN = CARPETA_RAIZ + "misFotos";
     private static final String EXTRA_CODE = "app.simov.esparrago";
-    ProgressDialog progressDialog;
-    AlertDialog.Builder builder;
-    String enviaBanderaLic;
-   // String licencia;
-    String placa;
-    EditText editTextPlaca;
-    EditText editTextLicencia;
-    AutoCompleteTextView edtInfraccion1;
-    AutoCompleteTextView edtInfraccion2;
-    AutoCompleteTextView edtInfraccion3;
-    AutoCompleteTextView edtInfraccion4;
-    AutoCompleteTextView edtInfraccion5;
-    Spinner spinnerModalidad;
-    Spinner spinerSector1;
-    Spinner spinerSector2;
-    Spinner spinerSector3;
-    String modalidad;
-    String sector1;
-    String sector2;
-    String sector3;
-    String infraccion1;
-    String infraccion2;
-    String infraccion3;
-    String infraccion4;
-    String infraccion5;
-    String usersId;
-    String username;
-    String profile;
-    String nombre;
-    String delegacionId;
-    String activo;
-    ImageView imageViewP;
-    TextView textViewP;
-    TextView tvplacasRM;
-    TextView tvdelegacionRM;
-    TextView tvplataformaRM;
-    TextView tvpolizaRM;
-    TextView tvpropietarioRM;
-    TextView tvserieRM;
-    TextView tvmarcaRM;
-    TextView tvtipoRM;
-    TextView tvcolorRM;
-    TextView tvmodeloRM;
-    TextView tvvigenciaRM;
-    TextView tvsocioRM;
-    TextView tvstatusRM;
-    String placaPlataforma;
-    String folioPlataforma;
-    String delegacionIDPlataforma;
-    String nombre_plataformaPlataforma;
-    String numero_polizaPlataforma;
-    String nombre_propietarioPlataforma;
-    String seriePlataforma;
-    String marcaPlataforma;
-    String tipoPlataforma;
-    String modeloPlataforma;
-    String fecha_vigenciaPlataforma;
-    String fecha_altaPlataforma;
-    String nombre_socioPlataforma;
-    String estatusPlataforma;
-    String colorPlataforma;
-    String placaQR;
-    String serialQR;
-    String delegacionIdQR;
-    String economicoQR;
-    String serieQR;
-    String marcaQR;
-    String modeloQR;
-    String tipoQR;
-    String colorQR;
-    String padronQR;
-    String modalidadQR;
-    String fechaAltaQR;
-    String prorrogaQR;
-    String fechaProrrojgaQR;
-    String estatusQR;
-    String coberturaSeguroQR;
-    String vigenciaPolizaQR;
-    String periodoQR;
-    String observacionesQR;
-    String revisionQR;
+    private ProgressDialog progressDialog;
+    private AlertDialog.Builder builder;
+    private String enviaBanderaLic;
+
+    // String licencia;
+    private String placa;
+    private EditText editTextPlaca;
+    private EditText editTextLicencia;
+    private AutoCompleteTextView edtInfraccion1;
+    private AutoCompleteTextView edtInfraccion2;
+    private AutoCompleteTextView edtInfraccion3;
+    private AutoCompleteTextView edtInfraccion4;
+    private AutoCompleteTextView edtInfraccion5;
+    private Spinner spinnerModalidad;
+    private Spinner spinerSector1;
+    private Spinner spinerSector2;
+    private Spinner spinerSector3;
+    private String modalidad;
+    private String sector1;
+    private String sector2;
+    private String sector3;
+    private String infraccion1;
+    private String infraccion2;
+    private String infraccion3;
+    private String infraccion4;
+    private String infraccion5;
+    private String usersId;
+    private String username;
+    private String profile;
+    private String nombre;
+    private String delegacionId;
+    private String activo;
+    private ImageView imageViewP;
+    private TextView textViewP;
+    private TextView tvplacasRM;
+    private TextView tvdelegacionRM;
+    private TextView tvplataformaRM;
+    private TextView tvpolizaRM;
+    private TextView tvpropietarioRM;
+    private TextView tvserieRM;
+    private TextView tvmarcaRM;
+    private TextView tvtipoRM;
+    private TextView tvcolorRM;
+    private TextView tvmodeloRM;
+    private TextView tvvigenciaRM;
+    private TextView tvsocioRM;
+    private TextView tvstatusRM;
+    private String placaPlataforma;
+    private String folioPlataforma;
+    private String delegacionIDPlataforma;
+    private String nombre_plataformaPlataforma;
+    private String numero_polizaPlataforma;
+    private String nombre_propietarioPlataforma;
+    private String seriePlataforma;
+    private String marcaPlataforma;
+    private String tipoPlataforma;
+    private String modeloPlataforma;
+    private String fecha_vigenciaPlataforma;
+    private String fecha_altaPlataforma;
+    private String nombre_socioPlataforma;
+    private String estatusPlataforma;
+    private String colorPlataforma;
+    private String placaQR;
+    private String serialQR;
+    private String delegacionIdQR;
+    private String economicoQR;
+    private String serieQR;
+    private String marcaQR;
+    private String modeloQR;
+    private String tipoQR;
+    private String colorQR;
+    private String padronQR;
+    private String modalidadQR;
+    private String fechaAltaQR;
+    private String prorrogaQR;
+    private String fechaProrrojgaQR;
+    private String estatusQR;
+    private String coberturaSeguroQR;
+    private String vigenciaPolizaQR;
+    private String periodoQR;
+    private String observacionesQR;
+    private String revisionQR;
 
     //Revision Mecanica
-    String placarm2;
-    String serialrm2;
-    String delegacionrm2;
-    String economicorm2;
-    String serierm2;
-    String marcarm2;
-    String modelorm2;
-    String tiporm2;
-    String colorrm2;
-    String padronrm2;
-    String modalidadrm2;
-    String fechaAltarm2;
-    String prorrogarm2;
-    String fechaProrrojgarm2;
-    String estatusrm2;
-    String coberturaSegurorm2;
-    String vigenciaPolizarm2;
-    String periodorm2;
-    String observacionesrm2;
-    String revisionrm22;
+    private String placarm2;
+    private String serialrm2;
+    private String delegacionrm2;
+    private String economicorm2;
+    private String serierm2;
+    private String marcarm2;
+    private String modelorm2;
+    private String tiporm2;
+    private String colorrm2;
+    private String padronrm2;
+    private String modalidadrm2;
+    private String fechaAltarm2;
+    private String prorrogarm2;
+    private String fechaProrrojgarm2;
+    private String estatusrm2;
+    private String coberturaSegurorm2;
+    private String vigenciaPolizarm2;
+    private String periodorm2;
+    private String observacionesrm2;
+    private String revisionrm22;
 
     //Folio
-    String placaFolio;
-    String foliofolio;
-    String delegacionFolio;
-    String nombrePlataformaFolio;
-    String numeroPolizaFolio;
-    String nombrePropietarioFolio;
-    String serieFolio;
-    String marcaFolio;
-    String tipoFolio;
-    String colorFolio;
-    String modeloFolio;
-    String fechaVigenciaFolio;
-    String fechaAltaFolio;
-    String fechaVigenciaFoliio;
-    String nombreSocioFolio;
-    String estatusFolio;
+    private String placaFolio;
+    private String foliofolio;
+    private String delegacionFolio;
+    private String nombrePlataformaFolio;
+    private String numeroPolizaFolio;
+    private String nombrePropietarioFolio;
+    private String serieFolio;
+    private String marcaFolio;
+    private String tipoFolio;
+    private String colorFolio;
+    private String modeloFolio;
+    private String fechaVigenciaFolio;
+    private String fechaAltaFolio;
+    private String fechaVigenciaFoliio;
+    private String nombreSocioFolio;
+    private String estatusFolio;
 
     //TARJETON
-    String lnumeroTarjeton;
-    String licenciaTarjeton;
-    String tipoChoferTarjeton;
-    String folioTarjeton;
-    String maternoTarjeton;
-    String paternoTarjerton;
-    String nombreTarjeton;
-    String fechaAltaTarjeton;
-    String fechaVigenciaTarjeton;
-    String fechaLabTarjerton;
-    String estatusTarjerton;
+    private String lnumeroTarjeton;
+    private String licenciaTarjeton;
+    private String tipoChoferTarjeton;
+    private String folioTarjeton;
+    private String maternoTarjeton;
+    private String paternoTarjerton;
+    private String nombreTarjeton;
+    private String fechaAltaTarjeton;
+    private String fechaVigenciaTarjeton;
+    private String fechaLabTarjerton;
+    private String estatusTarjerton;
 
     //FOLIOQR
-    String folioGafeteQR;
-    String delegacionGafeteQR;
-    String modalidadGafeteQR;
-    String serieRegistroGafeteQR;
-    String vigenciaGafeteQR;
-    String path;
-    String miPlacosa;
-    String infoQr;
+    private String folioGafeteQR;
+    private String delegacionGafeteQR;
+    private String modalidadGafeteQR;
+    private String serieRegistroGafeteQR;
+    private String vigenciaGafeteQR;
+    private String path;
+    private String miPlacosa;
+    private String infoQr;
     private HomeViewModel homeViewModel;
-    MediaPlayer mMediaPlayer;
+    private MediaPlayer mMediaPlayer;
 
     //INFRACCIONES
-    String infracciones;
-    String latitud;
-    String longitud;
-    String banderaInfraccion;
-    String fechaInfracion;
-    String motivoInfraccion;
+    private String infracciones;
+    private String latitud;
+    private String longitud;
+    private String banderaInfraccion;
+    private String fechaInfracion;
+    private String motivoInfraccion;
 
 
     //licencia
-    String licenciaEdt;
-    String licenciaWs;
-    String vencimientoLicenciaWs;
-    String nombreCompletoLicencia;
-    String URLICENCIA = "https://simov.app/servicios/consultaLicencia.php";
-    AlertDialog.Builder dialogo;
+    private String licenciaEdt;
+    private String licenciaWs;
+    private String vencimientoLicenciaWs;
+    private String nombreCompletoLicencia;
+    private AlertDialog.Builder dialogo;
+    private final String _TAG = "HOMEFLOG";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        //URLS WS
         String URLINFRACCION = getResources().getString(R.string.URL_INFRACCION);
-
-
-
+        String URLICENCIA = getResources().getString(R.string.URL_CONSULTA_LICENCIA);
+        String URL_CONTROL_VEHICULAR = getResources().getString(R.string.URL_CONTROL_VEHICULAR);
         //PROGRESS DIALOG
         progressDialog = new ProgressDialog(getContext());
         //Mostramos el progressBAR
@@ -281,7 +283,8 @@ public class HomeFragment extends Fragment {
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(109, 30, 30)));
         progressDialog.setMessage("ESPERE PORFAVOR...");
 
-
+        licenciaWs = editTextLicencia.getText().toString();
+        editTextPlaca = root.findViewById(R.id.edtPlaca);
         tvplacasRM = root.findViewById(R.id.placasRMTablaLay);
         tvdelegacionRM = root.findViewById(R.id.delegacionRM);
         tvplataformaRM = root.findViewById(R.id.plataformaRM);
@@ -295,42 +298,30 @@ public class HomeFragment extends Fragment {
         tvvigenciaRM = root.findViewById(R.id.vigenciaRM);
         tvsocioRM = root.findViewById(R.id.socioRM);
         tvstatusRM = root.findViewById(R.id.estatusRM);
-
         builder = new AlertDialog.Builder(getActivity());
 
-        //camara placa
-        //find imageview
+        //PREVIEW DE IMAGE DE PLACA
+        //PROCESADA POR LA CAMARA
+        //CONVERTIDA A OCR
         imageViewP = root.findViewById(R.id.imageId);
-        //find textview
+        //ENCONTRAR TEXTO DENTRO DE LA IMAGEN
         textViewP = root.findViewById(R.id.textId);
         textViewP.setVisibility(View.GONE);
-        //check app level permission is granted for Camera
-
+        //PERMISOS PARA ACCESO A LA CAMARA
         requestPermissions(new String[]{Manifest.permission.CAMERA}, 101);
-
-        //Orientacion de pantalla en fragment
+        //ORIENTACION DE LA CAMARA
+        //SIEMPRE VERTICAL
         Activity a = getActivity();
         if (a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // final TextView textView = root.findViewById(R.id.text_home);
-        //Parametros XML
-        // final TextView nombreApp = root.findViewById(R.id.tvApp);
         final TextView tvUsuario = root.findViewById(R.id.tvUsuario);
         final TextView tvUsuarioUser = root.findViewById(R.id.tvNombreUser);
-        // final TextView tvUsuario2 = root.findViewById(R.id.tvUsuario2);
         final TextView tvMunicipio = root.findViewById(R.id.tvMunicipio);
         checkBoxLicencia = root.findViewById(R.id.cBoxLicencia);
         final CheckBox checkBoxPlaca = root.findViewById(R.id.cBoxPlaca);
-
         editTextPlaca = root.findViewById(R.id.edtPlaca);
-
         editTextLicencia = root.findViewById(R.id.edtLicenciaHome);
-
-
-        //final Spinner spinnerZona = root.findViewById(R.id.spZona);
-
-        //final Spinner spinnerInfraccion = root.findViewById(R.id.spInfraccion3);
-
+        //BOTONES DE ACCIONES
         final Button buttonInfraccion = root.findViewById(R.id.btnInfraccion);
         final Button buttonConsulta = root.findViewById(R.id.btnConsulta);
         final Button bntCuenta = root.findViewById(R.id.btnCuenta);
@@ -339,103 +330,90 @@ public class HomeFragment extends Fragment {
         final Button bntFoto = root.findViewById(R.id.btnFotoPlaca);
         final Button btnLimpiar = root.findViewById(R.id.btnClean);
 
+        //TODO
+        //ACA SE SETEAN LAS INFRACCIONES
         String[] InfracionesList = getResources().getStringArray(R.array.infracciones_arrays);
-
         edtInfraccion1 = root.findViewById(R.id.edtInfraccion1);
         ArrayAdapter<String> adapterInfracciones = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, InfracionesList);
         edtInfraccion1.setAdapter(adapterInfracciones);
-
         edtInfraccion2 = root.findViewById(R.id.edtInfraccion2);
         ArrayAdapter<String> adapterInfracciones2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, InfracionesList);
         edtInfraccion2.setAdapter(adapterInfracciones2);
-
         edtInfraccion3 = root.findViewById(R.id.edtInfraccion3);
         ArrayAdapter<String> adapterInfracciones3 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, InfracionesList);
         edtInfraccion3.setAdapter(adapterInfracciones3);
-
         edtInfraccion4 = root.findViewById(R.id.edtInfraccion4);
         ArrayAdapter<String> adapterInfraccione4 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, InfracionesList);
         edtInfraccion4.setAdapter(adapterInfraccione4);
-
         edtInfraccion5 = root.findViewById(R.id.edtInfraccion5);
         ArrayAdapter<String> adapterInfraccione5 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, InfracionesList);
         edtInfraccion5.setAdapter(adapterInfraccione5);
 
-
-        //Defenimos vista del spinner "CAJA"
+        //SPINNER MODALIDAD
         spinnerModalidad = root.findViewById(R.id.spModalidad);
-        //Lista principal despliega primero
         ArrayAdapter adapterModalidad = ArrayAdapter.createFromResource(getActivity(), R.array.modalidad_arrays, R.layout.spinner_item);
-        //Mostramos el contenido del source en un dropDown y lo seteamos.
+        //MOSTRAMOS CONTENIDO DEL
+        //DROPDOWN Y SETEAMOS
         adapterModalidad.setDropDownViewResource(R.layout.spinner_dropdown_layout);
         spinnerModalidad.setAdapter(adapterModalidad);
-
-
-
-
-
-
+        //INFRACCIONES OCULTAS POR DEFAULT
         edtInfraccion1.setVisibility(View.GONE);
         edtInfraccion2.setVisibility(View.GONE);
         edtInfraccion3.setVisibility(View.GONE);
         edtInfraccion4.setVisibility(View.GONE);
         edtInfraccion5.setVisibility(View.GONE);
+        //BOTON APARECE APARTIR
+        //DE UNA INFRACCION
         bntQuitar.setVisibility(View.GONE);
-
+        //DRAWER
         NavigationView navigationView = (NavigationView) root.findViewById(R.id.nav_view);
 
-        //Boton Iniciar QR
-
-
+        //ACCION BOTON QR
         bntQr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
-                mMediaPlayer.start();*/
+                //VIBRACION
                 Viber(getContext(), "on");
-
+                //METODO PARA ESCANEAR QR
                 escanear();
             }
         });
 
-        //Boton Foto placa
+        //ACCION FOTO PLACA
         bntFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
-                mMediaPlayer.start();*/
+                //VIBRACION
                 Viber(getContext(), "on");
+                //METODO PARA EXTRAER EL TEXTO DE LA PLACA
                 doProcess();
             }
         });
 
-
-        //Boton para limpiar campos.
-        //Boton Foto placa
+        //ACCION LIMPIAR INPUTS
         btnLimpiar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //REPRODUCE ACCION DEL BOTON
                 mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
                 mMediaPlayer.start();
+                //VIBRACION
                 Viber(getContext(), "on");
+                //VALORES A VACIO
                 editTextLicencia.setText("");
                 editTextPlaca.setText("");
             }
         });
 
-        //Boton agregar Infracciones
+        //ACCION AGREGA INPUTS
+        //INFRACCIONES
         bntCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                   /* mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
-                    mMediaPlayer.start();*/
-
+                //VIBRACION
                 Viber(getContext(), "on");
-
-//replace yourActivity.this with your own activity or if you declared a context you can write context.getSystemService(Context.VIBRATOR_SERVICE);
-
+                //CONTADOR DE TAPS
                 cuenta++;
-                Log.d("CUENTS+++", "CONTADOR" + cuenta);
                 if (cuenta == 1) {
                     edtInfraccion1.setVisibility(View.VISIBLE);
                     bntQuitar.setVisibility(View.VISIBLE);
@@ -457,16 +435,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //Boton Quitar Infracciones
+        //ACCION QUITAR INPUTS
+        //INFRACCIONES
         bntQuitar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-             /*   mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
-                mMediaPlayer.start();*/
                 Viber(getContext(), "on");
                 cuenta--;
-                Log.d("CUENTS---", "CONTADOR" + cuenta);
                 if (cuenta == 4) {
                     edtInfraccion5.setVisibility(View.GONE);
                 }
@@ -486,13 +461,11 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //Mayusculas a LICENCIA Y PLACA.
+        //MAYUSCULAS LICENCIAS Y PLACAS
         editTextLicencia.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         editTextPlaca.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
-
         //Datos de Bundle de inicio de session.
         Bundle args = getActivity().getIntent().getExtras();
-
         if (args != null) {
             //Recojemos parametros.
             usersId = args.getString("usersId");
@@ -503,23 +476,13 @@ public class HomeFragment extends Fragment {
             activo = args.getString("activo");
             placa = args.getString("placa");
             licenciaWs = args.getString("licencia");
-            Log.d("MIPLACA", "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID" + placa);
             tvUsuario.setText("Nombre : " + nombre);
-
             tvUsuarioUser.setText("Usuario :" + username);
             editTextPlaca.setText(placa);
             editTextLicencia.setText(licenciaWs);
             tvMunicipio.setText("Tijuana");
-            Log.d("USERSID", "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ ESTO ES LO QUE RECOJI DEL USERS ID" + usersId);
-
-
-
-
-            //Lista principal despliega primero
 
             if (delegacionId.equals("2")){
-
-                Log.d("ENTREsPINNER2","$$$");
                 spinerSector2 = root.findViewById(R.id.spZona2);
                 ArrayAdapter adapterZona = ArrayAdapter.createFromResource(getActivity(), R.array.zonas_arrays_2, R.layout.spinner_item);
                 //Mostramos el contenido del source en un dropDown y lo seteamos.
@@ -529,8 +492,6 @@ public class HomeFragment extends Fragment {
 
             }
             if (delegacionId.equals("1")){
-
-                Log.d("ENTREsPINNER1","$$$");
                 spinerSector1 = root.findViewById(R.id.spZona1);
                 ArrayAdapter adapterZona = ArrayAdapter.createFromResource(getActivity(), R.array.zonas_arrays_1, R.layout.spinner_item);
                 //Mostramos el contenido del source en un dropDown y lo seteamos.
@@ -540,8 +501,6 @@ public class HomeFragment extends Fragment {
 
             }
             if (delegacionId.equals("3")){
-
-                Log.d("ENTREsPINNER3","$$$");
                 spinerSector3 = root.findViewById(R.id.spZona3);
                 ArrayAdapter adapterZona = ArrayAdapter.createFromResource(getActivity(), R.array.zonas_arrays_3, R.layout.spinner_item);
                 //Mostramos el contenido del source en un dropDown y lo seteamos.
@@ -550,53 +509,40 @@ public class HomeFragment extends Fragment {
                 spinerSector3.setVisibility(View.VISIBLE);
 
             }
-
-
         }
 
 
-        //Boton que termina el proceso para enviar la informacion de Infraccion.
+        //ACCION ENVIAR INFRACCION
         buttonInfraccion.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                /*mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
-                mMediaPlayer.start();*/
                 Viber(getContext(), "on");
                 //Inicializamos el progress BAR
-
                 progressDialog.show();
                 banderaLicencia = false;
                 //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
-                editTextPlaca = root.findViewById(R.id.edtPlaca);
-                placa = editTextPlaca.getText().toString(); //gets you the contents of edit text
-                licenciaWs = editTextLicencia.getText().toString(); //gets you the contents of edit text
-                Log.d("Variable", "LICENCIA## " + placa);
-                String URL = "https://simov.app/servicios/controlVehicularNew.php";
-                //Envia Ws
-               /* if(edtInfraccion1.getText().toString().trim().equals(null)&&
-                        edtInfraccion2.getText().toString().trim().equals(null)&&
-                        edtInfraccion3.getText().toString().trim().equals(null)&&
-                        edtInfraccion4.getText().toString().trim().equals(null)&&
-                        edtInfraccion5.getText().toString().trim().equals(null)){*/
-                Log.d("CUENTA", "VALOR## " + cuenta);
-
+                placa = editTextPlaca.getText().toString();
+                licenciaWs = editTextLicencia.getText().toString();
+                Log.d(_TAG, "VALOR EDIT TEXT PLACA" + placa);
+                Log.d(_TAG, "VALOR EDIT TEXT LICENCIA" + licenciaWs);
+                //VALIDACION NO PASAR A SIGUIENTE PANTALLA
+                //SI NO HAY INFRACCIONES
                     if(cuenta==0){
+                        dialogo=new AlertDialog.Builder(getActivity());
+                        dialogo.setTitle("MENSAJE DEL THOR");
+                        dialogo.setMessage("Debes Ingresar Infracción");
+                        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                    dialogo=new AlertDialog.Builder(getActivity());
-                    dialogo.setTitle("MENSAJE DEL THOR");
-                    dialogo.setMessage("Debes Ingresar Infracción");
-                    dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                        }
+                            }
                     });
                     dialogo.show();
                     progressDialog.hide();
                 }else{
+                    //SI TODO SALE BIEN HACEMOS PETICION
                     enviarWSConsultaLicencia(URLICENCIA);
-                    enviarWSConsultaInfraccion(URL);
+                    enviarWSConsultaInfraccion(URL_CONTROL_VEHICULAR);
                 }
 
             }

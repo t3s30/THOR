@@ -259,9 +259,10 @@
 
 
     <!--Urls WS-->
-    <string name="URL_LICENCIA">https://simov.app/servicios/consultaLicencia.php</string>
+    <string name="URL_CONSULTA_LICENCIA">https://simov.app/servicios/consultaLicencia.php</string>
     <string name="URL_INFRACCION">https://simov.app/servicios/consultaInfraccion.php</string>
     <string name="URL_POLIZA">https://simov.app/servicios/consultaPoliza.php</string>
+    <string name="URL_CONTROL_VEHICULAR">https://simov.app/servicios/controlVehicularNew.php</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
