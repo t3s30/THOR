@@ -276,6 +276,7 @@ public class HomeFragment extends Fragment {
         String URLINFRACCION = getResources().getString(R.string.URL_INFRACCION);
         String URLICENCIA = getResources().getString(R.string.URL_CONSULTA_LICENCIA);
         String URL_CONTROL_VEHICULAR = getResources().getString(R.string.URL_CONTROL_VEHICULAR);
+        String ZONA_SECTOR = getResources().getString(R.string.URL_ZONA_SECTOR);
         //PROGRESS DIALOG
         progressDialog = new ProgressDialog(getContext());
         //Mostramos el progressBAR
@@ -2137,6 +2138,72 @@ public class HomeFragment extends Fragment {
         requesrQueue.add(stringRequest);
     }
 
+
+    //CONSULTA ZONA SECTOR.
+    private void enviarWSConsultaLicencia(String URLZONA) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLZONA, new Response.Listener<String>() {
+            @Override
+            //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
+            public void onResponse(String response) {
+                progressDialog.show();
+                //Validamos que el response no este vacio
+                if (!response.isEmpty()) {
+                    //Esto contiene toda la cadena de respuesta del Ws.
+                    // Toast.makeText(Infracciones.this, "SE MANDO PETICION CORRECTA A WS LICENCIA" + response, Toast.LENGTH_LONG).show();
+
+                    try {
+                        //Convertimos el String en JsonObject
+                        JSONObject obj = new JSONObject(response);
+                        Log.d(_TAG, "$$$ RESPUESTA ZONA SECTRO" + obj.toString());
+                        //Accedemos al valor del Objeto deseado completo.tos
+
+
+                        if (obj.has("Zona")){
+
+
+                        }else{
+
+
+                        }
+
+
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+
+
+                    }
+
+                } else {
+                    progressDialog.hide();
+                    Toast.makeText(getActivity(), "Hubo Error en la consulta SECTOR", Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<String, String>();
+                /*licenciaEdt = editTextLicencia.getText().toString();
+                Log.d("OnCreateLicencia","Valor de la licencia que recoje del EDT : "+ licenciaEdt);
+                Log.d("MAPEOWSLICENCIA","Valor de la licencia envio WS : "+ licenciaEdt);
+
+                parametros.put("licencia", licenciaEdt);
+                progressDialog.hide();*/
+
+                
+                return parametros;
+            }
+        };
+        RequestQueue requesrQueue = Volley.newRequestQueue(getActivity());
+        requesrQueue.add(stringRequest);
+    }
 
 
 }
