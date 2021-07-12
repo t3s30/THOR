@@ -86,6 +86,7 @@ import com.google.zxing.integration.android.IntentResult;
 
 import static androidx.core.content.ContextCompat.getSystemService;
 
+import app.simov.esparrago.utils.GPSTracker;
 public class HomeFragment extends Fragment {
 
     public HomeFragment() {
@@ -265,6 +266,11 @@ public class HomeFragment extends Fragment {
     private String nombreCompletoLicencia;
     private AlertDialog.Builder dialogo;
     private final String _TAG = "HOMEFLOG";
+
+    //GPS
+    private double latitudAct;
+    private double longitudAct;
+    GPSTracker gps;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -594,6 +600,22 @@ public class HomeFragment extends Fragment {
                 //textView.setText(s);
             }
         });
+
+        //##################### BLOQUE GPS #######################################################
+        // Create class object
+
+        gps = new GPSTracker(getActivity());
+        // Check if GPS enabled
+        if(gps.canGetLocation()) {
+            latitudAct = gps.getLatitude();
+            longitudAct = gps.getLongitude();
+        } else {
+            gps.showSettingsAlert();
+        }
+
+
+
+
         return root;
     }
 
@@ -2140,7 +2162,7 @@ public class HomeFragment extends Fragment {
 
 
     //CONSULTA ZONA SECTOR.
-    private void enviarWSConsultaLicencia(String URLZONA) {
+    private void enviarWSConsultaZonaSector(String URLZONA) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLZONA, new Response.Listener<String>() {
             @Override
             //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
@@ -2197,13 +2219,16 @@ public class HomeFragment extends Fragment {
                 parametros.put("licencia", licenciaEdt);
                 progressDialog.hide();*/
 
-                
+
                 return parametros;
             }
         };
         RequestQueue requesrQueue = Volley.newRequestQueue(getActivity());
         requesrQueue.add(stringRequest);
     }
+
+
+
 
 
 }
