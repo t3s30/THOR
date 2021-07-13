@@ -442,36 +442,21 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
 
 
 //##################### TERMINA BLOQUE LICENCIAS #######################################################
-
-
             color  = bundle.getString("Wcolor");
             agrupacion  = bundle.getString("agrupacionW");
             rutaSitio  = bundle.getString("rutaSitioW");
-
             Log.d("datoswsInserta2","###################"+color);
-
-
             tvColor.setText(color);
             tvAgrupacion.setText(agrupacion);
             tvRutaSitio.setText(rutaSitio);
-
-
             economico = bundle.getString("economico");
             Log.d("ECONOMICO","El numero economico"+ economico);
-
             tvEconomicos.setText(economico);
             infracciones = bundle.getString("infracciones");
 
             nombre = bundle.getString("nnombre");
             fechaVecimiento = bundle.getString("fechaVencimiento");
-
             Log.d("MI-PLACA","lA PLACA ES: "+ placa);
-
-
-
-
-
-
             usersId  = bundle.getString("usersId");
             Log.d("USERSSSSSSSS","#####################&%&%&%&%&%&%&%&%&USERSSSSSSSS"+usersId);
             username  = bundle.getString("username");
@@ -480,9 +465,6 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
             delegacionId  = bundle.getString("delegacionId");
             activo  = bundle.getString("activo");
             textViewPlaca.setText(placa);
-
-
-
 
             if (propietario==null){
                 tablaQR.setVisibility(View.GONE);
@@ -544,21 +526,11 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
             }catch (Exception e){
 
             }
-
-
-
-
             //QR
-
-
-
-
-
             String placaQR = bundle.getString("placaQR");
             String serialQR = bundle.getString("qr_serial");
             Log.d("SERIALQRCONSULTA","#################################"+serialQR);
             String delegacionIdQR = bundle.getString("delegacionIdQR");
-
             String economicoQR = bundle.getString("economicoQR");
             String serieQR = bundle.getString("serieQR");
             Log.d("serieQRRCONSULTA","#################################"+serieQR);
@@ -577,20 +549,19 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
             String periodoQR = bundle.getString("periodoQR");
             String observacionesQR = bundle.getString("observacionesQR");
             String revisionQR = bundle.getString("revisionQR");
-
-
-
             String folioGafeteQR = bundle.getString("folioGafeteQR");
             String delegacionGafeteQR = bundle.getString("delegacionGafeteQR");
             String modalidadGafeteQR = bundle.getString("modalidadGafeteQR");
             String serieRegistroGafeteQR = bundle.getString("serieRegistroGafeteQR");
             String vigenciaGafeteQR = bundle.getString("vigenciaGafeteQR");
-/*
+
+            /*
             tvfolioGafeteQR.setText(folioGafeteQR);
             tvdelegacionGafeteQR.setText(delegacionGafeteQR);
             tvmodalidadGafeteQR.setText(modalidadGafeteQR);
             tvserieRegistroGafeteQR.setText(serieRegistroGafeteQR);
-            tvvigenciaGafeteQR.setText(vigenciaGafeteQR);*/
+            tvvigenciaGafeteQR.setText(vigenciaGafeteQR);
+            */
 
             if (serieQR!=null) {
                 tvplacaQR.setText(placaQR);
@@ -621,7 +592,6 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
 
 
             //PLACASRM2
-
             String placarm2 = bundle.getString("placarm2");
             String serialrm2 = bundle.getString("serialrm2");
             String economicorm2 = bundle.getString("economicorm2");
@@ -807,7 +777,8 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
         //Terminando la actividad en curso
         this.finish();
         //Regresando a la actividad principal
-        Log.d("Back1","Entre en el BACKPRESSED");
+        Log.d(_TAG,"Entre en el BACKPRESSED");
+        Log.d(_TAG,"VALOR DE PLACA EN BACKPRESEED"+placa);
         Intent gotoBack = new Intent(WsgobConsulta.this, Drawer.class);
         gotoBack.putExtra("usersId",usersId);
         gotoBack.putExtra("username",username);
@@ -816,7 +787,7 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
         gotoBack.putExtra("delegacionId",delegacionId);
         gotoBack.putExtra("activo",activo);
         gotoBack.putExtra("licencia",licenciaWs);
-        if (placa==null){
+        if (placa==null || placa== "NO HAY DATA EN WS"){
             gotoBack.putExtra("placa","");
         }else{
             gotoBack.putExtra("placa",placa);

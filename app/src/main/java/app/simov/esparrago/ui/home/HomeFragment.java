@@ -320,7 +320,6 @@ public class HomeFragment extends Fragment {
         tvstatusRM = root.findViewById(R.id.estatusRM);
 
         builder = new AlertDialog.Builder(getActivity());
-
         //PREVIEW DE IMAGE DE PLACA
         //PROCESADA POR LA CAMARA
         //CONVERTIDA A OCR
@@ -334,7 +333,6 @@ public class HomeFragment extends Fragment {
         //SIEMPRE VERTICAL
         Activity a = getActivity();
         if (a != null) a.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         final TextView tvUsuario = root.findViewById(R.id.tvUsuario);
         final TextView tvUsuarioUser = root.findViewById(R.id.tvNombreUser);
         final TextView tvMunicipio = root.findViewById(R.id.tvMunicipio);
@@ -505,6 +503,37 @@ public class HomeFragment extends Fragment {
             editTextLicencia.setText(licenciaWs);
             tvMunicipio.setText("Tijuana");
 
+            Log.d(_TAG,"VALOR DE LA PLACA DE WSGOB : "+ placa);
+            Log.d(_TAG,"VALOR DE LA licenciaWs DE WSGOB : "+ licenciaWs);
+
+            try {
+                if( placa == null){
+                    Log.d(_TAG,"VALOR DE LA PLACA DE WSGOB ENTRE 1: ");
+                    editTextPlaca.setText("");
+                }else{
+                    Log.d(_TAG,"VALOR DE LA PLACA DE WSGOB ENTRE 2: ");
+                }
+
+            }catch(Exception e){
+                Log.d(_TAG,"VALOR DE LA PLACA DE WSGOB ENTRE 3 : ");
+                editTextPlaca.setText("");
+            }
+
+            try {
+                if( licenciaWs == null){
+                    Log.d(_TAG,"VALOR DE LA LICENCIA DE WSGOB ENTRE 1-1: ");
+                    editTextLicencia.setText("");
+                }else{
+                    Log.d(_TAG,"VALOR DE LA LICENCIA DE WSGOB ENTRE 2-2: ");
+                    editTextLicencia.setText("");
+                }
+
+            }catch(Exception e){
+                Log.d(_TAG,"VALOR DE LA LICENCIA DE WSGOB ENTRE 3 : ");
+                editTextLicencia.setText("");
+            }
+
+
             if (delegacionId.equals("2")){
 
             }
@@ -595,6 +624,7 @@ public class HomeFragment extends Fragment {
                 enviarWSConsultaLicencia(URLICENCIA);
                 enviarWSConsulta(URL);
                 enviarWSConsultaRM(URL2);
+                progressDialog.show();
             }
         });
 

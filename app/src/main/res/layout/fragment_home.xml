@@ -9,7 +9,7 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/black">
+      android:background="@color/fondoEsparrago">
 
      <!--Titulos y cabeceraz-->
 
@@ -70,9 +70,10 @@
 
         android:text="Tijuana"
         android:textAlignment="textStart"
-        android:textColor="@color/titulosVerdes"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnQr"
+        android:textStyle="bold|italic"
         app:layout_constraintTop_toBottomOf="@+id/tvNombreUser" />
 <!--Terminar Titlos y Cabeceras-->
 
@@ -217,7 +218,8 @@
         android:layout_height="41dp"
         android:text="@string/ZONA"
         android:textAlignment="center"
-        android:textColor="@color/titulosVerdes" />
+        android:textStyle="bold|italic"
+        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/tvzonaSectorWS"
@@ -246,7 +248,8 @@
         android:text="@string/MODALIDAD"
         android:textAlignment="center"
         android:clickable="true"
-        android:textColor="@color/titulosVerdes" />
+        android:textStyle="bold|italic"
+        android:textColor="@color/black" />
 
     <Spinner
         android:id="@+id/spModalidad"
