@@ -2105,7 +2105,7 @@ public class HomeFragment extends Fragment {
 
 
 
-                                todosLosArticulos.add(articuloWS+" ** "+apartadoWS+ "-"+Concepto);
+                                todosLosArticulos.add(articuloWS+"--"+apartadoWS+ "--"+Concepto);
                             }
 
                         }else{

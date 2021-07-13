@@ -390,30 +390,34 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
             }
 
             infra1 = bundle.getString("infra1");
-            Log.d("INFRACCION1-2-3","#######################========>>>>>"+infra1);
             infra2 = bundle.getString("infra2");
             infra3 = bundle.getString("infra3");
             infra4 = bundle.getString("infra4");
             infra5 = bundle.getString("infra5");
             cuenta = bundle.getString("cuenta");
 
+
+            String[] split = infra1.split("--");
+            String articulo,inciso;
+            articulo = split[0];
+            inciso = split[1];
+            String infraS1 = "Art - "+articulo+" Inc - "+inciso;
+            String delegacionIdString = String.valueOf(delegacionId);
+            infra1 = "**"+articulo+"**"+inciso+"**"+sector+"**"+delegacionIdString;
+            Log.d(_TAG,"DELEGACION ID"+ delegacionId);
             Log.d("INFRA1","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra1);
-            Log.d("INFRA2","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra2);
+            /*Log.d("INFRA2","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra2);
             Log.d("INFRA3","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra3);
             Log.d("INFRA4","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra4);
-            Log.d("INFRA5","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra5);
-
+            Log.d("INFRA5","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra5);*/
             Log.d("CUENTA$$$","$$$$$$$$$$$$$$$$$%$%#######################"+cuenta);
-
-
-
-
+            
           //  Log.d("LICENCIA-VERGAS1","$$$$$$$$$$$$$$$"+licencia);
             nombre = bundle.getString("nnombre");
             fechaVecimiento = bundle.getString("fechaVencimiento");
 
 
-            tvInfraInfraccion.setText(infra1);
+            tvInfraInfraccion.setText(infraS1);
 
             Log.d("MODALIDAD","&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+modalidad);
 
