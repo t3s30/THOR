@@ -127,9 +127,8 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
     String   infra5;
     String   infraConcat;
     String   cuenta;
-    String   sector1;
-    String   sector2;
-    String   sector3;
+    String   sector;
+
     String folio;
     TextView tvModalidadInfraccion;
     TextView tvZonaSector;
@@ -299,10 +298,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 textViewFechaVencimiento.setText("NO-LICENCIA");
                 Log.d("B-l-Infracciones-3","Valor licencia del Bundle recojido :"+ licenciaWs);
 
-
-
-
-
                     licenciaWs = "NO-LICENCIA";
 
             }
@@ -379,48 +374,13 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
 
             }
             modalidad = bundle.getString("modalidad");
+            sector = bundle.getString("sector");
+
             tvModalidadInfraccion.setText(modalidad);
+            tvZonaSector.setText(sector);
+            Log.d(_TAG, "VALOR SECTOR : $ " + sector);
 
-            try {
-                sector1 = bundle.getString("sector1");
-                sector2 = bundle.getString("sector2");
-                sector3 = bundle.getString("sector3");
-
-                if (sector1.equals(null)){
-
-                }else{
-                    Log.d(_TAG, "VALOR SECTOR : $ " + sector1);
-                    tvZonaSector.setText(sector1);
-                }
-
-
-                if (sector2.equals(null)){
-
-                }else{
-                    Log.d(_TAG, "VALOR SECTOR : $ " + sector2);
-                    tvZonaSector.setText(sector2);
-                }
-
-
-                if (sector3.equals(null)){
-
-                }else{
-                    Log.d(_TAG, "VALOR SECTOR : $ " + sector3);
-                    tvZonaSector.setText(sector3);
-                }
-
-
-
-
-            }catch(Exception e){
-                tvZonaSector.setText(sector2);
-            }
-
-
-
-
-
-
+            sectorId = "2";//eSTA
 
             Log.d("modalidad","$"+modalidad);
             if (modalidad !=null){
@@ -428,63 +388,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
             }else{
                 modalidad = "SIN MODALIDAD";
             }
-
-if (sector1 !=null){
-    if(sector1.equals("NORTE-CENTRO") || sector1.equals("NORTE-OTAY") || sector1.equals("NORTE-AGUA-CALIENTE") || sector1.equals("NORTE-5Y10") || sector1.equals("SUR-NATURA") || sector1.equals("SUR-BLV-BENITEZ") ||
-            sector1.equals("SUR-DIAZ-ORDAZ") || sector1.equals("ESTE-CARR-TECATE") || sector1.equals("ESTE-LA-PRESA") || sector1.equals("ESTE-LA-PRESA-NORTE") || sector1.equals("ESTE-INSURGENTES") || sector1.equals("ESTE-FLORIDO") || sector1.equals("OESTE-PACIFICO") ||
-            sector1.equals("OESTE-SANTE-FE") || sector1.equals("PERIFERIA-PLAYAS") || sector1.equals("PERIFERIA-SOLER") || sector1.equals("PERIFERIA-ROSARITO") || sector1.equals("PERIFERIA-TECATE")){
-
-        sectorId = "2";
-
-    }
-    if(sector1.equals("PONIENTE-TURISTICO") || sector1.equals("PONIENTE-CENTRO") || sector1.equals("PONIENTE-SALIDA-TIJUANA") || sector1.equals("ORIENTE/LIBRAMIENTO") || sector1.equals("ORIENTE/CORTEZ") ||
-            sector1.equals("ORIENTE/ESMERALDA") || sector1.equals("SUR/PLAYAS/HERMOSA") || sector1.equals("SUR/GOBIERNO") || sector1.equals("SUR/CHAPULTEPEC") || sector1.equals("SUR/VILLAS") ||
-            sector1.equals("FORANEO/MANEADERO/BAJA") || sector1.equals("FORANEO/MANEADERO/ALTA") || sector1.equals("FORANEO/BUFADORA") || sector1.equals("FORANEO/VALLE/GPE")){
-
-        sectorId = "3";
-    }
-}else{
-    sector1="SIN-SECTOR1";
-}
-
-            if (sector2 !=null){
-                if(sector2.equals("NORTE-CENTRO") || sector2.equals("NORTE-OTAY") || sector2.equals("NORTE-AGUA-CALIENTE") || sector2.equals("NORTE-5Y10") || sector2.equals("SUR-NATURA") || sector2.equals("SUR-BLV-BENITEZ") ||
-                        sector2.equals("SUR-DIAZ-ORDAZ") || sector2.equals("ESTE-CARR-TECATE") || sector2.equals("ESTE-LA-PRESA") || sector2.equals("ESTE-LA-PRESA-NORTE") || sector2.equals("ESTE-INSURGENTES") || sector2.equals("ESTE-FLORIDO") || sector2.equals("OESTE-PACIFICO") ||
-                        sector2.equals("OESTE-SANTE-FE") || sector2.equals("PERIFERIA-PLAYAS") || sector2.equals("PERIFERIA-SOLER") || sector2.equals("PERIFERIA-ROSARITO") || sector2.equals("PERIFERIA-TECATE")){
-
-                    sectorId = "2";
-
-                }
-                if(sector2.equals("PONIENTE-TURISTICO") || sector2.equals("PONIENTE-CENTRO") || sector2.equals("PONIENTE-SALIDA-TIJUANA") || sector2.equals("ORIENTE/LIBRAMIENTO") || sector2.equals("ORIENTE/CORTEZ") ||
-                        sector2.equals("ORIENTE/ESMERALDA") || sector2.equals("SUR/PLAYAS/HERMOSA") || sector2.equals("SUR/GOBIERNO") || sector2.equals("SUR/CHAPULTEPEC") || sector2.equals("SUR/VILLAS") ||
-                        sector2.equals("FORANEO/MANEADERO/BAJA") || sector2.equals("FORANEO/MANEADERO/ALTA") || sector2.equals("FORANEO/BUFADORA") || sector2.equals("FORANEO/VALLE/GPE")){
-
-                    sectorId = "3";
-                }
-            }else{
-                sector2="SIN-SECTOR2";
-            }
-
-            if (sector3 !=null){
-                if(sector3.equals("NORTE-CENTRO") || sector3.equals("NORTE-OTAY") || sector3.equals("NORTE-AGUA-CALIENTE") || sector3.equals("NORTE-5Y10") || sector3.equals("SUR-NATURA") || sector3.equals("SUR-BLV-BENITEZ") ||
-                        sector3.equals("SUR-DIAZ-ORDAZ") || sector3.equals("ESTE-CARR-TECATE") || sector3.equals("ESTE-LA-PRESA") || sector3.equals("ESTE-LA-PRESA-NORTE") || sector3.equals("ESTE-INSURGENTES") || sector3.equals("ESTE-FLORIDO") || sector3.equals("OESTE-PACIFICO") ||
-                        sector3.equals("OESTE-SANTE-FE") || sector3.equals("PERIFERIA-PLAYAS") || sector3.equals("PERIFERIA-SOLER") || sector3.equals("PERIFERIA-ROSARITO") || sector3.equals("PERIFERIA-TECATE")){
-
-                    sectorId = "2";
-
-                }
-                if(sector3.equals("PONIENTE-TURISTICO") || sector3.equals("PONIENTE-CENTRO") || sector3.equals("PONIENTE-SALIDA-TIJUANA") || sector3.equals("ORIENTE/LIBRAMIENTO") || sector3.equals("ORIENTE/CORTEZ") ||
-                        sector3.equals("ORIENTE/ESMERALDA") || sector3.equals("SUR/PLAYAS/HERMOSA") || sector3.equals("SUR/GOBIERNO") || sector3.equals("SUR/CHAPULTEPEC") || sector3.equals("SUR/VILLAS") ||
-                        sector3.equals("FORANEO/MANEADERO/BAJA") || sector3.equals("FORANEO/MANEADERO/ALTA") || sector3.equals("FORANEO/BUFADORA") || sector3.equals("FORANEO/VALLE/GPE")){
-
-                    sectorId = "3";
-                }
-            }else{
-                sector3="SIN-SECTOR3";
-            }
-
-
-
 
             infra1 = bundle.getString("infra1");
             Log.d("INFRACCION1-2-3","#######################========>>>>>"+infra1);
@@ -1039,119 +942,6 @@ if (sector1 !=null){
         }
     }
 
-/*
-
-    //Consulta de placas.
-
-    private void enviarWSControlVehichular(String URLVEHICULAR) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLVEHICULAR, new Response.Listener<String>() {
-            @Override
-            //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
-            public void onResponse(String response) {
-                //Validamos que el response no este vacio
-                if (!response.isEmpty()) {
-                    //Esto contiene toda la cadena de respuesta del Ws.
-                   // Toast.makeText(Infracciones.this, "CONSULTA" + response, Toast.LENGTH_LONG).show();
-
-                    try {
-                        //Convertimos el String en JsonObject
-                        JSONObject obj = new JSONObject(response);
-                        Log.d("objVehicular", "###Respuesta WS padron vehicular" + obj.toString());
-                        //Accedemos al valor del Objeto deseado completo.
-                        JSONArray jsonarray = obj.getJSONArray("data");
-
-                        Log.w("jARRAYWSINFRACCIONES","#####$$$$$$$ QUE TIENE EL ARRAY?"+jsonarray.toString());
-
-
-
-                        Log.d("SERVICIOWs","$$$$$$$$$$$$$$$$$$$$$$ Estamos entrando al ELSE de WS ..");
-                        //Obtenemos el total de elementos del objeto.
-                        for (int i = 0; i < jsonarray.length(); i++) {
-                            JSONObject jsonobject = jsonarray.getJSONObject(i);
-                            //Accedemos a los elementos por medio de getString.
-
-
-                            String PLACA = jsonobject.getString("placa");
-                            placaInfracciones.setText(PLACA);
-                            Log.d("###Placas-----", "Esto es lo que llega de plcas de ws infracciones" + PLACA);
-
-                            Boolean validaEstatus = jsonobject.has("estatus");
-                            Log.d("BOOLEAN####","ESTATUS VALIDAD ESTATUS"+validaEstatus);
-                            Boolean validaFechaVencimiento = jsonobject.has("fechaVencimiento");
-                            Log.d("BOOLEAN####","FechaVencimiento valida$$$$$$$$$$$$$$$$$$$$$$$$$"+validaFechaVencimiento);
-                            String SERIE = jsonobject.getString("serie");
-                           // tvVimInfraccion.setText(SERIE);
-
-                            if (validaEstatus== false) {
-                                Log.d("FALSE","%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-                                //Valida si viene de transporte por la etiqueta estatusActuak
-                                String ESTATUS = jsonobject.getString("estatusActual");
-                                Log.d("VALIDASTATUS","%%%%%%%%%% LO QUE HAY DE ESTATUS TRANSPORTE PUBLICO "+ESTATUS);
-
-                               // estatusPlacaInfracciones.setText(ESTATUS);
-                                String VIGENCIA = jsonobject.getString("fechaVigencia");
-                               // tvVigenciaTcInfraccion.setText(VIGENCIA);
-                                Log.d("VIGECNCIA33","Esto es lo que trae la vigencia de transporte publico "+VIGENCIA);
-
-                                ECONOMICO = jsonobject.getString("economico");
-
-                            } if(validaEstatus == true){
-                                //Valida si viene de transporte particular.
-                                String ESTATUS = jsonobject.getString("estatus");
-                               // estatusPlacaInfracciones.setText(ESTATUS);
-                                Log.d("VALIDASTATUS","%%%%%%%%%% LO QUE HAY DE ESTATUS TRANSPORTE PRIVADO "+ESTATUS);
-                                String VIGENCIA = jsonobject.getString("fechaVencimiento");
-                                //tvVigenciaTcInfraccion.setText(VIGENCIA);
-                                Log.d("VIGENCIA33","Esto es lo que trae la vigencia de transporte privado "+VIGENCIA);
-
-                            }
-
-                            if (validaFechaVencimiento == false) {
-                                //Valida si vine de transporte por la etiqueta fechaVigencia
-                                String VIGENCIA = jsonobject.getString("fechaVigencia");
-
-
-                                Log.d("ESATUS", "### VALOR ESTATUS" + VIGENCIA);
-                            } else {
-                                //Validad si viene de transporte particular por la etiqueta fechaVecimineto
-
-                            }
-
-
-                        }
-                        //}
-
-                    } catch (JSONException e) {
-
-                    }
-
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "No se encontraron parametros en la consulta", Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<String, String>();
-                Log.d("PLACA33-1","Esto es lo que imprime antes de enviar el post"+placa);
-                //Log.d("PLACA33-2","Esto es lo que imprime antes de enviar el post pero del Textview"+);
-                parametros.put("placa",placa);
-
-
-
-                return parametros;
-            }
-        };
-        RequestQueue requesrQueue = Volley.newRequestQueue(getApplicationContext());
-        requesrQueue.add(stringRequest);
-    }
-*/
 
     //Subir imagen
 

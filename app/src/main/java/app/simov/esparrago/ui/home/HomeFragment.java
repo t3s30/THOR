@@ -276,6 +276,7 @@ public class HomeFragment extends Fragment {
     String zonaSectorWS;
     private TextView textZonaWS;
     String NombreWS;
+    String DelegacionIDWS;
     TextView tvModalidad;
     private String articuloWSLista;
     List<String> todosLosArticulos;
@@ -368,7 +369,7 @@ public class HomeFragment extends Fragment {
         edtInfraccion5 = root.findViewById(R.id.edtInfraccion5);
         ArrayAdapter<String> adapterInfraccione5 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, todosLosArticulos);
         edtInfraccion5.setAdapter(adapterInfraccione5);
-        
+
         //SPINNER MODALIDAD
         spinnerModalidad = root.findViewById(R.id.spModalidad);
         ArrayAdapter adapterModalidad = ArrayAdapter.createFromResource(getActivity(), R.array.modalidad_arrays, R.layout.spinner_item);
@@ -593,19 +594,6 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
-        //Boton para consulta WS de placa y licencia
-        tvModalidad.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-
-                }
-
-
-            });
-
 
 
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -924,10 +912,6 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("profile", profile);
                             intentWs.putExtra("nombre", nombre);
                             intentWs.putExtra("delegacionId", delegacionId);
-                            intentWs.putExtra("activo", activo);
-                           // licencia = editTextLicencia.getText().toString();
-                          //  intentWs.putExtra("licencia", licencia);
-                           // Log.d("licencia1", "###Valor de la licencia" + licencia);
                             intentWs.putExtra("bandera", enviaBanderaLic);
 
                             //SI NO EXISTE PLACA EN WSGOB CONSULTAMOS EN IMOS.
@@ -1061,14 +1045,7 @@ public class HomeFragment extends Fragment {
                         intentWs.putExtra("nombre", nombre);
                         intentWs.putExtra("delegacionId", delegacionId);
                         intentWs.putExtra("activo", activo);
-
-                        //licencia = editTextLicencia.getText().toString();
-                       /* intentWs.putExtra("licencia", licencia);
-                        intentWs.putExtra("placa", "NO-PLACA");
-                        Log.d("licencia2", "###Valor de la licencia" + licencia);intentWs*/
                         intentWs.putExtra("bandera", enviaBanderaLic);
-
-
                         intentWs.putExtra("placaQR", placaQR);
                         intentWs.putExtra("qr_serial", serialQR);
                         intentWs.putExtra("delegacionIdQR", delegacionIdQR);
@@ -1228,7 +1205,6 @@ public class HomeFragment extends Fragment {
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
                     //Esto contiene toda la cadena de respuesta del Ws.
-                    //Toast.makeText(getContext(), "CONSULTA" + response, Toast.LENGTH_LONG).show();
                     Log.d("RM3", "###ENTRE AQUI A RESPONSE RM ----------");
 
                     //Convertimos el String en JsonObject
@@ -1430,6 +1406,7 @@ public class HomeFragment extends Fragment {
                     //Toast.makeText(getContext(), "CONSULTA" + response, Toast.LENGTH_LONG).show();
 
                     try {
+                        Intent intentWs = new Intent(getActivity(), Infracciones.class);
                         //Convertimos el String en JsonObject
                         /*JSONObject obj = new JSONObject(response);*/
                         JSONArray jsonarray = new JSONArray(response);
@@ -1441,7 +1418,7 @@ public class HomeFragment extends Fragment {
 
                         if (jsonarray.length() == 0) {
                             Log.d(_TAG, "Validacion Array");
-                            Intent intentWs = new Intent(getActivity(), Infracciones.class);
+
                             //licencia = editTextLicencia.getText().toString();
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             Log.d(_TAG, "ENTRE -1 #");
@@ -1498,10 +1475,6 @@ public class HomeFragment extends Fragment {
                             //############################
 
                             String cuentaString = Integer.toString(cuenta);
-
-                            intentWs.putExtra("sector1", sector1);
-                            intentWs.putExtra("sector2", sector2);
-                            intentWs.putExtra("sector3", sector3);
                             intentWs.putExtra("modalidad", modalidad);
                             intentWs.putExtra("infra1", infraccion1);
                             intentWs.putExtra("infra2", infraccion2);
@@ -1526,10 +1499,8 @@ public class HomeFragment extends Fragment {
                         for (int i = 0; i < jsonarray.length(); i++) {
                             // JSONObject jsonobject = jsonarray.getJSONObject(i);
                             //Accedemos a los elementos por medio de getString.
-
-
                             //Iniciamos actividad y mandamos parametros.
-                            Intent intentWs = new Intent(getActivity(), Infracciones.class);
+
                             String PLACA = jsonarray.getString(0);
                             Log.d("vergasVato", "### $#$#$$$US" + PLACA);
                             // Boolean validaEstatus = false;
@@ -1567,35 +1538,6 @@ public class HomeFragment extends Fragment {
                             } catch (Exception e) {
                                 progressDialog.hide();
                             }
-                                try {
-
-                               /*     sector1 = spinerSector1.getSelectedItem().toString();*/
-                                    intentWs.putExtra("sector1", sector1);
-                                    Log.w(_TAG, "SETEO SECTOR 1aaa"+sector1);
-                                } catch (Exception e) {
-
-                                }
-                                try {
-
-
-
-                                 /*   sector2 = spinerSector1.getSelectedItem().toString();*/
-                                    intentWs.putExtra("sector2", sector2);
-                                    Log.w(_TAG, "SETEO SECTOR aaaa"+sector2);
-                                } catch (Exception e) {
-
-                                }
-                                try {
-
-/*
-                                    sector3 = spinerSector1.getSelectedItem().toString();*/
-                                    intentWs.putExtra("sector3", sector3);
-                                    Log.w(_TAG, "SETEO SECTOR aaaa" + sector3);
-                                } catch (Exception e) {
-
-
-                                }
-
 
 
                             try {
@@ -1604,33 +1546,6 @@ public class HomeFragment extends Fragment {
                                 Log.d("WS111", "entreeeeeee   " + ESTATUST);
                                 if (ESTATUST.equals("ACTIVO") || ESTATUST.equals("BAJA TEMPORAL")) {
                                     Log.d(_TAG, "ENTRE -3 #");
-                                   /* try {
-                                        Log.w(_TAG, "TRY SECTORES");
-                                        if(spinerSector1.getSelectedItem().toString().trim().equals(null)){
-                                            sector1 = "SIN-SECTOR";
-                                        }else{
-                                            intentWs.putExtra("sector1", sector1);
-                                            Log.w(_TAG, "SETEO SECTOR 1");
-                                            sector1 = spinerSector1.getSelectedItem().toString();
-                                        }
-                                        if(spinerSector2.getSelectedItem().toString().trim().equals(null)){
-                                            sector2 = "SIN-SECTOR";
-                                        }else{
-                                            intentWs.putExtra("sector2", sector2);
-                                            Log.w(_TAG, "SETEO SECTOR 2");
-                                            sector2 = spinerSector1.getSelectedItem().toString();
-                                        }
-                                        if(spinerSector3.getSelectedItem().toString().trim().equals(null)){
-                                            sector3 = "SIN-SECTOR";
-                                        }else{
-                                            intentWs.putExtra("sector3", sector3);
-                                            Log.w(_TAG, "SETEO SECTOR 3");
-                                            sector3 = spinerSector1.getSelectedItem().toString();
-                                        }
-
-                                    }catch (Exception e){
-
-                                    }*/
 
                                     Log.d("WS44", "entreeeeeee   " + ESTATUST);
                                     intentWs.putExtra("estatus", ESTATUST);
@@ -1671,51 +1586,10 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("nombre", nombre);
                             intentWs.putExtra("delegacionId", delegacionId);
                             intentWs.putExtra("activo", activo);
-
-                            //############################
-                           // licencia = editTextLicencia.getText().toString();
-                           // intentWs.putExtra("licencia", licencia);
-                            //og.d("licencia1", "###Valor de la licencia" + licencia);
                             intentWs.putExtra("bandera", enviaBanderaLic);
                             intentWs.putExtra("placa", PLACA);
                             modalidad = spinnerModalidad.getSelectedItem().toString();
                             Log.d("MODALIDAD1", "#################" + modalidad);
-
-                           /* sector2 = spinerSector2.getSelectedItem().toString();
-                            intentWs.putExtra("sector2", sector2);
-                            Log.w(_TAG, "SETEO SECTOR2 fff"+sector2);*/
-                                try {
-
-                                   /* sector1 = spinerSector1.getSelectedItem().toString();*/
-                                    intentWs.putExtra("sector1", sector1);
-                                    Log.w(_TAG, "SETEO SECTOR1 ff"+sector1);
-                                } catch (Exception e) {
-
-                                }
-                                try {
-
-
-
-                                   /* sector2 = spinerSector2.getSelectedItem().toString();*/
-                                    intentWs.putExtra("sector2", sector2);
-                                    Log.w(_TAG, "SETEO SECTOR2 fff"+sector2);
-                                } catch (Exception e) {
-
-                                }
-                                try {
-
-
-                                    /*sector3 = spinerSector3.getSelectedItem().toString();*/
-                                    intentWs.putExtra("sector3", sector3);
-                                    Log.w(_TAG, "SETEO SECTOR3 ffff" + sector3);
-                                } catch (Exception e) {
-
-
-                                }
-
-
-
-
                             infraccion1 = edtInfraccion1.getText().toString();
                             Log.d("INFRACCION1-2", "################========>>>>>" + infraccion1);
                             infraccion2 = edtInfraccion2.getText().toString();
@@ -1724,9 +1598,6 @@ public class HomeFragment extends Fragment {
                             infraccion5 = edtInfraccion5.getText().toString();
                             String cuentaString = Integer.toString(cuenta);
 
-                            intentWs.putExtra("sector1", sector1);
-                            intentWs.putExtra("sector2", sector2);
-                            intentWs.putExtra("sector3", sector3);
 
                             intentWs.putExtra("modalidad", modalidad);
                             Log.d("MODALIDAD2", "#################" + modalidad);
@@ -1743,11 +1614,11 @@ public class HomeFragment extends Fragment {
                             intentWs.putExtra("nombreCompletoLicenciaWs",nombreCompletoLicencia);
                             Log.d("L-I-WS-4", "VALOR CUANDO TRAE PLACA" + licenciaWs);
 
-
-
-                            startActivity(intentWs);
                         }
+                        intentWs.putExtra("sector",NombreWS);
 
+
+                        startActivity(intentWs);
 
                     } catch (JSONException e) {
                         Intent intentWs = new Intent(getActivity(), Infracciones.class);
@@ -1980,7 +1851,6 @@ public class HomeFragment extends Fragment {
 
                         //CONVERTIR A DOUBLE PARA DECIMALES DE MAPAS
 
-
                         Log.d("INFRACCIONWS-2", "Número de Infracciones <:> " + infracciones);
                         Log.d("INFRACCIONWS-4", "Latitud de WS <:> " + latitud);
                         Log.d("INFRACCIONWS-5", "Longitud de WS <:> " + longitud);
@@ -2004,9 +1874,6 @@ public class HomeFragment extends Fragment {
                         e.printStackTrace();
                     }
 
-                    //Lanzamos Intent Navigation Drawer.
-                    /*Intent intent = new Intent(getApplicationContext(), Drawer.class);
-                    startActivity(intent);*/
                 } else {
                     Toast.makeText(getActivity(), "No se encontraron parametros en la consulta de infracciones", Toast.LENGTH_LONG).show();
                 }
@@ -2210,23 +2077,17 @@ public class HomeFragment extends Fragment {
                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                                 //Accedemos a los elementos por medio de getString.
                                 zonaSectorWS = jsonobject.getString("ZonaSectorID");
-
                                 Log.d(_TAG, "*** Valor zonaSectorWS ---> "+ zonaSectorWS);
                                 NombreWS = jsonobject.getString("Nombre");
                                 Log.d(_TAG, "*** Valor zonaSectorWS ---> "+ NombreWS);
-                                String DelegacionIDWS = jsonobject.getString("DelegacionID");
+                                DelegacionIDWS = jsonobject.getString("DelegacionID");
                                 Log.d(_TAG, "*** Valor zonaSectorWS ---> "+ DelegacionIDWS);
                                 String NombreCortoWS = jsonobject.getString("NombreCorto");
                                 Log.d(_TAG, "*** Valor zonaSectorWS ---> "+ NombreCortoWS);
                             }
 
-
-
-
                         }else{
                         }
-
-
 
                         if (obj.has("Infracciones")){
                             Log.d(_TAG, "*** Entre a las Infracciones");
