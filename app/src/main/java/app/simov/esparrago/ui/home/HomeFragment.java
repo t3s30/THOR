@@ -415,6 +415,7 @@ public class HomeFragment extends Fragment {
         btnLimpiar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(_TAG,"Entre a botón limpiar");
                 //REPRODUCE ACCION DEL BOTON
                 mMediaPlayer = MediaPlayer.create(getActivity(), R.raw.click_boton_3);
                 mMediaPlayer.start();
@@ -443,7 +444,6 @@ public class HomeFragment extends Fragment {
                 }
                 if (cuenta == 2) {
                     edtInfraccion2.setVisibility(View.VISIBLE);
-
                 }
                 if (cuenta == 3) {
                     edtInfraccion3.setVisibility(View.VISIBLE);
@@ -558,22 +558,23 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
+                Log.d(_TAG, "Entre al click de la consulta <==>:  ");
                 Viber(getContext(), "on");
                 banderaLicencia = false;
                 //Aqui declaramos solo lo que queremos que se cargue despues del click del boton para iniciar la nueva actividad
                 editTextPlaca = root.findViewById(R.id.edtPlaca);
                 placa = editTextPlaca.getText().toString(); //gets you the contents of edit text
-                editTextLicencia = root.findViewById(R.id.edtPlaca);
+                editTextLicencia = root.findViewById(R.id.edtLicenciaHome);
 
                 licenciaWs = editTextLicencia.getText().toString(); //gets you the contents of edit text
                 Log.d("Variable-Placa", "valor de la placa EditText " + placa);
                 String URL = "https://simov.app/servicios/controlVehicularNew.php";
                 String URL2 = "https://simov.app/servicios/abdiel.php";
                 //Envia Ws
-                Log.d("koke", "valor de EditText " + editTextLicencia);
-                Log.d("koke2", "valor de EditText " + editTextPlaca);
+                Log.d(_TAG, "valor de EditText Licencia <==>:  " + editTextLicencia.getText().toString());
+                Log.d(_TAG, "valor de EditText Placa <==> " + editTextPlaca.getText().toString());
 
-                if (editTextLicencia.getText().toString().trim().equals("") && editTextPlaca.getText().toString().trim().equals("")){
+               /* if (editTextLicencia.getText().toString().trim().equals("") && editTextPlaca.getText().toString().trim().equals("")){
                     dialogo=new AlertDialog.Builder(getActivity());
                     dialogo.setTitle("MENSAJE DEL THOR");
                     dialogo.setMessage("Debes Ingresar Un elemento de consulta");
@@ -585,13 +586,15 @@ public class HomeFragment extends Fragment {
                     });
                     dialogo.show();
                 }else{
-                    enviarWSInfraccion(URLINFRACCION);
-                    enviarWSConsultaLicencia(URLICENCIA);
-                    enviarWSConsulta(URL);
-                    enviarWSConsultaRM(URL2);
-                }
 
+                }*/
 
+                enviarWSInfraccion(URLINFRACCION);
+
+                //t3s3o
+                enviarWSConsultaLicencia(URLICENCIA);
+                enviarWSConsulta(URL);
+                enviarWSConsultaRM(URL2);
             }
         });
 
@@ -1194,6 +1197,7 @@ public class HomeFragment extends Fragment {
     }
 
 
+//t3s30
     private void enviarWSConsultaRM(String URL) {
         Log.d("RM", "###Respuesta WS RM---------------------------------");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -1344,7 +1348,7 @@ public class HomeFragment extends Fragment {
 
                         JSONArray jsonarrayTarjeton = new JSONArray(obj.getString("TARJETON"));
 
-                        try {
+                       /* try {
                             Log.d("RM17", ";;;;;;" + jsonarrayTarjeton);
                             for (int i = 0; i < jsonarrayTarjeton.length(); i++) {
                                 JSONObject jsonobject = jsonarrayTarjeton.getJSONObject(i);
@@ -1365,7 +1369,7 @@ public class HomeFragment extends Fragment {
 
                         } catch (Exception e) {
                             Log.d("RM16", "NO ENTRE PUTO -- ");
-                        }
+                        }*/
                         Log.d("wsRMPlataforma", "DATOS DE RM PLATAFORMA " + placaPlataforma);
 
                     } catch (JSONException e) {
@@ -1942,7 +1946,7 @@ public class HomeFragment extends Fragment {
             @Override
             //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
             public void onResponse(String response) {
-                progressDialog.show();
+              //  progressDialog.show();
                 //Validamos que el response no este vacio
                 if (!response.isEmpty()) {
                     //Esto contiene toda la cadena de respuesta del Ws.
@@ -1960,6 +1964,7 @@ public class HomeFragment extends Fragment {
                                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                                 //Accedemos a los elementos por medio de getString.
                                 licenciaWs = jsonobject.getString("licencia");
+                                Log.d(_TAG,"lICENCIA DE WS <==>");
                                 if (licenciaWs== null){
                                     licenciaWs = "SIN-LICENCIA";
                                 }

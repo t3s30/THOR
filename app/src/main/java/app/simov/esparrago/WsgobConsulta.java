@@ -215,7 +215,7 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
     String licenciaWs;
     String vencimientoLicenciaWs;
     String nombreCompletoLicenciaWs;
-
+    final String  _TAG = "WSGOBCONSULTA";
 
 
     @Override
@@ -414,23 +414,32 @@ public class WsgobConsulta extends AppCompatActivity implements GoogleMap.OnMark
 
 //##################### BLOQUE LICENCIAS #######################################################
             //Datos Licencia que vienen del HomeFragment
+            //t3s3o
             licenciaWs = bundle.getString("licenciaWs");
             vencimientoLicenciaWs = bundle.getString("vecimientoLicenciaWs");
             nombreCompletoLicenciaWs = bundle.getString("nombreCompletoLicenciaWs");
-            Log.d("B-licencias-1","Valor licencia del Bundle recojido :"+ licenciaWs);
+            Log.d(_TAG,"VALOR HOMEFRAGMENT LICENCIA: "+ licenciaWs);
+            Log.d(_TAG,"VALOR HOMEFRAGMENT NOMBRE LICENCIA: "+ nombreCompletoLicenciaWs);
+            Log.d(_TAG,"VALOR HOMEFRAGMENT VECIMIENTO LICENCIA: "+ vencimientoLicenciaWs);
             //Textos de Licencias.
             textViewNombre.setText(nombreCompletoLicenciaWs);
             textViewLicencia.setText(licenciaWs);
             textViewFechaVencimiento.setText(vencimientoLicenciaWs);
 
             try {
-                if (licenciaWs.equals("NO-LICENCIA")){
-                    tblLicencia.setVisibility(View.GONE);
-                    tvTituloLicencia.setVisibility(View.GONE);
-                }
-            }catch (Exception e){
+                if (nombreCompletoLicenciaWs.equals(null)){
+                    textViewNombre.setVisibility(View.GONE);
+                    textViewLicencia.setVisibility(View.GONE);
+                    textViewFechaVencimiento.setVisibility(View.GONE);
+                }else{
 
+                }
+            }catch(Exception e){
+                textViewNombre.setText("NO-LICENCIA");
+                textViewLicencia.setText("NO-LICENCIA");
+                textViewFechaVencimiento.setText("NO-LICENCIA");
             }
+
 
 //##################### TERMINA BLOQUE LICENCIAS #######################################################
 
