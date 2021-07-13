@@ -284,7 +284,7 @@ public class HomeFragment extends Fragment {
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        tvModalidad = root.findViewById(R.id.tvModalidad);
+
         //PETICION COORDENADAS.
         textZonaWS = root.findViewById(R.id.tvzonaSectorWS);
 
@@ -293,8 +293,10 @@ public class HomeFragment extends Fragment {
         String URLICENCIA = getResources().getString(R.string.URL_CONSULTA_LICENCIA);
         String URL_CONTROL_VEHICULAR = getResources().getString(R.string.URL_CONTROL_VEHICULAR);
         spinnerModalidad = root.findViewById(R.id.spModalidad);
+
         //PROGRESS DIALOG
         progressDialog = new ProgressDialog(getContext());
+
         //Mostramos el progressBAR
         progressDialog.setContentView(R.layout.progress_dialog);
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(109, 30, 30)));
@@ -302,6 +304,7 @@ public class HomeFragment extends Fragment {
         editTextPlaca = root.findViewById(R.id.edtPlaca);
         editTextLicencia = root.findViewById(R.id.edtLicenciaHome);
         tvplacasRM = root.findViewById(R.id.placasRMTablaLay);
+        tvModalidad = root.findViewById(R.id.tvModalidad);
         tvdelegacionRM = root.findViewById(R.id.delegacionRM);
         tvplataformaRM = root.findViewById(R.id.plataformaRM);
         tvpolizaRM = root.findViewById(R.id.propietarioRM);
@@ -345,10 +348,11 @@ public class HomeFragment extends Fragment {
         final Button bntQr = root.findViewById(R.id.btnQr);
         final Button bntFoto = root.findViewById(R.id.btnFotoPlaca);
         final Button btnLimpiar = root.findViewById(R.id.btnClean);
-        todosLosArticulos = new ArrayList<String>();
+
+
         //TODO
         //ACA SE SETEAN LAS INFRACCIONES
-        String[] InfracionesList = getResources().getStringArray(R.array.infracciones_arrays);
+        todosLosArticulos = new ArrayList<String>();
         edtInfraccion1 = root.findViewById(R.id.edtInfraccion1);
         ArrayAdapter<String> adapterInfracciones = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, todosLosArticulos);
         edtInfraccion1.setAdapter(adapterInfracciones);
@@ -364,10 +368,7 @@ public class HomeFragment extends Fragment {
         edtInfraccion5 = root.findViewById(R.id.edtInfraccion5);
         ArrayAdapter<String> adapterInfraccione5 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, todosLosArticulos);
         edtInfraccion5.setAdapter(adapterInfraccione5);
-
-
-
-
+        
         //SPINNER MODALIDAD
         spinnerModalidad = root.findViewById(R.id.spModalidad);
         ArrayAdapter adapterModalidad = ArrayAdapter.createFromResource(getActivity(), R.array.modalidad_arrays, R.layout.spinner_item);
@@ -2245,16 +2246,6 @@ public class HomeFragment extends Fragment {
 
                                 todosLosArticulos.add(articuloWS+" ** "+apartadoWS+ "-"+Concepto);
                             }
-
-
-                         /*   ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
-                                    (getActivity(), android.R.layout.simple_spinner_item,todosLosArticulos );
-                            //ArrayAdapter adapterModalidad = ArrayAdapter.createFromResource(getActivity(), R.array.modalidad_arrays, R.layout.spinner_item);
-                            //MOSTRAMOS CONTENIDO DEL
-                            //DROPDOWN Y SETEAMOS
-                            dataAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
-                            spinnerModalidad.setAdapter(dataAdapter);*/
-
 
                         }else{
                         }

@@ -233,35 +233,6 @@
         android:textColor="@color/white"
         android:background="@color/botonLogin"
         android:textAlignment="center"/>
-    <Spinner
-        android:id="@+id/spZona1"
-        app:layout_constraintTop_toTopOf="@id/edtPlaca"
-        app:layout_constraintStart_toEndOf="@id/tvZonaSector"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="80dp"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:visibility="gone"
-        android:backgroundTint="@color/botonLogin"
-        android:dropDownSelector="@color/purple_500"
-        android:entries="@array/zonas_arrays_1"
-        android:textAlignment="center"/>
-    <Spinner
-        android:id="@+id/spZona3"
-        app:layout_constraintTop_toTopOf="@id/edtPlaca"
-        app:layout_constraintStart_toEndOf="@id/tvZonaSector"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="80dp"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:visibility="gone"
-        android:background="@color/white"
-        android:backgroundTint="@color/botonLogin"
-        android:dropDownSelector="@color/purple_500"
-        android:entries="@array/zonas_arrays_3"
-        android:textAlignment="center"/>
-
 
     <TextView
         android:id="@+id/tvModalidad"
@@ -291,84 +262,6 @@
         android:entries="@array/modalidad_arrays"
         android:textAlignment="center"/>
 
-    <!--Termina Zector y Modalidad-->
-
- <!--   <Spinner
-        android:id="@+id/spInfraccion3"
-        android:layout_width="333dp"
-        android:layout_height="25dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#8BC34A"
-        android:entries="@array/infracciones_arrays"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.474"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spZona"
-        app:layout_constraintVertical_bias="0.478" />
-
-    <Spinner
-        android:id="@+id/spInfraccion4"
-        android:layout_width="333dp"
-        android:layout_height="25dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#8BC34A"
-        android:entries="@array/infracciones_arrays"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.474"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spZona"
-        app:layout_constraintVertical_bias="0.571" />
-
-    <Spinner
-        android:id="@+id/spInfraccion5"
-        android:layout_width="333dp"
-        android:layout_height="25dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#8BC34A"
-        android:entries="@array/infracciones_arrays"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.474"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spZona"
-        app:layout_constraintVertical_bias="0.668" />
-
-    <Spinner
-        android:id="@+id/spInfraccion1"
-        android:layout_width="333dp"
-        android:layout_height="25dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#8BC34A"
-        android:entries="@array/infracciones_arrays"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spZona"
-        app:layout_constraintVertical_bias="0.29" />
-
-    <Spinner
-        android:id="@+id/spInfraccion2"
-        android:layout_width="333dp"
-        android:layout_height="25dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#8BC34A"
-        android:entries="@array/infracciones_arrays"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.474"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spZona"
-        app:layout_constraintVertical_bias="0.384" />
-
--->
 
     <Button
         android:id="@+id/btnCuenta"

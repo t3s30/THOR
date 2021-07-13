@@ -17,182 +17,31 @@
     <string name="menu_salir">SALIR</string>
     <string name="titulo_principal">ESPARRAGO PRINCIPAL</string>
 
-    <string-array name="zonas_arrays_2">
-        <item>SELECCIONA-ZONA-SECTOR</item>
-        <item>NORTE-CENTRO</item>
-        <item>NORTE-OTAY</item>
-        <item>NORTE-AGUA-CALIENTE</item>
-        <item>NORTE-5Y10</item>
-        <item>SUR-NATURA</item>
-        <item>SUR-BLV-BENITEZ</item>
-        <item>SUR-DIAZ-ORDAZ</item>
-        <item>ESTE-CARR-TECATE</item>
-        <item>ESTE-LA-PRESA</item>
-        <item>ESTE-LA-PRESA-NORTE</item>
-        <item>ESTE-INSURGENTES</item>
-        <item>ESTE-FLORIDO</item>
-        <item>OESTE-PACIFICO</item>
-        <item>OESTE-SANTE-FE</item>
-        <item>PERIFERIA-PLAYAS</item>
-        <item>PERIFERIA-SOLER</item>
-        <item>PERIFERIA-ROSARITO</item>
-        <item>PERIFERIA-TECATE</item>
-
-
-<!--
-        <item>PONIENTE-TURISTICO</item>
-        <item>PONIENTE-CENTRO</item>
-        <item>PONIENTE-SALIDA-TIJUANA</item>
-        <item>ORIENTE/PRESA</item>
-        <item>ORIENTE/LIBRAMIENTO</item>
-        <item>ORIENTE/CORTEZ</item>
-        <item>ORIENTE/ESMERALDA</item>
-        <item>SUR/PLAYAS/HERMOSA</item>
-        <item>SUR/GOBIERNO</item>
-        <item>SUR/CHAPULTEPEC</item>
-        <item>SUR/VILLAS</item>-->
-    </string-array>
-
-
-    <string-array name="zonas_arrays_3">
-       <!-- <item>SELECCIONA-ZONA-SECTOR</item>
-        <item>FORANEO/MANEADERO/BAJA</item>
-        <item>FORANEO/MANEADERO/ALTA</item>
-        <item>FORANEO/BUFADORA</item>
-        <item>FORANEO/VALLE/GPE</item>-->
-        <item>ENS_01</item>
-        <item>ENS_02</item>
-        <item>ENS_03</item>
-        <item>ENS_04</item>
-        <item>ENS_05</item>
-
-    </string-array>
-
-    <string-array name="zonas_arrays_1">
-        <item>SELECCIONA-ZONA-SECTOR</item>
-        <item>MXL_01</item>
-        <item>MXL_02</item>
-        <item>MXL_03</item>
-        <item>MXL_04</item>
-        <item>MXL_05</item>
-        <item>MXL_06</item>
-        <item>MXL_07</item>
-        <item>MXL_08</item>
-        <item>MXL_09</item>
-        <item>MXL_10</item>
-        <item>MXL_11</item>
-        <item>MXL_12</item>
-        <item>MXL_13</item>
-    </string-array>
-
-    <string-array name="infracciones_arrays">
-        <item>SELECCIONE-INFRACCION</item>
-        <item>FALTA DE PLACAS</item>
-        <item>CIRCULA SIN PLACAS</item>
-        <item>FALTA DE TARJETA CIRCULACION</item>
-        <item>TARJETA CIRCULACION VENCIDA</item>
-        <item>TRANSITAR EN EL CARRIL NO CORRESPONDIENTE</item>
-        <item>SUBIR BAJAR PASAJE LUGAR INDEBIDO</item>
-        <item>ESTACIONARSE EN LUGAR PROHIBIDO</item>
-        <item>FALTA DE ESPEJO(S) RETROVISOR</item>
-        <item>FALTA DE LUCES DELANTERAS</item>
-        <item>FATLA DE LUCES TRASERAS-FRENO</item>
-        <item>FALTA DE LUCES</item>
-        <item>EXCESO DE PASAJE</item>
-        <item>EXCESO DE CARGA</item>
-        <item>TRASLADO DE MERCANCIA VIA PUBLICA</item>
-        <item>IMPIDEN VISIBILIDAD AL CONDUCTOR</item>
-        <item>MODIFICACION CARROCERIA</item>
-        <item>FALTA DE ASEO AL OPERADOR</item>
-        <item>MODIFICAR ASIENTOS PARA ACEPTAR MAS PASAJEROS</item>
-        <item>SERVICIO DE PASAJEROS EN VEHICULO PARTICULAR</item>
-        <item>NO CONTAR CON EL TIPO DE LICENCIA CORRESPONDIENTE</item>
-        <item>NO REUNIR CONDICIONES DE IMAGEN Y COMODIDAD</item>
-        <item>NO CONTAR CON REVISION MECANICA</item>
-        <item>REVISION DE DOCUMENTOS</item>
-        <item>PRESTAR SERVICIO INTERMUNICIPAL SIN PERMISO</item>
-        <item>CONTAMINAR CON HUMO</item>
-        <item>LLANTAS LISAS</item>
-        <item>ROTULACION INAPROPIADA</item>
-        <item>EXTINGUIDOR,BOTIQUIN</item>
-        <item>VENTANAS ROTAS O SIN ELLA</item>
-        <item>LIMPIA PARABRISAS</item>
-        <item>TRABAJAR FUERA DE HORARIO DE 4 A 22HRS</item>
-        <item>TRAER PUERTAS CERRADAS MIENTRAS LA UNIDA SE MUEVE</item>
-        <item>OBSTRUCCION DE VISIBILIDAD DEL CONDUCTOR</item>
-        <item>TENER VIGENTE POLIZA DAÑOS A TERCEROS</item>
-        <item>UNIFORME OBLIGATORIO PARA PRESTAR EL SERVICIO</item>
-        <item>POR CIRCULAR CON CAJUELA ABIERTA</item>
-        <item>POR CIRCULAR CON MATERIAL FLAMABLE</item>
-        <item>SIN NUMERO ECONOMICO</item>
-        <item>POR CIRCULAR SIN NOMBRE DE LA RUTA A LOS COSTADOS</item>
-        <item>CIRCULAR SIN LA LEYENDA DE TAXI A LOS COSTADOS</item>
-        <item>FUMAR O TOMAR BEBIDAS ALCOHOLICAS EN LA UNIDAD</item>
-        <item>ARROJAR BASURA U OBJETOS EN LA VIA PUBLICA</item>
-        <item>OBSTRUIR CARRIL DE CIRCULACION</item>
-        <item>REALIZAR TODO TIPO DE REPARACIONES MECANICAS</item>
-        <item>HACER USO DE PARKIN AUN PAGANDO TARIFA</item>
-        <item>VIDRIOS POLARIZADOS</item>
-        <item>REALIZAR COBROS ADICIONALES</item>
-        <item>POR NO CONTAR CON PERMISO EN SITIO O LANZADERAS</item>
-        <item>ALTERAR MODIFICAR SISTEMA DE SONIDO NO ORIGINAL</item>
-        <item>NO CONTAR CON EXAMEN TOXICOLOGICO</item>
-        <item>NO TRAER LICENCIA</item>
-        <item>POR ABASTASER COMBUSTIBLE CON PASAJE ABORDO</item>
-        <item>POR UTILIZAR CELULAR O RADIO MIENTRAS CODUCE</item>
-        <item>POR MODIFICAR ESCAPE O SILENCIADOR</item>
-        <item>POR NO RESPETAR EL REGLAMENTO DE TRANSITO</item>
-        <item>POR CIRCULAR EN RUTA DIFERENTE A LA REGISTRADA</item>
-
-    </string-array>
-
+    <!-- Strings PARA MODALIDAD -->
     <string-array name="modalidad_arrays">
         <item>SELECCIONE-MODALIDAD</item>
-        <item>TAXI-RUTA</item>
-        <item>TAXI-SITIO</item>
-        <item>TAXI-LIBRE</item>
-        <item>CARGA</item>
+        <item>TAXI RUTA</item>
+        <item>TAXI SITIO</item>
+        <item>TAXI LIBRE</item>
+        <item>GRUA</item>
+        <item>TRANSPORTE DE CARGA ESPECIALIZADA</item>
         <item>ESCOLAR</item>
-        <item>GRUA-ARRASTRE-ALMACENAMIENTO-Y-DEPOSITO</item>
+        <item>PIPA</item>
         <item>MASIVO</item>
+        <item>PERSONAL</item>
         <item>ERT</item>
-        <item>TURISTICO-SIN-REGISTRO</item>
-        <item>OTRO-SIN-REGISTRO</item>
-
-
+        <item>TURISTICO</item>
+        <item>TRANSPORTE DE CARGA PRIVADO</item>
+        <item>TRANSPORTE DE CARGA PUBLICO</item>
+        <item>ERT-SIN REGISTRO</item>
+        <item>TURISTICO-SIN REGISTRO</item>
+        <item>MASIVO-SIN REGISTRO</item>
+        <item>PERSONAL-SIN REGISTRO</item>
+        <item>OTRO-SIN REGISTRO</item>
     </string-array>
 
-
-   <!-- <string-array name="modalidad_arrays">
-        <item>SELECCIONE-MODALIDAD</item>
-        <item>PERMISO-TAXI-RUTA</item>
-        <item>PERMISO-TAXI-SITIO</item>
-        <item>PERMISO-TAXI-LIBRE</item>
-        <item>PERMISO-CARGA</item>
-        <item>PERMISO-ESCOLAR</item>
-        <item>PERMISO-GRUA-ARRASTRE-ALMACENAMIENTO-Y-DEPOSITO</item>
-        <item>MASIVO-UNTIMA</item>
-        <item>MASIVO-CALAFIA</item>
-        <item>MASIVO-CORREDOR-2000</item>
-        <item>MASIVO-ALTISA</item>
-        <item>MASIVO-AZUL-Y-BLANCO</item>
-        <item>MASIVO-VERDE-Y-CREMA</item>
-        <item>MASIVO-AMARILLO-Y-PERLA</item>
-        <item>MASIVO-TIJUANENSES</item>
-        <item>MASIVO-24-DE-FEBRERO</item>
-        <item>MASIVO-SIN-REGISTRO</item>
-        <item>ERT-UBER</item>
-        <item>ERT-DIDI</item>
-        <item>ERT-DIDI-FOOD</item>
-        <item>ERT-SIN-REGISTRO</item>
-        <item>TURISTICO-SIN-REGISTRO</item>
-        <item>OTRO-SIN-REGISTRO</item>
-
-
-    </string-array>-->
-
-
     <string name="title_activity_wsgob">Wsgob</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
