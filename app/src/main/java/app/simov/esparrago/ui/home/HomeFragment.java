@@ -1802,7 +1802,6 @@ public class HomeFragment extends Fragment {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
     private void cargarImagen() {
         final CharSequence[] opciones = {"Tomar Foto", "Cargar Imagen", "Cancelar"};
         final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(getActivity());
@@ -1829,7 +1828,6 @@ public class HomeFragment extends Fragment {
         alertOpciones.show();
 
     }
-
     private void enviarWSInfraccion(String URLINFRACCION) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLINFRACCION, new Response.Listener<String>() {
             @Override
@@ -1897,8 +1895,6 @@ public class HomeFragment extends Fragment {
         requesrQueue.add(stringRequest);
 
     }
-
-
     private void tomarFotografia() {
         File fileImagen = new File(Environment.getExternalStorageDirectory(), RUTA_IMAGEN);
         boolean isCreada = fileImagen.exists();
@@ -1930,8 +1926,6 @@ public class HomeFragment extends Fragment {
         startActivityForResult(intent, COD_FOTO);
 
     }
-
-
     public void Viber(Context cn, String value) {
         if (value.equals("on")) {
             // Get instance of Vibrator from current Context
@@ -1942,9 +1936,6 @@ public class HomeFragment extends Fragment {
         }
 
     }
-
-
-
     //Consulta Licencia.
     private void enviarWSConsultaLicencia(String URLICENCIA) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLICENCIA, new Response.Listener<String>() {
@@ -1962,8 +1953,6 @@ public class HomeFragment extends Fragment {
                         JSONObject obj = new JSONObject(response);
                         Log.d("objLicencia", "###Respuesta WS licencia Infracciones" + obj.toString());
                         //Accedemos al valor del Objeto deseado completo.tos
-
-
                         if (obj.has("data")){
                             JSONArray jsonarray = obj.getJSONArray("data");
                             //Obtenemos el total de elementos del objeto
@@ -1981,9 +1970,6 @@ public class HomeFragment extends Fragment {
                                 String nombre  = jsonobject.getString("nombre");
 
                                 nombreCompletoLicencia = nombre+" "+paterno+" "+materno;
-
-
-
                             }
                         }else{
 
@@ -1991,11 +1977,6 @@ public class HomeFragment extends Fragment {
                             vencimientoLicenciaWs = "NO-LICENCIA";
                             nombreCompletoLicencia = "NO-LICENCIA";
                         }
-
-
-
-
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                         licenciaWs = "NO-LICENCIA";
@@ -2046,8 +2027,6 @@ public class HomeFragment extends Fragment {
         RequestQueue requesrQueue = Volley.newRequestQueue(getActivity());
         requesrQueue.add(stringRequest);
     }
-
-
     //CONSULTA ZONA SECTOR.
     private void enviarWSConsultaZonaSector(String URLZONA) {
         Log.d(_TAG, "@@@$$$ enviarWSConsultaZonaSector");
@@ -2067,8 +2046,6 @@ public class HomeFragment extends Fragment {
                         JSONObject obj = new JSONObject(response);
                         Log.d(_TAG, "$$$ RESPUESTA ZONA SECTOR" + obj.toString());
                         //Accedemos al valor del Objeto deseado completo.tos
-
-
                         if (obj.has("Zona")){
                             Log.d(_TAG, "*** Entre a la ZONA");
                             JSONArray jsonarray = obj.getJSONArray("Zona");
@@ -2102,8 +2079,6 @@ public class HomeFragment extends Fragment {
                                 String Concepto = jsonobject.getString("Concepto");
                                 //Log.d(_TAG, "*** Valor articulo Infracciones ---> "+articuloWS);
                                 Log.d(_TAG, "*** Valor articulo Infracciones ---> "+ articuloWS+" ** "+apartadoWS+ "-"+Concepto );
-
-
 
                                 todosLosArticulos.add(articuloWS+"--"+apartadoWS+ "--"+Concepto);
                             }

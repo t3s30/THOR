@@ -411,7 +411,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
             Log.d("INFRA4","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra4);
             Log.d("INFRA5","$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"+infra5);*/
             Log.d("CUENTA$$$","$$$$$$$$$$$$$$$$$%$%#######################"+cuenta);
-            
+
           //  Log.d("LICENCIA-VERGAS1","$$$$$$$$$$$$$$$"+licencia);
             nombre = bundle.getString("nnombre");
             fechaVecimiento = bundle.getString("fechaVencimiento");
@@ -420,16 +420,8 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
             tvInfraInfraccion.setText(infraS1);
 
             Log.d("MODALIDAD","&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+modalidad);
-
-
-
-
         }
-
-
-
         //ENVIAR INFO
-
         botonInfraccion.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -984,7 +976,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                     imagen.buildDrawingCache();
                     Bitmap bitmap = imagen.getDrawingCache();
                     ByteArrayOutputStream stream=new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 20, stream);
                     byte[] image=stream.toByteArray();
                     String img_str = Base64.encodeToString(image, 0);
                     params.put("foto", img_str);
@@ -997,7 +989,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                     imagen2.buildDrawingCache();
                     Bitmap bitmap2 = imagen2.getDrawingCache();
                     ByteArrayOutputStream stream=new ByteArrayOutputStream();
-                    bitmap2.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    bitmap2.compress(Bitmap.CompressFormat.PNG, 20, stream);
                     byte[] image=stream.toByteArray();
                     String img_str2 = Base64.encodeToString(image, 0);
                     params.put("foto2", img_str2);
@@ -1009,7 +1001,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                     imagen3.buildDrawingCache();
                     Bitmap bitmap3 = imagen3.getDrawingCache();
                     ByteArrayOutputStream stream=new ByteArrayOutputStream();
-                    bitmap3.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    bitmap3.compress(Bitmap.CompressFormat.PNG, 20, stream);
                     byte[] image=stream.toByteArray();
                     String img_str3 = Base64.encodeToString(image, 0);
                     params.put("foto3", img_str3);
@@ -1181,14 +1173,11 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
 
     //SUBIR INFRACCION
     public void cargarInfraccion() {
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         progressDialog.show();
-
-
                         if (edtFolio.getText().toString().trim().equals(null)){
                             AlertDialog.Builder dialogo=new AlertDialog.Builder(Infracciones.this);
                             dialogo.setTitle("FOLIO VACIO");
@@ -1198,8 +1187,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                             dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-
-
                                 }
                             });
                             progressDialog.hide();
@@ -1208,9 +1195,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                             progressDialog.hide();
                             cargarAceptacion();
                         }
-
-
-
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -1239,7 +1223,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                     imagen.buildDrawingCache();
                     Bitmap bitmap = imagen.getDrawingCache();
                     ByteArrayOutputStream stream=new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 20, stream);
                     byte[] image=stream.toByteArray();
                     String img_str = Base64.encodeToString(image, 0);
                     params.put("foto", img_str);
@@ -1252,7 +1236,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                     imagen2.buildDrawingCache();
                     Bitmap bitmap2 = imagen2.getDrawingCache();
                     ByteArrayOutputStream stream=new ByteArrayOutputStream();
-                    bitmap2.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    bitmap2.compress(Bitmap.CompressFormat.PNG, 20, stream);
                     byte[] image=stream.toByteArray();
                     String img_str2 = Base64.encodeToString(image, 0);
                     params.put("foto2", img_str2);
@@ -1264,17 +1248,13 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                     imagen3.buildDrawingCache();
                     Bitmap bitmap3 = imagen3.getDrawingCache();
                     ByteArrayOutputStream stream=new ByteArrayOutputStream();
-                    bitmap3.compress(Bitmap.CompressFormat.PNG, 50, stream);
+                    bitmap3.compress(Bitmap.CompressFormat.PNG, 20, stream);
                     byte[] image=stream.toByteArray();
                     String img_str3 = Base64.encodeToString(image, 0);
                     params.put("foto3", img_str3);
                 }
-
-
-
                 params.put("usersId", usersId);
                 Log.d("CARGA-IFRN-1","Valor licencia antes de cargar Infraccion : "+ usersId);
-
                 params.put("username", username);
                 Log.d("CARGA-IFRN-3","Valor licencia antes de cargar Infraccion : "+ username);
                 params.put("profile", profile);
@@ -1304,18 +1284,12 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 }catch (Exception e){
                     progressDialog.hide();
                 }
-
-
-
                 params.put("num",licenciaWs);
                 Log.d("CARGA-IFRN-1","Valor licencia antes de cargar Infraccion : "+ licenciaWs);
                 params.put("nombreL",nombreCompletoLicenciaWs);
                 Log.d("CARGA-IFRN-12","Valor licencia antes de cargar Infraccion : "+ nombreCompletoLicenciaWs);
                 params.put("fvl",vencimientoLicenciaWs);
                 Log.d("CARGA-IFRN-13","Valor licencia antes de cargar Infraccion : "+ vencimientoLicenciaWs);
-
-
-
                 //Infra
                 if (cuenta.equals("1")){
                     infra2 = "-";
@@ -1346,9 +1320,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
 
                 params.put("comentarios",comentarios);
                 Log.d("CARGA-IFRN-16","Valor licencia antes de cargar Infraccion : "+ comentarios);
-
-
-
                 params.put("folio",folio);
                 Log.d("CARGA-IFRN-17","Valor licencia antes de cargar Infraccion : "+ folio);
 
@@ -1366,9 +1337,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 params.put("latitud",latitudS);
                 params.put("longitud",longitudS);
 
-
-
-
                 if (ECONOMICO!=null){
                     params.put("numeroEconomico",ECONOMICO);
                 }else{
@@ -1385,12 +1353,7 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                 params.put("semana",semana);
                 params.put("anio",anio);
                 params.put("modalidad",modalidad);
-
-
-
                 params.put("vim",vim);
-
-
                 if (color!=null){
                     params.put("color",color);
                 }else{
@@ -1522,9 +1485,6 @@ public class Infracciones extends AppCompatActivity implements GoogleMap.OnMarke
                     Toast.LENGTH_SHORT).show();
         }
 
-        // Return false to indicate that we have not consumed the event and that we wish
-        // for the default behavior to occur (which is for the camera to move such that the
-        // marker is centered and for the marker's info window to open, if it has one).
         return false;
     }
 
