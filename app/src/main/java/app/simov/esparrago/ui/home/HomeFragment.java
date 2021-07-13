@@ -59,6 +59,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -115,10 +116,8 @@ public class HomeFragment extends Fragment {
     private AutoCompleteTextView edtInfraccion3;
     private AutoCompleteTextView edtInfraccion4;
     private AutoCompleteTextView edtInfraccion5;
-    private Spinner spinnerModalidad;
-    private Spinner spinerSector1;
-    private Spinner spinerSector2;
-    private Spinner spinerSector3;
+    private Spinner rModalidadspinne;
+    private Spinner  spinnerModalidad;
     private String modalidad;
     private String sector1;
     private String sector2;
@@ -271,18 +270,29 @@ public class HomeFragment extends Fragment {
     private double latitudAct;
     private double longitudAct;
     GPSTracker gps;
-
+    private String latString;
+    private String lngString;
+    //WS ZONA SECTOR
+    String zonaSectorWS;
+    private TextView textZonaWS;
+    String NombreWS;
+    TextView tvModalidad;
+    private String articuloWSLista;
+    List<String> todosLosArticulos;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        tvModalidad = root.findViewById(R.id.tvModalidad);
+        //PETICION COORDENADAS.
+        textZonaWS = root.findViewById(R.id.tvzonaSectorWS);
 
         //URLS WS
         String URLINFRACCION = getResources().getString(R.string.URL_INFRACCION);
         String URLICENCIA = getResources().getString(R.string.URL_CONSULTA_LICENCIA);
         String URL_CONTROL_VEHICULAR = getResources().getString(R.string.URL_CONTROL_VEHICULAR);
-        String ZONA_SECTOR = getResources().getString(R.string.URL_ZONA_SECTOR);
+        spinnerModalidad = root.findViewById(R.id.spModalidad);
         //PROGRESS DIALOG
         progressDialog = new ProgressDialog(getContext());
         //Mostramos el progressBAR
@@ -304,6 +314,7 @@ public class HomeFragment extends Fragment {
         tvvigenciaRM = root.findViewById(R.id.vigenciaRM);
         tvsocioRM = root.findViewById(R.id.socioRM);
         tvstatusRM = root.findViewById(R.id.estatusRM);
+
         builder = new AlertDialog.Builder(getActivity());
 
         //PREVIEW DE IMAGE DE PLACA
@@ -334,25 +345,28 @@ public class HomeFragment extends Fragment {
         final Button bntQr = root.findViewById(R.id.btnQr);
         final Button bntFoto = root.findViewById(R.id.btnFotoPlaca);
         final Button btnLimpiar = root.findViewById(R.id.btnClean);
-
+        todosLosArticulos = new ArrayList<String>();
         //TODO
         //ACA SE SETEAN LAS INFRACCIONES
         String[] InfracionesList = getResources().getStringArray(R.array.infracciones_arrays);
         edtInfraccion1 = root.findViewById(R.id.edtInfraccion1);
-        ArrayAdapter<String> adapterInfracciones = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, InfracionesList);
+        ArrayAdapter<String> adapterInfracciones = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, todosLosArticulos);
         edtInfraccion1.setAdapter(adapterInfracciones);
         edtInfraccion2 = root.findViewById(R.id.edtInfraccion2);
-        ArrayAdapter<String> adapterInfracciones2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, InfracionesList);
+        ArrayAdapter<String> adapterInfracciones2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, todosLosArticulos);
         edtInfraccion2.setAdapter(adapterInfracciones2);
         edtInfraccion3 = root.findViewById(R.id.edtInfraccion3);
-        ArrayAdapter<String> adapterInfracciones3 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, InfracionesList);
+        ArrayAdapter<String> adapterInfracciones3 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, todosLosArticulos);
         edtInfraccion3.setAdapter(adapterInfracciones3);
         edtInfraccion4 = root.findViewById(R.id.edtInfraccion4);
-        ArrayAdapter<String> adapterInfraccione4 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, InfracionesList);
+        ArrayAdapter<String> adapterInfraccione4 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, todosLosArticulos);
         edtInfraccion4.setAdapter(adapterInfraccione4);
         edtInfraccion5 = root.findViewById(R.id.edtInfraccion5);
-        ArrayAdapter<String> adapterInfraccione5 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, InfracionesList);
+        ArrayAdapter<String> adapterInfraccione5 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, todosLosArticulos);
         edtInfraccion5.setAdapter(adapterInfraccione5);
+
+
+
 
         //SPINNER MODALIDAD
         spinnerModalidad = root.findViewById(R.id.spModalidad);
@@ -420,6 +434,8 @@ public class HomeFragment extends Fragment {
                 //CONTADOR DE TAPS
                 cuenta++;
                 if (cuenta == 1) {
+                    String ZONA_SECTOR = getResources().getString(R.string.URL_ZONA_SECTOR);
+                    enviarWSConsultaZonaSector(ZONA_SECTOR);
                     edtInfraccion1.setVisibility(View.VISIBLE);
                     bntQuitar.setVisibility(View.VISIBLE);
                 }
@@ -488,31 +504,13 @@ public class HomeFragment extends Fragment {
             tvMunicipio.setText("Tijuana");
 
             if (delegacionId.equals("2")){
-                spinerSector2 = root.findViewById(R.id.spZona2);
-                ArrayAdapter adapterZona = ArrayAdapter.createFromResource(getActivity(), R.array.zonas_arrays_2, R.layout.spinner_item);
-                //Mostramos el contenido del source en un dropDown y lo seteamos.
-                adapterZona.setDropDownViewResource(R.layout.spinner_dropdown_layout);
-                spinerSector2.setAdapter(adapterZona);
-                spinerSector2.setVisibility(View.VISIBLE);
-                Log.d(_TAG,"Delegacion id 2");
+
             }
             if (delegacionId.equals("1")){
-                spinerSector1 = root.findViewById(R.id.spZona1);
-                ArrayAdapter adapterZona = ArrayAdapter.createFromResource(getActivity(), R.array.zonas_arrays_1, R.layout.spinner_item);
-                //Mostramos el contenido del source en un dropDown y lo seteamos.
-                adapterZona.setDropDownViewResource(R.layout.spinner_dropdown_layout);
-                spinerSector1.setAdapter(adapterZona);
-                spinerSector1.setVisibility(View.VISIBLE);
-                Log.d(_TAG,"Delegacion id 1");
+
             }
             if (delegacionId.equals("3")){
-                spinerSector3 = root.findViewById(R.id.spZona3);
-                ArrayAdapter adapterZona = ArrayAdapter.createFromResource(getActivity(), R.array.zonas_arrays_3, R.layout.spinner_item);
-                //Mostramos el contenido del source en un dropDown y lo seteamos.
-                adapterZona.setDropDownViewResource(R.layout.spinner_dropdown_layout);
-                spinerSector3.setAdapter(adapterZona);
-                spinerSector3.setVisibility(View.VISIBLE);
-                Log.d(_TAG,"Delegacion id 3");
+
             }
         }
 
@@ -564,6 +562,7 @@ public class HomeFragment extends Fragment {
                 editTextPlaca = root.findViewById(R.id.edtPlaca);
                 placa = editTextPlaca.getText().toString(); //gets you the contents of edit text
                 editTextLicencia = root.findViewById(R.id.edtPlaca);
+
                 licenciaWs = editTextLicencia.getText().toString(); //gets you the contents of edit text
                 Log.d("Variable-Placa", "valor de la placa EditText " + placa);
                 String URL = "https://simov.app/servicios/controlVehicularNew.php";
@@ -594,25 +593,46 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //Boton para consulta WS de placa y licencia
+        tvModalidad.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+
+                }
+
+
+            });
+
+
+
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 //textView.setText(s);
+
             }
         });
 
+
+
         //##################### BLOQUE GPS #######################################################
         // Create class object
-
         gps = new GPSTracker(getActivity());
         // Check if GPS enabled
         if(gps.canGetLocation()) {
             latitudAct = gps.getLatitude();
             longitudAct = gps.getLongitude();
+            //COMPROBAR VALOR
+            Log.d(_TAG,"Valor GPS LATACT ONCREATE"+ latitudAct);
+            Log.d(_TAG,"Valor GPS LONGACT ONCREATE"+ longitudAct);
+            //CONVERT LAT-LONG TO STRING
+            latString=String.valueOf(latitudAct);
+            lngString=String.valueOf(longitudAct);
         } else {
             gps.showSettingsAlert();
         }
-
 
 
 
@@ -624,7 +644,6 @@ public class HomeFragment extends Fragment {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, 101);
     }
-
 
     private void enviarWSConsulta(String URL) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -1430,7 +1449,7 @@ public class HomeFragment extends Fragment {
 
 
 
-                                sector1 = spinerSector1.getSelectedItem().toString();
+                              /*  sector1 = spinerSector1.getSelectedItem().toString();*/
                                 intentWs.putExtra("sector1", sector1);
                                 Log.w(_TAG, "SETEO SECTODDDD" + sector1);
                             } catch (Exception e) {
@@ -1440,7 +1459,7 @@ public class HomeFragment extends Fragment {
 
 
 
-                                sector2 = spinerSector1.getSelectedItem().toString();
+                              /*  sector2 = spinerSector1.getSelectedItem().toString();*/
                                 intentWs.putExtra("sector2", sector2);
                                 Log.w(_TAG, "SETEO SECTOR 2DDDD"+ sector2);
                             } catch (Exception e) {
@@ -1449,7 +1468,7 @@ public class HomeFragment extends Fragment {
                             try {
 
 
-                                sector3 = spinerSector1.getSelectedItem().toString();
+                               /* sector3 = spinerSector1.getSelectedItem().toString();*/
                                 intentWs.putExtra("sector3", sector3);
                                 Log.w(_TAG, "SETEO SECTOR 3DDDD" + sector3);
                             } catch (Exception e) {
@@ -1549,7 +1568,7 @@ public class HomeFragment extends Fragment {
                             }
                                 try {
 
-                                    sector1 = spinerSector1.getSelectedItem().toString();
+                               /*     sector1 = spinerSector1.getSelectedItem().toString();*/
                                     intentWs.putExtra("sector1", sector1);
                                     Log.w(_TAG, "SETEO SECTOR 1aaa"+sector1);
                                 } catch (Exception e) {
@@ -1559,7 +1578,7 @@ public class HomeFragment extends Fragment {
 
 
 
-                                    sector2 = spinerSector1.getSelectedItem().toString();
+                                 /*   sector2 = spinerSector1.getSelectedItem().toString();*/
                                     intentWs.putExtra("sector2", sector2);
                                     Log.w(_TAG, "SETEO SECTOR aaaa"+sector2);
                                 } catch (Exception e) {
@@ -1567,8 +1586,8 @@ public class HomeFragment extends Fragment {
                                 }
                                 try {
 
-
-                                    sector3 = spinerSector1.getSelectedItem().toString();
+/*
+                                    sector3 = spinerSector1.getSelectedItem().toString();*/
                                     intentWs.putExtra("sector3", sector3);
                                     Log.w(_TAG, "SETEO SECTOR aaaa" + sector3);
                                 } catch (Exception e) {
@@ -1666,7 +1685,7 @@ public class HomeFragment extends Fragment {
                             Log.w(_TAG, "SETEO SECTOR2 fff"+sector2);*/
                                 try {
 
-                                    sector1 = spinerSector1.getSelectedItem().toString();
+                                   /* sector1 = spinerSector1.getSelectedItem().toString();*/
                                     intentWs.putExtra("sector1", sector1);
                                     Log.w(_TAG, "SETEO SECTOR1 ff"+sector1);
                                 } catch (Exception e) {
@@ -1676,7 +1695,7 @@ public class HomeFragment extends Fragment {
 
 
 
-                                    sector2 = spinerSector2.getSelectedItem().toString();
+                                   /* sector2 = spinerSector2.getSelectedItem().toString();*/
                                     intentWs.putExtra("sector2", sector2);
                                     Log.w(_TAG, "SETEO SECTOR2 fff"+sector2);
                                 } catch (Exception e) {
@@ -1685,7 +1704,7 @@ public class HomeFragment extends Fragment {
                                 try {
 
 
-                                    sector3 = spinerSector3.getSelectedItem().toString();
+                                    /*sector3 = spinerSector3.getSelectedItem().toString();*/
                                     intentWs.putExtra("sector3", sector3);
                                     Log.w(_TAG, "SETEO SECTOR3 ffff" + sector3);
                                 } catch (Exception e) {
@@ -2163,35 +2182,84 @@ public class HomeFragment extends Fragment {
 
     //CONSULTA ZONA SECTOR.
     private void enviarWSConsultaZonaSector(String URLZONA) {
+        Log.d(_TAG, "@@@$$$ enviarWSConsultaZonaSector");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLZONA, new Response.Listener<String>() {
             @Override
             //Para mandar un post aun WS el response Listener tiene que ser de tipo  String , y despues convertir la respuesta a JsonObject.
             public void onResponse(String response) {
-                progressDialog.show();
                 //Validamos que el response no este vacio
+                Log.d(_TAG, "@@@ ON RESPONSE");
                 if (!response.isEmpty()) {
+                    Log.d(_TAG, "@@@ ON RESPONSE NO EMPTY");
                     //Esto contiene toda la cadena de respuesta del Ws.
                     // Toast.makeText(Infracciones.this, "SE MANDO PETICION CORRECTA A WS LICENCIA" + response, Toast.LENGTH_LONG).show();
 
                     try {
                         //Convertimos el String en JsonObject
                         JSONObject obj = new JSONObject(response);
-                        Log.d(_TAG, "$$$ RESPUESTA ZONA SECTRO" + obj.toString());
+                        Log.d(_TAG, "$$$ RESPUESTA ZONA SECTOR" + obj.toString());
                         //Accedemos al valor del Objeto deseado completo.tos
 
 
                         if (obj.has("Zona")){
+                            Log.d(_TAG, "*** Entre a la ZONA");
+                            JSONArray jsonarray = obj.getJSONArray("Zona");
+                            //Obtenemos el total de elementos del objeto
+                            for (int i = 0; i < jsonarray.length(); i++) {
+                                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                //Accedemos a los elementos por medio de getString.
+                                zonaSectorWS = jsonobject.getString("ZonaSectorID");
+
+                                Log.d(_TAG, "*** Valor zonaSectorWS ---> "+ zonaSectorWS);
+                                NombreWS = jsonobject.getString("Nombre");
+                                Log.d(_TAG, "*** Valor zonaSectorWS ---> "+ NombreWS);
+                                String DelegacionIDWS = jsonobject.getString("DelegacionID");
+                                Log.d(_TAG, "*** Valor zonaSectorWS ---> "+ DelegacionIDWS);
+                                String NombreCortoWS = jsonobject.getString("NombreCorto");
+                                Log.d(_TAG, "*** Valor zonaSectorWS ---> "+ NombreCortoWS);
+                            }
+
+
 
 
                         }else{
-
-
                         }
 
 
 
+                        if (obj.has("Infracciones")){
+                            Log.d(_TAG, "*** Entre a las Infracciones");
+                            JSONArray jsonarray = obj.getJSONArray("Infracciones");
+                            //Obtenemos el total de elementos del objeto
+                            for (int i = 0; i < jsonarray.length(); i++) {
+                                Log.d(_TAG, "*** ENTRE AL FOR DE LOS ARTICULOS ---> ");
+                                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                //Accedemos a los elementos por medio de getString.
+                                String articuloWS = jsonobject.getString("Articulo");
+                                String apartadoWS = jsonobject.getString("Apartado");
+                                String Concepto = jsonobject.getString("Concepto");
+                                //Log.d(_TAG, "*** Valor articulo Infracciones ---> "+articuloWS);
+                                Log.d(_TAG, "*** Valor articulo Infracciones ---> "+ articuloWS+" ** "+apartadoWS+ "-"+Concepto );
 
 
+
+                                todosLosArticulos.add(articuloWS+" ** "+apartadoWS+ "-"+Concepto);
+                            }
+
+
+                         /*   ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>
+                                    (getActivity(), android.R.layout.simple_spinner_item,todosLosArticulos );
+                            //ArrayAdapter adapterModalidad = ArrayAdapter.createFromResource(getActivity(), R.array.modalidad_arrays, R.layout.spinner_item);
+                            //MOSTRAMOS CONTENIDO DEL
+                            //DROPDOWN Y SETEAMOS
+                            dataAdapter.setDropDownViewResource(R.layout.spinner_dropdown_layout);
+                            spinnerModalidad.setAdapter(dataAdapter);*/
+
+
+                        }else{
+                        }
+
+                        textZonaWS.setText(NombreWS);
                     } catch (JSONException e) {
                         e.printStackTrace();
 
@@ -2212,24 +2280,18 @@ public class HomeFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
-                /*licenciaEdt = editTextLicencia.getText().toString();
-                Log.d("OnCreateLicencia","Valor de la licencia que recoje del EDT : "+ licenciaEdt);
-                Log.d("MAPEOWSLICENCIA","Valor de la licencia envio WS : "+ licenciaEdt);
-
-                parametros.put("licencia", licenciaEdt);
-                progressDialog.hide();*/
+                Log.d(_TAG,"Valor GPS LATACT WS"+ latString);
+                Log.d(_TAG,"Valor GPS LONGACT WS"+ lngString);
 
 
+                parametros.put("lat", latString);
+                parametros.put("lon", lngString);
                 return parametros;
             }
         };
         RequestQueue requesrQueue = Volley.newRequestQueue(getActivity());
         requesrQueue.add(stringRequest);
     }
-
-
-
-
 
 }
 

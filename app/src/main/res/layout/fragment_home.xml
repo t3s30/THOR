@@ -219,19 +219,19 @@
         android:textAlignment="center"
         android:textColor="@color/titulosVerdes" />
 
-    <Spinner
-        android:id="@+id/spZona2"
+    <TextView
+        android:id="@+id/tvzonaSectorWS"
         app:layout_constraintTop_toTopOf="@id/edtPlaca"
         app:layout_constraintStart_toEndOf="@id/tvZonaSector"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="80dp"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="40dp"
-        android:background="@color/white"
-        android:visibility="gone"
-        android:backgroundTint="@color/botonLogin"
-        android:dropDownSelector="@color/purple_500"
-        android:entries="@array/zonas_arrays_2"
+        android:text="Fuera Sector"
+        android:paddingTop="8dp"
+        android:textSize="18dp"
+        android:textColor="@color/white"
+        android:background="@color/botonLogin"
         android:textAlignment="center"/>
     <Spinner
         android:id="@+id/spZona1"
@@ -274,6 +274,7 @@
         android:layout_height="41dp"
         android:text="@string/MODALIDAD"
         android:textAlignment="center"
+        android:clickable="true"
         android:textColor="@color/titulosVerdes" />
 
     <Spinner

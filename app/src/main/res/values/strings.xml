@@ -263,7 +263,7 @@
     <string name="URL_INFRACCION">https://simov.app/servicios/consultaInfraccion.php</string>
     <string name="URL_POLIZA">https://simov.app/servicios/consultaPoliza.php</string>
     <string name="URL_CONTROL_VEHICULAR">https://simov.app/servicios/controlVehicularNew.php</string>
-    <string name="URL_ZONA_SECTOR">http://172.31.186.251/servicios/zonaReglamento/index.php</string>
+    <string name="URL_ZONA_SECTOR">https://simov.app/servicios/zona.php</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
